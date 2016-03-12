@@ -78,7 +78,6 @@ class Personal_Information_Controller extends Controller
     {
         
         $employee = Employee::find($id);
-        $employee->E_Email = $request->in_email;
         $employee->E_Skype = $request->in_skype;
         $employee->E_Phone = $request->in_phone;
         $employee->E_Address = $request->in_address;

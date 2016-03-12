@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Employee as Employee;
 use App\User as User;
 use App\Role as Role;
+use DB;
 use App\SkillDetail as SkillDetail;
 use App\Http\Requests\Admin_Personal_Information_Request;
 class Personal_Information_Controller extends Controller
@@ -84,6 +85,7 @@ class Personal_Information_Controller extends Controller
         $employee->E_Address = $request->in_Address;
         $employee->E_EngName = $request->in_eName;
         $employee->E_Cost_Hour = $request->in_CostHour;
+        $employee->E_DateofBirth = $request->in_Dateofbirth;
         $role_name = $request->Role;
         $role = Role::where('Role','=',$role_name)->first();
         $user = User::where('idAccount','=',$id)->first();

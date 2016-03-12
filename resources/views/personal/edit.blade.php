@@ -28,14 +28,6 @@
                                 <div class="col-md-9 basic-info">
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <label class="control-label">Email address</label>
-                                        </div>
-                                        <div class="col-md-9">
-                                            <input type="email" name="in_email" class="form-control" placeholder="Email" value="{{old('in_email',isset($employee) ? $employee['E_Email'] : null)}}">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-3">
                                             <label class="control-label">Skype</label>
                                         </div>
                                         <div class="col-md-9">

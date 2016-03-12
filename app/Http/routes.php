@@ -32,8 +32,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::resource('personal-information', 'Personal_Information_Controller');
     Route::group(['namespace'=>'Admin','prefix'=>'admin'],function(){
     	Route::resource('personal-information', 'Personal_Information_Controller');
+    	Route::get('register','Register_Controller@getRegister');
+        Route::post('register','Register_Controller@postRegister');
     });
-    Route::get('test',function(){
-    	return view('admin.edit');
-    });
+
 });
