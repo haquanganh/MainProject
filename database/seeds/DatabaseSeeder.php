@@ -17,30 +17,30 @@ class DatabaseSeeder extends Seeder
 }
 class UserTableSeeder extends Seeder{
 	public function run(){
-		DB::table('User')->insert([
+		DB::table('users')->insert([
 			array('idAccount' => '1',
-				  'Email' => 'astro@enclave.vn',
-				  'Password' => Hash::make('astro'),
+				  'email' => 'astro@enclave.vn',
+				  'password' => Hash::make('astro'),
 				  'idRole' => '2',
 				),
 			array('idAccount' => '2',
-				  'Email' => 'hampton@enclave.vn',
-				  'Password' => Hash::make('hampton'),
+				  'email' => 'hampton@enclave.vn',
+				  'password' => Hash::make('hampton'),
 				  'idRole' => '3',
 				),
 			array('idAccount' => '3',
-				  'Email' => 'missy@enclave.vn',
-				  'Password' => Hash::make('missy'),
+				  'email' => 'missy@enclave.vn',
+				  'password' => Hash::make('missy'),
 				  'idRole' => '4',
 				),
 			array('idAccount' => '4',
-				  'Email' => 'talor@enclave.vn',
-				  'Password' => Hash::make('talor'),
+				  'email' => 'talor@enclave.vn',
+				  'password' => Hash::make('talor'),
 				  'idRole' => '5',
 				),
 			array('idAccount' => '5',
-				  'Email' => 'missy@enclave.vn',
-				  'Password' => Hash::make('henri'),
+				  'email' => 'henri@enclave.vn',
+				  'password' => Hash::make('henri'),
 				  'idRole' => '1',
 				),
 
@@ -89,8 +89,8 @@ class EmployeeTableSeeder extends Seeder{
 					'E_Avatar'=> 'Avatar'.$temp,
 					'E_EngName'=> 'EngName'.$temp,
 					'E_Cost_Hour'=> $temp,
-					'E_DateofBirth'=> 'DateofBirth'.$temp,
-					'idAccount'=> 5,
+					'E_DateofBirth'=> '',
+					'idAccount'=> $temp,
 				),
 			]);
 	}
@@ -98,7 +98,6 @@ class EmployeeTableSeeder extends Seeder{
 class SkillTableSeeder extends Seeder{
 	
 	public function run(){
-		$temp = 5;
 		DB::table('Skill')->insert([
 			array(
 					'idSkill' => 1,

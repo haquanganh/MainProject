@@ -32,7 +32,7 @@
                     <li role="separator" class="divider"></li>
                     <li><a href="#">Change password</a></li>
                     <li role="separator" class="divider"></li>
-                    <li><a href="#">Logout</a></li>
+                    <li><a href="/logout">Logout</a></li>
                 </ul>
                 <button class="btn btn-default btn-lg" type="button"><span aria-hidden="true" class="glyphicon glyphicon-flag"></span></button>
             </div>

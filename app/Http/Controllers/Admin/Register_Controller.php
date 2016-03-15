@@ -12,13 +12,27 @@ use App\SkillDetail as SkillDetail;
 use App\Http\Requests\RegisterRequest;
 use App\Skill;
 use Hash;
+use Auth;
 class Register_Controller extends Controller
 {
+    public function __construct()
+    {
+        
+        $this->middleware('auth');
+        
+
+    }
     public function getRegister(){
+        if(Auth::user()->idRole != 1){
+            return redirect('/');
+        }
         $list_skill = Skill::all();
         return view('admin.register',compact('list_skill'));
     }
     public function postRegister(RegisterRequest $request){
+        if(Auth::user()->idRole != 1){
+            return redirect('/');
+        }
         $id_Role = Role::where('Role','=',$request->sl_Role)->first()->idRole;
         $user = new User;
         $user->Email = $request->in_Email;
@@ -49,14 +63,14 @@ class Register_Controller extends Controller
         $e_id = $request->in_id;
         $num_skill = Skill::all()->count();
         for($i = 0 ; $i < $num_skill ; $i++){
-            $name_in_Skill = 'sl_Skill['.$i.']';
-            $name_in_Year = 'in_Year'.$i;
+            $name_in_Skill = 'sl_Skill'.$i;
+            $name_in_Year = 'in_Year.'.$i;
              if(isset($request->$name_in_Skill)){
                  $detail_Skill = new SkillDetail;
                  $detail_Skill->idEmployee = $e_id;
                  $sk_id = Skill::where('Skill','=',$request->$name_in_Skill)->first()->idSkill;
                  $detail_Skill->idSkill = $sk_id;
-                 $detail_Skill->S_Rate = $request->$name_in_Year;
+                 $detail_Skill->S_Rate = $request->in_Year[$i];
                  $detail_Skill->save();
              }
         }

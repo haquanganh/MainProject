@@ -1,144 +1,56 @@
-*{
-	margin: 0;
-	padding: 0;
+* {
+    margin: 0;
+    padding: 0;
 }
 
-.clear{
-	clear: both;
-}
-#container{
-    width: 1200px;
-    margin: auto;
-}
-#regis-top{
-    height: 50px;
-    font-size: 25px;
-    line-height: 50px;
-    background: #86db9e;
-    border-bottom: 1px solid;
-    padding-left: 10px;
-    margin-left: 0;
-    margin-left: 200px;
-}
-#regis-body-left{
-    float: left;
-    width: 200px;
-    height: 650px;
-    background: blue;
-}
-#regis-body-right{
-    margin-top: 15px;
-    float: left;
-    width: 1000px;
-    padding-left: 15px;
-}
-#regis-body-right-right-bot input{
-    border-radius: 10px;
-}
-#regis-body-right-left{
-    width: 475px;
-    display: block;
-    float: left;
+.clear {
     clear: both;
 }
-#regis-body-right-left .regis-info{
-    height: 30px;
-    width: 100%;
-    margin-bottom: 15px;
 
+span {
+    color: red;
 }
-#regis-body-right-left .regis-info .regis-info-left{
-    float: left;
-    height: 30px;
-    width: 27%;
-    text-align: right;
+
+table tr td,
+table tr th {
     line-height: 30px;
-}
-#regis-body-right-left .regis-info .regis-info-right input{
-    float: right;
-    height: 30px;
-    margin-left: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background: #fff;
     padding-left: 5px;
-    width: 70%;
-   /*    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-       box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-   -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
-   -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-       transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s; */
 }
 
-#regis-body-right-left .regis-info .regis-info-right select{
-    background: #fff;
-    margin-left: 12px;
-    height: 30px;
-    line-height: 30px;
-    border-radius: 4px;
-    width: 70%;
+.table-skill .table-table tr td {
+    border: 1px solid #fff;
 }
 
-#regis-body-right-right{
-    width: 475px;
-    display: block;
-    float: left;
-    margin-left: 15px;
-    margin-right: 15px;
-}
-#regis-body-right-right #regis-body-right-right-top img{
-    border: 1px #ccc solid;
+.col-md-5 .avatar-img img {
+    height: 140px;
+    width: 140px;
     border-radius: 10px;
-    width: 100px;
-    height: 100px;
-}
-#regis-body-right-right #regis-body-right-right-bot .table{
-    border: 1px solid #d9d9d9;
-    margin-top: 15px;
-}
-#regis-button {
-    height: 30px;
-    margin-left: 395px;
-}
-.starRating:not(old) {
-    display: inline-block;
-    width: 7.5em;
-    height: 1.5em;
-    overflow: hidden;
-    vertical-align: bottom;
+    border: solid 1px #ccc;
 }
 
-.starRating:not(old) > input {
-    margin-right: -100%;
-    opacity: 0;
+.row .col-md-4 label,
+.row .col-md-8 select {
+    height: 35px;
+    line-height: 35px;
 }
 
-.starRating:not(old) > label {
-    display: block;
-    float: right;
-    position: relative;
-    background: url('../../images/star-off.svg');
-    background-size: contain;
+.row {
+    margin-bottom: 10px;
 }
 
-.starRating:not(old) > label:before {
-    content: '';
-    display: block;
-    width: 1.5em;
-    height: 1.5em;
-    background: url('../../images/star-on.svg');
-    background-size: contain;
-    opacity: 0;
-    transition: opacity 0.2s linear;
+.right-regis,
+.left-regis {
+    margin-top: 10px;
 }
 
-.starRating:not(old) > label:hover:before,
-.starRating:not(old) > label:hover ~ label:before,
-.starRating:not(:hover) >:checked ~ label:before {
-    opacity: 1;
+.regis-button {
+    margin-left: 50%;
 }
 
-/*file*/
+.regis-button input {
+    margin-left: 25px;
+}
+
 .inputfile {
     width: 0.1px;
     height: 0.1px;
@@ -147,6 +59,7 @@
     position: absolute;
     z-index: -1;
 }
+
 .inputfile + label {
     font-family: Arial;
     font-size: 14px;
@@ -155,20 +68,54 @@
     background-color: #A1E3FF;
     display: inline-block;
     border-radius: 31px 31px 31px 31px;
--moz-border-radius: 31px 31px 31px 31px;
--webkit-border-radius: 31px 31px 31px 31px;
-border: 0px solid #000000;
-
+    -moz-border-radius: 31px 31px 31px 31px;
+    -webkit-border-radius: 31px 31px 31px 31px;
+    border: 0px solid #000000;
 }
 
 .inputfile:focus + label,
 .inputfile + label:hover {
     background-color: #ACF0F2;
 }
+
 .inputfile + label {
-    cursor: pointer; /* "hand" cursor */
+    cursor: pointer;
+    /* "hand" cursor */
 }
+
 .inputfile:focus + label {
     outline: 1px dotted #000;
     outline: -webkit-focus-ring-color auto 5px;
+}
+
+#skill_list {
+    width: 75%;
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+}
+
+.content-skill input {
+    display:inline;
+    width: 40px;
+    height: 20px;
+    border-radius: 10px;
+}
+
+.content-skill select {
+    width: 50%;
+    border-radius: solid 10px #ccc;
+}
+table{
+    border: solid 1px #ccc;
+}
+td{
+    text-align: center;
+}
+a{
+    cursor: pointer;
+}
+.box{
+    margin-top: 5px;
+    margin-left: 6px;
 }

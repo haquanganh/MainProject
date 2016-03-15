@@ -110,3 +110,9 @@ table tr th {
 table{
     border: solid 1px #ccc;
 }
+td{
+    text-align: center;
+}
+a{
+    cursor: pointer;
+}

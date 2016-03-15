@@ -8,6 +8,9 @@ use App\Http\Requests;
 use App\Employee as Employee;
 use App\User as User;
 use App\Role as Role;
+use Auth;
+use Illuminate\Support\Facades\Input;
+use App\Http\Requests\Personal_Information_Request;
 class Personal_Information_Controller extends Controller
 {
     /**
@@ -15,12 +18,23 @@ class Personal_Information_Controller extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+
+    }
     public function index()
     {
-        $employee = Employee::find(1);
-        $id_Role = User::find($employee->idAccount)->idRole;
-        $role_name = Role::find($id_Role)->Role;
-        return view('personal.view',compact('employee','role_name'));
+        $id_Rol = Auth::user()->idRole;
+        $id_Acc = Auth::user()->idAccount;
+        if( $id_Rol != 1 ){
+            $id_Employee = Employee::where('idAccount','=',$id_Acc)->first()->idEmployee;
+            $employee = Employee::find($id_Employee);
+            $id_Role = User::find($employee->idAccount)->idRole;
+            $role_name = Role::find($id_Role)->Role;
+            return view('personal.view',compact('employee','role_name'));
+        }
+        return redirect()->route('admin.personal-information.index');
     }
 
     /**
@@ -63,8 +77,16 @@ class Personal_Information_Controller extends Controller
      */
     public function edit($id)
     {
+        $id_Rol = Auth::user()->idRole;
+        $id_Acc = Auth::user()->idAccount;
+        $id_Employee = Employee::where('idAccount','=',$id_Acc)->first()->idEmployee;
+        if($id_Rol != 1 && $id_Employee == $id){
         $employee = Employee::find($id);
-        return view('personal.edit',compact('employee'));
+            return view('personal.edit',compact('employee'));
+        }
+        else if ($id_Rol ==1 )
+        return redirect()->route('personal-information.index');
+        else return redirect('/');
     }
 
     /**
@@ -74,14 +96,13 @@ class Personal_Information_Controller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Personal_Information_Request $request, $id)
     {
-        
+        Input::merge(array_map('trim', Input::all()));
         $employee = Employee::find($id);
         $employee->E_Skype = $request->in_skype;
         $employee->E_Phone = $request->in_phone;
-        $employee->E_Address = $request->in_address;
-
+        $employee->E_Address = Input::get('in_address');
         $img_file = $request->in_img;
         if($img_file){
             $img_file_name = $img_file->getClientOriginalName();

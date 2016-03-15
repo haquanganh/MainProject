@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <meta charset="utf-8">
     <title>@yield('title')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
@@ -31,7 +32,7 @@
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Anh (Astro) Q.Ha  <b class="caret"></b></a>
                                     <ul class="dropdown-menu animated fadeInUp">
                                         <li><a href="profile.html">My Personal Information</a></li>
-                                        <li><a href="login.html">Logout</a></li>
+                                        <li><a href="/logout">Logout</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -43,7 +44,7 @@
     </div>
     <div class="page-content">
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-2 nav-fixed">
                 <div class="sidebar content-box" style="display: block;">
                     <ul class="nav">
                         <!-- Main menu -->
@@ -73,7 +74,7 @@
     <script src="https://code.jquery.com/jquery.js"></script>
     <!-- Bootstrap JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-    <script src="js/custom.js"></script>
+    <script src="{{asset('js/custom.js')}}"></script>
     @yield('script')
 </body>
 

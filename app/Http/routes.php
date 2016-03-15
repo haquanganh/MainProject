@@ -27,6 +27,7 @@
 
 Route::group(['middleware' => ['web']], function () {
 	Route::get('/', function () {
+        if(!Auth::check()) return redirect('login');
     return view('homepage');
 });
     Route::resource('personal-information', 'Personal_Information_Controller');
@@ -36,4 +37,10 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('register','Register_Controller@postRegister');
     });
 
+        Route::get('login','Auth\AuthController@getLogin');
+        Route::post('login','Auth\AuthController@postLogin');
+        Route::get('logout',function(){
+        	Auth::logout();
+        	return redirect('login');
+        });
 });

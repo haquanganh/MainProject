@@ -7,7 +7,8 @@ use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
-
+use App\Http\Requests\LoginRequest;
+use Auth;
 class AuthController extends Controller
 {
     /*
@@ -68,5 +69,24 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+    public function getLogin(){
+        return view('auth.login');
+    }
+    public function postLogin(LoginRequest $request){
+        $auth = array(
+                'email' => $request->Email,
+                'password' => $request->Password,
+            );
+        if(Auth::attempt($auth)){
+             if(Auth::user()->idRole == 1)
+                return redirect()->route('personal-information.index');
+            else
+                return redirect('/');
+
+        }
+        else
+            return redirect('login')
+                ->withErrors(array('Password' => 'Wrong E-mail address or Password'));
     }
 }

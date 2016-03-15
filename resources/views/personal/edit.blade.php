@@ -14,8 +14,8 @@
                     <div class="panel-body">
                     {!!Form::open(array('route'=>array('personal-information.update',$employee['idEmployee']),'method'=>'PUT','enctype'=> 'multipart/form-data','files' => true))!!}
                             <div class="row">
-                                <div class="col-md-3 img-status text-center">
-                                    <div class="img"><img src="{{ asset('images/personal_images/') }}/{{$employee->E_Avatar}}"></div>
+                                <div class="col-md-3 img-status text-center {{ $errors->has('in_img') ? ' has-error' : '' }}">
+                                    <div class="img"><img src="{{($employee->E_Avatar != NULL && File::exists(public_path('images/personal_images/'.$employee->E_Avatar)) ) ? asset('images/personal_images/'.$employee->E_Avatar): asset('images/notfound.jpg')}}"></div>
                                     <div class="box">
                                         <input type="file" name="in_img" id="img" class="inputfile inputfile-2" data-multiple-caption="{count} files selected" multiple />
                                         <label for="img" class="label_img">
@@ -23,38 +23,71 @@
                                                 <path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z" />
                                             </svg> <span>Choose a file&hellip;</span></label>
                                     </div>
+                                    @if ($errors->has('in_img'))
+                                        <div class="help-block text-center" style="margin-right: 15px;margin-bottom: 0px">
+                                            <strong>{{ $errors->first('in_img') }}</strong>
+                                        </div>
+                                    @endif
                                 </div>
                                 <br>
                                 <div class="col-md-9 basic-info">
-                                    <div class="row">
+                                    <div class="row {{ $errors->has('in_skype') ? ' has-error' : '' }}">
                                         <div class="col-md-3">
                                             <label class="control-label">Skype</label>
                                         </div>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" name="in_skype" placeholder="Skype" value="{{old('in_skype',isset($employee) ? $employee['E_Skype'] : null)}}">
+                                            <input type="text" class="form-control" name="in_skype" onkeypress="validate_spec(event)" placeholder="Skype" maxlength="32" value="{{old('in_skype',isset($employee) ? $employee['E_Skype'] : null)}}">
                                         </div>
+                                        @if ($errors->has('in_skype'))
+                                        <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
+                                            <strong>{{ $errors->first('in_skype') }}</strong>
+                                        </div>
+                                    @endif
                                     </div>
-                                    <div class="row">
+                                    <div class="row {{ $errors->has('in_phone') ? ' has-error' : '' }}">
                                         <div class="col-md-3">
                                             <label class="control-label">Phone</label>
                                         </div>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" name="in_phone" placeholder="Phone Number" value="{{old('in_phone',isset($employee) ? $employee['E_Phone'] : null)}}">
+                                            <input type="text" class="form-control" onkeypress="validate(event)" minlength="0" maxlength="11" name="in_phone" placeholder="Phone Number" value="{{old('in_phone',isset($employee) ? $employee['E_Phone'] : null)}}">
                                         </div>
+                                        @if ($errors->has('in_phone'))
+                                        <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
+                                            <strong>{{ $errors->first('in_phone') }}</strong>
+                                        </div>
+                                    @endif
                                     </div>
-                                    <div class="row">
+                                    <div class="row {{ $errors->has('in_address') ? ' has-error' : '' }}">
                                         <div class="col-md-3">
                                             <label class="control-label">Address</label>
                                         </div>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" name="in_address" placeholder="Address" value="{{old('in_address',isset($employee) ? $employee['E_Address'] : null)}}">
+                                            <input type="text" class="form-control" name="in_address" onkeypress="validate_spec1(event)" placeholder="Address" minlength="0" maxlength="75" value="{{old('in_address',isset($employee) ? $employee['E_Address'] : null)}}">
+                                        </div>
+                                        @if ($errors->has('in_address'))
+                                        <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
+                                            <strong>{{ $errors->first('in_address') }}</strong>
+                                        </div>
+                                    @endif
+                                    </div>
+
+                                    <div class="row submit pull-right">
+                                        <a class="btn btn-primary" data-toggle="modal" href='#modal-id'>Submit</a>
+                                        <a class="btn btn-default" href="{{route('personal-information.index')}}">Back</a>
+                                    </div>
+                                    <div class="modal fade" id="modal-id">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-body">
+                                                    <h4><i>Do you really want to edit?</i></h4>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <input type="submit"  value="Submit" class="btn btn-primary">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="row submit pull-right">
-                                        <input type="submit"  value="Submit" class="btn btn-primary"></input>
-                                        <input type="Reset" value="Reset" class="btn btn-primary"></input>
-                                    </div>
-                                </div>
                             </div>
                         {!! Form::close()!!}
                     </div>
@@ -64,5 +97,40 @@
     </div>
 @stop
 @section('script')
-    <script src="{{ asset('js/custom-file-input.js') }}"></script>
+<script src="{{ asset('js/custom-file-input.js') }}"></script>
+<script type="text/javascript">
+function validate(evt){
+    var theEvent = evt || window.event;
+    var key = theEvent.keyCode || theEvent.which;
+    key = String.fromCharCode( key );
+    var regex = /[0-9]/;
+    if( !regex.test(key) ) {
+        theEvent.returnValue = false;
+        if(theEvent.preventDefault) theEvent.preventDefault();
+    }
+
+}
+function validate_spec(evt){
+    var theEvent = evt || window.event;
+    var key = theEvent.keyCode || theEvent.which;
+    key = String.fromCharCode( key );
+    var regex = /[a-zA-Z0-9_.]/;
+    if( !regex.test(key) ) {
+        theEvent.returnValue = false;
+        if(theEvent.preventDefault) theEvent.preventDefault();
+    }
+
+}
+function validate_spec1(evt){
+    var theEvent = evt || window.event;
+    var key = theEvent.keyCode || theEvent.which;
+    key = String.fromCharCode( key );
+    var regex = /[a-zA-Z0-9/, ]/;
+    if( !regex.test(key) ) {
+        theEvent.returnValue = false;
+        if(theEvent.preventDefault) theEvent.preventDefault();
+    }
+
+}
+</script>
 @stop

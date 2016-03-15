@@ -7,14 +7,6 @@
 @section('content')
 <form class="form-horizontal" role="form" method="POST" action="{{ url('/admin/register') }}" enctype="multipart/form-data" Files="true">
 {!! csrf_field() !!}
-@if(count($errors) >0)
-<ul>
-	@foreach ($errors->all() as $error)
-		<li>{{$error}}</li>
-	@endforeach
-
-</ul>
-@endif
 <div class="col-md-7 right-regis">
 			<div class="row form-group {{ $errors->has('in_Email') ? ' has-error' : '' }}">
 				<div class="col-md-4">
@@ -200,13 +192,23 @@
                     </div>
                 @endif
 			</div>
+			<div class="row form-group pull-right">
+				<div class="col-md-12">
+					<input type="submit" class="btn btn-primary" value="Create" >
+					<button type="button" class="btn btn-default" value="Cancel" style="margin-left: 5px">Cancel
+					</button>
+				</div>
+			</div>
 		</div><!--col-md-7-->
 
 		<div class="col-md-5 left-regis">
 			<div class="avatar-img">
-				<img src="{{ asset('images/user.JPG') }}" style="margin:0px;">
+				<img src="{{ asset('images/upload.png') }}" style="margin:0px;">
+				@if($errors->has('in_img'))
+                        <span style="color: #AF4442"><strong>{{ $errors->first('in_img') }}</strong></span>
+				@endif
 				<div class="box">
-	                <input type="file" name="in_img" id="img" class="inputfile inputfile-2" data-multiple-caption="{count} files selected" value="{{old('in_img')}}" />
+	                <input type="file" name="in_img" id="img" class="inputfile inputfile-2" data-multiple-caption="{count} files selected"  />
 	                <label for="img" class="label_img">
 	                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17">
 	                <path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z" />
@@ -237,8 +239,7 @@
 		</div><!--col-md-5-->
 		<div class="clear"></div>
 		<div class="regis-button">
-			<input type="submit" class="btn btn-primary" value="Create">
-			<input type="button" class="btn btn-primary" value="Cancel">
+			
 		</div>
 		</form>
 @stop
@@ -247,10 +248,17 @@
 <script>
 function myFunction() {
 	var table = document.getElementById("table");
+	var thead = document.getElementById("table").getElementsByTagName('thead')[0];
+	var t_row = thead.rows[0];
+	if(t_row.cells.length == 2){
+		var n_cell = t_row.insertCell(2);
+		n_cell.innerHTML = '<b></b>';
+	}
     var content = document.getElementById("table").getElementsByTagName('tbody')[0];
     var row = content.insertRow(0);
 	var cell1 = row.insertCell(0);
 	var cell2 = row.insertCell(1);
+	var cell3 = row.insertCell(2);
 	var t = table.rows.length;
 	var name_old = 'in_Year['+(t-2)+']';
 	var old =  'old('+name_old+')';
@@ -264,8 +272,12 @@ function myFunction() {
     var text1 = text+ '</select>';
 
 	cell2.innerHTML= text1;
+	cell3.innerHTML = '<a class="aDel">Remove</a>';
 
 }
+$('#table').on('click','.aDel',function(){
+	$(this).closest('tr').remove();
+});
 function validate(evt){
 	var theEvent = evt || window.event;
   	var key = theEvent.keyCode || theEvent.which;

@@ -22,26 +22,19 @@
                     @foreach ($list_employee as $employee)
                     <?php
                         $id_Role = App\User::find($employee->idAccount)->idRole;
+                        $name_Role = App\Role::where('idRole','=',$id_Role)->first()->Role;
                     ?>
+                    @if ($id_Role != 1)
                         <tr>
                             <td class="img" style="width: 20px;"><img src="{{ asset('images/personal_images') }}/{{$employee->E_Avatar}}" style="width: 50px;height: 50px;  margin-left:4.5px;" class="img-circle"></td>
-                            <td style="line-height: 50px;">{{$employee->E_Name}}</td>
-                            <td style="line-height: 50px;">{{$employee->E_DateofBirth}}</td>
-                            <td style="line-height: 50px;">{{$employee->E_Skype}}</td>
-                            <td style="line-height: 50px;">{{$employee->E_Phone}}</td>
-                            <td style="line-height: 50px;">
-                                <form action="" method="POST" role="form">
-                                    <select class="form-control">
-                                        <option value="Admin" {{$id_Role ==1 ? 'selected' : null}}>Administrator</option>
-                                        <option value="PM" {{$id_Role ==2 ? 'selected' : null}}>Manager</option>
-                                        <option value="Leader" {{$id_Role ==3 ? 'selected' : null}}>Leader</option>
-                                        <option value="Client" {{$id_Role ==4 ? 'selected' : null}}>Client</option>
-                                        <option value="Member" {{$id_Role ==5 ? 'selected' : null}}>Member</option>
-                                    </select>
-                                </form>
-                            </td>
+                            <td>{{$employee->E_Name}}</td>
+                            <td>{{$employee->E_DateofBirth}}</td>
+                            <td>{{$employee->E_Skype}}</td>
+                            <td>{{$employee->E_Phone}}</td>
+                            <td>{{$name_Role}}</td>
                             <td><a href="{{ route('admin.personal-information.edit',$employee->idEmployee) }}" class="btn btn-primary">Edit</a></td>
                         </tr>
+                    @endif
                     @endforeach
                     </tbody>
                 </table>
