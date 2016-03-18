@@ -37,7 +37,7 @@ class Personal_Information_Request extends Request
         $messages= [
         // 'in_skype.required' => 'Please enter the Skype',
         'in_phone.required' => 'Please enter the Phone',
-        'in_phone.min' => 'Please enter the Phone more than 10 numbers',
+        'in_phone.min' => 'Please enter the Phone equal or more than 10 numbers',
         'in_phone.max' => 'Please enter the Phone equal or less than 11 numbers',
         'in_address.min' => 'Please enter the Address equal or more than 4 characters',
         'in_img.max' => 'Please upload an image less than 6MB',
