@@ -30,33 +30,22 @@
                                     <ul class="list-group basic-information">
                                         <li class="list-group-item">ID Employee: {{$employee->idEmployee}}</li>
                                         <li class="list-group-item">Name: {{$employee->E_Name}}</li>
+                                        <li class="list-group-item">Sex: {{$employee->E_Sex == 1 ?'Male' : 'Female'}}</li>
                                         <li class="list-group-item">Skype: {{$employee->E_Skype}}</li>
-                                        <li class="list-group-item">Phone: {{$employee->E_Phone}}</li>
+                                        <li class="list-group-item">Phone: 0{{$employee->E_Phone}}</li>
                                         <li class="list-group-item">Address: {{$employee->E_Address}}</li>
                                     </ul>
                                     <h4><i>Technical Information</i></h4>
                                     <ul class="list-group tech-info">
                                         <li class="list-group-item skill">
-                                        @foreach ($employee->Skill()->get() as $skill)
-                                        <div class="detailed_skill">
-                                                <div class="skill-name">{{ $skill->Skill}}</div>
-                                                <div class="skill-star">
-                                                    <div class="feedback-star">
-                                                        <span class="pull-right">
-                                                            @for($i = 0 ; $i < $skill->pivot->S_Rate; $i++)
-                                                                <img src="{{ asset('images/star-on.svg') }}">
-
-                                                            @endfor
-                                                            @if($skill->pivot->S_Rate < 5)
-                                                                @for ($j = 0; $j < 5- $skill->pivot->S_Rate ; $j++)
-                                                                    <img src="{{ asset('images/star-off.svg') }}">
-                                                                @endfor
-                                                            @endif
-                                                        </span>
+                                            @foreach ($employee->Skill()->get() as $skill)
+                                                <div class="detailed_skill">
+                                                    <div class="skill-name">{{ $skill->Skill}}</div>
+                                                    <div class="skill-star pull-right">
+                                                    <span><i>{{$skill->pivot->S_Rate}} {{$skill->pivot->S_Rate == 1 ? 'year' : 'years'}}</i></span>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        @endforeach
+                                            @endforeach
                                         </li>
                                         <li class="list-group-item role">Role: {{$role_name}}</li>
                                         <li class="list-group-item cost_hour">Cost Hour: ${{$employee->E_Cost_Hour}}</li>

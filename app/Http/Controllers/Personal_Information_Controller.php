@@ -11,6 +11,7 @@ use App\Role as Role;
 use Auth;
 use Illuminate\Support\Facades\Input;
 use App\Http\Requests\Personal_Information_Request;
+use DateTime;
 class Personal_Information_Controller extends Controller
 {
     /**
@@ -98,10 +99,37 @@ class Personal_Information_Controller extends Controller
      */
     public function update(Personal_Information_Request $request, $id)
     {
+        $error_list = array();
+        if(!empty($request->in_DateofBirth)){
+            $current_year = (new DateTime())->format('Y');
+            $request_year = (new DateTime($request->in_DateofBirth))->format('Y');
+            if(($current_year - $request_year < 18)){
+                $arr0 = array('wrong_year' => 'Your age can not be less than 18');
+                $error_list = $error_list + $arr0;
+            }
+        }
+        if((!empty($request->in_Address)) && (preg_match('/[A-Z]+[a-z]/',$request->in_Address)) == false && (preg_match('/[1-9]/',$request->in_Address)) == true){
+            $arr1 = array('wrong_address'=> 'Invalid address without characters');
+            $error_list = $error_list + $arr1;
+        }
+        if($request->in_phone == '0000000000' || $request->in_phone == '00000000000' || $request->in_phone[0] != '0' ){
+            $arr2 = array('wrong_phone' => 'Invalid phone');
+            $error_list = $error_list + $arr2;
+        }
+        if(!empty($request->in_Skype) && (preg_match('/[A-Z]+[a-z]/',$request->in_Skype)) == false && (preg_match('/[1-9]/',$request->in_Skype)) == true && (preg_match('/./',$request->in_Skype)) == false){
+            $arr3 = array('wrong_skype'=> 'Invalid skype without characters');
+            $error_list = $error_list + $arr3;
+        }
+        if(!empty($error_list)){
+            return redirect()->back()->withInput()->withErrors($error_list);
+        }
+
+
         Input::merge(array_map('trim', Input::all()));
         $employee = Employee::find($id);
-        $employee->E_Skype = $request->in_skype;
+        $employee->E_DateofBirth = $request->in_DateofBirth;
         $employee->E_Phone = $request->in_phone;
+        $employee->E_Skype = Input::get('in_Skype');
         $employee->E_Address = Input::get('in_address');
         $img_file = $request->in_img;
         if($img_file){

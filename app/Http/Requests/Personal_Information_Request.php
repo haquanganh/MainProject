@@ -15,7 +15,6 @@ class Personal_Information_Request extends Request
     {
         return true;
     }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -23,27 +22,32 @@ class Personal_Information_Request extends Request
      */
     public function rules()
     {
-        $rules = [
-        'in_skype' => 'min:6|required',
+         $rules = [
+        // 'in_skype' => 'min:6|max:50|required',
         'in_phone' => 'min:10|max:11|required',
-        'in_address' => 'required',
-        'in_img' => 'min:0|max:6144|image|mimes:jpg,jpeg,png',
+        'in_address' => 'required|min:4',
+        'in_img' => 'image|mimes:jpg,jpeg,png|max:6144',
         ];
+        if($this->request->get('in_Skype') == true){
+             $rules['in_Skype'] = 'min:6|max:32|required';
+        }
         return $rules;
     }
     public function messages(){
         $messages= [
-        'in_skype.required' => 'Please enter the Skype',
-        'in_phone.required' => 'Please enther the Phone',
-        'in_Phone.min' => 'Please enter the Phone is more than 10 numbers',
-        'in_Phone.max' => 'Please enter the Phone is equal or less than 11 numbers',
-        'in_address.required' => 'Please enter the Address',
-        'in_skype.min' => 'Please enter skype address is more than 6 characters',
-        'in_img.min' => 'Please upload file with size is more than 0MB',
-        'in_img.max' => 'Please upload a file with size is less than 6MB',
-        'in_img.image' => 'Please upload a picture',
-        'in_img.mimes' => 'Please upload a picture with mimes : jpg, jpeg, png',
+        // 'in_skype.required' => 'Please enter the Skype',
+        'in_phone.required' => 'Please enter the Phone',
+        'in_phone.min' => 'Please enter the Phone more than 10 numbers',
+        'in_phone.max' => 'Please enter the Phone equal or less than 11 numbers',
+        'in_address.min' => 'Please enter the Address equal or more than 4 characters',
+        'in_img.max' => 'Please upload an image less than 6MB',
+        'in_img.image' => 'Please upload an picture',
+        'in_img.mimes' => 'Please upload an picture with mimes : jpg, jpeg, png',
         ];
+        if($this->request->get('in_Skype') == true){
+            $messages['in_Skype.min'] = 'Please enter the Skype address equal or more than 6 characters';
+            $messages['in_Skype.max'] = 'Please enter the Skype address equal or less than 32 characters';
+        }
         return $messages;
     }
 }

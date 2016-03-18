@@ -78,8 +78,10 @@
     margin-top: -20px;
 }
 
-.skill {
-    height: 100px;
+li.skill {
+    height: auto;
+    overflow: auto;
+    max-height: 100px;
 }
 
 .skill .skill-name {

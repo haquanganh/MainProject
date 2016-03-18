@@ -15,11 +15,16 @@
 					</label>
 				</div>
 				<div class="col-md-8">
-					<input name="in_Email" type="email" class="form-control" value="{{old('in_Email')}}">
+					<input name="in_Email" type="email" onkeypress="validate_spec3(event)" class="form-control" value="{{old('in_Email')}}">
 				</div>
 				@if ($errors->has('in_Email'))
                     <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
                         <strong>{{ $errors->first('in_Email') }}</strong>
+                    </div>
+                @endif
+                @if ($errors->has('wrong_email'))
+                    <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
+                        <strong>{{ $errors->first('wrong_email') }}</strong>
                     </div>
                 @endif
 			</div>
@@ -38,7 +43,7 @@
                     </div>
                 @endif
 			</div>
-			<div class="row form-group {{ $errors->has('in_Repassword') ? ' has-error' : '' }}">
+			<div class="row form-group {{ $errors->has('in_Repassword') ? 'has-error' : $errors->has('password_not_match') ? 'has-error' : ''}}">
 				<div class="col-md-4">
 					<label class="pull-right">Re-password
 						<span class="pull-right">*</span>
@@ -52,6 +57,11 @@
                         <strong>{{ $errors->first('in_Repassword') }}</strong>
                     </div>
                 @endif
+                @if ($errors->has('password_not_match'))
+                    <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
+                        <strong>{{ $errors->first('password_not_match') }}</strong>
+                    </div>
+                @endif
 			</div>
 			<div class="row form-group {{ $errors->has('in_id') ? ' has-error' : '' }}">
 				<div class="col-md-4">
@@ -60,7 +70,7 @@
 					</label>
 				</div>
 				<div class="col-md-8">
-					<input name="in_id" type="text" class="form-control" value="{{old('in_id')}}">
+					<input name="in_id" type="number" class="form-control" value="{{old('in_id')}}">
 				</div>
 				@if ($errors->has('in_id'))
                     <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
@@ -75,7 +85,7 @@
 					</label>
 				</div>
 				<div class="col-md-8">
-					<input name="in_EName" type="text" class="form-control" value="{{old('in_EName')}}">
+					<input name="in_EName" type="text" class="form-control" onkeypress="validate_spec5(event)" value="{{old('in_EName')}}">
 				</div>
 				@if ($errors->has('in_EName'))
                     <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
@@ -90,7 +100,7 @@
 					</label>
 				</div>
 				<div class="col-md-8">
-					<input name="in_Name" class="form-control" value="{{old('in_EName')}}">
+					<input name="in_Name" class="form-control" onkeypress="validate_spec4(event)" value="{{old('in_Name')}}">
 				</div>
 				@if ($errors->has('in_Name'))
                     <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
@@ -98,106 +108,150 @@
                     </div>
                 @endif
 			</div>
+			<div class="row form-group">
+				<div class="col-md-4">
+					<label class="pull-right">Sex
+						<span type="text" class="pull-right">*</span>
+					</label>
+				</div>
+				<div class="col-md-8">
+					<select name="sl_Sex" class="form-control">
+						<option>Male</option>
+						<option>Female</option>
+					</select>
+				</div>
+			</div>
 			<div class="row form-group {{ $errors->has('in_Dateofbirth') ? ' has-error' : '' }}">
 				<div class="col-md-4">
 					<label class="pull-right">Date of Birth
 					</label>
 				</div>
 				<div class="col-md-8">
-					<input name="in_Dateofbirth" type="date" class="form-control" value="{{old('in_Dateofbirth')}}">
+					<input name="in_Dateofbirth" type="date" max="2100-12-31" min="1930-01-01" class="form-control" value="{{old('in_Dateofbirth')}}">
 				</div>
 				@if ($errors->has('in_Dateofbirth'))
                     <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
                         <strong>{{ $errors->first('in_Dateofbirth') }}</strong>
                     </div>
                 @endif
+                @if ($errors->has('wrong_year'))
+                    <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
+                        <strong>{{ $errors->first('wrong_year') }}</strong>
+                    </div>
+                @endif
 			</div>
-			<div class="row form-group {{ $errors->has('in_Address') ? ' has-error' : '' }}">
+			<div class="row form-group {{ $errors->has('in_Address') ? ' has-error' :$errors->has('wrong_address') ? 'has-error': '' }}">
 				<div class="col-md-4">
 					<label class="pull-right">Address
 					</label>
 				</div>
 				<div class="col-md-8">
-					<input name="in_Address" type="text" class="form-control" value="{{old('in_Address')}}">
+					<input name="in_Address" type="text" class="form-control" onkeypress="validate_spec1(event)" value="{{old('in_Address')}}">
 				</div>
 				@if ($errors->has('in_Address'))
                     <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
                         <strong>{{ $errors->first('in_Address') }}</strong>
                     </div>
                 @endif
+                @if ($errors->has('wrong_address'))
+                    <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
+                        <strong>{{ $errors->first('wrong_address') }}</strong>
+                    </div>
+                @endif
 			</div>
-			<div class="row form-group {{ $errors->has('in_Phone') ? ' has-error' : '' }}">
+			<div class="row form-group {{ $errors->has('in_Phone') ? ' has-error' : $errors->has('wrong_phone') ? 'has-error' : '' }}">
 				<div class="col-md-4">
 					<label class="pull-right">Phone Number
 						<span class="pull-right">*</span>
 					</label>
 				</div>
 				<div class="col-md-8">
-					<input name="in_Phone" onkeypress="validate(event)" type="text" class="form-control" value="{{old('in_Phone')}}">
+					<input name="in_Phone" onkeypress="validate(event)" type="text" class="form-control" onkeypress="validate(event)" value="{{old('in_Phone')[0] == '0' ? old('in_Phone') : '0'.old('in_Phone') }}">
 				</div>
 				@if ($errors->has('in_Phone'))
                     <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
                         <strong>{{ $errors->first('in_Phone') }}</strong>
                     </div>
                 @endif
+                @if ($errors->has('wrong_phone'))
+                    <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
+                        <strong>{{ $errors->first('wrong_phone') }}</strong>
+                    </div>
+                @endif
 			</div>
-			<div class="row form-group {{ $errors->has('in_Skype') ? ' has-error' : '' }}">
+			<div class="row form-group {{ $errors->has('in_Skype') || $errors->has('wrong_skype') ? ' has-error' : '' }}">
 				<div class="col-md-4">
 					<label class="pull-right">Skype Address
 						<span class="pull-right">*</span>
 					</label>
 				</div>
 				<div class="col-md-8">
-					<input name="in_Skype" type="text" class="form-control" value="{{old('in_Skype')}}">
+					<input name="in_Skype" type="text" class="form-control" onkeypress="validate_spec(event)" value="{{old('in_Skype')}}">
 				</div>
 				@if ($errors->has('in_Skype'))
                     <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
                         <strong>{{ $errors->first('in_Skype') }}</strong>
                     </div>
                 @endif
+                @if ($errors->has('wrong_skype'))
+                    <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
+                        <strong>{{ $errors->first('wrong_skype') }}</strong>
+                    </div>
+                @endif
 			</div>
-			<div class="row form-group {{ $errors->has('in_Email') ? ' has-error' : '' }}">
+			<div class="row form-group {{ $errors->has('sl_Role') ? ' has-error' : '' }}">
 				<div class="col-md-4">
 					<label class="pull-right">Role
 						<span class="pull-right">*</span>
 					</label>
 				</div>
 				<div class="col-md-8">
-					<select name="sl_Role" class="form-control">
-						<option>Administrator</option>
-						<option>Manager</option>
-						<option>Leader</option>
-						<option>Member</option>
-						<option>Client</option>
-					</select>
+						<select name="sl_Role" class="form-control">
+							<option>Manager</option>
+							<option>Leader</option>
+							<option>Member</option>
+							<option>Client</option>
+						</select>
 				</div>
-				@if ($errors->has('in_Email'))
+				@if ($errors->has('sl_Role'))
                     <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
-                        <strong>{{ $errors->first('in_Email') }}</strong>
+                        <strong>{{ $errors->first('sl_Role') }}</strong>
                     </div>
                 @endif
 			</div>
-			<div class="row form-group {{ $errors->has('in_Email') ? ' has-error' : '' }}">
+			<div class="row form-group {{ $errors->has('in_CostHour') ? ' has-error' : '' }}">
 				<div class="col-md-4">
 					<label class="pull-right">Cost/Hour
 						<span class="pull-right">*</span>
 					</label>
 				</div>
 				<div class="col-md-8">
-					<input name="in_CostHour" onkeypress="validate(event)" type="number" type="text" class="form-control" min="0" value="{{old('in_CostHour')}}">
+					<input name="in_CostHour" onkeypress="validate_spec0(event)" type="number" type="text" class="form-control" min="1" max="500" step="any" value="{{old('in_CostHour')}}">
 				</div>
-				@if ($errors->has('in_Email'))
+				@if ($errors->has('in_CostHour'))
                     <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
-                        <strong>{{ $errors->first('in_Email') }}</strong>
+                        <strong>{{ $errors->first('in_CostHour') }}</strong>
                     </div>
                 @endif
 			</div>
 			<div class="row form-group pull-right">
 				<div class="col-md-12">
-					<input type="submit" class="btn btn-primary" value="Create" >
-					<button type="button" class="btn btn-default" value="Cancel" style="margin-left: 5px">Cancel
-					</button>
+					<input type="submit" id="submit" class="btn btn-primary" value="Create" >
+					<a class="btn btn-default" data-toggle="modal" href='#modal-id'>Cancel</a>
 				</div>
+				 <div class="modal fade" id="modal-id">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                   <h4><i>Do you really want to cancel?</i></h4>
+                                </div>
+                                <div class="modal-footer">
+                                    <a class="btn btn-primary" href="{{route('admin.personal-information.index')}}" style="margin-left: 5px">Yes</a>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                                </div>
+                            </div>
+                        </div>
+                  </div>
 			</div>
 		</div><!--col-md-7-->
 
@@ -223,6 +277,9 @@
 				@break
 				@endif
 			@endfor
+				@if($errors->has('duplicated'))
+					<strong style="margin-left:60px; color:#AF4442;">{{ $errors->first('duplicated') }}</strong>
+				@endif
 			</div>
 			<div id="skill_list">
 				<table class="table" id="table" style="width: 100%; height: 100%;" >
@@ -236,15 +293,18 @@
 				</tbody>
 				</table>
 			</div>
+			<input type="hidden" id="number_rows" name="number_rows" value="document.getElementById("table").rows.length" />
 		</div><!--col-md-5-->
-		<div class="clear"></div>
-		<div class="regis-button">
-			
-		</div>
 		</form>
 @stop
 @section('script')
 <script src="{{ asset('js/custom-file-input.js') }}"></script>
+<script type="text/javascript">
+	$('#submit').click(function(){
+		var num_rows  = $('table#table tr').length -1;
+		$('#number_rows').val(num_rows);
+	});
+</script>
 <script>
 function myFunction() {
 	var table = document.getElementById("table");
@@ -278,15 +338,91 @@ function myFunction() {
 $('#table').on('click','.aDel',function(){
 	$(this).closest('tr').remove();
 });
+function validate_spec0(evt){
+    var theEvent = evt || window.event;
+    var key = theEvent.keyCode || theEvent.which;
+    key = String.fromCharCode( key );
+    var regex = /[0-9.]/;
+    if( !regex.test(key) ) {
+        theEvent.returnValue = false;
+        if(theEvent.preventDefault) theEvent.preventDefault();
+    }
+
+}
 function validate(evt){
+    var theEvent = evt || window.event;
+    var key = theEvent.keyCode || theEvent.which;
+    key = String.fromCharCode( key );
+    var regex = /[0-9]/;
+    if( !regex.test(key) ) {
+        theEvent.returnValue = false;
+        if(theEvent.preventDefault) theEvent.preventDefault();
+    }
+
+}
+function validate_spec(evt){
+    var theEvent = evt || window.event;
+    var key = theEvent.keyCode || theEvent.which;
+    key = String.fromCharCode( key );
+    var regex = /[a-zA-Z0-9_.]/;
+    if( !regex.test(key) ) {
+        theEvent.returnValue = false;
+        if(theEvent.preventDefault) theEvent.preventDefault();
+    }
+
+}
+function validate_spec1(evt){
+    var theEvent = evt || window.event;
+    var key = theEvent.keyCode || theEvent.which;
+    key = String.fromCharCode( key );
+    var regex = /[a-zA-Z0-9/, ]/;
+    if( !regex.test(key) ) {
+        theEvent.returnValue = false;
+        if(theEvent.preventDefault) theEvent.preventDefault();
+    }
+
+}
+function validate_spec2(evt){
+    var theEvent = evt || window.event;
+    var key = theEvent.keyCode || theEvent.which;
+    key = String.fromCharCode( key );
+    var regex = /[a-zA-Z0-9 ]/;
+    if( !regex.test(key) ) {
+        theEvent.returnValue = false;
+        if(theEvent.preventDefault) theEvent.preventDefault();
+    }
+
+}
+function validate_spec3(evt){
+    var theEvent = evt || window.event;
+    var key = theEvent.keyCode || theEvent.which;
+    key = String.fromCharCode( key );
+    var regex = /[a-zA-Z0-9.@]/;
+    if( !regex.test(key) ) {
+        theEvent.returnValue = false;
+        if(theEvent.preventDefault) theEvent.preventDefault();
+    }
+
+}
+function validate_spec4(evt){
 	var theEvent = evt || window.event;
-  	var key = theEvent.keyCode || theEvent.which;
-  	key = String.fromCharCode( key );
-  	var regex = /[0-9]|\./;
-  	if( !regex.test(key) ) {
-	    theEvent.returnValue = false;
-	    if(theEvent.preventDefault) theEvent.preventDefault();
-  	}
+    var key = theEvent.keyCode || theEvent.which;
+    key = String.fromCharCode( key );
+    var regex = /[a-zA-Z ]/;
+    if( !regex.test(key) ) {
+        theEvent.returnValue = false;
+        if(theEvent.preventDefault) theEvent.preventDefault();
+    }
+}
+function validate_spec5(evt){
+	var theEvent = evt || window.event;
+    var key = theEvent.keyCode || theEvent.which;
+    key = String.fromCharCode( key );
+    var regex = /[a-zA-Z]/;
+    if( !regex.test(key) ) {
+        theEvent.returnValue = false;
+        if(theEvent.preventDefault) theEvent.preventDefault();
+    }
 }
 </script>
 @stop
