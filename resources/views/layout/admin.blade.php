@@ -16,28 +16,26 @@
     <div class="header">
         <div class="container">
             <div class="row">
-                <div class="col-md-5">
+                <div class="col-md-9">
                     <!-- Logo -->
                     <div class="logo">
                         <h1><a href="index.html">@yield('name')</a></h1>
                     </div>
                 </div>
-                <div class="col-md-5">
-                </div>
                 <div class="col-md-2">
-                    <div class="navbar navbar-inverse" role="banner">
-                        <nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
-                            <ul class="nav navbar-nav">
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Anh (Astro) Q.Ha  <b class="caret"></b></a>
-                                    <ul class="dropdown-menu animated fadeInUp">
-                                        <li><a href="profile.html">My Personal Information</a></li>
-                                        <li><a href="/logout">Logout</a></li>
-                                    </ul>
-                                </li>
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="width: 160px;">Anh (Astro) Q.Ha  <b class="caret"></b></a>
+                            <ul class="dropdown-menu animated fadeInUp">
+                                <li><a href="profile.html">My Personal Information</a></li>
+                                <li><a href="{{ url('/logout')}}">Logout</a></li>
                             </ul>
-                        </nav>
-                    </div>
+                        </li>
+                    </ul>        
+                </div>
+                <div class="col-md-1">
+                    <button type="button" class="btn btn-warning btn-circle " style="padding-left: 5px; padding-right: 5px; margin-top: 5px; text-align: center; "><span class="glyphicon glyphicon-flag" style="font-size: 20px; margin-left: 6px;"> </span> <span class="badge" style="font-size: 8px; margin-top: -38px; margin-left: -8px;">7</span></button>
+                    <!-- <div class="notify"><span style="margin-left: 4px; color: white;">4</span></div> -->
                 </div>
             </div>
         </div>
@@ -48,11 +46,11 @@
                 <div class="sidebar content-box" style="display: block;">
                     <ul class="nav">
                         <!-- Main menu -->
-                        <li class="current"><a href="index.html"><i class="glyphicon glyphicon-home"></i> History System</a></li>
+                        <li class="current"><a href="{{ url('/admin/history-table') }}"><i class="glyphicon glyphicon-home"></i> History System</a></li>
                         <li><a href="calendar.html"><i class="glyphicon glyphicon-calendar"></i> Account Management</a></li>
                         <li><a href="stats.html"><i class="glyphicon glyphicon-stats"></i> Statistics (Charts)</a></li>
-                        <li><a href="tables.html"><i class="glyphicon glyphicon-list"></i> Personal Information</a></li>
-                        <li><a href="buttons.html"><i class="glyphicon glyphicon-record"></i> Project Management</a></li>
+                        <li><a href="{{ url('/admin/personal-information') }}"><i class="glyphicon glyphicon-list"></i> Personal Information</a></li>
+                        <li><a href="{{ url('/admin/project-management') }}"><i class="glyphicon glyphicon-record"></i> Project Management</a></li>
                         <li><a href="editors.html"><i class="glyphicon glyphicon-pencil"></i> History Feedback</a></li>
                         <li><a href="forms.html"><i class="glyphicon glyphicon-tasks"></i> Note</a></li>
                     </ul>

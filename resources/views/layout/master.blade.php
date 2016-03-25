@@ -20,19 +20,32 @@
 			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
 			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 		<![endif]-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                    $("#message").hide(4500);
+            });
+        </script>
+
 	</head>
 	<body>
-		<div id="header">
+        @if(Session::has('message'))
+            <div id="message" class="alert alert-info alert-dismissable" style="margin-bottom: 0px;">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              {{Session::get('message')}}
+            </div>
+        @endif
+	<div id="header">
         <div id="tophead">
             <a href="#" class="logo"><img src="{{ asset('images/enclave_logo.png') }}"></a>
             <div class="dropdown">
                 <button class="btn btn-default btn-lg dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span aria-hidden="true" class="glyphicon glyphicon-user"></span></button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li><a href="/personal-information">Anh (Astro) Q. Ha</a></li>
+                    <li><a href="{{ url('/personal-information')}}">Anh (Astro) Q. Ha</a></li>
                     <li role="separator" class="divider"></li>
-                    <li><a href="#">Change password</a></li>
+                    <li><a href="{{ url('/change-password')}}">Change password</a></li>
                     <li role="separator" class="divider"></li>
-                    <li><a href="/logout">Logout</a></li>
+                    <li><a href="{{ url('/logout')}}">Logout</a></li>
                 </ul>
                 <button class="btn btn-default btn-lg" type="button"><span aria-hidden="true" class="glyphicon glyphicon-flag"></span></button>
             </div>
@@ -69,8 +82,7 @@
                 <!-- /.navbar-collapse -->
             </div>
         </nav>
-        <!-- #header -->
-    </div>
+    </div><!-- #header -->
     <div id="content">
         @yield('content')
     </div>
@@ -110,5 +122,6 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     	<script src="{{ asset('js/custom.js') }}"></script>
         @yield('script')
+
 	</body>
 </html>

@@ -1,0 +1,36 @@
+.change-pass-container{
+	width: 500px;
+	height: 3	00px;
+	margin: auto;
+	background: #fff;
+}
+.change-pass-container h1{
+	text-align: center;
+
+
+}
+#form-change-pass{
+	margin-left: 100px;
+}
+.input-text {
+	margin-bottom: 10px;
+}
+.input-text input{
+	height: 30px;
+	line-height: 30px;
+	width: 300px;	
+}
+.change-pass-button{
+	margin-bottom: 20px;
+	margin-left: 100px;
+	width: 300px;
+}
+
+.change-pass-button #save-button{
+	width: 100px;
+	height: 35px;
+}
+label.error {
+	color: red;
+	font-size: 12px;
+}

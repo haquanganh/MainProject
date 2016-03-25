@@ -83,10 +83,10 @@ class AuthController extends Controller
                 return redirect()->route('personal-information.index');
             else
                 return redirect('/');
-
         }
         else
             return redirect('login')
                 ->withErrors(array('Password' => 'Wrong E-mail address or Password'));
     }
+
 }

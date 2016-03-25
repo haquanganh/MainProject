@@ -21,7 +21,7 @@
 |
 | This route group applies the "web" middleware group to every route
 | it contains. The "web" middleware group is defined in your HTTP
-| kernel and includes session state, CSRF protection, and more.
+| kernel and includes session state, CSRF protection, and moreChange-password.
 |
 */
 
@@ -35,13 +35,28 @@ Route::group(['middleware' => ['web']], function () {
     	Route::resource('personal-information', 'Personal_Information_Controller');
     	Route::get('register','Register_Controller@getRegister');
         Route::post('register','Register_Controller@postRegister');
-    });
 
+        Route::get('project-management','Project_Manage_Controller@getProjectManagement');
+
+        //Historytable-admin
+        Route::get('history-table','HistoryController@getHistory');
+    });
+        //change password
+        Route::get('change-password','PassController@getChangepass');
+        Route::post('change-password','PassController@postChangepass');
+        
+
+        //login
         Route::get('login','Auth\AuthController@getLogin');
         Route::post('login','Auth\AuthController@postLogin');
         Route::get('logout',function(){
         	Auth::logout();
         	return redirect('login');
         });
+
+        //search
+        Route::get('search','SearchController@getSearch');
+        Route::post('search','SearchController@postSearch');    
+
         Route::get('test','TestController@test3');
 });
