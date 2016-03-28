@@ -24,7 +24,6 @@
 | kernel and includes session state, CSRF protection, and moreChange-password.
 |
 */
-
 Route::group(['middleware' => ['web']], function () {
     Route::get('/', function () {
             if(!Auth::check()) return redirect('login');
@@ -44,7 +43,7 @@ Route::group(['middleware' => ['web']], function () {
         //change password
         Route::get('change-password','PassController@getChangepass');
         Route::post('change-password','PassController@postChangepass');
-        
+        Route::post('check/check-pass','PassController@checkPass');
 
         //login
         Route::get('login','Auth\AuthController@getLogin');

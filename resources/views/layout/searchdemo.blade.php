@@ -58,4 +58,7 @@
         $('#table').DataTable();
     });
     </script>
+    <script type="text/javascript">
+        
+    </script>
 @stop

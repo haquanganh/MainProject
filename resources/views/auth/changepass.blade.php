@@ -10,6 +10,7 @@
 	<script src="//code.jquery.com/jquery.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="{{ asset('css/jquery/jquery.validate.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('css/jquery/additional-methods.js') }}"></script>
 </head>
 <body>
 		@if(Session::has('message'))
@@ -45,7 +46,6 @@
 			<div class="change-pass-button">
 				<input type="submit" name="button" id="save-button" class="btn btn-primary" value="Save"></input>
 			</div>
-
 		</form>
 	</div>
 	<script type="text/javascript">
@@ -53,11 +53,19 @@
 			rules:{
 				old_pass:{
 					required:true,
+					remote:{
+						url:"{{asset('check/check-pass')}}",
+						type:"POST",
+						data: {
+							'_token': $('input[name=_token]').val()
+	          			}
+					}   
 				},
 				new_pass:{
 					required:true,
 					minlength:6,
-					maxlength:16
+					maxlength:16,
+					notEqualTo: "#old_pass"
 				},
 				renew_pass:{
 					equalTo:"#new_pass"
@@ -65,15 +73,17 @@
 			},
 			messages:{
 				old_pass:{
-					required:"Please enter your old password!",
+					required:"Please enter your current password!",
+					remote: "Your current password is incorrect!"
 				},
 				new_pass:{
 					required:"Please enter your new password!",
 					minlength:"Min length password is equal or more than 6!",
-					maxlength:"Max length password is equal or less than 16! "
+					maxlength:"Max length password is equal or less than 16!",
+					notEqualTo: "New password and current password must not match!"
 				},
 				renew_pass:{
-					equalTo:"Password comfirm is invalid!"
+					equalTo:"New password and password comfirm must match!"
 				}
 			}
 		});

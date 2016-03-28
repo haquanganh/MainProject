@@ -37,17 +37,8 @@ class PassController extends Controller
 			$user           = 	User::find(Auth::user()->idAccount);
 			$old_password	= 	$request->input('old_pass');
 			$password       = 	$request->input('new_pass');
-
-			if(Hash::check($old_password, $user->getAuthPassword()) && $old_password == $password)
+			if(Hash::check($old_password, $user->getAuthPassword()))
 			{
-			    return redirect('change-password')->withErrors(array('button' => 'New password do not same old password!'));
-			}
-			else 
-			if(!Hash::check($old_password, $user->getAuthPassword()))
-			{
-				return redirect('change-password')->withErrors(array('old_pass' => 'Your old password is incorrect!'));
-			}
-			else {
 				$user->password = Hash::make($password);
 				if($user->save())
 				 {
@@ -56,5 +47,13 @@ class PassController extends Controller
 			}
 		}
 		return redirect('change-password')->with('message','Your password could not be changed!');
+	}
+	public function checkPass(ChangePassRequest $request)
+	{
+		$user = User::find(Auth::user()->idAccount);
+		$old_password	= 	$request->input('old_pass');
+		if(Hash::check($old_password, $user->getAuthPassword()))
+			return 'true';
+		return 'false';
 	}
 }

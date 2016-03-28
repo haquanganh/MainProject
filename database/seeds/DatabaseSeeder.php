@@ -12,38 +12,32 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // $this->call(UsersTableSeeder::class);
-        $this->call('SkillDetailTableSeeder');
+        $this->call('UserTableSeeder');
     }
 }
 class UserTableSeeder extends Seeder{
 	public function run(){
 		DB::table('users')->insert([
-			array('idAccount' => '1',
-				  'email' => 'astro@enclave.vn',
-				  'password' => Hash::make('astro'),
+			array('idAccount' => '6',
+				  'email' => 'huy2@enclave.vn',
+				  'password' => Hash::make('123123'),
 				  'idRole' => '2',
 				),
-			array('idAccount' => '2',
-				  'email' => 'hampton@enclave.vn',
-				  'password' => Hash::make('hampton'),
+			array('idAccount' => '7',
+				'email' => 'huy3@enclave.vn',
+				  'password' => Hash::make('123123'),
 				  'idRole' => '3',
 				),
-			array('idAccount' => '3',
-				  'email' => 'missy@enclave.vn',
-				  'password' => Hash::make('missy'),
+			array('idAccount' => '8',
+				'email' => 'huy4@enclave.vn',
+				  'password' => Hash::make('123123'),
 				  'idRole' => '4',
 				),
-			array('idAccount' => '4',
-				  'email' => 'talor@enclave.vn',
-				  'password' => Hash::make('talor'),
+			array('idAccount' => '9',
+				'email' => 'huy5@enclave.vn',
+				  'password' => Hash::make('123123'),
 				  'idRole' => '5',
 				),
-			array('idAccount' => '5',
-				  'email' => 'henri@enclave.vn',
-				  'password' => Hash::make('henri'),
-				  'idRole' => '1',
-				),
-
 			]);
 	}
 }
