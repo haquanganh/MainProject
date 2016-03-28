@@ -45,7 +45,20 @@
 			</div>
 			<div class="change-pass-button">
 				<input type="submit" name="button" id="save-button" class="btn btn-primary" value="Save"></input>
-				<a class="btn btn-primary" href="{{ url('/') }}">Cancel</a>
+				<a class="btn btn-primary" data-toggle="modal" href='#modal-id'>Cancel</a>
+			</div>
+			<div class="modal fade" id="modal-id">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-body">
+							<h3>Are you kidding me?</h3>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+							<a type="button" class="btn btn-primary" href="{{ url('/') }}">Yes</a>
+						</div>
+					</div>
+				</div>
 			</div>
 		</form>
 	</div>
