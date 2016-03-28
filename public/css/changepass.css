@@ -22,12 +22,12 @@
 }
 .change-pass-button{
 	margin-bottom: 20px;
-	margin-left: 100px;
+	margin-left: 65px;
 	width: 300px;
 }
 
-.change-pass-button #save-button{
-	width: 100px;
+.change-pass-button #save-button, .change-pass-button a{
+	width: 80px;
 	height: 35px;
 }
 label.error {

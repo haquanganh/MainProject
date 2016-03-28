@@ -21,20 +21,30 @@
 			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 		<![endif]-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-        <script type="text/javascript">
-            $(document).ready(function(){
-                    $("#message").hide(4500);
+        <script>
+            jQuery(function(){
+               jQuery('#modal').click();
             });
         </script>
-
 	</head>
 	<body>
-        @if(Session::has('message'))
-            <div id="message" class="alert alert-info alert-dismissable" style="margin-bottom: 0px;">
-              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-              {{Session::get('message')}}
+            <div>
+                @if(Session::has('message'))            
+                    <a data-toggle="modal" id="modal" href='#modal-id'></a>
+                    <div class="modal fade" id="modal-id">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                        {{Session::get('message')}}
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 @endif
             </div>
-        @endif
 	<div id="header">
         <div id="tophead">
             <a href="#" class="logo"><img src="{{ asset('images/enclave_logo.png') }}"></a>

@@ -13,24 +13,29 @@
 	<script type="text/javascript" src="{{ asset('css/jquery/additional-methods.js') }}"></script>
 </head>
 <body>
-		@if(Session::has('message'))
-            <div class="alert alert-info alert-dismissable">
-              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-              {{Session::get('message')}}
+	<div>
+        @if(Session::has('message'))            
+            <a data-toggle="modal" id="modal" href='#modal-id'></a>
+            <div class="modal fade" id="modal-id">
+                <div class="modal-dialog">
+                   <div class="modal-content">
+                        <div class="modal-body">
+                            {{Session::get('message')}}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-        @endif
-
+         @endif
+    </div>
 	<div class="change-pass-container">
 		<h1>Change password</h1>
 		<form id="form-change-pass" method="POST" action="{{ url('/change-password') }}">
 		{!! csrf_field() !!}
 			<div class="input-text">
 				<input type="password" class="form-control" id="old_pass" name="old_pass" placeholder="Old password"></input>
-				@if ($errors->has('old_pass'))
-		          	<div style="color: red; font-size: 12px;">
-		            	<strong>{{ $errors->first('old_pass') }}</strong>
-		          	</div>
-		        @endif
 		    </div>
 		    <div class="input-text">
 				<input type="password" class="form-control"  id="new_pass" name="new_pass" placeholder="New password"></input>
@@ -38,16 +43,13 @@
 			<div class="input-text">
 				<input type="password" class="form-control" id="renew_pass" name="renew_pass" placeholder="Comfirm password"></input>
 			</div>
-			@if ($errors->has('button'))
-		          	<div style="color: red; font-size: 12px; margin-left: 33px;">
-		            	<strong>{{ $errors->first('button') }}</strong>
-		          	</div>
-		        @endif
 			<div class="change-pass-button">
 				<input type="submit" name="button" id="save-button" class="btn btn-primary" value="Save"></input>
+				<a class="btn btn-primary" href="{{ url('/') }}">Cancel</a>
 			</div>
 		</form>
 	</div>
+		
 	<script type="text/javascript">
 		$('#form-change-pass').validate({
 			rules:{
