@@ -9,4 +9,5 @@ class ProjectEmployee extends Model
     protected $table = 'ProjectEmployee';
     protected $fillable = ['idProject','idEmployee'];
     protected $hidden = [];
+    public $timestamps = false;
 }

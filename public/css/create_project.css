@@ -1,0 +1,59 @@
+th,td{
+    text-align: center;
+}
+.info {
+    margin-top: 20px;
+    height: 50px;
+    margin-bottom: 0px;
+}
+
+.project-client {
+    height: 100%;
+    width: 50%;
+    float: left;
+}
+
+.search {
+    border-radius: 10px;
+    height: 100%;
+    margin-right: 20px;
+}
+
+.project {
+    height: 100%;
+}
+
+label {
+    margin-right: 5px;
+}
+
+img {
+    width: 50px;
+    height: 50px;
+}
+
+.button {
+    margin-bottom: -10px;
+}
+.submit {
+    margin-right: 40px;
+}
+#img-title {
+    background: #ccc url(../images/project.jpg) no-repeat center center;
+    background-size: cover;
+    height: 190px;
+    padding: 40px 60px;
+    -webkit-box-shadow: 2px -4px 12px 1px rgba(140,135,140,1);
+-moz-box-shadow: 2px -4px 12px 1px rgba(140,135,140,1);
+box-shadow: 2px -4px 12px 1px rgba(140,135,140,1);
+}
+
+#img-title p {
+    font-size: 45px;
+    color: #FFFFFF;
+    font-style: italic;
+    opacity: 0.5;
+}
+.list{
+    width:150px;
+}

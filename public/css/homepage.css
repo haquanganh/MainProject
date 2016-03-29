@@ -1,5 +1,8 @@
+
+
 #content {
     margin-top: 0px;
+    box-sizing: border-box;
 }
 
 #content .introduction,
@@ -13,6 +16,7 @@
 #content .introduction {
     background-color: yellow;
     height: 500px;
+
 }
 
 #content .introduction .jumbotron {
@@ -20,10 +24,29 @@
     height: 100%;
     color: #FFFFFF;
     text-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2);
-    background: #63AFC7 url(../img/background.jpg) center no-repeat;
+    background: #63AFC7 url(../images/homepage.jpg) center no-repeat;
     background-size: cover;
+    padding: 100px 0;
+    position: relative;
 }
 
+.introduction .jumbotron h3 {
+    text-align: center;
+    max-width: 750px;
+    font-size: 45px;
+    margin: auto;
+    color: #002E5D;
+    font-weight:bold;
+    line-height: 70px;
+
+}
+.introduction .jumbotron p{
+    position: absolute;
+    bottom: 0;
+    color: #002E5D;
+    font-size: 30px;
+    width: 100%;
+}
 
 /* out clientsay*/
 
@@ -34,18 +57,11 @@
     font-style: italic;
     font-size: 20px;
     padding-top: 20px;
-    background-color: #3E6B85;
+    background-color: #FFFFFF;
     text-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-}
 
-.neoslideshow {
-    position: relative;
-    width: 500px;
-    height: 260px;
 }
-
-.neoslideshow img {
-    position: absolute;
-    left: 0;
-    top: 0;
+.ourmodel{
+    background: #ccc url(../images/ourmodel.jpg)  no-repeat center center;
+    background-size: cover;
 }

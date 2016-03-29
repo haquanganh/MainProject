@@ -43,5 +43,9 @@ Route::group(['middleware' => ['web']], function () {
         	Auth::logout();
         	return redirect('login');
         });
-        Route::get('test','TestController@test3');
+        Route::get('project','ProjectController@viewProject');
+        Route::get('create-project','ProjectController@getcreateProject');
+
+        Route::post('create-project','ProjectController@postcreateProject');
+        // Route::get('test','TestController@test3');
 });

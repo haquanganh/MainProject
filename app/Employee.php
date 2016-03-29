@@ -17,7 +17,7 @@ class Employee extends Model
     	return $this->hasMany('App\Feedback','idEmployee');
     }
     public function Project(){
-    	return $this->belongsToMany('App\Project','App\ProjectEmployee');
+    	return $this->belongsToMany('App\Project','ProjectEmployee','idEmployee','idEmployee');
     }
     public function Employee_Record(){
     	return $this->hasMany('App\Employee_Record','idEmployee');
@@ -35,7 +35,7 @@ class Employee extends Model
     	return $this->belongsToMany('App\Skill','SkillDetail','idEmployee','idSkill')->withPivot('S_Rate');
     }
     public function Team(){
-    	return $this->belongsToMany('App\Team','App\TeamMember');
+    	return $this->belongsToMany('App\Team','TeamMember','idMember','idTeam');
     }
     public function EnglishChart(){
     	return $this->belongsTo('App\EnglishChart','IdEChart');

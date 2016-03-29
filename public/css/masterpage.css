@@ -1,6 +1,12 @@
-body{
-	font-family: Helvetica, sans-serif;
-    font-size: 13px;
+@font-face {
+    font-family: 'Avenir LT Std 85 Heavy';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Avenir LT Std 85 Heavy'), url('../font/AvenirLTStd-Light.woff') format('woff');
+}
+
+body {
+    font-family: 'Avenir LT Std 85 Heavy';
 }
 #header,
 #footer {
@@ -10,42 +16,28 @@ body{
 
 #header {
     margin: 0px;
-    height: 130px;
-    background-color: #002956;
+    height: 108px;
+    background-color: #FFFFFF;
 }
 
 #header #tophead {
-    height: 80px;
+    height: 70px;
+    margin-bottom: 0px;
+    background-color: #FFFFFF;
 }
+
 #header #tophead .logo {
-    margin-top: 15px;
-    margin-bottom: 15px;
-    margin-left: 60px;
+    margin-top: 3px;
+    margin-left: 11px;
     float: left;
-    height: 50px;
-    width: 250px;
+    height: 60px;
+    width: 180px;
 }
-.introduction{
-    z-index: -1;
-}
+
 #header #tophead .logo img {
     width: 100%;
     height: 100%;
 }
-
-#header nav {
-    background-color: #E0F3FF;
-    height: 50px;
-    font-size: 15px;
-}
-
-#header nav ul li {
-    color: #FFFFFF;
-    margin-top: 0px;
-    margin-left: 10px;
-    font-size: 18px;
-}
-
 .dropdown-menu {
     margin-top: 0px;
     right: 0;
@@ -57,58 +49,55 @@ body{
 }
 
 #header #tophead .dropdown {
-    margin-top: 15px;
-    margin-bottom: 15px;
-    margin-right: 75px;
+    margin-right: 15px;
     float: right;
 }
-
-#header #tophead .dropdown button {
-    color: #FFFFFF;
-    margin-left: 10px;
-    background-color: #FF6138;
+/*---------nav------------*/
+.navbar{
+    min-height: 0px;
+    height: 28px;
+    background-color: #FFFFFF;
+    border: none;
+    z-index: 1001;
+}
+#content-menu ul{
+    margin-top: 0px;
+    background-color: #FFFFFF;
+    font-size: 16px;
+    font-weight:400;
+}
+#content-menu ul li a{
+    height: 28px;
+    margin-top: 0px;
+    padding-top: 0px;
+    line-height: 28px;
 }
 /*---------footer---------*/
-
-#footer {
-    font-size: 10px;
-    color: #FFFFFF;
-    font-size: 14px;
+#footer{
+    background: #ccc url(../images/footer.jpg)  no-repeat center center;
+    background-size: cover;
+}
+.nav-style{
+    padding-left: 50px;
+    padding-right:  50px;
+    height: 30px;
+    background-color: #E6E6E8;
+}
+.nav-style ul li{
+    height:30px;
+    background-color: #E6E6E8;
+}
+.nav-style ul li{
+    height:30px;
+    background-color: #E6E6E8;
 }
 
-#footer .row .img {
-    margin-left: 50px;
-    height: 100px;
-    width: 300px;
-}
 
-#footer .row .img img {
-    height: 100%;
-    width: 100%;
+.container-fluid {
+    padding-left: 0px;
+    padding-right: 0px;
 }
-
-.clear40 {
-    height: 40px;
-}
-
-#footer .information {
-    margin-left: 50px;
-}
-
-#footer .copyright {
-    float: left;
-    margin-left: 50px;
-}
-
-.social-icon {
-    font-size: 20px;
-    margin-right: 50px;
-}
-
-.social-icon a i {
-    margin-left: 10px;
-}
-
-#footer {
-    background-color: #193441;
+.row{
+    margin-left:0px;
+    margin-right: 0px;
 }
