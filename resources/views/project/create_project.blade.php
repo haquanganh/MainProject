@@ -19,12 +19,12 @@
                          $listC = App\Clients::all();
                     ?>
                     <input type="hidden" value="{{$listE->count()}}" name="n_listE">
-                <div class="info">
-                    <div class="col-xs-3">
+                <div class="info row">
+                    <div class="col-xs-3 form-group  {{ $errors->has('in_NameofProject') ? ' has-error' : '' }} validate"  {!! $errors->has('in_NameofProject') ? ' data-toggle="tooltip" data-placement="top" title="'.$errors->first('in_NameofProject').'"' : '' !!} >
                         <label for=""><i>Project</i></label>
                         <input type="text" name="in_NameofProject" class="form-control" placeholder="Name Of Project">
                     </div>
-                    <div class="col-xs-3">
+                    <div class="col-xs-3 form-group">
                         <label for=""><i>Client</i></label>
                        <select class="list" name="sl_Client">
                         @foreach ($listC as $c)
@@ -32,11 +32,11 @@
                         @endforeach
                         </select>
                     </div>
-                    <div class="col-xs-3">
+                    <div class="col-xs-3 form-group  {{ $errors->has('wrong_day') || $errors->has('wrong_start_day') ? ' has-error' : '' }} validate"  {!! $errors->has('wrong_start_day') ? ' data-toggle="tooltip" data-placement="top" title="'.$errors->first('wrong_start_day').'"' : ($errors->has('wrong_day') ? ' data-toggle="tooltip" data-placement="top" title="'.$errors->first('wrong_day').'"' :'')  !!} >
                         <label for=""><i>Time</i></label>
-                        <input type="text" name="daterange" value="01/01/2015 - 01/31/2015" class="form-control" />
+                        <input type="text" name="daterange" class="form-control" />
                     </div>
-                    <div class="col-xs-3">
+                    <div class="col-xs-3 form-group">
                         <label for=""><i>Leader</i></label>
                         <select class="list" name="sl_Leader">
                             @foreach ($listE as $key => $e)
@@ -47,7 +47,7 @@
                 </div>
                 <div class="row table-responsive">
                     <div class="col-xs-12">
-                        <table class="table table-striped table-bordered table-responsive">
+                        <table class="table table-striped table-bordered table-responsive results">
                             <thead>
                                 <tr>
                                     <td>Avatar</td>
@@ -69,6 +69,9 @@
                                     </td>
                                 </tr>
                             @endforeach
+                                <tr class="warning no-result">
+                                  <td colspan="5"><i class="fa fa-warning"></i> No result</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -76,7 +79,7 @@
                 <div class="row" style="margin-bottom:5px;">
                     <div class="col-md-6">
                         <label for=""><i>Search</i></label>
-                        <input type="text" class="form-control" placeholder="Search for employee">
+                        <input type="text" class="form-control search" placeholder="Search for employee">
                     </div>
                     <div class="col-md-6">
                         <div class="submit" style="float:right">
@@ -101,5 +104,39 @@
     $(document).ready(function() {
         $(".list").select2();
     });
+    </script>
+    <script>
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $(".search").keyup(function() {
+                var searchTerm = $(".search").val();
+                var listItem = $('.results tbody').children('tr');
+                var searchSplit = searchTerm.replace(/ /g, "'):containsi('");
+                $.extend($.expr[':'], {
+                    'containsi': function(elem, i, match, array) {
+                        return (elem.textContent || elem.innerText || '').toLowerCase()
+                            .indexOf((match[3] || "").toLowerCase()) >= 0;
+                    }
+                });
+                $(".results tbody tr").not(":containsi('" + searchSplit + "')").each(
+                    function(e) {
+                        $(this).attr('visible', 'false');
+                    });
+                $(".results tbody tr:containsi('" + searchSplit + "')").each(function(e) {
+                    $(this).attr('visible', 'true');
+                });
+                var jobCount = $('.results tbody tr[visible="true"]').length;
+                $('.counter').text(jobCount + ' item');
+                if (jobCount == '0') {
+                    $('.no-result').show();
+                } else {
+                    $('.no-result').hide();
+                }
+            });
+        });
     </script>
 @stop

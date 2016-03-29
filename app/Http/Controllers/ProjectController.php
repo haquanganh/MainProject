@@ -21,17 +21,41 @@ class ProjectController extends Controller
     public function getcreateProject(){
     	return view('project.create_project');
     }
-    public function postcreateProject(Request $request){
+    public function postcreateProject(ProjectRequest $request){
+
         $error_list = array();
+        $date = explode('-', $request->daterange);
+        $start = DateTime::createFromFormat('m/d/Y', trim($date[0]));
+        $end = DateTime::createFromFormat('m/d/Y', trim($date[1]));
+        $now = new DateTime();
+        $oneday = new DateInterval("P1D");
+        $num_day = 0;
+        foreach(new DatePeriod($start, $oneday, $end->add($oneday)) as $day) {
+            $day_num = $day->format("N"); /* 'N' number days 1 (mon) to 7 (sun) */
+            if($day_num < 6) { /* weekday */
+                $num_day= $num_day+1;
+            }
+        }
+        if($num_day < 7 ){
+            $arr1 = array('wrong_day' => 'Date Range has to be equal or more than 7 days');
+            $error_list = $error_list + $arr1;
+        }
+        if($start < $now){
+            $arr0 = array('wrong_start_day' => 'Start Date has to be more than current date ');
+            $error_list = $error_list + $arr0;
+        }
+        if(!empty($error_list)){
+            return redirect()->back()->withInput()->withErrors($error_list);
+        }
     	$project_name = $request->in_NameofProject;
     	$client = $request->sl_Client;
     	$timerange = $request->daterange;
     	$leader = $request->sl_Leader;
-    	$PM = $idE = Employee::where('idAccount','=',Auth::user()->idAccount)->first()->idEmployee;
+    	$PM = Employee::where('idAccount','=',Auth::user()->idAccount)->first()->idEmployee;
     	///////////////////////////
     	$date = explode('-', $timerange);
-    	$startday = date_create($date[0])->format('d-m-Y');
-    	$endday = date_create($date[1])->format('d-m-Y');
+    	$startday = DateTime::createFromFormat('m/d/Y', trim($date[0]));
+    	$endday = DateTime::createFromFormat('m/d/Y', trim($date[1]));
     	$p = new Project;
     	$p->P_Name       = $project_name;
     	$p->idPManager   = $PM;
@@ -46,7 +70,7 @@ class ProjectController extends Controller
     	for ($i = 0 ; $i < $request->n_listE ; $i++) {
     		if(isset($request->c[$i])){
     			$pe = new ProjectEmployee;
-    			$pe->idProject = $p->id;
+    			$pe->idProject = $p->idProject;
     			$pe->idEmployee = $request->c[$i];
     			$pe->save();
     		}

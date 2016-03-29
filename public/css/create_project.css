@@ -1,6 +1,8 @@
-th,td{
+    th,
+td {
     text-align: center;
 }
+
 .info {
     margin-top: 20px;
     height: 50px;
@@ -35,17 +37,19 @@ img {
 .button {
     margin-bottom: -10px;
 }
+
 .submit {
     margin-right: 40px;
 }
+
 #img-title {
     background: #ccc url(../images/project.jpg) no-repeat center center;
     background-size: cover;
     height: 190px;
     padding: 40px 60px;
-    -webkit-box-shadow: 2px -4px 12px 1px rgba(140,135,140,1);
--moz-box-shadow: 2px -4px 12px 1px rgba(140,135,140,1);
-box-shadow: 2px -4px 12px 1px rgba(140,135,140,1);
+    -webkit-box-shadow: 2px -4px 12px 1px rgba(140, 135, 140, 1);
+    -moz-box-shadow: 2px -4px 12px 1px rgba(140, 135, 140, 1);
+    box-shadow: 2px -4px 12px 1px rgba(140, 135, 140, 1);
 }
 
 #img-title p {
@@ -54,6 +58,54 @@ box-shadow: 2px -4px 12px 1px rgba(140,135,140,1);
     font-style: italic;
     opacity: 0.5;
 }
-.list{
-    width:150px;
+
+.list {
+    width: 150px;
+}
+
+.form-control {
+    height: 28px;
+}
+
+@media(max-width: 480px) {
+    .list {
+        width:100%;
+    }
+}
+@media (min-width: 1200px) {
+
+}
+
+/* Landscape tablets and medium desktops */
+@media (min-width: 992px) and (max-width: 1199px) {
+
+}
+
+/* Portrait tablets and small desktops */
+@media (min-width: 768px) and (max-width: 991px) {
+
+}
+
+/* Landscape phones and portrait tablets */
+@media (max-width: 767px) {
+
+}
+
+.validate + .tooltip > .tooltip-inner {
+    width: 200px;
+    background-color: #AF4442;
+    opacity: 5;
+    color: white;
+}
+
+.validate + .tooltip > .tooltip-arrow {
+    background-color: #AF4442;
+}
+.results tr[visible='false'],
+.no-result{
+  display:none;
+}
+
+.results tr[visible='true']{
+  display:table-row;
 }
