@@ -109,3 +109,4 @@ img {
 .results tr[visible='true']{
   display:table-row;
 }
+.TopRow td {background-color:Beige}

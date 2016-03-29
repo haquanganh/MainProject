@@ -47,7 +47,7 @@
                 </div>
                 <div class="row table-responsive">
                     <div class="col-xs-12">
-                        <table class="table table-striped table-bordered table-responsive results">
+                        <table id="myTable" class="tablesorter table table-striped table-bordered table-responsive results">
                             <thead>
                                 <tr>
                                     <td>Avatar</td>
@@ -135,6 +135,62 @@
                     $('.no-result').show();
                 } else {
                     $('.no-result').hide();
+                }
+            });
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.25.6/js/jquery.tablesorter.min.js"></script>
+    <script>
+        $(document).ready(function(){
+                $("#myTable").tablesorter();
+        });
+    </script>
+    <script>
+        $("input").click(function() {
+            var row = $(this).parents("tr:first");
+            console.log(row.hasClass('TopRow'));
+            if ($(this).is(':checked', true)) {
+                var firstRow = row.parent().find("tr:first").not(row);
+                row.insertBefore(firstRow).addClass("TopRow");
+            } else if (row.hasClass('TopRow')) {
+                var nonTopRows = row.siblings().not('.TopRow');
+                console.log(nonTopRows);
+                var found = false;
+                nonTopRows.each(function() {
+                    console.log('rowPos: ' + row.data('pos'));
+                    console.log('current compare: ' + $(this).data('pos'));
+                    if (row.data('pos') < $(this).data('pos') && !found) {
+                        found = true;
+                        row.insertBefore($(this));
+                    }
+                });
+                if (!found) row.appendTo(row.parent());
+                row.removeClass("TopRow");
+            }
+        });
+    </script>
+    <script>
+        $('document').ready(function() {
+            $('input:checked').each(function() {
+                var row = $(this).parents("tr:first");
+                console.log(row.hasClass('TopRow'));
+                if ($(this).is(':checked', true)) {
+                    var firstRow = row.parent().find("tr:first").not(row);
+                    row.insertBefore(firstRow).addClass("TopRow");
+                } else if (row.hasClass('TopRow')) {
+                    var nonTopRows = row.siblings().not('.TopRow');
+                    console.log(nonTopRows);
+                    var found = false;
+                    nonTopRows.each(function() {
+                        console.log('rowPos: ' + row.data('pos'));
+                        console.log('current compare: ' + $(this).data('pos'));
+                        if (row.data('pos') < $(this).data('pos') && !found) {
+                            found = true;
+                            row.insertBefore($(this));
+                        }
+                    });
+                    if (!found) row.appendTo(row.parent());
+                    row.removeClass("TopRow");
                 }
             });
         });
