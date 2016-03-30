@@ -35,6 +35,9 @@ Route::group(['middleware' => ['web']], function () {
     	Route::resource('personal-information', 'Personal_Information_Controller');
     	Route::get('register','Register_Controller@getRegister');
         Route::post('register','Register_Controller@postRegister');
+        Route::get('project','ProjectController@viewProject');
+        Route::get('create-project','ProjectController@getcreateProject');
+        Route::get('get-request','ProjectController@getRequest');
     });
 
         Route::get('login','Auth\AuthController@getLogin');

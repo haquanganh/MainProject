@@ -13,64 +13,40 @@
 </head>
 
 <body>
-    <div class="header">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-5">
-                    <!-- Logo -->
-                    <div class="logo">
-                        <h1><a href="index.html">@yield('name')</a></h1>
-                    </div>
-                </div>
-                <div class="col-md-5">
-                </div>
-                <div class="col-md-2">
-                    <div class="navbar navbar-inverse" role="banner">
-                        <nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
-                            <ul class="nav navbar-nav">
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Anh (Astro) Q.Ha  <b class="caret"></b></a>
-                                    <ul class="dropdown-menu animated fadeInUp">
-                                        <li><a href="profile.html">My Personal Information</a></li>
-                                        <li><a href="/logout">Logout</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </nav>
+    <div class="container-fluild">
+        <div id="header">
+            <div class="row" style="height: 100%">
+                <div class="col-md-12" style="height: 100%">
+                    <div class="title pull-left"><h3>Admin Daskboard</h3></div>
+                    <div class="dropdown pull-right">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Tutorials
+                        <span class="caret"></span></button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">HTML</a></li>
+                          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">CSS</a></li>
+                          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">JavaScript</a></li>
+                          <li role="presentation" class="divider"></li>
+                          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">About Us</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="page-content">
-        <div class="row">
-            <div class="col-md-2 nav-fixed">
-                <div class="sidebar content-box" style="display: block;">
-                    <ul class="nav">
-                        <!-- Main menu -->
-                        <li class="current"><a href="index.html"><i class="glyphicon glyphicon-home"></i> History System</a></li>
-                        <li><a href="calendar.html"><i class="glyphicon glyphicon-calendar"></i> Account Management</a></li>
-                        <li><a href="stats.html"><i class="glyphicon glyphicon-stats"></i> Statistics (Charts)</a></li>
-                        <li><a href="tables.html"><i class="glyphicon glyphicon-list"></i> Personal Information</a></li>
-                        <li><a href="buttons.html"><i class="glyphicon glyphicon-record"></i> Project Management</a></li>
-                        <li><a href="editors.html"><i class="glyphicon glyphicon-pencil"></i> History Feedback</a></li>
-                        <li><a href="forms.html"><i class="glyphicon glyphicon-tasks"></i> Note</a></li>
-                    </ul>
-                </div>
+        <div id="content">
+            <div class="col-md-2">
+                <ul class="nav nav-pills nav-stacked">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#">Menu 1</a></li>
+                    <li><a href="#">Menu 2</a></li>
+                    <li><a href="#">Menu 3</a></li>
+                  </ul>
             </div>
             <div class="col-md-10">
-            @yield('content')
+                @yield('content')
             </div>
         </div>
+        <div id="footer"></div>
     </div>
-    <footer>
-        <div class="container">
-            <div class="copy text-center">
-                Copyright 2016- Balance Team
-            </div>
-        </div>
-    </footer>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://code.jquery.com/jquery.js"></script>
     <!-- Bootstrap JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>

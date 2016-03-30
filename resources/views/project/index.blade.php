@@ -64,7 +64,7 @@
                             <p><b>{{$l->P_Name}}</b></p>
                             <br>
                             <br>
-                            <p class="pull-right"><i>{{$l->P_DateCreate}} <span>-</span>{{$l->P_DateFinish}}</i></p>
+                            <p class="pull-right"><i>{{$l->P_DateCreate}}<span>-</span> {{$l->P_DateFinish}}</i></p>
                         </div>
                     </div>
                 @endforeach
