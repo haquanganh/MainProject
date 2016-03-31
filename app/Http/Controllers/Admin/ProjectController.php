@@ -33,4 +33,8 @@ class ProjectController extends Controller
     		}
     	}
     }
+    public function project_detail($id){
+        $project = Project::find($id);
+        return view('admin.project_detail',compact('project'));
+    }
 }

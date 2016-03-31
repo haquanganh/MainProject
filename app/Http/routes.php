@@ -37,6 +37,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('register','Register_Controller@postRegister');
         Route::get('project','ProjectController@viewProject');
         Route::get('create-project','ProjectController@getcreateProject');
+        Route::get('project_detail/{id}','ProjectController@project_detail');
         Route::get('get-request','ProjectController@getRequest');
     });
 
@@ -50,5 +51,6 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('create-project','ProjectController@getcreateProject');
         Route::get('project_detail/{id}','ProjectController@project_detail');
         Route::post('create-project','ProjectController@postcreateProject');
+        Route::get('get-employee','AjaxController@getemployee');
         // Route::get('test','TestController@test3');
 });

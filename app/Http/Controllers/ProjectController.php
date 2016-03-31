@@ -19,6 +19,7 @@ class ProjectController extends Controller
     	return view('project.index');
     }
     public function getcreateProject(){
+
     	return view('project.create_project');
     }
     public function postcreateProject(ProjectRequest $request){
