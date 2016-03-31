@@ -48,7 +48,7 @@ Route::group(['middleware' => ['web']], function () {
         });
         Route::get('project','ProjectController@viewProject');
         Route::get('create-project','ProjectController@getcreateProject');
-
+        Route::get('project_detail/{id}','ProjectController@project_detail');
         Route::post('create-project','ProjectController@postcreateProject');
         // Route::get('test','TestController@test3');
 });

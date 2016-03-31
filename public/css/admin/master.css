@@ -8,21 +8,71 @@
 body {
     font-family: 'Avenir LT Std 85 Heavy';
 }
-#header{
-  height: 80px;
-  background-color: blue;
+
+.row {
+    margin: 0;
 }
-#header .title{
-  height:100%;
-  width:200px;
-  background-color: red;
+
+#notify {
+    margin-top: 10px;
+    font-size: 18px;
 }
-#content{
-  margin-top: 20px;
+
+#notify a {
+    margin-left: 10px;
+    color: #FFFFFF;
 }
-#footer{
-  margin-top: 0px;
-  clear: both;
-  height: 80px;
-  background-color: blue;
+
+#nav {
+    background-color: #05374D;
+    color: #FFFFFF;
+}
+
+#title img {
+    margin-top: 0px;
+    width: 260px;
+}
+
+#content {
+    margin-top: 10px;
+}
+
+#content #menu li {
+    background-color: #103F54;
+    height: 80px;
+    -webkit-box-shadow: 4px -4px 5px -1px rgba(112, 140, 152, 1);
+    -moz-box-shadow: 4px -4px 5px -1px rgba(112, 140, 152, 1);
+    box-shadow: 4px -4px 5px -1px rgba(112, 140, 152, 1);
+    margin-top: 10px;
+    border: 1px solid #103F54;
+    border-radius: 5px;
+}
+
+#content #menu li a:hover {
+    background-color: #708C98;
+}
+
+#content #menu li a {
+    height: 100%;
+    line-height: 60px;
+    color: #FFFFFF;
+    font-size: 16px;
+}
+
+.actived a {
+    background-color: #708C98;
+}
+
+#footer {
+    background-color: #05374D;
+    height: 50px;
+}
+
+#main-content {
+  margin-top: 10px;
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    -webkit-box-shadow: -4px -1px 5px 0px rgba(169, 185, 193, 1);
+    -moz-box-shadow: -4px -1px 5px 0px rgba(169, 185, 193, 1);
+    box-shadow: -4px -1px 5px 0px rgba(169, 185, 193, 1);
 }

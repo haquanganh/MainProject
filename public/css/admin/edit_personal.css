@@ -7,10 +7,6 @@
     clear: both;
 }
 
-span {
-    color: red;
-}
-
 table tr td,
 table tr th {
     line-height: 30px;

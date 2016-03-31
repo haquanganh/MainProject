@@ -38,7 +38,7 @@
                 <div class="row folder">
                 @foreach ($listP as $l)
                     <div class="col-md-3">
-                        <div class="content-box-large" onclick="window.location='http://google.com';">
+                        <div class="content-box-large" onclick="window.location='{{ url('project_detail') }}/{{$l->idProject}}'">
                             <p><b>{{$l->P_Name}}</b></p>
                             <br>
                             <br>
@@ -49,7 +49,7 @@
                 @endforeach
                 @foreach ($listP_PM as $l)
                     <div class="col-md-3">
-                        <div class="content-box-large" onclick="window.location='http://google.com';">
+                        <div class="content-box-large" onclick="window.location='{{ url('project_detail') }}/{{$l->idProject}}'">
                             <p><b>{{$l->P_Name}}</b></p>
                             <br>
                             <br>
@@ -60,7 +60,7 @@
                 @endforeach
                 @foreach ($listP_LD as $l)
                     <div class="col-md-3">
-                        <div class="content-box-large" onclick="window.location='http://google.com';">
+                        <div class="content-box-large" onclick="window.location='{{ url('project_detail') }}/{{$l->idProject}}'">
                             <p><b>{{$l->P_Name}}</b></p>
                             <br>
                             <br>

@@ -77,4 +77,8 @@ class ProjectController extends Controller
     	}
     	return redirect('/project');
 	}
+    public function project_detail($id){
+        $project = Project::find($id);
+        return view('project.project_detail',compact('project'));
+    }
 }

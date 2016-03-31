@@ -22,7 +22,7 @@
                     <a href="#" class="logo"><img src="{{ asset('images/enclave_logo.png') }}"></a>
                     <div class="dropdown" style="z-index:2001">
                         <a class="dropdown-toggle" href="" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            <img src="images/user.png" alt="" style="width:52px;height:52px">
+                            <img src="{{ asset('images/user.png') }}" alt="" style="width:52px;height:52px">
                         </a>
 
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
@@ -33,7 +33,7 @@
                             <li><a href="/logout">Logout</a></li>
                         </ul>
                         <a href="#" class="dropdown-toggle" type="button">
-                            <img src="images/notification.png" alt="" style="width:52px;height:52px">
+                            <img src="{{ asset('images/notification.png') }}" alt="" style="width:52px;height:52px">
                         </a>
                     </div>
                 </div>

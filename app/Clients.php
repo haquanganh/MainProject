@@ -9,6 +9,7 @@ class Clients extends Model
     protected $table = 'Clients';
     protected $fillable = ['idClient', 'ClientName','C_Phone','C_Address','C_Company','C_Skype','idAccount','idNote'];
     protected $hidden = [];
+    protected $primaryKey = 'idClient';
     public function User(){
     	return $this->belongsTo('App\User');
     }
