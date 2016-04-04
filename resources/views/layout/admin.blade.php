@@ -23,14 +23,17 @@
                 </div>
                 <div id="notify" class="pull-right">
                     <a href="#" class="glyphicon glyphicon-home"></a>
+                    <div class="vertical-line" ></div>
                     <a href="#"><i class="fa fa-envelope-o"></i> Messsage</a>
-                    <a href="" class="glyphicon glyphicon-flag"></a>
-                    <a href="">Admin name</a>
+                    <div class="vertical-line" ></div>
+                    <a href="#"><i class="fa fa-flag"></i> Notification</a>
+                    <div class="vertical-line" ></div>
+                    <a href="{{ url('logout') }}"><i class="fa fa-sign-out"></i>Logout</a>
                 </div>
             </div>
         </div>
         <div id="content" class="row">
-            <div class="col-md-3" style="width:275px;">
+            <div id="left-bar" class="col-md-3">
                 <ul id="menu" class="nav nav-stacked">
                     <li class="actived"><a href="#">Account Management</a></li>
                     <li><a href="#">Project Management</a></li>

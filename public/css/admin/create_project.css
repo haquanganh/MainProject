@@ -1,11 +1,11 @@
-    th,
+th,
 td {
     text-align: center;
 }
 
 .info {
     margin-top: 20px;
-    height: 50px;
+    height: 60px;
     margin-bottom: 0px;
 }
 
@@ -60,7 +60,7 @@ img {
 }
 
 .list {
-    width: 150px;
+    width: 100%;
 }
 
 .form-control {
@@ -69,27 +69,26 @@ img {
 
 @media(max-width: 480px) {
     .list {
-        width:100%;
+        width: 100%;
     }
 }
-@media (min-width: 1200px) {
 
-}
+@media (min-width: 1200px) {}
+
 
 /* Landscape tablets and medium desktops */
-@media (min-width: 992px) and (max-width: 1199px) {
 
-}
+@media (min-width: 992px) and (max-width: 1199px) {}
+
 
 /* Portrait tablets and small desktops */
-@media (min-width: 768px) and (max-width: 991px) {
 
-}
+@media (min-width: 768px) and (max-width: 991px) {}
+
 
 /* Landscape phones and portrait tablets */
-@media (max-width: 767px) {
 
-}
+@media (max-width: 767px) {}
 
 .validate + .tooltip > .tooltip-inner {
     width: 200px;
@@ -101,12 +100,16 @@ img {
 .validate + .tooltip > .tooltip-arrow {
     background-color: #AF4442;
 }
+
 .results tr[visible='false'],
-.no-result{
-  display:none;
+.no-result {
+    display: none;
 }
 
-.results tr[visible='true']{
-  display:table-row;
+.results tr[visible='true'] {
+    display: table-row;
 }
-.TopRow td {background-color:Beige}
+
+.TopRow td {
+    background-color: Beige
+}

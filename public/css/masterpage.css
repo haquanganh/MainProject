@@ -8,10 +8,13 @@
 body {
     font-family: 'Avenir LT Std 85 Heavy';
 }
+
 #header,
 #footer {
     margin-top: 0px;
 }
+
+
 /*---------header--------- */
 
 #header {
@@ -38,6 +41,20 @@ body {
     width: 100%;
     height: 100%;
 }
+
+#user {
+    width: 52px;
+    height: 52px;
+    float: right;
+}
+
+#notification {
+    width: 52px;
+    height: 52px;
+    position: relative;
+    float: right;
+}
+
 .dropdown-menu {
     margin-top: 0px;
     right: 0;
@@ -52,52 +69,177 @@ body {
     margin-right: 15px;
     float: right;
 }
+
+
 /*---------nav------------*/
-.navbar{
+
+.navbar {
     min-height: 0px;
     height: 28px;
     background-color: #FFFFFF;
     border: none;
     z-index: 1001;
 }
-#content-menu ul{
+
+#content-menu ul {
     margin-top: 0px;
     background-color: #FFFFFF;
     font-size: 16px;
-    font-weight:400;
+    font-weight: 400;
 }
-#content-menu ul li a{
+
+#content-menu ul li a {
     height: 28px;
     margin-top: 0px;
     padding-top: 0px;
     line-height: 28px;
 }
-/*---------footer---------*/
-#footer{
-    background: #ccc url(../images/footer.jpg)  no-repeat center center;
+#footer {
+    background: #ccc url(../images/footer.jpg) no-repeat center center;
     background-size: cover;
+    text-align: center;
+    padding: 30px 0px 130px 0;
 }
-.nav-style{
+
+.nav-style {
     padding-left: 50px;
-    padding-right:  50px;
+    padding-right: 50px;
     height: 30px;
     background-color: #E6E6E8;
 }
-.nav-style ul li{
-    height:30px;
-    background-color: #E6E6E8;
-}
-.nav-style ul li{
-    height:30px;
+
+.nav-style ul li {
+    height: 30px;
     background-color: #E6E6E8;
 }
 
+.nav-style ul li {
+    height: 30px;
+    background-color: #E6E6E8;
+}
 
 .container-fluid {
     padding-left: 0px;
     padding-right: 0px;
 }
-.row{
-    margin-left:0px;
+
+.row {
+    margin-left: 0px;
     margin-right: 0px;
+}
+
+.dropdown-menu li {
+    width: 100%;
+}
+
+@media(max-width: 480px) {
+    #user {
+        margin-left: 4px;
+        margin-top: 10px;
+        width: 40px;
+        height: 40px;
+    }
+    #notification {
+        margin-top: 10px;
+        width: 40px;
+        height: 40px;
+    }
+    #header nav {
+        height: auto;
+        width: 100%;
+    }
+    #header nav .navbar-header{
+        width: 100%;
+    }
+    #header nav .navbar-header button {
+        margin-bottom: 0px;
+        margin-right: 0px;
+    }
+    .nav-style {
+        padding: 5px 10px 5px 2px;
+    }
+    #footer {
+        padding: 50px 0;
+    }
+}
+
+@media (min-width: 1200px) {}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    #user {
+        margin-left: 4px;
+        margin-top: 10px;
+        width: 40px;
+        height: 40px;
+    }
+    #notification {
+        margin-top: 10px;
+        width: 40px;
+        height: 40px;
+    }
+    #header nav {
+        height: auto;
+    }
+    #header nav .navbar-header button {
+        margin-bottom: 0px;
+        margin-right: 0px;
+    }
+    .nav-style {
+        padding: 5px 10px 5px 2px;
+    }
+    #footer {
+        padding: 50px 0;
+    }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+    #user {
+        margin-left: 4px;
+        margin-top: 10px;
+        width: 40px;
+        height: 40px;
+    }
+    #notification {
+        margin-top: 10px;
+        width: 40px;
+        height: 40px;
+    }
+    #header nav {
+        height: auto;
+    }
+    #header nav .navbar-header button {
+        margin-bottom: 0px;
+        margin-right: 0px;
+    }
+    .nav-style {
+        padding: 5px 10px 5px 2px;
+    }
+    #footer {
+        padding: 50px 0;
+    }
+}
+@media (max-width: 767px) {
+    #user {
+        margin-left: 4px;
+        margin-top: 10px;
+        width: 40px;
+        height: 40px;
+    }
+    #notification {
+        margin-top: 10px;
+        width: 40px;
+        height: 40px;
+    }
+    #header nav {
+        height: auto;
+    }
+    #header nav .navbar-header button {
+        margin-bottom: 0px;
+        margin-right: 0px;
+    }
+    .nav-style {
+        padding: 5px 10px 5px 2px;
+    }
+    #footer {
+        padding: 50px 0;
+    }
 }

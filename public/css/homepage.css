@@ -65,3 +65,25 @@
     background: #ccc url(../images/ourmodel.jpg)  no-repeat center center;
     background-size: cover;
 }
+#title-organization{
+    font-size:33px;font-weight:bold;max-width:351px;margin:auto;color:#FFFFFF;
+}
+@media(max-width: 480px) {
+    .jumbotron{
+        padding-top: 50px!important;
+    }
+    .jumbotron h3{
+        font-size: 40px!important;
+    }
+    #ourcompany{
+        padding: 20px 0px!important;
+    }
+    .ourmodel{
+        padding: 20px 0px!important;
+    }
+}
+@media (max-width: 767px) {}
+@media (min-width: 768px) and (max-width: 991px) {
+
+}
+@media (min-width: 1200px) {}

@@ -35,6 +35,19 @@
     text-align: center;
     vertical-align: middle;
 }
+.name-project {
+    word-wrap: break-word;
+    width: 98%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.time-project {
+    position: absolute;
+    bottom: 6px;
+    right: 20px;
+}
 
 .new {
     border-radius: 15px;
@@ -66,6 +79,7 @@
     position: fixed;
     top: 135px;
     right: 13px;
+    z-index: 4001;
 }
 
 #img-title {
@@ -84,4 +98,11 @@
     color: #FFFFFF;
     font-style: italic;
     opacity: 0.5;
+}
+@media(max-width: 480px) {
+    #img-title{
+        text-align: center;
+        padding: 0px!important;
+        padding-top:40px!important;
+    }
 }

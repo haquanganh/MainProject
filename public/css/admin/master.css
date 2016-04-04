@@ -14,15 +14,23 @@ body {
 }
 
 #notify {
-    margin-top: 10px;
+    margin-top: 15px;
     font-size: 18px;
 }
 
 #notify a {
     margin-left: 10px;
     color: #FFFFFF;
+    position: relative;
+    display: inline-block;
 }
-
+div.vertical-line{
+    margin-left: 4px;
+  width: 1px;
+  background-color: #708C98;
+  height: 15px;
+    display: inline-block;
+}
 #nav {
     background-color: #05374D;
     color: #FFFFFF;
@@ -32,7 +40,6 @@ body {
     margin-top: 0px;
     width: 260px;
 }
-
 #content {
     margin-top: 10px;
 }
@@ -76,3 +83,28 @@ body {
     -moz-box-shadow: -4px -1px 5px 0px rgba(169, 185, 193, 1);
     box-shadow: -4px -1px 5px 0px rgba(169, 185, 193, 1);
 }
+#left-bar{
+    width: 275px;
+}
+@media(max-width: 480px) {
+    #left-bar{
+        width: auto;
+    }
+}
+
+@media (min-width: 1200px) {}
+
+
+/* Landscape tablets and medium desktops */
+
+@media (min-width: 992px) and (max-width: 1199px) {}
+
+
+/* Portrait tablets and small desktops */
+
+@media (min-width: 768px) and (max-width: 991px) {}
+
+
+/* Landscape phones and portrait tablets */
+
+@media (max-width: 767px) {}

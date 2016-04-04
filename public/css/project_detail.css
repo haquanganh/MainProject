@@ -82,3 +82,10 @@ box-shadow: 2px -4px 12px 1px rgba(140,135,140,1);
 .starRating {
     margin-top: 0px;
 }
+@media(max-width: 480px) {
+    #img-title{
+        text-align: center;
+        padding: 0px!important;
+        padding-top:40px!important;
+    }
+}

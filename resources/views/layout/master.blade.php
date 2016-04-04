@@ -20,21 +20,20 @@
             <div class="container">
                 <div id="tophead">
                     <a href="#" class="logo"><img src="{{ asset('images/enclave_logo.png') }}"></a>
+                    <a href="#" class="dropdown-toggle" type="button">
+                            <img id="notification" src="{{ asset('images/notification.png') }}" alt="">
+                    </a>
                     <div class="dropdown" style="z-index:2001">
                         <a class="dropdown-toggle" href="" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            <img src="{{ asset('images/user.png') }}" alt="" style="width:52px;height:52px">
+                            <img id="user" src="{{ asset('images/user.png') }}" alt="">
                         </a>
-
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="top:60px;left:-50px">
                             <li><a href="/personal-information">Anh (Astro) Q. Ha</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="#">Change password</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="/logout">Logout</a></li>
                         </ul>
-                        <a href="#" class="dropdown-toggle" type="button">
-                            <img src="{{ asset('images/notification.png') }}" alt="" style="width:52px;height:52px">
-                        </a>
                     </div>
                 </div>
                 <nav role="navigation" class="navbar navbar-default" style="clear:both">
@@ -74,7 +73,7 @@
     <div id="content">
         @yield('content')
     </div>
-    <div id="footer" style="text-align:center; padding:30px 0px 130px 0;">
+    <div id="footer">
             <div class="col-md-1"></div>
             <div class="col-md-10">
                 <div class="col-md-4">

@@ -60,7 +60,7 @@
                             <tbody>
                             @foreach ($listE as $key => $e )
                                 <tr>
-                                    <td><img src="{{ asset('images')}}/{{$e->E_Avatar}}" class="img img-circle" alt=""></td>
+                                    <td><img src="{{($e->E_Avatar != NULL && File::exists(public_path('images/personal_images/'.$e->E_Avatar)) ) ? asset('images/personal_images/'.$e->E_Avatar): asset('images/notfound.jpg')}}" class="img img-circle" alt=""></td>
                                     <td>{{$e->E_EngName}}</td>
                                     <td>{{$e->E_Name}}</td>
                                     <td>{{$e->E_Skype}}</td>

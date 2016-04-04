@@ -37,8 +37,13 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('register','Register_Controller@postRegister');
         Route::get('project','ProjectController@viewProject');
         Route::get('create-project','ProjectController@getcreateProject');
+        Route::post('create-project','ProjectController@postcreateProject');
+        Route::get('get-listPM','AjaxController@getlistPM');
+        Route::get('get-listProject','AjaxController@getlistProject');
         Route::get('project_detail/{id}','ProjectController@project_detail');
-        Route::get('get-request','ProjectController@getRequest');
+        Route::get('project/edit/{id}','ProjectController@getEditProject');
+        Route::post('project/edit/{id}','ProjectController@postEditProject');
+
     });
 
         Route::get('login','Auth\AuthController@getLogin');
@@ -52,5 +57,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('project_detail/{id}','ProjectController@project_detail');
         Route::post('create-project','ProjectController@postcreateProject');
         Route::get('get-employee','AjaxController@getemployee');
-        // Route::get('test','TestController@test3');
+        Route::get('get-listProject','AjaxController@getlistProject');
+        Route::get('project/edit/{id}','ProjectController@getEditProject');
+        Route::post('project/edit/{id}','ProjectController@postEditProject');
 });

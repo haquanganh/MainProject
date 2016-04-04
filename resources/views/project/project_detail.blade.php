@@ -7,7 +7,7 @@
 @section('content')
             <div id="img-title">
                 <p>Project Information
-                    <a href="" class="pull-right" style="color:white;"><i class="glyphicon glyphicon-edit"></i></a>
+                    <a href="{{ url('/project/edit/') }}/{{$project->idProject}}" class="pull-right" style="color:white;"><i class="glyphicon glyphicon-edit"></i></a>
                 </p>
             </div>
             <?php

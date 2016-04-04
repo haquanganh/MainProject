@@ -6,12 +6,13 @@
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css" rel="stylesheet" />
 @stop
 @section('content')
-<?php
+            <?php
                 $client = App\Clients::find($project->idClient);
                 $teamLeader = App\Employee::find($project->idTeamLeader);
                 $PM = App\Employee::find($project->idPManager);
             ?>
-            <div class="row">
+            <a href="{{ url('admin/project/edit/') }}/{{$project->idProject}}"><span class="glyphicon glyphicon-edit pull-right"></span></a>
+            <div class="row" style="clear: both;">
                 <div class="col-md-6 text-center" style="height:500px;marign:0px;background-color:#EDEDED;color:black;padding-top:20px;">
                     <div>
                         <h4><b>{{$client->ClientName}}</b></h4>

@@ -17,7 +17,7 @@ class Employee extends Model
     	return $this->hasMany('App\Feedback','idEmployee');
     }
     public function Project(){
-    	return $this->belongsToMany('App\Project','ProjectEmployee','idEmployee','idEmployee');
+    	return $this->belongsToMany('App\Project','ProjectEmployee','idEmployee','idProject');
     }
     public function Employee_Record(){
     	return $this->hasMany('App\Employee_Record','idEmployee');

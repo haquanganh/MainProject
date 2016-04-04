@@ -99,7 +99,6 @@ img {
 }
 
 .validate + .tooltip > .tooltip-arrow {
-    background-color: #AF4442;
 }
 .results tr[visible='false'],
 .no-result{

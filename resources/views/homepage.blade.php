@@ -29,8 +29,8 @@
                     <div class="col-sm-5 col-sm-push-5" style="">
                         <img src="{{ asset('images/ourmodel.png') }}" alt="" style="width:378px;height:320px" class="img-responsive center-block">
                     </div>
-                    <div class="col-sm-5 col-sm-pull-5" style="padding-top:10px;">
-                        <p style="font-size:33px;font-weight:bold;max-width:351px;margin:auto;color:#FFFFFF">Enclave's Engineering Organizational Model</p>
+                    <div class="col-sm-5 col-sm-pull-5 text-center" style="padding-top:10px;">
+                        <p id="title-organization">Enclave's Engineering Organizational Model</p>
                     </div>
                     <div class="col-sm-1"></div>
                 </div>
