@@ -21,24 +21,25 @@ class EmployeeController extends Controller
     	// lay du lieu inner join  giua 3 bang Employee, SkillDetail, Skill
     	$Listskill = DB::table('Employee')
     				->join('SkillDetail', 'Employee.idEmployee', '=', 'SkillDetail.idEmployee')
-    				->join('Skill', 'SkillDetail.idSKill', '=', 'Skill.idSKill')
+    				->join('Skill', 'SkillDetail.idSkill', '=', 'Skill.idSkill')
     				->select('Employee.*')
                     ->distinct()
                     ->where('Skill.Skill', '=', $search)
-    				->orwhere('E_Cost_Hour', '=', $search)
-                    ->orwhere('E_Name', 'LIKE', '%'.$search.'%')
-                    ->orderBy('E_Cost_Hour','desc')
+    				->orwhere('Employee.E_Cost_Hour', 'LIKE', '%'.$search.'%')
+                    ->orwhere('Employee.E_Name', 'LIKE', '%'.$search.'%')
+                    ->orderBy('E_Name','desc')
                     ->get();
  		$list_employee = Employee::all();
-    	if(count($Listskill) == 0)
+    	if(count($Listskill) > 0)
     	{
-    		
     		return view('personal.employee_information',compact('list_employee'))
-    		->with('message', 'Sorry, no employee matched your search. Please try again!');	
+            ->with('Listskill', $Listskill);
+    		
     	}
     	else {
     		return view('personal.employee_information',compact('list_employee'))
-    		->with('Listskill', $Listskill);
+            ->with('message', 'No matching records found. Please try again!'); 
     	}
+        return redirect()->back();
     }
 }

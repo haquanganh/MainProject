@@ -118,7 +118,7 @@
                                 <input type="password" class="form-control" id="renew_pass" name="renew_pass" placeholder="Comfirm password"></input>
                             </div>
                             <div class="change-pass-button modal-footer"    >
-                                <input type="submit" name="button" id="save-button" class="btn btn-primary  " value="Save" onclick="validateOldPass()"></input>
+                                <input type="submit" name="button" id="save-button" class="btn btn-primary" value="Save"></input>
                                 <a class="btn btn-default" data-dismiss="modal">Cancel</a>
                             </div>
                         </form>
@@ -181,10 +181,10 @@
                     //     data: {
                     //         '_token': $('input[name=_token]').val()
                     //     }
-                    // }   
+                    // }       
                 },
                 new_pass:{
-                    required:true,
+                    required:true,  
                     minlength:6,
                     maxlength:16,
                     notEqualTo: "#old_pass"
@@ -196,7 +196,7 @@
             messages:{
                 old_pass:{
                     required:"Please enter your current password!",
-                    // remote: "Your current password is inconrrect!"
+                    //remote: "Your current password is inconrrect!"
                 },
                 new_pass:{
                     required:"Please enter your new password!",
@@ -205,7 +205,7 @@
                     notEqualTo: "New password and current password must not match!"
                 },
                 renew_pass:{
-                    equalTo:"New password and password comfirm must match!"
+                    equalTo:"New password and password confirm must match!"
                 }
             }
         });

@@ -68,7 +68,7 @@ Route::group(['middleware' => ['web']], function () {
 
         //employee information
         Route::get('employee-information','EmployeeController@getEmployee');
-        Route::post('search','EmployeeController@postEmployee');
+        Route::post('employee-information','EmployeeController@postEmployee');
 
         //Change password
         Route::post('change-password','PassController@postChangepass');

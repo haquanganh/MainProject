@@ -188,20 +188,21 @@
            </div>
        </div>
     </form>
+        <!-- Anoucement message! -->
        @if(Session::has('messages'))            
-                    <a data-toggle="modal" id="messages-click" href='#messages'></a>
-                    <div class="modal fade" id="messages">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-body">
-                                        {{Session::get('messages')}}
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
-                                </div>
-                            </div>
+            <a data-toggle="modal" id="messages-click" href='#messages'></a>
+            <div class="modal fade" id="messages">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            {{Session::get('messages')}}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
                         </div>
                     </div>
+                </div>
+            </div>
         @endif     
 @stop
 @section('script')
@@ -217,9 +218,11 @@
                 feedback_title:{
                     required:true,
                     maxlength:60
+
                 },
                 feedback_content:{
                     required:true,
+                    minlength:3
                 }
             },
             messages:{
@@ -229,6 +232,7 @@
                 },
                 feedback_content:{
                     required:"Please enter your feedback!",
+                    minlength:"Min length title is equal or more than 3 characters!"
                 }
             }
         });
