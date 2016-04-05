@@ -1,0 +1,90 @@
+.detailed_skill img{
+    width: 1.5em;
+    height: 1.5em;
+}
+
+
+/*list group item*/
+
+.list-group-item {
+    clear: both;
+    height: 40px;
+}
+
+
+/* feedback */
+
+.feedback-title {
+    margin-top: 1px;
+}
+
+.glyphicon-chevron-down {
+    margin-right: 4px;
+    font-size: 15px;
+}
+
+.feedbacktable .feedback-star {
+    margin-top: -20px;
+    margin-right: -10px;
+}
+
+.detailed_feedback .collapse {
+    font-size: 14px;
+    clear: both;
+    padding: 3px;
+    border-style: ridge;
+    border-color: #FFFFFF;
+}
+
+.client_name {
+    text-transform: italic;
+}
+
+.collapse ul li p {
+    margin: 0px;
+}
+
+
+/* status*/
+.status{
+    margin-left: 38px;
+}
+.img-status .img img {
+    width: 150px;
+    height: 150px;
+    border: 1px #ccc solid;
+    border-radius: 10px;
+    padding: 10px;
+    clear: both;
+    margin: auto;
+}
+
+.img-status {
+    margin-top: 10px;
+}
+
+.img-status .status {
+    font-size: 16px;
+}
+
+.img-status .status span {
+    margin-top: 5px;
+}
+
+
+/*basic info*/
+
+.basic-info {
+    margin-top: -20px;
+}
+
+li.skill {
+    height: auto;
+    overflow: auto;
+    max-height: 100px;
+}
+
+.skill .skill-name {
+    float: left;
+    clear: both;
+}

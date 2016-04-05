@@ -1,0 +1,9 @@
+.modal .change-pass-container .input-text{
+	margin-bottom: 30px;
+}
+.modal .change-pass-container .input-text label{
+	color: red;
+}
+.modal .change-pass-container .change-pass-button input{
+	width: 70px;
+}

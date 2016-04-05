@@ -1,0 +1,110 @@
+@font-face {
+    font-family: 'Avenir LT Std 85 Heavy';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Avenir LT Std 85 Heavy'), url('../../font/AvenirLTStd-Light.woff') format('woff');
+}
+
+body {
+    font-family: 'Avenir LT Std 85 Heavy';
+}
+
+.row {
+    margin: 0;
+}
+
+#notify {
+    margin-top: 15px;
+    font-size: 18px;
+}
+
+#notify a {
+    margin-left: 10px;
+    color: #FFFFFF;
+    position: relative;
+    display: inline-block;
+}
+div.vertical-line{
+    margin-left: 4px;
+  width: 1px;
+  background-color: #708C98;
+  height: 15px;
+    display: inline-block;
+}
+#nav {
+    background-color: #05374D;
+    color: #FFFFFF;
+}
+
+#title img {
+    margin-top: 0px;
+    width: 260px;
+}
+#content {
+    margin-top: 10px;
+}
+
+#content #menu li {
+    background-color: #103F54;
+    height: 80px;
+    -webkit-box-shadow: 4px -4px 5px -1px rgba(112, 140, 152, 1);
+    -moz-box-shadow: 4px -4px 5px -1px rgba(112, 140, 152, 1);
+    box-shadow: 4px -4px 5px -1px rgba(112, 140, 152, 1);
+    margin-top: 10px;
+    border: 1px solid #103F54;
+    border-radius: 5px;
+}
+
+#content #menu li a:hover {
+    background-color: #708C98;
+}
+
+#content #menu li a {
+    height: 100%;
+    line-height: 60px;
+    color: #FFFFFF;
+    font-size: 16px;
+}
+
+.actived a {
+    background-color: #708C98;
+}
+
+#footer {
+    background-color: #05374D;
+    height: 50px;
+}
+
+#main-content {
+  margin-top: 10px;
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    -webkit-box-shadow: -4px -1px 5px 0px rgba(169, 185, 193, 1);
+    -moz-box-shadow: -4px -1px 5px 0px rgba(169, 185, 193, 1);
+    box-shadow: -4px -1px 5px 0px rgba(169, 185, 193, 1);
+}
+#left-bar{
+    width: 275px;
+}
+@media(max-width: 480px) {
+    #left-bar{
+        width: auto;
+    }
+}
+
+@media (min-width: 1200px) {}
+
+
+/* Landscape tablets and medium desktops */
+
+@media (min-width: 992px) and (max-width: 1199px) {}
+
+
+/* Portrait tablets and small desktops */
+
+@media (min-width: 768px) and (max-width: 991px) {}
+
+
+/* Landscape phones and portrait tablets */
+
+@media (max-width: 767px) {}

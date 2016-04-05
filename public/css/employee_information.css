@@ -1,0 +1,33 @@
+.clear{
+	clear: both;
+}
+.search-form{
+	margin: 10px;
+}
+.search-form .form-control{
+	width: 250px;
+
+}
+.search-form input{
+	float: right;
+	margin-right: 10px;
+}
+#img-title {
+    background: #ccc url(../images/project.jpg) no-repeat center center;
+    background-size: cover;
+    height: 190px;
+    padding: 40px 60px;
+    -webkit-box-shadow: 2px -4px 12px 1px rgba(140, 135, 140, 1);
+    -moz-box-shadow: 2px -4px 12px 1px rgba(140, 135, 140, 1);
+    box-shadow: 2px -4px 12px 1px rgba(140, 135, 140, 1);
+    margin-bottom: 20px;
+}
+#img-title p {
+    font-size: 45px;
+    color: #FFFFFF;
+    font-style: italic;
+    opacity: 0.5;
+}
+.table-responsive table tr td{
+	line-height: 50px;
+}
