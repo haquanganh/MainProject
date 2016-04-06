@@ -136,8 +136,8 @@
                                         <input type="hidden" id="getIdfeedbacktodel" name="getIdfeedbacktodel"></input>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
                                         <input type="submit" class="btn btn-primary" value="Yes"></input>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
                                     </div>
                                     </form>
                                 </div>
@@ -180,9 +180,9 @@
                     </div>
                     
                    <div class="modal-footer" style="clear: both; ">
-                       <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                       <input type="submit" class="btn btn-primary" value="Send feedback">
-                       </input>
+                        <input type="submit" class="btn btn-primary" value="Send feedback">
+                        </input>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                    </div>
                </div>
            </div>
