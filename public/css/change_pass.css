@@ -7,3 +7,9 @@
 .modal .change-pass-container .change-pass-button input{
 	width: 70px;
 }
+.test[style] {
+     padding-right:0 !important;
+}
+.test.modal-open {
+    overflow: auto;
+}
