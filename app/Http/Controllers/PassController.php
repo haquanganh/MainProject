@@ -9,6 +9,7 @@ use Auth;
 use Validator;
 use App\User;
 use Hash;
+use Response;
 class PassController extends Controller
 {
     public function postChangepass(Request $request)
@@ -22,7 +23,7 @@ class PassController extends Controller
 		);
 		if($validator->fails())
 		{
-			return redirect('change-password')->withErrors($validator);
+			return redirect()->back()->withErrors($validator);
 		} else {
 
 			$user           = 	User::find(Auth::user()->idAccount);
@@ -31,18 +32,21 @@ class PassController extends Controller
 
 			if(!Hash::check($old_password, $user->getAuthPassword()))
 			{
-				return redirect('/')->with('message1','Your current password is incorrect, please try again!');
+				return redirect()->back()->with('message1','Your current password is incorrect, please try again!');
+				//return Response::json(['error'=>'true', 'message' => 'Your current password is incorrect, please try again!']);
 			}
 			else{
 				$user->password = Hash::make($password);
 				if($user->save())
 					{
-						return redirect('/')->with('message2','Your password has been changed!');
+						return redirect()->back()->with('message2','Your password has been changed!');
+						//return Response::json(['error'=>'false', 'message' => 'change password success!']);
 					}
 			}
 		}
 		return redirect('/')->with('message2','Your password could not be changed!');
 	}
+
 	public function checkPass(	Request $request)
 	{
 		$user = User::find(Auth::user()->idAccount);

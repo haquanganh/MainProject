@@ -212,6 +212,30 @@
                 }
             }
         });
+
+    $("#save-button").click(function (e) {
+        $.ajax({
+            type: 'POST',
+            url: '/change-password',
+            data: {
+              password:$('#old_pass').val(),
+              //user: $('#user').val(),
+              '_token': $('input[name=_token]').val()
+            },
+            dataType: 'json',
+            success: function (data) {
+                console.log('hjhj');
+                if(!data.error) {
+                } else {
+                        console.log('Error:', data);
+                    }
+            },
+            error: function (data) {
+                console.log('Error:', data);
+            }
+          });
+    });
+
     </script> <!-- Change password validate -->
     <script>
             jQuery(function(){
@@ -220,6 +244,15 @@
              jQuery(function(){
                jQuery('#modal1').click();
             });
+        $('#modal-id').on('show.bs.modal', function (e) {
+            $('body').addClass('test');
+        });
+        $('#modal-id1').on('show.bs.modal', function (e) {
+            $('body').addClass('test');
+        });
+        $('#form-change-pass').on('show.bs.modal', function (e) {
+            $('body').addClass('test');
+        });
         </script>
 	</body>
 </html>
