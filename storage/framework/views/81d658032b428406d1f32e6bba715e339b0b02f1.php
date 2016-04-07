@@ -86,10 +86,6 @@
                                         <li class="list-group-item role">Role: SW1</li>
                                         <li class="list-group-item cost_hour">Cost Hour: $15</li>
                                     </ul>
-                                    <?php
-                                        $idRole = Auth::user()->idRole;
-                                    ?>
-                                    <?php if($idRole == 4): ?>
                                         <h4><i>Feedback</i></h4>
                                         <ul class="list-group feedback">
                                             <!-- <li class="list-group-item title-feedback">
@@ -111,13 +107,15 @@
                                                 </form>
                                             </li> -->
                                         </ul>
-                                    <?php endif; ?>
                                 </div>
                                 <div class="col-md-5">
                                 </div>
                                 <div class="col-md-7"></div>
                             </div>
                             <div class="modal-footer">
+                            <?php
+                                        $idRole = Auth::user()->idRole;
+                                    ?>
                             <?php if($idRole == 4): ?>
                                 <a class="btn btn-default pull-left" data-toggle="modal" href='#feedback-form'>Give feedback for this person</a>
                             <?php endif; ?>     
@@ -270,6 +268,8 @@
         $(document).ready(function(){
             $('.link').click(function(){
                 var num = $('.title-feedback').length;
+                var num2 = $('.content-feedback').length;
+                var num3 = $('.edit-form').length;
                 var idE = $(this).attr("data");
                 $.ajax({
                     url: '<?php echo e(url('/get-employee')); ?>',
@@ -280,6 +280,7 @@
                         var result = $.parseJSON(data);
                         $('.basic-information').find('.id').text(result[0].idEmployee);
                         $('#form-feedback').find('.idEmployee').val(result[0].idEmployee);
+                        
                         $('.basic-information').find('.name').text(result[0].E_EngName);
                         $('.basic-information').find('.skype').text(result[0].E_Skype);
                         $('.basic-information').find('.phone').text(result[0].E_Phone);
@@ -289,28 +290,43 @@
                         if (num > 0) 
                         {                        
                             $('.title-feedback').remove();
+                            
+                        }
+                        if(num2 > 0)
+                        {
+                            $('.content-feedback').remove();
+                        }
+                        if(num3 > 0)
+                        {
+                            $('.edit-form').remove();
                         }
                         $.each(result[2], function(index, val) {
                             if(val.F_Mark == 1)
                             {
-                            $('.feedback').append('<li class="list-group-item title-feedback"><span class="title-fb">'+ val.F_Title +'</span></li><li class="list-group-item edit-form"><form class="edit-feedback" method="POST" action="<?php echo e(url('/client-edit-feedback')); ?>"><?php echo csrf_field(); ?><textarea class="form-control" name="edit-text">'+ val.F_Content +'</textarea><input type="hidden" id="getIdfeedback" name="getIdfeedback" value='+ val.idFeedback+'></input><div class="pull-right"><input type="submit" class="btn btn-primary" value="Save"></input><input type="button" class="btn btn-default hide-edit" value="Cancel"></input></div><div class="clear"></div></form></li>');
+                            $('.feedback').append('<li class="list-group-item title-feedback"><span class="title-fb">'+ val.F_Title +'</span></li><li class="list-group-item content-feedback"><span class="content-fb">'+ val.F_Content +'</span></li><li class="list-group-item edit-form"><form class="edit-feedback" method="POST" action="<?php echo e(url('/client-edit-feedback')); ?>"><?php echo csrf_field(); ?><textarea class="form-control" name="edit-text">'+ val.F_Content +'</textarea><textarea class="form-control" name="edit-text-backup" style="display:none;">'+ val.F_Content +'</textarea><input type="hidden" name="F_Title" class="F_Title" value='+ val.F_Title +'></input><input type="hidden" name="F_Rate" class="F_Title" value='+ val.F_Rate +'></input><input type="hidden" id="getIdfeedback" name="getIdfeedback" value='+ val.idFeedback+'></input><div class="pull-right"><input type="submit" class="btn btn-primary" value="Save"></input><input type="button" class="btn btn-default hide-edit" value="Cancel"></input></div><div class="clear"></div></form></li>');
                                 $('#del-feedback-body').find('#getIdfeedbacktodel').val(val.idFeedback);
+                                $('<input type="hidden" name="idEmployee" class="idEmployee" value='+ val.idEmployee +'></input>').appendTo('.feedback .edit-feedback');
                             }
                         });
-
+                        <?php
+                            $idRole = Auth::user()->idRole;
+                        ?>
+                        <?php if($idRole == 4): ?>
                         $('<a data-toggle="modal" href="#del-feedback-form" class="pull-right "><span class="glyphicon glyphicon-remove"></span></a><a class="pull-right show-edit"><span class="glyphicon glyphicon-pencil"></span></a>').insertAfter('.title-feedback .title-fb');
-                       
+                        <?php endif; ?>
                     }
                 });
             });
         });
         //Edit feedback form.
         $(document).on('click', '.show-edit', function(){
-           $(this).parent().next("li").show(500);
+            $(this).parent().next("li").hide();
+            $(this).parent().next("li").next("li").show();
         });
 
         $(document).on('click', '.hide-edit', function(){
-            $(this).parent().parent().parent().hide(500);
+            $(this).parent().parent().parent().hide();
+            $(this).parent().parent().parent().prev("li").show();
         });
 
     </script>

@@ -72,7 +72,12 @@ box-shadow: 2px -4px 12px 1px rgba(140,135,140,1);
   margin-left: 15px; 
   margin-top: 3px;
 }
-
+.feedback .title-fb{
+  font-weight: bold;
+}
+.feedback .content-fb{
+  font-size: 13px;
+}
 
 #form-feedback .error{
   color: red;

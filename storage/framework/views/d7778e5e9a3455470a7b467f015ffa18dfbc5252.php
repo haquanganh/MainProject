@@ -128,6 +128,7 @@
             </div>
         </div>
     </div>  <!--change password -->
+    
              <!-- Messagebox after change password!-->
             <div>       
                 <?php if(Session::has('message1')): ?>            
@@ -212,28 +213,6 @@
                 }
             }
         });
-
-    $("#save-button").click(function (e) {
-        $.ajax({
-            type: 'POST',
-            url: '/change-password',
-            data: {
-              password:$('#old_pass').val(),
-              //user: $('#user').val(),
-              '_token': $('input[name=_token]').val()
-            },
-            dataType: 'json',
-            success: function (data) {
-                if(!data.error) {
-                } else {
-                        console.log('Error:', data);
-                    }
-            },
-            error: function (data) {
-                console.log('Error:', data);
-            }
-          });
-    });
     </script> <!-- Change password validate -->
     <script>
             jQuery(function(){

@@ -40,7 +40,7 @@
                     <li><a href="#">Statistic</a></li>
                     <li><a href="#">Note</a></li>
                     <li><a href="#">History System</a></li>
-                    <li><a href="#">History Feedback</a></li>
+                    <li><a href="{{ url('/admin/feedback-history') }}">History Feedback</a></li>
                 </ul>
             </div>
             <div id="main-content" class="col-md-9">

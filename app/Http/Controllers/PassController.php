@@ -33,14 +33,12 @@ class PassController extends Controller
 			if(!Hash::check($old_password, $user->getAuthPassword()))
 			{
 				return redirect()->back()->with('message1','Your current password is incorrect, please try again!');
-				//return Response::json(['error'=>'true', 'message' => 'Your current password is incorrect, please try again!']);
 			}
 			else{
 				$user->password = Hash::make($password);
 				if($user->save())
-					{
+					{	
 						return redirect()->back()->with('message2','Your password has been changed!');
-						//return Response::json(['error'=>'false', 'message' => 'change password success!']);
 					}
 			}
 		}

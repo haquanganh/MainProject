@@ -12,7 +12,8 @@ use App\User;
 use Auth;
 use App\Feedback;
 class FeedbackController extends Controller
-{
+{ 
+
     public function postFeedback(Request $request){
     	$post = $request->all();
     	$validator = Validator::make($request->all(),
@@ -26,7 +27,8 @@ class FeedbackController extends Controller
 		$idClient = DB::table('Clients')
 					->select('idClient')
 					->where('idAccount', '=', $idAccount)
-					->first();
+					->first()
+					->idClient;
 		$idEmployee = $request->input('idEmployee');
 		$rating = $request->input('rating');
 		if($validator->fails())
@@ -38,7 +40,7 @@ class FeedbackController extends Controller
 					'F_Content'		=> $post['feedback_content'],
 					'F_Rate'		=> $rating,
 					'F_DateCreate'	=> $mytime,
-					'idClient'		=> $idClient->idClient,
+					'idClient'		=> $idClient,
 					'idEmployee'	=> $idEmployee
 				);
 			$insert = DB::table('Feedback')->insert($data);
@@ -56,15 +58,40 @@ class FeedbackController extends Controller
     	$post = $request->all();
     	$validator = Validator::make($request->all(),
 			array(
-				'edit-text' => 'required'
+				'edit-text' => 'required',
+				'edit-text-backup' => 'required'
 				)
 		);
+
 		$mytime = Carbon\Carbon::now();
 		$idFeedback = $request->input('getIdfeedback');
+		$idAccount = Auth::user()->idAccount;
+
+		$idClient = DB::table('Clients')
+					->select('idClient')
+					->where('idAccount', '=', $idAccount)
+					->first()
+					->idClient;
+		$idEmployee = $request->input('idEmployee');
+		$F_Title = $request->input('F_Title');
+		$F_Rate = $request->input('F_Rate');
+		$getIdEmployee = $idEmployee;
 		if($validator->fails())
 		{
 			return redirect()->back()->withErrors($validator);
 		} else {
+			$data_backup = array(
+				'F_Title' => $F_Title,
+				'F_Content' => $post['edit-text-backup'],
+				'F_Rate' => $F_Rate,
+				'F_DateCreate' => $mytime,
+				'F_Mark' 	   => '0',
+				'idClient'		=> $idClient,
+				'idEmployee'	=> $idEmployee,
+				'F_OldVersion' => $idFeedback,
+				);
+			$insert = DB::table('Feedback')->insert($data_backup);
+
 			$data = array(
 				'F_Content' => $post['edit-text'],
 				'F_DateUpdate' => $mytime
@@ -89,10 +116,7 @@ class FeedbackController extends Controller
     		);
     	$delete = DB::table('Feedback')
     			->where('idFeedback', '=', $idFeedback)
-    			->update($data);	
-    	// $delete = DB::table('Feedback')
-    	// 		->where('idFeedback', '=', $idFeedback)
-    	// 		->delete();
+    			->update($data);
     	if($delete > 0)
     	{
     		return redirect()->back()->with('messages','Delete Successful!');

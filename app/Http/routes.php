@@ -44,6 +44,10 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('project/edit/{id}','ProjectController@getEditProject');
         Route::post('project/edit/{id}','ProjectController@postEditProject');
 
+        //Feedback history 
+        Route::get('feedback-history','FeedbackHistoryController@getFeedbackHistory');
+        Route::post('feedback-history','FeedbackHistoryController@postFeedbackHistory');
+
     });
 
         Route::get('login','Auth\AuthController@getLogin');
