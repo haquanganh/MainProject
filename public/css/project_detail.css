@@ -75,6 +75,15 @@ box-shadow: 2px -4px 12px 1px rgba(140,135,140,1);
 .feedback .title-fb{
   font-weight: bold;
 }
+.feedback .title-feedback .star{
+ display: block;  
+}
+.feedback .title-feedback{
+  font-size: 16px;
+}
+.feedback .content-feedback{
+  border-top: none;
+}
 .feedback .content-fb{
   font-size: 13px;
 }
@@ -135,4 +144,20 @@ h1 { font-size: 1.5em; margin: 10px; }
         padding: 0px!important;
         padding-top:40px!important;
     }
+}
+
+
+
+.modal{
+  display: none;
+}
+
+.tuancom{
+  position: fixed;
+  width: 100px;
+  height: 100px;
+  background: red;
+  top: 50%;
+  left: 50%;
+  display: none;
 }

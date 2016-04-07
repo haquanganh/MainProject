@@ -108,9 +108,6 @@
                                             </li> -->
                                         </ul>
                                 </div>
-                                <div class="col-md-5">
-                                </div>
-                                <div class="col-md-7"></div>
                             </div>
                             <div class="modal-footer">
                             <?php
@@ -122,30 +119,10 @@
                                 <button class="btn btn-default" id="hide">Hide</button>
                             </div>
                         </div>
-
-                        <!-- Delete feedback form -->
-                        <div class="modal fade" id="del-feedback-form">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <form method="POST" action="<?php echo e(url('/client-delete-feedback')); ?>">
-                                    <?php echo csrf_field(); ?>
-
-                                    <div class="modal-body" id="del-feedback-body">
-                                        <h3>Are you sure?</h3>
-                                        <input type="hidden" id="getIdfeedbacktodel" name="getIdfeedbacktodel"></input>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <input type="submit" class="btn btn-primary" value="Yes"></input>
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                                    </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+    <!-- Feedback form-->
     <form id="form-feedback" method="POST" action="<?php echo e(url('/client-feedback')); ?>">
     <?php echo csrf_field(); ?>
 
-          <!-- Feedback -->
        <div class="modal fade" id="feedback-form" >
            <div class="modal-dialog" style="width: 800px;">
                <div class="modal-content">
@@ -188,7 +165,26 @@
            </div>
        </div>
     </form>
-       <?php if(Session::has('messages')): ?>            
+        <!-- Delete feedback form -->
+    <!--<div class="modal fade del-feedback-form">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form method="POST" action="<?php echo e(url('/client-delete-feedback')); ?>"><?php echo csrf_field(); ?>
+
+                        <div class="modal-body" id="del-feedback-body">
+                            <h3>Are you sure?</h3>
+                            <input type="hidden" id="getIdfeedbacktodel" name="getIdfeedbacktodel" value="'+ val.idFeedback+'"></input>
+                        </div>
+                        <div class="modal-footer">
+                            <input type="submit" class="btn btn-primary" value="Yes">
+                            </input>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div> -->
+           <?php if(Session::has('messages')): ?>            
                     <a data-toggle="modal" id="messages-click" href='#messages'></a>
                     <div class="modal fade" id="messages">
                         <div class="modal-dialog">
@@ -221,6 +217,7 @@
                 },
                 feedback_content:{
                     required:true,
+                    maxlength:1000
                 }
             },
             messages:{
@@ -230,6 +227,7 @@
                 },
                 feedback_content:{
                     required:"Please enter your feedback!",
+                    maxlength:"Max length title is equal or less than 1000 characters!"
                 }
             }
         });
@@ -242,11 +240,11 @@
         $(document).ready(function(){
         $("#user-infor").hide();
         $('#hide').click(function(){
-            $("#user-infor").slideUp(500);
+            $("#user-infor").slideUp(300);
             $("html, body").animate({scrollTop : 0}, 1000);
         });
         $(".link").click(function(){
-            $("#user-infor").slideDown(500);
+            $("#user-infor").slideDown(300);
             $("html, body").animate({ scrollTop: $(document).height() }, 1000);
         });
     });
@@ -301,18 +299,24 @@
                             $('.edit-form').remove();
                         }
                         $.each(result[2], function(index, val) {
-                            if(val.F_Mark == 1)
+                            if(val.F_Mark == 1 || val.F_Mark == 2)
                             {
-                            $('.feedback').append('<li class="list-group-item title-feedback"><span class="title-fb">'+ val.F_Title +'</span></li><li class="list-group-item content-feedback"><span class="content-fb">'+ val.F_Content +'</span></li><li class="list-group-item edit-form"><form class="edit-feedback" method="POST" action="<?php echo e(url('/client-edit-feedback')); ?>"><?php echo csrf_field(); ?><textarea class="form-control" name="edit-text">'+ val.F_Content +'</textarea><textarea class="form-control" name="edit-text-backup" style="display:none;">'+ val.F_Content +'</textarea><input type="hidden" name="F_Title" class="F_Title" value='+ val.F_Title +'></input><input type="hidden" name="F_Rate" class="F_Title" value='+ val.F_Rate +'></input><input type="hidden" id="getIdfeedback" name="getIdfeedback" value='+ val.idFeedback+'></input><div class="pull-right"><input type="submit" class="btn btn-primary" value="Save"></input><input type="button" class="btn btn-default hide-edit" value="Cancel"></input></div><div class="clear"></div></form></li>');
-                                $('#del-feedback-body').find('#getIdfeedbacktodel').val(val.idFeedback);
+                            $('.feedback').append('<li class="list-group-item title-feedback"><span class="title-fb">'+ val.F_Title +'</span><span class="control-star'+ val.idFeedback +' star"></span></li><li class="list-group-item content-feedback"><span class="content-fb">'+ val.F_Content +'</span></li><li class="list-group-item edit-form"><form class="edit-feedback" method="POST" action="<?php echo e(url('/client-edit-feedback')); ?>"><?php echo csrf_field(); ?><textarea class="form-control" name="edit-text">'+ val.F_Content +'</textarea><textarea class="form-control" name="edit-text-backup" style="display:none;">'+ val.F_Content +'</textarea><input type="hidden" name="F_Title" class="F_Title" value="'+ val.F_Title +'"></input><input type="hidden" name="F_Rate" class="F_Title" value="'+ val.F_Rate +'"></input><input type="hidden" id="getIdfeedback" name="getIdfeedback" value="'+ val.idFeedback+'"></input><div class="pull-right"><input type="submit" class="btn btn-primary" value="Save"></input><input type="button" class="btn btn-default hide-edit" value="Cancel"></input></div><div class="clear"></div></form></li><div class="modal fade del-feedback-form"><div class="modal-dialog"><div class="modal-content"><form method="POST" action="<?php echo e(url('/client-delete-feedback')); ?>"><?php echo csrf_field(); ?><div class="modal-body" id="del-feedback-body"><h3>Are you sure?</h3><input type="hidden" id="getIdfeedbacktodel" name="getIdfeedbacktodel" value="'+ val.idFeedback+'"></input></div><div class="modal-footer"><input type="submit" class="btn btn-primary" value="Yes"></input><button type="button" class="btn btn-default" data-dismiss="modal">No</button></div></form></div></div></div>');
+                                //$('#del-feedback-body').find('#getIdfeedbacktodel').val(val.idFeedback);
                                 $('<input type="hidden" name="idEmployee" class="idEmployee" value='+ val.idEmployee +'></input>').appendTo('.feedback .edit-feedback');
+                                for(var i = 0; i < val.F_Rate; i++) 
+                                {
+                                   
+                                    $('<img src="<?php echo e(asset('/images/icon-star.png')); ?>"></img>').appendTo('.control-star'+ val.idFeedback +'');
+                                }
                             }
                         });
+
                         <?php
                             $idRole = Auth::user()->idRole;
                         ?>
                         <?php if($idRole == 4): ?>
-                        $('<a data-toggle="modal" href="#del-feedback-form" class="pull-right "><span class="glyphicon glyphicon-remove"></span></a><a class="pull-right show-edit"><span class="glyphicon glyphicon-pencil"></span></a>').insertAfter('.title-feedback .title-fb');
+                        $('<a data-toggle="modal" class="pull-right btn-delete"><span class="glyphicon glyphicon-remove"></span></a><a class="pull-right show-edit"><span class="glyphicon glyphicon-pencil"></span></a>').insertAfter('.title-feedback .title-fb');
                         <?php endif; ?>
                     }
                 });
@@ -328,7 +332,10 @@
             $(this).parent().parent().parent().hide();
             $(this).parent().parent().parent().prev("li").show();
         });
-
+        //Delete feedback
+        $(document).on('click', '.btn-delete', function(){
+            $(this).parent().next("li").next("li").next('.del-feedback-form').modal();
+        });
     </script>
     
 <?php $__env->stopSection(); ?>
