@@ -58,7 +58,9 @@ class FeedbackController extends Controller
     	$post = $request->all();
     	$validator = Validator::make($request->all(),
 			array(
-				'edit-text' => 'required',
+				'edit-feedback_title' => 'required',
+				'edit-feedback_content' => 'required',
+				'rating' => 'required',
 				'edit-text-backup' => 'required'
 				)
 		);
@@ -66,7 +68,6 @@ class FeedbackController extends Controller
 		$mytime = Carbon\Carbon::now();
 		$idFeedback = $request->input('getIdfeedback');
 		$idAccount = Auth::user()->idAccount;
-
 		$idClient = DB::table('Clients')
 					->select('idClient')
 					->where('idAccount', '=', $idAccount)
@@ -93,7 +94,9 @@ class FeedbackController extends Controller
 			$insert = DB::table('Feedback')->insert($data_backup);
 
 			$data = array(
-				'F_Content' => $post['edit-text'],
+				'F_Title' => $post['edit-feedback_title'],
+				'F_Content' => $post['edit-feedback_content'],
+				'F_Rate' => $post['rating'],
 				'F_Mark' => '2',
 				'F_DateUpdate' => $mytime
 				);

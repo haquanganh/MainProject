@@ -9,7 +9,7 @@
         <p>Employee Information</p>
     </div>
     <div class="search-form">
-	    <form method="POST" action="{{ url('/search') }}">
+	    <form method="POST" action="{{ url('/employee-information') }}">
 	        {!! csrf_field() !!}
 	        <button class="btn btn-primary" type="submit" value="Search">
                 <span class="glyphicon glyphicon-search"></span>

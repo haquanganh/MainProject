@@ -4881,3 +4881,6 @@ Stack trace:
 #53 /var/www/html/MainProject-hampton/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
 #54 /var/www/html/MainProject-hampton/server.php(21): require_once('/var/www/html/M...')
 #55 {main}  
+[2016-04-08 08:57:15] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'syntax error, unexpected ''F_Mark'' (T_CONSTANT_ENCAPSED_STRING), expecting ')'' in /var/www/html/MainProject-hampton/app/Http/Controllers/FeedbackController.php:101
+Stack trace:
+#0 {main}  

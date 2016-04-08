@@ -89,23 +89,7 @@
                                     </ul>
                                         <h4><i>Feedback</i></h4>
                                         <ul class="list-group feedback">
-                                            <!-- <li class="list-group-item title-feedback">
-                                                <span>hjhj</span>
-                                                <a class="pull-right show-edit">
-                                                    <span class="glyphicon glyphicon-pencil"></span>
-                                                </a>
-                                            </li>
-                                            <li class="list-group-item edit-form">
-                                                <form class="edit-feedback" method="POST" action="{{ url('/') }}">
-                                                {!! csrf_field() !!}
-                                                    <textarea class="form-control edit-text">sasdasd</textarea>
-                                                    <div class="pull-right">
-                                                        <input type="submit" class="btn btn-primary" value="Save"></input>
-                                                        <input type="button" class="btn btn-default hide-edit" value="Cancel"></input>
-                                                    </div>
-                                                    <div class="clear"></div>
-                                                </form>
-                                            </li> -->
+                                           <!-- Feedback list -->
                                         </ul>
                                 </div>
                             </div>
@@ -119,6 +103,7 @@
                                 <button class="btn btn-default" id="hide">Hide</button>
                             </div>
                         </div>
+
     <!-- Feedback form-->
     <form id="form-feedback" method="POST" action="{{ url('/client-feedback') }}">
     {!! csrf_field() !!}
@@ -164,24 +149,7 @@
            </div>
        </div>
     </form>
-        <!-- Delete feedback form -->
-    <!--<div class="modal fade del-feedback-form">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form method="POST" action="{{ url('/client-delete-feedback') }}">{!! csrf_field() !!}
-                        <div class="modal-body" id="del-feedback-body">
-                            <h3>Are you sure?</h3>
-                            <input type="hidden" id="getIdfeedbacktodel" name="getIdfeedbacktodel" value="'+ val.idFeedback+'"></input>
-                        </div>
-                        <div class="modal-footer">
-                            <input type="submit" class="btn btn-primary" value="Yes">
-                            </input>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div> -->
+            
            @if(Session::has('messages'))            
                     <a data-toggle="modal" id="messages-click" href='#messages'></a>
                     <div class="modal fade" id="messages">
@@ -196,7 +164,7 @@
                             </div>
                         </div>
                     </div>
-        @endif     
+        @endif
 @stop
 @section('script')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
@@ -275,7 +243,6 @@
                         var result = $.parseJSON(data);
                         $('.basic-information').find('.id').text(result[0].idEmployee);
                         $('#form-feedback').find('.idEmployee').val(result[0].idEmployee);
-                        
                         $('.basic-information').find('.name').text(result[0].E_EngName);
                         $('.basic-information').find('.skype').text(result[0].E_Skype);
                         $('.basic-information').find('.phone').text(result[0].E_Phone);
@@ -298,12 +265,10 @@
                         $.each(result[2], function(index, val) {
                             if(val.F_Mark == 1 || val.F_Mark == 2)
                             {
-                            $('.feedback').append('<li class="list-group-item title-feedback"><span class="title-fb">'+ val.F_Title +'</span><span class="control-star'+ val.idFeedback +' star"></span></li><li class="list-group-item content-feedback"><span class="content-fb">'+ val.F_Content +'</span></li><li class="list-group-item edit-form"><form class="edit-feedback" method="POST" action="{{ url('/client-edit-feedback') }}">{!! csrf_field() !!}<textarea class="form-control" name="edit-text">'+ val.F_Content +'</textarea><textarea class="form-control" name="edit-text-backup" style="display:none;">'+ val.F_Content +'</textarea><input type="hidden" name="F_Title" class="F_Title" value="'+ val.F_Title +'"></input><input type="hidden" name="F_Rate" class="F_Title" value="'+ val.F_Rate +'"></input><input type="hidden" id="getIdfeedback" name="getIdfeedback" value="'+ val.idFeedback+'"></input><div class="pull-right"><input type="submit" class="btn btn-primary" value="Save"></input><input type="button" class="btn btn-default hide-edit" value="Cancel"></input></div><div class="clear"></div></form></li><div class="modal fade del-feedback-form"><div class="modal-dialog"><div class="modal-content"><form method="POST" action="{{ url('/client-delete-feedback') }}">{!! csrf_field() !!}<div class="modal-body" id="del-feedback-body"><h3>Are you sure?</h3><input type="hidden" id="getIdfeedbacktodel" name="getIdfeedbacktodel" value="'+ val.idFeedback+'"></input></div><div class="modal-footer"><input type="submit" class="btn btn-primary" value="Yes"></input><button type="button" class="btn btn-default" data-dismiss="modal">No</button></div></form></div></div></div>');
-                                //$('#del-feedback-body').find('#getIdfeedbacktodel').val(val.idFeedback);
-                                $('<input type="hidden" name="idEmployee" class="idEmployee" value='+ val.idEmployee +'></input>').appendTo('.feedback .edit-feedback');
+                            $('.feedback').append('<li class="list-group-item title-feedback"><span class="title-fb">'+ val.F_Title +'</span><span class="control-star'+ val.idFeedback +' star"></span></li><li class="list-group-item content-feedback"><span class="content-fb">'+ val.F_Content +'</span></li><div class="modal fade del-feedback-form"><div class="modal-dialog"><div class="modal-content"><form method="POST" action="{{ url('/client-delete-feedback') }}">{!! csrf_field() !!}<div class="modal-body" id="del-feedback-body"><h3>Are you sure?</h3><input type="hidden" id="getIdfeedbacktodel" name="getIdfeedbacktodel" value="'+ val.idFeedback+'"></input></div><div class="modal-footer"><input type="submit" class="btn btn-primary" value="Yes"></input><button type="button" class="btn btn-default" data-dismiss="modal">No</button></div></form></div></div></div><div class="modal fade edit-feedback-form"><form method="POST" action="{{ url('/client-edit-feedback') }}">{!! csrf_field() !!}<div class="modal-dialog" style="width: 800px;"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title">Edit Feedback</h4></div><div class="modal-body row" ><div class="col-md-5"><p>Title</p><input type="text" id="edit-feedback_title" name="edit-feedback_title" class="form-control" value="'+ val.F_Title +'"></input></br><p>Rating level:</p><select class="form-control" name="rating"><option selected style="display:none;">'+ val.F_Rate +'</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div><div class="col-md-7"><p>Content</p><textarea class="form-control" id="edit-feedback_content" name="edit-feedback_content" style="height: 200px;">'+ val.F_Content +'</textarea><input type="hidden" name="idEmployee" class="idEmployee" value='+ val.idEmployee +'></input><textarea name="edit-text-backup" style="display:none;">'+ val.F_Content +'</textarea><input type="hidden" name="F_Title" value="'+ val.F_Title +'"></input><input type="hidden" name="F_Rate" value="'+ val.F_Rate +'"></input><input type="hidden" name="getIdfeedback" value="'+ val.idFeedback+'"></input></div></div><div class="modal-footer" style="clear: both; "><input type="submit" class="btn btn-primary" value="Save"></input><button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button></div></div></div></form></div>');
+                            
                                 for(var i = 0; i < val.F_Rate; i++) 
                                 {
-                                   
                                     $('<img src="{{ asset('/images/icon-star.png') }}"></img>').appendTo('.control-star'+ val.idFeedback +'');
                                 }
                             }
@@ -321,17 +286,18 @@
         });
         //Edit feedback form.
         $(document).on('click', '.show-edit', function(){
-            $(this).parent().next("li").hide();
-            $(this).parent().next("li").next("li").show();
+            // $(this).parent().next("li").hide();
+            // $(this).parent().next("li").next("li").show();
+            $(this).parent().next("li").next('.del-feedback-form').next('.edit-feedback-form').modal();
         });
 
-        $(document).on('click', '.hide-edit', function(){
-            $(this).parent().parent().parent().hide();
-            $(this).parent().parent().parent().prev("li").show();
-        });
+        // $(document).on('click', '.hide-edit', function(){
+        //     $(this).parent().parent().parent().hide();
+        //     $(this).parent().parent().parent().prev("li").show();
+        // });
         //Delete feedback
         $(document).on('click', '.btn-delete', function(){
-            $(this).parent().next("li").next("li").next('.del-feedback-form').modal();
+            $(this).parent().next("li").next('.del-feedback-form').modal();
         });
     </script>
     
