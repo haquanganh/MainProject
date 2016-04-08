@@ -12,6 +12,7 @@ use App\ProjectEmployee as ProjectEmployee;
 use App\Http\Requests\ProjectRequest;
 use App\Http\Requests\EditProject_Request;
 use App\Team as Team;
+use App\History as History;
 use DateTime;
 use DatePeriod;
 use DateInterVal;
@@ -25,7 +26,6 @@ class ProjectController extends Controller
     	return view('project.create_project');
     }
     public function postcreateProject(ProjectRequest $request){
-
         $error_list = array();
         $date = explode('-', $request->daterange);
         $start = DateTime::createFromFormat('m/d/Y', trim($date[0]));
@@ -63,11 +63,12 @@ class ProjectController extends Controller
     	$p->P_Name       = $project_name;
     	$p->idPManager   = $PM;
     	$p->idTeamLeader = $leader;
-    	$p->idClient     = $client;
+    	$p->idClient     = (int)$client;
     	$p->P_DateStart  = $startday;
     	$p->P_DateFinish = $endday;
     	$p->P_DateCreate = date("Y/m/d");
     	$p->idPStatus = 1;
+        $p->P_Mark = 1;
     	$p->save();
     	/////////////////////////
     	for ($i = 0 ; $i < $request->n_listE ; $i++) {
@@ -78,7 +79,16 @@ class ProjectController extends Controller
     			$pe->save();
     		}
     	}
-    	return redirect('/project');
+        /*Save to History Table*/
+        $PM_Name = Employee::find($PM)->E_EngName;
+        $h = new History;
+        $h->H_Content = 'Did create new project ';
+        $h->H_DateCreate = $now;
+        $h->idProject =$p->idProject;
+        $h->idType = 1;
+        $h->save();
+    	$flat = 'You are successful to create new project';
+        return redirect('/project')->with('flat',$flat);
 	}
     public function project_detail($id){
         $project = Project::find($id);
@@ -113,6 +123,15 @@ class ProjectController extends Controller
         if(!empty($error_list)){
             return redirect()->back()->withInput()->withErrors($error_list);
         }
+        /*Save old version*/
+        $project_old = Project::find($id);
+        $back_up_project = new Project;
+        $back_up_project = $project_old->replicate();
+        $back_up_project->P_DateCreate = $now;
+        $back_up_project->P_OldVersion = $id;
+        $back_up_project->P_Mark = 2;
+        $back_up_project->save();
+        /*Update*/
         $project = Project::find($id);
         $project->P_Name = $request->in_PName;
         $project->idClient = $request->sl_Client;
@@ -138,6 +157,14 @@ class ProjectController extends Controller
                 $p->save();
             }
         }
+        /*Save to History Table*/
+        $PM_Name = Employee::find($project->idPManager)->E_EngName;
+        $h = new History;
+        $h->H_Content = 'Did edit project';
+        $h->H_DateCreate = $now;
+        $h->idProject =$back_up_project->idProject;
+        $h->idType = 1;
+        $h->save();
         $flat = 'You are successful to edit the project';
         return redirect('/project')->with('flat',$flat);
     }

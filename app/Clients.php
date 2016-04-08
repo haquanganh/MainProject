@@ -25,4 +25,7 @@ class Clients extends Model
     public function Employee(){
     	return $this->belongsToMany('App\Employee','App\RequestC_E');
     }
+    public function History(){
+        return $this->hasMany('App\History','idHistory');
+    }
 }

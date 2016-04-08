@@ -1,3 +1,10 @@
+ul, li {
+  list-style-type: none;
+}
+
+a{
+  cursor: pointer;
+}
 select {
     width: 200px;
 }
@@ -10,7 +17,22 @@ td {
 th {
     text-align: center;
 }
-
+.clear{
+  clear: both;
+}
+.edit-form{
+  display: none;
+}
+.edit-form .pull-right{
+  margin-top: 10px;
+  
+}
+.edit-form .pull-right input{
+  margin-left: 10px;
+}
+#edit-feedback .pull-right{
+  margin-top: 10px;
+}
 .content-box-large {
     height: 100%;
     color: white;
@@ -41,51 +63,90 @@ box-shadow: 2px -4px 12px 1px rgba(140,135,140,1);
     font-style: italic;
     opacity: 0.5;
 }
-.starRating:not(old) {
-    display: inline-block;
-    width: 7.5em;
-    height: 1.5em;
-    overflow: hidden;
-    vertical-align: bottom;
+.feedback img{
+  width: 16px;
+  height: 16px;
+
+}
+.feedback a{
+  margin-left: 15px; 
+  margin-top: 3px;
+}
+.feedback .title-fb{
+  font-weight: bold;
+}
+.feedback .title-feedback .star{
+ display: block;  
+}
+.feedback .title-feedback{
+  font-size: 16px;
+}
+.feedback .content-feedback{
+  border-top: none;
+}
+.feedback .content-fb{
+  font-size: 13px;
 }
 
-.starRating:not(old) > input {
-    margin-right: -100%;
-    opacity: 0;
+#form-feedback .error{
+  color: red;
+}
+.test[style] {
+     padding-right:0 !important;
+}
+.test.modal-open {
+    overflow: auto;
 }
 
-.starRating:not(old) > label {
-    display: block;
-    float: right;
-    position: relative;
-    background: url('../img/star-off.svg');
-    background-size: contain;
+
+ fieldset, label { margin: 0; padding: 0; }
+h1 { font-size: 1.5em; margin: 10px; }
+
+/****** Style Star Rating Widget *****/
+
+.rating { 
+  border: none;
+  float: left;
 }
 
-.starRating:not(old) > label:before {
-    content: '';
-    display: block;
-    width: 1.5em;
-    height: 1.5em;
-    background: url('../img/star-on.svg');
-    background-size: contain;
-    opacity: 0;
-    transition: opacity 0.2s linear;
+.rating > input { display: none; } 
+.rating > label:before { 
+  margin: 5px;
+  font-size: 1.25em;
+  font-family: FontAwesome;
+  display: inline-block;
+  content: "\f005";
 }
 
-.starRating:not(old) > label:hover:before,
-.starRating:not(old) > label:hover ~ label:before,
-.starRating:not(:hover) >:checked ~ label:before {
-    opacity: 1;
+.rating > .half:before { 
+  content: "\f089";
+  position: absolute;
 }
 
-.starRating {
-    margin-top: 0px;
+.rating > label { 
+  color: #ddd; 
+ float: right; 
 }
+
+/***** CSS Magic to Highlight Stars on Hover *****/
+
+.rating > input:checked ~ label, /* show gold star when clicked */
+.rating:not(:checked) > label:hover, /* hover current star */
+.rating:not(:checked) > label:hover ~ label { color: green;  } /* hover previous stars in list */
+
+.rating > input:checked + label:hover, /* hover current star when changing rating */
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+.rating > input:checked ~ label:hover ~ label { color: green;  } 
 @media(max-width: 480px) {
     #img-title{
         text-align: center;
         padding: 0px!important;
         padding-top:40px!important;
     }
+}
+
+
+.modal{
+  display: none;
 }

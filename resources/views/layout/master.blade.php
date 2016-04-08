@@ -12,6 +12,7 @@
 	    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine">
 	    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/unslider/2.0.3/css/unslider.css">
 		<link rel="stylesheet" type="text/css" href="{{ asset('css/masterpage.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/change_pass.css') }}">
         @yield('css')
 	</head>
 	<body>
@@ -28,9 +29,9 @@
                             <img id="user" src="{{ asset('images/user.png') }}" alt="">
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="top:60px;left:-50px">
-                            <li><a href="/personal-information">Anh (Astro) Q. Ha</a></li>
+                            <li><a href="/personal-information">{{ Auth::user()->email }}</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#">Change password</a></li>
+                            <li><a data-toggle="modal" href='#change-password'>Change password</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="/logout">Logout</a></li>
                         </ul>
@@ -49,12 +50,12 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse navbar-ex1-collapse" id="content-menu">
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="#">Employee Information</a></li>
+                            <li><a href="{{ url('/employee-information') }}">Employee Information</a></li>
                             <li class="dropdown ">
                                 <a href="#" data-toggle="dropdown" class=" dropdown-toggle">Project Management   <span class="caret"></span></a>
                                 <ul class="dropdown-menu" id="project-dropdown">
-                                    <li style="width:100%"><a href="/project">Project Management</a></li>
-                                    <li style="width:100%"><a href="#">Team Management</a></li>
+                                    <li style="width:100%"><a href="{{ url('project') }}">Project Management</a></li>
+                                    <li style="width:100%"><a href="{{ url('team-management') }}">Team Management</a></li>
                                 </ul>
                             </li>
                             <li><a href="">Statistic</a></li>
@@ -67,8 +68,6 @@
                     <!-- /.navbar-collapse -->
                 </nav>
             </div>
-
-            <!-- #header -->
         </div>
     <div id="content">
         @yield('content')
@@ -90,11 +89,139 @@
             </div>
             <div class="col-md-1"></div>
         </div>
+        <!-- Change password -->
+    <div class="modal fade" id="change-password">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Change password</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="change-pass-container">
+                        <form id="form-change-pass" method="POST" action="{{ url('/change-password') }}">
+                        {!! csrf_field() !!}
+                            <div class="input-text">
+                                <p>Current password:</p>
+                                <input type="password" class="form-control" id="old_pass" name="old_pass" placeholder="Current password"></input>
+                            </div>
+                            <div class="input-text">
+                                <p>New password:</p>
+                                <input type="password" class="form-control"  id="new_pass" name="new_pass" placeholder="New password"></input>
+                            </div>
+                            <div class="input-text">
+                                <p>Comfirm password:</p>
+                                <input type="password" class="form-control" id="renew_pass" name="renew_pass" placeholder="Comfirm password"></input>
+                            </div>
+                            <div class="change-pass-button modal-footer"    >
+                                <input type="submit" name="button" id="save-button" class="btn btn-primary" value="Save"></input>
+                                <a class="btn btn-default" data-dismiss="modal">Cancel</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>  <!--change password -->
+    
+             <!-- Messagebox after change password!-->
+            <div>       
+                @if(Session::has('message1'))            
+                    <a data-toggle="modal" id="modal" href='#modal-id'></a>
+                    <div class="modal fade" id="modal-id">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                        {{Session::get('message1')}}
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="modal" href='#change-password'>OK</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 @elseif (Session::has('message2'))
+                    <a data-toggle="modal" id="modal1" href='#modal-id1'></a>
+                    <div class="modal fade" id="modal-id1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                        {{Session::get('message2')}}
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 @endif
+            </div>
         <script src="https://code.jquery.com/jquery.js"></script>
-		<!-- Bootstrap JavaScript -->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-    	</div>
+        <!-- Bootstrap JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="{{ asset('js/jquery-validate/jquery.validate.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/jquery-validate/additional-methods.js') }}"></script>
+    </div>
         @yield('script')
         <script src="{{ asset('js/custom.js') }}"></script>
-	</body>
+
+         <!-- Change password validate -->
+        <script type="text/javascript">
+        $('#form-change-pass').validate({
+            rules:{
+                old_pass:{
+                    required:true,
+                    // remote:{
+                    //     url:"{{asset('check/check-pass')}}",
+                    //     type:"POST",
+                    //     data: {
+                    //         '_token': $('input[name=_token]').val()
+                    //     }
+                    // }       
+                },
+                new_pass:{
+                    required:true,  
+                    minlength:6,
+                    maxlength:16,
+                    notEqualTo: "#old_pass"
+                },
+                renew_pass:{
+                    equalTo:"#new_pass"
+                }
+            },
+            messages:{
+                old_pass:{
+                    required:"Please enter your current password!",
+                    //remote: "Your current password is inconrrect!"
+                },
+                new_pass:{
+                    required:"Please enter your new password!",
+                    minlength:"Min length password is equal or more than 6!",
+                    maxlength:"Max length password is equal or less than 16!",
+                    notEqualTo: "New password and current password must not match!"
+                },
+                renew_pass:{
+                    equalTo:"New password and password confirm must match!"
+                }
+            }
+        });
+    </script> <!-- Change password validate -->
+    <script>
+            jQuery(function(){
+               jQuery('#modal').click();
+            });
+             jQuery(function(){
+               jQuery('#modal1').click();
+            });
+        $('#modal-id').on('show.bs.modal', function (e) {
+            $('body').addClass('test');
+        });
+        $('#modal-id1').on('show.bs.modal', function (e) {
+            $('body').addClass('test');
+        });
+        $('#form-change-pass').on('show.bs.modal', function (e) {
+            $('body').addClass('test');
+        });
+        </script>
+    </body>
 </html>

@@ -35,12 +35,12 @@
         <div id="content" class="row">
             <div id="left-bar" class="col-md-3">
                 <ul id="menu" class="nav nav-stacked">
-                    <li class="actived"><a href="#">Account Management</a></li>
-                    <li><a href="#">Project Management</a></li>
-                    <li><a href="#">Statistic</a></li>
-                    <li><a href="#">Note</a></li>
-                    <li><a href="#">History System</a></li>
-                    <li><a href="#">History Feedback</a></li>
+                    <li class="account"><a href="{{ url('admin/personal-information') }}">Account Management</a></li>
+                    <li class="project"><a href="{{ url('admin/project') }}">Project Management</a></li>
+                    <li class="stastics"><a href="#">Statistic</a></li>
+                    <li class="note"><a href="#">Note</a></li>
+                    <li class="historysystem"><a href="{{ url('admin/history_system') }}">History System</a></li>
+                    <li class="historyfeedback"><a href="{{ url('admin/history_feedback') }}">History Feedback</a></li>
                 </ul>
             </div>
             <div id="main-content" class="col-md-9">

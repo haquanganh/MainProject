@@ -44,9 +44,15 @@
 @section('script')
 <script type="text/javascript" src="{{ asset('js/admin/jquery.dataTables.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/admin/dataTables.bootstrap.min.js') }}"></script>
+    <script>
+        $(document).ready(function(){
+            $('.account').addClass('actived');
+        });
+    </script>
     <script type="text/javascript">
     $(document).ready(function() {
         $('#table').DataTable();
     });
     </script>
+    
 @stop

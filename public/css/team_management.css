@@ -1,0 +1,37 @@
+#img-title {
+    background: #ccc url(../images/team.jpg) no-repeat center center;
+    background-size: cover;
+    height: 190px;
+    padding: 40px 60px;
+    -webkit-box-shadow: 2px -4px 12px 1px rgba(140, 135, 140, 1);
+    -moz-box-shadow: 2px -4px 12px 1px rgba(140, 135, 140, 1);
+    box-shadow: 2px -4px 12px 1px rgba(140, 135, 140, 1);
+}
+
+#img-title p {
+    font-size: 45px;
+    color: black;
+    font-style: italic;
+    opacity: 0.5;
+}
+table img{
+    width:50px;
+    height: 50px;
+}
+table tr td{
+    line-height: 50px;
+}
+.search-form{
+    margin: 10px;
+}
+.search-form .form-control{
+    width: 250px;
+
+}
+.search-form input, .search-form select, .search-form button{
+    float: right;
+    margin-right: 10px;
+}
+.search-form .select{
+    width: 171px;
+}

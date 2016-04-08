@@ -43,5 +43,8 @@ class Employee extends Model
     public function E_Status(){
     	return $this->belongsTo('App\E_Status','idStatus');
     }
+    public function History(){
+        return $this->hasMany('App\History');
+    }
     public $timestamps = false;
 }

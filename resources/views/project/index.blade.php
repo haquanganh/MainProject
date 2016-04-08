@@ -30,9 +30,9 @@
                 <hr>
                 <?php
                         $idEmployee = App\Employee::where('idAccount','=',Auth::user()->idAccount)->first()->idEmployee;
-                        $projects_PM = App\Project::where('idPStatus','=',1)->where('idPManager','=',$idEmployee)->get();
-                        $projects_LD = App\Project::where('idPStatus','=',1)->where('idTeamLeader','=',$idEmployee)->get();
-                        $project_TM = App\Employee::find($idEmployee)->Project;
+                        $projects_PM = App\Project::where('idPStatus','=',1)->where('idPManager','=',$idEmployee)->where('P_OldVersion','=',null)->get();
+                        $projects_LD = App\Project::where('idPStatus','=',1)->where('idTeamLeader','=',$idEmployee)->where('P_OldVersion','=',null)->get();
+                        $project_TM = App\Employee::find($idEmployee)->Project->where('P_OldVersion','=',null);
                 ?>
                 @if (Session::has('flat'))
                     <div class="alert alert-success" role="alert">{{Session('flat')}}</div>
@@ -102,14 +102,18 @@
                                 $('.projects').remove();
                             }
                            $.each( result[0], function( key, value ) {
+                                if(value.P_OldVersion == null){
                                 $('.folder').append('<div class="col-md-3 projects"><div class="content-box-large" onclick="window.location=\''+'{{ url('project_detail') }}/'+value.idProject+'\';"><p class="name-project"><b>'+value.P_Name+'</b></p><br><br><p class="time-project"><i>'+value.P_DateStart+'<span>-</span>'+value.P_DateFinish+'</i></p></div></div>');
+                                }
                            });
                            $.each( result[1], function( key, value ) {
+                                if(value.P_OldVersion == null){
                                 $('.folder').append('<div class="col-md-3 projects"><div class="content-box-large" onclick="window.location=\''+'{{ url('project_detail') }}/'+value.idProject+'\';"><p class="name-project"><b>'+value.P_Name+'</b></p><br><br><p class="time-project"><i>'+value.P_DateStart+'<span>-</span>'+value.P_DateFinish+'</i></p></div></div>');
+                                }
                            });
                            $.each( result[2], function( key, value ) {
-                                if(value.idPStatus == idPStatus){
-                                    $('.folder').append('<div class="col-md-3 projects"><div class="content-box-large" onclick="window.location=\''+'{{ url('/project_detail') }}/'+value.idProject+'\';"><p class="name-project"><b>'+value.P_Name+'</b></p><br><br><p class="time-project"><i>'+value.P_DateStart+'<span>-</span>'+value.P_DateFinish+'</i></p></div></div>');
+                                if(value.P_OldVersion == null){
+                                $('.folder').append('<div class="col-md-3 projects"><div class="content-box-large" onclick="window.location=\''+'{{ url('/project_detail') }}/'+value.idProject+'\';"><p class="name-project"><b>'+value.P_Name+'</b></p><br><br><p class="time-project"><i>'+value.P_DateStart+'<span>-</span>'+value.P_DateFinish+'</i></p></div></div>');
                                 }
                            });
                         }

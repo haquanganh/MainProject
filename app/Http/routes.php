@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Routes File
@@ -43,6 +42,10 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('project_detail/{id}','ProjectController@project_detail');
         Route::get('project/edit/{id}','ProjectController@getEditProject');
         Route::post('project/edit/{id}','ProjectController@postEditProject');
+        Route::get('history_system','HistoryController@viewHistorySystem');
+        Route::get('history_feedback','HistoryController@viewHistoryFeedback');
+        Route::get('project_old/{time}/{id}','ProjectController@getviewoldProject');
+        Route::get('feedback_old/{time}/{id}','FeedbackController@getviewoldFeedback');
 
     });
 
@@ -60,4 +63,18 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('get-listProject','AjaxController@getlistProject');
         Route::get('project/edit/{id}','ProjectController@getEditProject');
         Route::post('project/edit/{id}','ProjectController@postEditProject');
+        Route::get('project_history','HistoryController@viewProjectHistory');
+        Route::get('team-management','TeamManagementController@viewTeam');
+         //client feedback 
+        Route::post('client-feedback','FeedbackController@postFeedback');
+        Route::post('client-edit-feedback','FeedbackController@postEditFeedback');
+        Route::post('client-delete-feedback','FeedbackController@postDeleteFeedback');
+
+        //employee information
+        Route::get('employee-information','EmployeeController@getEmployee');
+        Route::post('employee-information','EmployeeController@postEmployee');
+
+        //Change password
+        Route::post('change-password','PassController@postChangepass');
+        Route::post('check/check-pass','PassController@checkPass');
 });
