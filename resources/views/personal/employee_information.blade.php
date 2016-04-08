@@ -11,8 +11,15 @@
     <div class="search-form">
 	    <form method="POST" action="{{ url('/search') }}">
 	        {!! csrf_field() !!}
-	        <input class="btn btn-primary" type="submit" value="Search"></input>
+	        <button class="btn btn-primary" type="submit" value="Search">
+                <span class="glyphicon glyphicon-search"></span>
+            </button>
 	        <input class="form-control" type="text"  name="search" placeholder="Enter Name, Skill or Cost/hour"></input>
+            <select name="search-type" class="form-control select">
+                <option value="Search by name">Search by name</option>
+                <option value="Search by skill">Search by skill</option>
+                <option value="Search by cost/hour">Search by cost/hour</option>
+            </select>
 	        <div class="clear"></div>
 	    </form>
     </div>

@@ -94,7 +94,7 @@ class FeedbackController extends Controller
 
 			$data = array(
 				'F_Content' => $post['edit-text'],
-				'F_Mark' => '1',
+				'F_Mark' => '2',
 				'F_DateUpdate' => $mytime
 				);
 			$update = DB::table('Feedback')

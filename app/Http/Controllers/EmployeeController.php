@@ -17,18 +17,50 @@ class EmployeeController extends Controller
     	return view('personal.employee_information',compact('list_employee'));
     }
     public function postEmployee(Request $request){
-    	$search = $request->input('search');
+    	
     	// lay du lieu inner join  giua 3 bang Employee, SkillDetail, Skill
-    	$Listskill = DB::table('Employee')
-    				->join('SkillDetail', 'Employee.idEmployee', '=', 'SkillDetail.idEmployee')
-    				->join('Skill', 'SkillDetail.idSKill', '=', 'Skill.idSKill')
-    				->select('Employee.*')
+    	// $Listskill = DB::table('Employee')
+    	// 			->join('SkillDetail', 'Employee.idEmployee', '=', 'SkillDetail.idEmployee')
+    	// 			->join('Skill', 'SkillDetail.idSKill', '=', 'Skill.idSKill')
+    	// 			->select('Employee.*')
+     //                ->distinct()
+     //                ->where('Skill.Skill', '=', $search)
+    	// 			->orwhere('E_Cost_Hour', '=', $search)
+     //                ->orwhere('E_Name', 'LIKE', '%'.$search.'%')
+     //                ->orderBy('E_Cost_Hour','desc')
+     //                ->get();
+        $search = $request->input('search');
+        $search_type = $request->input('search-type');
+        if($search_type == 'Search by name'){
+            $Listskill = DB::table('Employee')
+                    ->join('SkillDetail', 'Employee.idEmployee', '=', 'SkillDetail.idEmployee')
+                    ->join('Skill', 'SkillDetail.idSKill', '=', 'Skill.idSKill')
+                    ->select('Employee.*')
+                    ->distinct()
+                    ->where('E_Name', 'LIKE', '%'.$search.'%')
+                    ->orderBy('E_Cost_Hour','asc')
+                    ->get();
+        }
+        else if($search_type == 'Search by skill'){
+            $Listskill = DB::table('Employee')
+                    ->join('SkillDetail', 'Employee.idEmployee', '=', 'SkillDetail.idEmployee')
+                    ->join('Skill', 'SkillDetail.idSKill', '=', 'Skill.idSKill')
+                    ->select('Employee.*')
                     ->distinct()
                     ->where('Skill.Skill', '=', $search)
-    				->orwhere('E_Cost_Hour', '=', $search)
-                    ->orwhere('E_Name', 'LIKE', '%'.$search.'%')
-                    ->orderBy('E_Cost_Hour','desc')
+                    ->orderBy('E_Cost_Hour','asc')
                     ->get();
+        }
+        else if($search_type == 'Search by cost/hour'){
+            $Listskill = DB::table('Employee')
+                    ->join('SkillDetail', 'Employee.idEmployee', '=', 'SkillDetail.idEmployee')
+                    ->join('Skill', 'SkillDetail.idSKill', '=', 'Skill.idSKill')
+                    ->select('Employee.*')
+                    ->distinct()
+                    ->where('E_Cost_Hour', '=', $search)
+                    ->orderBy('E_Cost_Hour','asc')
+                    ->get();
+        }
  		$list_employee = Employee::all();
     	if(count($Listskill) == 0)
     	{

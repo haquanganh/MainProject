@@ -29,7 +29,7 @@
                             <img id="user" src="<?php echo e(asset('images/user.png')); ?>" alt="">
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="top:60px;left:-50px">
-                            <li><a href="/personal-information">Anh (Astro) Q. Ha</a></li>
+                            <li><a href="/personal-information"><?php echo e(Auth::user()->email); ?></a></li>
                             <li role="separator" class="divider"></li>
                             <li><a data-toggle="modal" href='#change-password'>Change password</a></li>
                             <li role="separator" class="divider"></li>
