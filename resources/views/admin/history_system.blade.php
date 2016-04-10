@@ -14,33 +14,17 @@
 					</thead>
 					<tbody>
 					<?php
-						$histories = App\History::orderBy('H_DateCreate','DESC')->where('idType','=',1)->get();
-						$count = -1;
+						$histories = App\History::orderBy('H_DateCreate','DESC')->get();
 					?>
 					@foreach ($histories as $key=>$h)
-					<?php
-							$check = preg_match('/edit/',$h->H_Content) ? 'Yes' : 'No';
-							$id_user = App\Project::find($h->idProject)->idPManager;
-							$name_user =App\Employee::find($id_user)->E_EngName;
-							$newest_project = App\Project::find(App\Project::find($h->idProject)->P_OldVersion);
-							$date = App\Project::find($h->idProject)->P_DateCreate;
-
-					?>
 						<tr>
+						<?php
+							$split = explode('.',$h->H_Content);
+						?>
 							<td>{{$key + 1}}</td>
-							<td>{{$h->idAdmin == '' ? $name_user : (Auth::user()->idAccount == $h->idAdmin ? 'me' : 'Admin '.App\User::find($h->idAdmin)->email)}}</td>
-							<?php
-							?>
-							<td>{{$h->H_Content}} <a href="{{ url('admin/project_detail') }}/{{!empty($newest_project) ? $newest_project->idProject :$h->idProject}}">{{!empty($newest_project) ? $newest_project->idProject : $h->idProject}}</a></td>
-							<td>{{$date}}</td>
-							@if ($check == 'Yes')
-							<?php
-								$count = $count + 1;
-							?>
-								<td><a href="{{ url('admin/project_old') }}/{{$count}}/{{$newest_project->idProject}}">Revision</a></td>
-							@else
-								<td></td>
-							@endif
+							<td>{{App\User::find($h->idAccount)->email}}</td>
+							<td>{{$split[0]}} <a href="{{ url('admin/project_detail') }}/{{$split[1]}}">{{App\Project::find($split[1])->P_Name}}</a></td>
+							<td>{{$h->H_DateCreate}}</td>
 						</tr>
 					@endforeach
 					</tbody>

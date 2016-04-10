@@ -15,7 +15,7 @@
                          $idAccount = Auth::user()->idAccount;
                          $idE = App\Employee::where('idAccount','=',$idAccount)->first()->idEmployee;
                          $idTeam = App\Team::where('idPManager','=',$idE)->first()->idTeam;
-                         $listE = App\Team::find($idTeam)->Employee;
+                         $listE = App\Team::find($idTeam)->Employee->where('');
                          $listC = App\Clients::all();
                     ?>
                     <input type="hidden" value="{{$listE->count()}}" name="n_listE">

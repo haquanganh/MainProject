@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-
+//use App\Project;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -13,8 +13,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // Project::creating(function ($project) {
+        //     if ( ! $project->isValid()) {
+        //         return false;
+        //     }
+        // });
     }
+
 
     /**
      * Register any application services.

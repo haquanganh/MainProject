@@ -12,35 +12,36 @@
                             <th>Client</th>
                             <th>Activity</th>
                             <th>Employee</th>
+                            <th>Project</th>
                             <th>Time</th>
                         </tr>
                     </thead>
                     <tbody>
                     <?php
-                        $histories = App\History::orderBy('H_DateCreate','DESC')->where('idType','=',2)->get();
+                        $histories = App\Feedback_History::orderBy('H_DateCreate','DESC')->get();
                         $count = -1;
                     ?>
                     @foreach ($histories as $key=>$h)
                     <?php
                             $check = preg_match('/edit/',$h->H_Content) ? 'Yes' : 'No';
-                            $id_client = App\Feedback::find($h->idFeedback)->idClient;
-                            $name_client =App\Clients::find($id_client)->ClientName;
-                            $id_employee = App\Feedback::find($h->idFeedback)->idEmployee;
-                            $name_employee = App\Employee::find($id_employee)->E_EngName;
-                            $newest_feedback = App\Feedback::find(App\Feedback::find($h->idFeedback)->F_OldVersion);
-                            $date = App\Project::find($h->idFeedback)->P_DateCreate;
+                            /*name client*/
+                            $name_client =App\Clients::find($h->H_idClient)->ClientName;
+                            /*name employee*/
+                            $name_employee = App\Employee::find($h->H_idEmployee)->E_EngName;
+                            $name_project = App\Project::find($h->H_idProject);
                     ?>
                         <tr>
                             <td>{{$key + 1}}</td>
                             <td>{{$name_client}}</td>
-                            <td>{{$h->H_Content}} <a href="{{ url('admin/feedback_detail') }}/{{!empty($newest_feedback) ? $newest_feedback->idProject :$h->idFeedback}}">{{!empty($newest_feedback) ? $newest_feedback->idFeedback : $h->idFeedback}}</a> for</td>
+                            <td>{{$h->H_Content}}</td>
                             <td>{{$name_employee}}</td>
+                            <td><a href="{{ url('admin/project_detail') }}/{{$name_project->idProject}}">{{$name_project->P_Name}}</a></td>
                             <td>{{$h->H_DateCreate}}</td>
                             @if ($check == 'Yes')
                             <?php
                                 $count = $count + 1;
                             ?>
-                                <td><a href="{{ url('admin/feedback_old') }}/{{$count}}/{{$newest_feedback->idFeedback}}">Revision</a></td>
+                                <td><a href="{{ url('admin/feedback_old') }}/{{$count}}/{{$h->idFeedback}}">Revision</a></td>
                             @else
                                 <td></td>
                             @endif

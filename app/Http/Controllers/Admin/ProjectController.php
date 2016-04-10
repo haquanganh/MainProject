@@ -72,12 +72,6 @@ class ProjectController extends Controller
                 $pe->save();
             }
         }
-        $h = new History;
-        $h->H_Content = 'Did create new project ';
-        $h->H_DateStart = $now;
-        $h->idProject = Auth::user()->idAccount;
-        $h->idType = 1;
-        $h->save();
         $flat = 'You are successful to create new project';
         return redirect('/admin/project')->with('flat',$flat);
     }
@@ -141,15 +135,5 @@ class ProjectController extends Controller
         }
         $flat = 'You are successful to edit the project';
         return redirect('/admin/project')->with('flat',$flat);
-    }
-    public function getviewoldProject($time,$id){
-
-        $all_projects_old = Project::where('P_OldVersion','=',$id)->orderBy('P_DateCreate','ASC')->get();
-        $project_olds = array();
-        for($i = count($all_projects_old) - $time -1  ; $i >= 0 ; $i--){
-            array_push($project_olds, $all_projects_old[$i]);
-        }
-        array_push($project_olds, Project::find($id));
-        return view('admin.project_old', compact('project_olds','id'));
     }
 }

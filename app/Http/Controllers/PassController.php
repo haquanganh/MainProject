@@ -26,9 +26,9 @@ class PassController extends Controller
 			return redirect()->back()->withErrors($validator);
 		} else {
 
-			$user           = 	User::find(Auth::user()->idAccount);
-			$old_password	= 	$request->input('old_pass');
-			$password       = 	$request->input('new_pass');
+			$user           = User::find(Auth::user()->idAccount);
+			$old_password	= $request->input('old_pass');
+			$password       = $request->input('new_pass');
 
 			if(!Hash::check($old_password, $user->getAuthPassword()))
 			{
@@ -37,7 +37,7 @@ class PassController extends Controller
 			else{
 				$user->password = Hash::make($password);
 				if($user->save())
-					{	
+					{
 						return redirect()->back()->with('message2','Your password has been changed!');
 					}
 			}
@@ -48,7 +48,7 @@ class PassController extends Controller
 	public function checkPass(	Request $request)
 	{
 		$user = User::find(Auth::user()->idAccount);
-		$old_password	= 	$request->input('old_pass');
+		$old_password	= $request->input('old_pass');
 		if(Hash::check($old_password, $user->getAuthPassword()))
 			return 'true';
 		return 'false';

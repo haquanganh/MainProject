@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <hr>
-                <?php  $Projects = App\Project::where('P_OldVersion','=',null)->get();?>
+                <?php  $Projects = App\Project::all();?>
                 <div class="row folder">
                 @foreach ($Projects as $p)
                 @if ($p->idPStatus == 1)
@@ -67,9 +67,7 @@
                                 $('.projects').remove();
                             }
                            $.each( data, function( key, value ) {
-                                if(value.P_OldVersion == null){
                                     $('.folder').append('<div class="col-md-3 projects"><div class="content-box-large" onclick="window.location=\''+'{{ url('admin/project_detail') }}/'+value.idProject+'\';"><p class="name-project"><b>'+value.P_Name+'</b></p><br><br><p class="time-project"><i>'+value.P_DateStart+'<span>-</span>'+value.P_DateFinish+'</i></p></div></div>');
-                                }
                            });
 
                         }
