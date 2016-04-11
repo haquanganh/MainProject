@@ -124,13 +124,21 @@ class ProjectController extends Controller
         $team_employees = Team::where('idPmanager','=',$project->idPManager)->first()->Employee;
         $old_pe = ProjectEmployee::where('idProject','=',$id);
         $old_pe->delete();
+        $check = $request->sl_PStatus == 2 ? 'Yes' : 'No';
         for($i = 0 ;$i < count($team_employees) ; $i++ ){
             if(preg_match('/yes/',$request->input('cb.'.$i))){
                 $split = explode(',',$request->input('cb.'.$i));
-                $p = new ProjectEmployee();
-                $p->idProject = $id;
-                $p->idEmployee =(int) $split[0];
-                $p->save();
+                if((int) $split[0] != (int) $request->r_leader){
+                    $p = new ProjectEmployee();
+                    $p->idProject = $id;
+                    $p->idEmployee =(int) $split[0];
+                    if($check == 'Yes'){
+                        $set = Employee::find((int) $split[0]);
+                        $set->idStatus = 2;
+                        $set->save();
+                    }
+                    $p->save();
+                }
             }
         }
         $flat = 'You are successful to edit the project';

@@ -15,7 +15,7 @@
                          $idAccount = Auth::user()->idAccount;
                          $idE = App\Employee::where('idAccount','=',$idAccount)->first()->idEmployee;
                          $idTeam = App\Team::where('idPManager','=',$idE)->first()->idTeam;
-                         $listE = App\Team::find($idTeam)->Employee->where('');
+                         $listE = App\Team::find($idTeam)->Employee;
                          $listC = App\Clients::all();
                     ?>
                     <input type="hidden" value="{{$listE->count()}}" name="n_listE">
@@ -40,7 +40,12 @@
                         <label for=""><i>Leader</i></label>
                         <select class="list" name="sl_Leader">
                             @foreach ($listE as $key => $e)
-                                <option value="{{$e->idEmployee}}">{{$e->E_EngName}}</option>
+                                <?php
+                                    $check = App\User::find($e->idAccount)->idRole;
+                                ?>
+                                @if ($check == 3)
+                                    <option value="{{$e->idEmployee}}">{{$e->E_EngName}}</option>
+                                @endif
                             @endforeach
                         </select>
                     </div>
@@ -59,15 +64,20 @@
                             </thead>
                             <tbody>
                             @foreach ($listE as $key => $e )
-                                <tr>
+                                <?php
+                                    $check = App\User::find($e->idAccount)->idRole;
+                                ?>
+                                @if ($check != 3 && $e->idStatus == 2)
+                                    <tr>
                                     <td><img src="{{($e->E_Avatar != NULL && File::exists(public_path('images/personal_images/'.$e->E_Avatar)) ) ? asset('images/personal_images/'.$e->E_Avatar): asset('images/notfound.jpg')}}" class="img img-circle" alt=""></td>
                                     <td>{{$e->E_EngName}}</td>
                                     <td>{{$e->E_Name}}</td>
                                     <td>{{$e->E_Skype}}</td>
                                     <td>
-                                        <input type="checkbox" name="c[{{$key}}]" value="{{$e->idEmployee}}">
+                                        <input type="checkbox" name="c[{{$key}}]" value="{{$e->idEmployee}}" >
                                     </td>
                                 </tr>
+                                @endif
                             @endforeach
                                 <tr class="warning no-result">
                                   <td colspan="5"><i class="fa fa-warning"></i> No result</td>
@@ -148,7 +158,6 @@
     <script>
         $("input").click(function() {
             var row = $(this).parents("tr:first");
-            console.log(row.hasClass('TopRow'));
             if ($(this).is(':checked', true)) {
                 var firstRow = row.parent().find("tr:first").not(row);
                 row.insertBefore(firstRow).addClass("TopRow");
@@ -157,8 +166,6 @@
                 console.log(nonTopRows);
                 var found = false;
                 nonTopRows.each(function() {
-                    console.log('rowPos: ' + row.data('pos'));
-                    console.log('current compare: ' + $(this).data('pos'));
                     if (row.data('pos') < $(this).data('pos') && !found) {
                         found = true;
                         row.insertBefore($(this));
@@ -169,21 +176,18 @@
             }
         });
     </script>
+<!--
     <script>
         $('document').ready(function() {
             $('input:checked').each(function() {
                 var row = $(this).parents("tr:first");
-                console.log(row.hasClass('TopRow'));
                 if ($(this).is(':checked', true)) {
                     var firstRow = row.parent().find("tr:first").not(row);
                     row.insertBefore(firstRow).addClass("TopRow");
                 } else if (row.hasClass('TopRow')) {
                     var nonTopRows = row.siblings().not('.TopRow');
-                    console.log(nonTopRows);
                     var found = false;
                     nonTopRows.each(function() {
-                        console.log('rowPos: ' + row.data('pos'));
-                        console.log('current compare: ' + $(this).data('pos'));
                         if (row.data('pos') < $(this).data('pos') && !found) {
                             found = true;
                             row.insertBefore($(this));
@@ -195,4 +199,5 @@
             });
         });
     </script>
+     -->
 @stop

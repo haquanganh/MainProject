@@ -65,25 +65,41 @@
                                     <?php
                                         $idPManager = $project->idPManager;
                                         $team_employees = App\Team::where('idPmanager','=',$idPManager)->first()->Employee;
-                                        $project_employees = App\Project::find($project->idProject)->Employee;
+                                        //$project_employees = App\Project::find($project->idProject)->Employee;
                                     ?>
+
                                     @foreach ($team_employees as $key=>$e)
-                                    @if ($e->idStatus == 2)
-                                        <?php
-                                            $check = (array) App\ProjectEmployee::where('idEmployee','=',$e->idEmployee)->where('idProject','=',$project->idProject)->get();
-                                        ?>
-                                        <tr class="{{!empty(array_filter($check)) ? 'TopRow' : ''}}" >
+                                    <?php
+                                        $check = App\ProjectEmployee::where('idProject','=',$project->idProject)->where('idEmployee','=',$e->idEmployee)->first();
+                                    ?>
+                                    @if (count($check) == 1)
+                                     <!-- On working and in the project -->
+                                        <tr>
                                             <td><img src="{{ asset('images/personal_images') }}/{{$e->E_Avatar}}" class="img img-circle" alt=""></td>
                                             <td>{{$e->E_EngName}}</td>
                                             <td>{{$e->E_Name}}</td>
                                             <td>{{$e->E_Skype}}</td>
                                             <td>
-                                                <input class="checkbox" type="checkbox" name="cb[{{$key}}]" {{!empty(array_filter($check)) ? 'checked' : ''}} data="{{$e->idEmployee}}">
+                                                <input class="checkbox" type="checkbox" name="cb[{{$key}}]" {{$e->idEmployee  != $project->idTeamLeader ? 'checked' : ''}} data="{{$e->idEmployee}}">
                                             </td>
                                             <td>
-                                                <input class="r_leader" type="radio" name="r_leader" value="{{$e->idEmployee}}" {{$e->idEmployee == $project->idTeamLeader ? 'checked' : ''}} {{empty(array_filter($check)) ? 'disabled' : ''}}></input>
+                                                <input class="r_leader" type="radio" name="r_leader" value="{{$e->idEmployee}}" {{$e->idEmployee == $project->idTeamLeader ? 'checked' : ''}} {{$e->idEmployee  != $project->idTeamLeader ? 'disabled' : ''}}>
                                             </td>
                                         </tr>
+                                    @elseif($e->idStatus == 2)
+                                        <tr>
+                                            <td><img src="{{ asset('images/personal_images') }}/{{$e->E_Avatar}}" class="img img-circle" alt=""></td>
+                                            <td>{{$e->E_EngName}}</td>
+                                            <td>{{$e->E_Name}}</td>
+                                            <td>{{$e->E_Skype}}</td>
+                                            <td>
+                                                <input class="checkbox" type="checkbox" name="cb[{{$key}}]" data="{{$e->idEmployee}}">
+                                            </td>
+                                            <td>
+                                                <input class="r_leader" type="radio" name="r_leader" value="{{$e->idEmployee}}" {{$e->idEmployee == $project->idTeamLeader ? 'checked' : ''}} {{$e->idEmployee  != $project->idTeamLeader ? 'disabled' : ''}}>
+                                            </td>
+                                        </tr>
+                                    @else
                                     @endif
                                     @endforeach
                                     </tbody>

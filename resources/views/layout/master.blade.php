@@ -20,7 +20,7 @@
 		<div id="header">
             <div class="container">
                 <div id="tophead">
-                    <a href="#" class="logo"><img src="{{ asset('images/enclave_logo.png') }}"></a>
+                    <a href="{{ url('/') }}" class="logo"><img src="{{ asset('images/enclave_logo.png') }}"></a>
                     <a href="#" class="dropdown-toggle" type="button">
                             <img id="notification" src="{{ asset('images/notification.png') }}" alt="">
                     </a>
@@ -58,9 +58,8 @@
                                     <li style="width:100%"><a href="{{ url('team-management') }}">Team Management</a></li>
                                 </ul>
                             </li>
-                            <li><a href="">Statistic</a></li>
-                            <li><a href="#">Note</a></li>
-                            <li><a href="#">History</a></li>
+                            <li><a href="#">Your Note</a></li>
+                            <li><a href="{{ url('project_history') }}">History</a></li>
                             <li><a href="#">Contact</a></li>
                             <li><a href="#">About us</a></li>
                         </ul>

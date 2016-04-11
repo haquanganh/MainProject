@@ -1,4 +1,4 @@
-.detailed_skill img{
+.detailed_skill img {
     width: 1.5em;
     height: 1.5em;
 }
@@ -9,6 +9,11 @@
 .list-group-item {
     clear: both;
     height: 40px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
 }
 
 
@@ -28,14 +33,6 @@
     margin-right: -10px;
 }
 
-.detailed_feedback .collapse {
-    font-size: 14px;
-    clear: both;
-    padding: 3px;
-    border-style: ridge;
-    border-color: #FFFFFF;
-}
-
 .client_name {
     text-transform: italic;
 }
@@ -46,9 +43,11 @@
 
 
 /* status*/
-.status{
+
+.status {
     margin-left: 38px;
 }
+
 .img-status .img img {
     width: 150px;
     height: 150px;
@@ -56,7 +55,7 @@
     border-radius: 10px;
     padding: 10px;
     clear: both;
-    margin: auto;
+    margin-top: 30px;
 }
 
 .img-status {
@@ -87,4 +86,34 @@ li.skill {
 .skill .skill-name {
     float: left;
     clear: both;
+}
+
+.history_feedback {
+    overflow: auto;
+    max-height: 550px;
+}
+
+.history_feedback img {
+    width: 10px;
+    height: 10px;
+}
+.list-group li{
+    height: auto;
+}
+#img-title {
+    background: #ccc url(../images/personal.jpg) no-repeat center center;
+    background-size: cover;
+    height: 190px;
+    padding: 40px 60px;
+    -webkit-box-shadow: 2px -4px 12px 1px rgba(140, 135, 140, 1);
+    -moz-box-shadow: 2px -4px 12px 1px rgba(140, 135, 140, 1);
+    box-shadow: 2px -4px 12px 1px rgba(140, 135, 140, 1);
+    margin-bottom: 10px;
+}
+
+#img-title p {
+    font-size: 45px;
+    color: black;
+    font-style: italic;
+    opacity: 0.5;
 }

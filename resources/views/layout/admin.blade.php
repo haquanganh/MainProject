@@ -37,7 +37,7 @@
                 <ul id="menu" class="nav nav-stacked">
                     <li class="account"><a href="{{ url('admin/personal-information') }}">Account Management</a></li>
                     <li class="project"><a href="{{ url('admin/project') }}">Project Management</a></li>
-                    <li class="stastics"><a href="#">Statistic</a></li>
+                    <li class="stastics"><a href="{{ url('admin/stastics') }}">Statistic</a></li>
                     <li class="note"><a href="#">Note</a></li>
                     <li class="historysystem"><a href="{{ url('admin/history_system') }}">History System</a></li>
                     <li class="historyfeedback"><a href="{{ url('admin/history_feedback') }}">History Feedback</a></li>

@@ -37,13 +37,13 @@
             @if($h != $histories[count($histories)-1])
             <td>
                 @if ($h->H_newTitle != $histories[$key+1]->H_newTitle)
-                {{$histories[$key+1]->H_newTitle.'=>'.$h->H_newTitle  }}<br>
+                {{$histories[$key+1]->H_newTitle}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span> &nbsp;{{$h->H_newTitle  }}<br>
                 @endif
                 @if ($h->H_newContent != $histories[$key+1]->H_newContent)
-                {{$histories[$key+1]->H_newContent.'=>'.$h->H_newContent  }}<br>
+                {{$histories[$key+1]->H_newContent}}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span> &nbsp;{{$h->H_newContent  }}<br>
                 @endif
                 @if ($h->H_newRate != $histories[$key+1]->H_newRate)
-                {{$histories[$key+1]->H_newRate.'=>'.$h->H_newRate  }}<br>
+                {{$histories[$key+1]->H_newRate}}   &nbsp;<span class="glyphicon glyphicon-arrow-right"></span> &nbsp;{{$h->H_newRate  }}<br>
                 @endif
             </td>
             @else

@@ -45,6 +45,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('history_system','HistoryController@viewHistorySystem');
         Route::get('history_feedback','HistoryController@viewHistoryFeedback');
         Route::get('feedback_old/{time}/{id}','FeedbackController@getviewoldFeedback');
+        Route::get('stastics','StasticController@viewStastics');
 
     });
 
