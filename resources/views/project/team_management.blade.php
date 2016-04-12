@@ -5,9 +5,9 @@
 @stop
 @section('content')
 <div id="img-title">
-    <p>Dallas Team</p>
+    <p>{{App\Team::where('idPManager','=',App\Employee::where('idAccount','=',Auth::user()->idAccount)->first()->idEmployee)->first()->TeamName.' Team'}}</p>
 </div>
-<div class="row">
+<div class="row search">
     <div class="search-form">
         <form method="POST" action="{{ url('/employee-information') }}">
             {!! csrf_field() !!}
@@ -26,69 +26,33 @@
 </div>
 <div class="row table-responsive">
     	<div class="col-md-12">
-    		<table class="table table-striped table-bordered">
-    			<thead>
-    				<tr>
-	    				<th>Avatar</th>
-	    				<th>Name</th>
-	    				<th>Date of birth</th>
-	    				<th>Skype</th>
-	    				<th>Phone</th>
-	    				<th>Role</th>
-    				</tr>
-    			</thead>
-    			<tbody>
-    				<tr>
-                        <td style="width:50px"><img class="img img-circle" src="{{ asset('images/user.png') }}"></td>
-                        <td>Astro</td>
-                        <td>02/03/1994</td>
-                        <td>eureka.m0198</td>
-                        <td>0906478808</td>
-                        <td>Manager</td>
-                    </tr>
-                    <tr>
-                        <td style="width:50px"><img class="img img-circle" src="{{ asset('images/user.png') }}"></td>
-                        <td>Astro</td>
-                        <td>02/03/1994</td>
-                        <td>eureka.m0198</td>
-                        <td>0906478808</td>
-                        <td>Manager</td>
-                    </tr>
-                    <tr>
-                        <td style="width:50px"><img class="img img-circle" src="{{ asset('images/user.png') }}"></td>
-                        <td>Astro</td>
-                        <td>02/03/1994</td>
-                        <td>eureka.m0198</td>
-                        <td>0906478808</td>
-                        <td>Manager</td>
-                    </tr>
-                    <tr>
-                        <td style="width:50px"><img class="img img-circle" src="{{ asset('images/user.png') }}"></td>
-                        <td>Astro</td>
-                        <td>02/03/1994</td>
-                        <td>eureka.m0198</td>
-                        <td>0906478808</td>
-                        <td>Manager</td>
-                    </tr>
-                    <tr>
-                        <td style="width:50px"><img class="img img-circle" src="{{ asset('images/user.png') }}"></td>
-                        <td>Astro</td>
-                        <td>02/03/1994</td>
-                        <td>eureka.m0198</td>
-                        <td>0906478808</td>
-                        <td>Manager</td>
-                    </tr>
-                    <tr>
-                        <td style="width:50px"><img class="img img-circle" src="{{ asset('images/user.png') }}"></td>
-                        <td>Astro</td>
-                        <td>02/03/1994</td>
-                        <td>eureka.m0198</td>
-                        <td>0906478808</td>
-                        <td>Manager</td>
-                    </tr>
-    			</tbody>
+	<table class="table table-striped table-bordered">
+                	<thead>
+            		<tr>
+            			<th>Avatar</th>
+            			<th>Name</th>
+            			<th>Date of birth</th>
+            			<th>Skype</th>
+            			<th>Phone</th>
+            			<th>Role</th>
+                                        <th>Status</th>
+            		</tr>
+                	</thead>
+                	<tbody>
+                        @foreach ($team as $e)
+                        <tr>
+                                <td style="width:50px"><img class="img img-circle" src="{{ asset('images/personal_images').'/'.$e->E_Avatar }}"></td>
+                                <td>{{$e->E_EngName}}</td>
+                                <td>{{$e->E_DateofBirth}}</td>
+                                <td>{{$e->E_Skype}}</td>
+                                <td>{{$e->E_Phone}}</td>
+                                <td>{{App\Role::find(App\User::find($e->idAccount)->idRole)->Role}}</td>
+                                <td>{{App\E_Status::find($e->idStatus)->Status}}</td>
+                        </tr>
+                        @endforeach
+                	</tbody>
 
-    		</table>
+	</table>
         </div>
 </div>
 @stop

@@ -17,7 +17,7 @@
                                 <option value="1">In progress</option>
                                 <option value="2">Done</option>
                             </select>
-                            <a href="" class="add"><img src="{{ asset('images/add-new-icon.png') }}" alt=""></a>
+                            <a href="{{ url('admin/create-project') }}" class="add"><img src="{{ asset('images/add-new-icon.png') }}" alt=""></a>
                         </form>
                     </div>
                 </div>

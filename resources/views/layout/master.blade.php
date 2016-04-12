@@ -55,7 +55,9 @@
                                 <a href="#" data-toggle="dropdown" class=" dropdown-toggle">Project Management   <span class="caret"></span></a>
                                 <ul class="dropdown-menu" id="project-dropdown">
                                     <li style="width:100%"><a href="{{ url('project') }}">Project Management</a></li>
-                                    <li style="width:100%"><a href="{{ url('team-management') }}">Team Management</a></li>
+                                    @if (Auth::user()->idRole == 2)
+                                        <li style="width:100%"><a href="{{ url('team-management') }}">Team Management</a></li>
+                                    @endif
                                 </ul>
                             </li>
                             <li><a href="#">Your Note</a></li>
@@ -122,10 +124,9 @@
             </div>
         </div>
     </div>  <!--change password -->
-    
              <!-- Messagebox after change password!-->
-            <div>       
-                @if(Session::has('message1'))            
+            <div>
+                @if(Session::has('message1'))
                     <a data-toggle="modal" id="modal" href='#modal-id'></a>
                     <div class="modal fade" id="modal-id">
                         <div class="modal-dialog">

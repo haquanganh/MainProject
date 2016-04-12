@@ -1,17 +1,18 @@
 @extends('layout.admin')
 @section('title','Edit Project')
 @section('css')
-	<link rel="stylesheet" type="text/css" href="{{ asset('css/admin/edit_project.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/admin/edit_project.css') }}">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css" rel="stylesheet" />
 @stop
 @section('content')
-            <form class="form-inline" role="form" method="POST" action="{{ url('admin/project/edit') }}/{{$project->idProject}}">
+            <div class="clear40" style="height: 20px;"></div>
+            <form class="form-inline" role="form" method="POST" action="{{ url('/admin/project/edit') }}/{{$project->idProject}}">
             {{csrf_field()}}
                 <div class="info row" style="margin-bottom: 10px">
                     <div class="col-xs-3 form-group {{ $errors->has('in_PName') ? ' has-error' : '' }} validate"  {!! $errors->has('in_PName') ? ' data-toggle="tooltip" data-placement="top" title="'.$errors->first('in_PName').'"' : '' !!}>
                         <label for=""><i>Project</i></label>
-                        <input type="text" name="in_PName" class="form-control" placeholder="Name Of Project" value="{{$project->P_Name}}">
+                        <input type="text" name="in_PName" class="form-control " placeholder="Name Of Project" value="{{$project->P_Name}}">
                     </div>
                     <div class="col-xs-3 form-group">
                         <label for=""><i>Client</i></label>
@@ -34,8 +35,8 @@
                         ?>
                         <input type="text" name="daterange"  class="form-control" value="{{$startday}} - {{$endday}}" />
                     </div>
-                    <div class="col-xs-3">
-                        <label for=""><i>Status</i></label>
+                    <div class="col-xs-3 form-group">
+                        <label for=""><i>Project Status</i></label>
                         <select class="list" name="sl_PStatus">
                             <option value="1" {{$project->idPStatus == '1' ? 'selected' : ''}}>In progress</option>
                             <option value="2" {{$project->idPStatus == '2' ? 'selected' : ''}}>Done</option>
@@ -58,26 +59,43 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    @if($errors->has('wrong_leader'))
+                                        <span style="color: red" class="pull-right">{{$errors->first('wrong_leader')}}</span>
+                                    @endif
                                     <?php
                                         $idPManager = $project->idPManager;
-                                        $team_employees = App\Team::where('idPmanager','=',$idPManager)->first()->Employee;
-                                        $project_employees = App\Project::find($project->idProject)->Employee;
+                                        $team_employees =App\Team::where('idPmanager','=',$idPManager)->first()->Employee;
+
                                     ?>
                                     @foreach ($team_employees as $key=>$e)
-                                    @if ($e->idStatus == 2)
-                                        <?php
-                                            $check = (array) App\ProjectEmployee::where('idEmployee','=',$e->idEmployee)->where('idProject','=',$project->idProject)->get();
-                                        ?>
-                                        <tr class="{{!empty(array_filter($check)) ? 'TopRow' : ''}}" >
+                                    <?php
+                                        $check = App\ProjectEmployee::where('idProject','=',$project->idProject)->where('idEmployee','=',$e->idEmployee)->get();
+                                    ?>
+                                    @if (count($check) == 1 || $e->idEmployee == $project->idTeamLeader)
+                                     <!-- On working and in the project or TeamLeader -->
+                                        <tr class="TopRow">
                                             <td><img src="{{ asset('images/personal_images') }}/{{$e->E_Avatar}}" class="img img-circle" alt=""></td>
                                             <td>{{$e->E_EngName}}</td>
                                             <td>{{$e->E_Name}}</td>
                                             <td>{{$e->E_Skype}}</td>
                                             <td>
-                                                <input class="checkbox" type="checkbox" name="cb[{{$key}}]" {{!empty(array_filter($check)) ? 'checked' : ''}} data="{{$e->idEmployee}}">
+                                                <input class="checkbox" type="checkbox" name="cb[{{$key}}]"  checked data="{{$e->idEmployee}}">
                                             </td>
                                             <td>
-                                                <input class="r_leader" type="radio" name="r_leader" value="{{$e->idEmployee}}" {{$e->idEmployee == $project->idTeamLeader ? 'checked' : ''}} {{empty(array_filter($check)) ? 'disabled' : ''}}></input>
+                                                <input class="r_leader" type="radio" name="r_leader" value="{{$e->idEmployee}}" {{$e->idEmployee == $project->idTeamLeader ? 'checked' : ''}}>
+                                            </td>
+                                        </tr>
+                                    @elseif($e->idStatus == 2)
+                                        <tr>
+                                            <td><img src="{{ asset('images/personal_images') }}/{{$e->E_Avatar}}" class="img img-circle" alt=""></td>
+                                            <td>{{$e->E_EngName}}</td>
+                                            <td>{{$e->E_Name}}</td>
+                                            <td>{{$e->E_Skype}}</td>
+                                            <td>
+                                                <input class="checkbox" type="checkbox" name="cb[{{$key}}]" data="{{$e->idEmployee}}">
+                                            </td>
+                                            <td>
+                                                <input class="r_leader" type="radio" name="r_leader" value="{{$e->idEmployee}}" disabled>
                                             </td>
                                         </tr>
                                     @endif

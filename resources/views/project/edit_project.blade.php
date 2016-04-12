@@ -62,28 +62,30 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    @if($errors->has('wrong_leader'))
+                                        <span style="color: red" class="pull-right">{{$errors->first('wrong_leader')}}</span>
+                                    @endif
                                     <?php
                                         $idPManager = $project->idPManager;
-                                        $team_employees = App\Team::where('idPmanager','=',$idPManager)->first()->Employee;
-                                        //$project_employees = App\Project::find($project->idProject)->Employee;
-                                    ?>
+                                        $team_employees =App\Team::where('idPmanager','=',$idPManager)->first()->Employee;
 
+                                    ?>
                                     @foreach ($team_employees as $key=>$e)
                                     <?php
-                                        $check = App\ProjectEmployee::where('idProject','=',$project->idProject)->where('idEmployee','=',$e->idEmployee)->first();
+                                        $check = App\ProjectEmployee::where('idProject','=',$project->idProject)->where('idEmployee','=',$e->idEmployee)->get();
                                     ?>
-                                    @if (count($check) == 1)
-                                     <!-- On working and in the project -->
-                                        <tr>
+                                    @if (count($check) == 1 || $e->idEmployee == $project->idTeamLeader)
+                                     <!-- On working and in the project or TeamLeader -->
+                                        <tr class="TopRow">
                                             <td><img src="{{ asset('images/personal_images') }}/{{$e->E_Avatar}}" class="img img-circle" alt=""></td>
                                             <td>{{$e->E_EngName}}</td>
                                             <td>{{$e->E_Name}}</td>
                                             <td>{{$e->E_Skype}}</td>
                                             <td>
-                                                <input class="checkbox" type="checkbox" name="cb[{{$key}}]" {{$e->idEmployee  != $project->idTeamLeader ? 'checked' : ''}} data="{{$e->idEmployee}}">
+                                                <input class="checkbox" type="checkbox" name="cb[{{$key}}]"  checked data="{{$e->idEmployee}}">
                                             </td>
                                             <td>
-                                                <input class="r_leader" type="radio" name="r_leader" value="{{$e->idEmployee}}" {{$e->idEmployee == $project->idTeamLeader ? 'checked' : ''}} {{$e->idEmployee  != $project->idTeamLeader ? 'disabled' : ''}}>
+                                                <input class="r_leader" type="radio" name="r_leader" value="{{$e->idEmployee}}" {{$e->idEmployee == $project->idTeamLeader ? 'checked' : ''}}>
                                             </td>
                                         </tr>
                                     @elseif($e->idStatus == 2)
@@ -96,10 +98,9 @@
                                                 <input class="checkbox" type="checkbox" name="cb[{{$key}}]" data="{{$e->idEmployee}}">
                                             </td>
                                             <td>
-                                                <input class="r_leader" type="radio" name="r_leader" value="{{$e->idEmployee}}" {{$e->idEmployee == $project->idTeamLeader ? 'checked' : ''}} {{$e->idEmployee  != $project->idTeamLeader ? 'disabled' : ''}}>
+                                                <input class="r_leader" type="radio" name="r_leader" value="{{$e->idEmployee}}" disabled>
                                             </td>
                                         </tr>
-                                    @else
                                     @endif
                                     @endforeach
                                     </tbody>

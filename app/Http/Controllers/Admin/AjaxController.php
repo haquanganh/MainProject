@@ -21,7 +21,7 @@ class AjaxController extends Controller{
     public function getlistProject(){
         if(Request::ajax()){
             $idPStatus = (int) Request::get('idPStatus');
-            $Projects = Project::where('idPStatus','=',$idPStatus)->where('P_OldVersion','=',null)->get();
+            $Projects = Project::where('idPStatus','=',$idPStatus)->get();
             if(!empty($Projects)){
                 return $Projects;
             }

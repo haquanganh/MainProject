@@ -52,9 +52,13 @@
                                     <td>Full Name</td>
                                     <td>Skype</td>
                                     <td>Choose</td>
+                                    <td>Leader</td>
                                 </tr>
                             </thead>
                             <tbody>
+                                @if($errors->has('wrong_leader'))
+                                        <span style="color: red" class="pull-right">{{$errors->first('wrong_leader')}}</span>
+                                    @endif
                                 <tr class="warning no-result">
                                   <td colspan="5"><i class="fa fa-warning"></i> No result</td>
                                 </tr>
@@ -89,6 +93,11 @@
     <script type="text/javascript">
     $(document).ready(function() {
         $(".list").select2();
+    });
+    $(document).ready(function() {
+        $(".list-PM").select2({
+            placeholder: 'Select Project Manager'
+        });
     });
     </script>
     <script>
@@ -133,12 +142,13 @@
     </script>
     <script>
         function chekbox_ontop() {
-            $("input").click(function() {
+            $(".checkbox").click(function() {
                 var row = $(this).parents("tr:first");
                 console.log(row.hasClass('TopRow'));
                 if ($(this).is(':checked', true)) {
                     var firstRow = row.parent().find("tr:first").not(row);
                     row.insertBefore(firstRow).addClass("TopRow");
+                    $(this).parent().parent().find('.r_leader').attr('disabled',false);
                 } else if (row.hasClass('TopRow')) {
                     var nonTopRows = row.siblings().not('.TopRow');
                     console.log(nonTopRows);
@@ -155,6 +165,7 @@
                     });
                     if (!found) row.appendTo(row.parent());
                     row.removeClass("TopRow");
+                     $(this).parent().parent().find('.r_leader').attr('disabled',true);
                 }
             });
         }
@@ -178,7 +189,9 @@
                                 $('.row_data').remove();
                             }
                            $.each( data, function( key, value ) {
-                             tbody.append('<tr class="row_data"><td><img src="'+'{{ asset('images/personal_images') }}'+'/'+value.E_Avatar+'" class="img img-circle" alt=""></td><td>'+value.E_EngName+'</td><td>'+value.E_Name+'</td><td>'+value.E_Skype+'</td><td><input type="checkbox" name="c['+key+']" value="'+value.idEmployee+'" ></td></tr>');
+                                if(value.idStatus == 2){
+                                    tbody.append('<tr class="row_data"><td><img src="'+'{{ asset('images/personal_images') }}'+'/'+value.E_Avatar+'" class="img img-circle" alt=""></td><td>'+value.E_EngName+'</td><td>'+value.E_Name+'</td><td>'+value.E_Skype+'</td><td><input type="checkbox" class="checkbox" name="c['+key+']" value="'+value.idEmployee+'" ></td><td><input class="r_leader" type="radio" name="r_leader" value="'+value.idEmployee+'" disabled></td></tr>');
+                                }
                             });
                         }
                             chekbox_ontop();
