@@ -29,15 +29,36 @@
                 </div>
                 <hr>
                 <?php
-                        $idEmployee = App\Employee::where('idAccount','=',Auth::user()->idAccount)->first()->idEmployee;
-                        $projects_PM = App\Project::where('idPStatus','=',1)->where('idPManager','=',$idEmployee)->get();
-                        $projects_LD = App\Project::where('idPStatus','=',1)->where('idTeamLeader','=',$idEmployee)->get();
-                        $project_TM = App\Employee::find($idEmployee)->Project;
+                        $idUser = 0;
+                        $projects_PM = 0;
+                        $projects_LD = 0;
+                        $project_TM = 0;
+                        if(Auth::user()->idRole != 4){
+                            $idUser = App\Employee::where('idAccount','=',Auth::user()->idAccount)->first()->idEmployee;
+                            $projects_PM = App\Project::where('idPStatus','=',1)->where('idPManager','=',$idUser)->get();
+                            $projects_LD = App\Project::where('idPStatus','=',1)->where('idTeamLeader','=',$idUser)->get();
+                            $project_TM = App\Employee::find($idUser)->Project;
+                        }
+                        else{
+                            $idUser = App\Clients::where('idAccount','=',Auth::user()->idAccount)->first()->idClient;
+                            $project_client = App\Project::where('idClient','=',$idUser)->where('idPStatus','=',1)->get();
+                        }
                 ?>
                 @if (Session::has('flat'))
                     <div class="alert alert-success" role="alert">{{Session('flat')}}</div>
                 @endif
                 <div class="row folder">
+                @if (Auth::user()->idRole == 4)
+                    @foreach ($project_client as $l)
+                    <div class="col-md-3 projects">
+                        <div class="content-box-large" onclick="window.location='{{ url('project_detail') }}/{{$l->idProject}}'">
+                            <p class="name-project"><b>{{$l->P_Name}}</b></p>
+                            <p class="time-project"><i>{{$l->P_DateCreate}} <span>-</span>{{$l->P_DateFinish}}</i></p>
+
+                        </div>
+                    </div>
+                @endforeach
+                @else
                 @foreach ($projects_PM as $l)
                     <div class="col-md-3 projects">
                         <div class="content-box-large" onclick="window.location='{{ url('project_detail') }}/{{$l->idProject}}'">
@@ -68,6 +89,7 @@
                         </div>
                     </div>
                 @endforeach
+                @endif
                 </div>
 @stop
 @section('script')
@@ -101,15 +123,21 @@
                             if(list_n > 0){
                                 $('.projects').remove();
                             }
-                           $.each( result[0], function( key, value ) {
-                                $('.folder').append('<div class="col-md-3 projects"><div class="content-box-large" onclick="window.location=\''+'{{ url('project_detail') }}/'+value.idProject+'\';"><p class="name-project"><b>'+value.P_Name+'</b></p><br><br><p class="time-project"><i>'+value.P_DateStart+'<span>-</span>'+value.P_DateFinish+'</i></p></div></div>');
-                           });
-                           $.each( result[1], function( key, value ) {
-                                $('.folder').append('<div class="col-md-3 projects"><div class="content-box-large" onclick="window.location=\''+'{{ url('project_detail') }}/'+value.idProject+'\';"><p class="name-project"><b>'+value.P_Name+'</b></p><br><br><p class="time-project"><i>'+value.P_DateStart+'<span>-</span>'+value.P_DateFinish+'</i></p></div></div>');
-                           });
-                           $.each( result[2], function( key, value ) {
-                                $('.folder').append('<div class="col-md-3 projects"><div class="content-box-large" onclick="window.location=\''+'{{ url('/project_detail') }}/'+value.idProject+'\';"><p class="name-project"><b>'+value.P_Name+'</b></p><br><br><p class="time-project"><i>'+value.P_DateStart+'<span>-</span>'+value.P_DateFinish+'</i></p></div></div>');
-                           });
+                            @if(Auth::user()->idRole != 4)
+                               $.each( result[0], function( key, value ) {
+                                    $('.folder').append('<div class="col-md-3 projects"><div class="content-box-large" onclick="window.location=\''+'{{ url('project_detail') }}/'+value.idProject+'\';"><p class="name-project"><b>'+value.P_Name+'</b></p><br><br><p class="time-project"><i>'+value.P_DateStart+'<span>-</span>'+value.P_DateFinish+'</i></p></div></div>');
+                               });
+                               $.each( result[1], function( key, value ) {
+                                    $('.folder').append('<div class="col-md-3 projects"><div class="content-box-large" onclick="window.location=\''+'{{ url('project_detail') }}/'+value.idProject+'\';"><p class="name-project"><b>'+value.P_Name+'</b></p><br><br><p class="time-project"><i>'+value.P_DateStart+'<span>-</span>'+value.P_DateFinish+'</i></p></div></div>');
+                               });
+                               $.each( result[2], function( key, value ) {
+                                    $('.folder').append('<div class="col-md-3 projects"><div class="content-box-large" onclick="window.location=\''+'{{ url('/project_detail') }}/'+value.idProject+'\';"><p class="name-project"><b>'+value.P_Name+'</b></p><br><br><p class="time-project"><i>'+value.P_DateStart+'<span>-</span>'+value.P_DateFinish+'</i></p></div></div>');
+                               });
+                               @else
+                               $.each( result[0], function( key, value ) {
+                                    $('.folder').append('<div class="col-md-3 projects"><div class="content-box-large" onclick="window.location=\''+'{{ url('project_detail') }}/'+value.idProject+'\';"><p class="name-project"><b>'+value.P_Name+'</b></p><br><br><p class="time-project"><i>'+value.P_DateStart+'<span>-</span>'+value.P_DateFinish+'</i></p></div></div>');
+                               });
+                           @endif
                         }
                     }
                 });

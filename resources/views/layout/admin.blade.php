@@ -26,7 +26,7 @@
                     <div class="vertical-line" ></div>
                     <a href="#"><i class="fa fa-envelope-o"></i> Messsage</a>
                     <div class="vertical-line" ></div>
-                    <a href="#"><i class="fa fa-flag"></i> Notification</a>
+                    <a href="{{ url('/admin/request-notify') }}"><i class="fa fa-flag"></i> Notification</a>
                     <div class="vertical-line" ></div>
                     <a href="{{ url('logout') }}"><i class="fa fa-sign-out"></i>Logout</a>
                 </div>

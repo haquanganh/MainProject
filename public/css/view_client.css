@@ -1,0 +1,123 @@
+#img-title {
+    background: #ccc url(../images/personal.jpg) no-repeat center center;
+    background-size: cover;
+    height: 190px;
+    padding: 40px 60px;
+    -webkit-box-shadow: 2px -4px 12px 1px rgba(140, 135, 140, 1);
+    -moz-box-shadow: 2px -4px 12px 1px rgba(140, 135, 140, 1);
+    box-shadow: 2px -4px 12px 1px rgba(140, 135, 140, 1);
+    margin-bottom: 10px;
+}
+
+#img-title p {
+    font-size: 45px;
+    color: black;
+    font-style: italic;
+    opacity: 0.5;
+}
+
+#currentproject img {
+    width: 50px;
+    height: 50px;
+}
+
+.box-info {
+    height: 150px;
+    background-color: #F7F7F7;
+    border: 1px solid #ccc;
+    color: #5A6E95;
+    margin-bottom: 20px;
+}
+
+.box-info .main-info {
+    height: 80%;
+    border: 1px solid #ccc;
+}
+
+.box-info .main-info img {
+    width: 20%!important;
+    height: 100%!important;
+    border: 1px solid #ccc!important;
+    float: left!important;
+}
+
+.main-info .info {
+    width: 80%;
+    height: 100%;
+    float: right;
+}
+
+.main-info .info h4,
+.main-info .info h5,
+.main-info .info p {
+    margin-left: 20px;
+}
+
+.main-info .info h5 {
+    margin-top: -22px;
+}
+
+.main-info .info p {
+    margin-top: -4px;
+    font-size: 12px;
+}
+
+.box-info .cost-info {
+    margin-left: 5px;
+    margin-top: 5px;
+    font-size: 12px;
+    line-height: 20px;
+}
+
+#project-name .small {
+    margin-bottom: -8px;
+    margin-top: -16px;
+}
+
+.fancy {
+    line-height: 0.5;
+    text-align: center;
+    width: auto;
+}
+
+.fancy span {
+    display: inline-block;
+    position: relative;
+}
+
+.fancy span:before,
+.fancy span:after {
+    content: "";
+    position: absolute;
+    height: 5px;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    top: 0;
+    width: 450px;
+}
+
+.fancy span:before {
+    right: 100%;
+    margin-right: 15px;
+}
+
+.fancy span:after {
+    left: 100%;
+    margin-left: 15px;
+}
+
+#history_feedback .star img {
+    width: 20px;
+    height: 20px;
+}
+
+.custom-tooltip + .tooltip > .tooltip-inner {
+    height: 50px;
+    width: 100px;
+    background-color: #A6ECF6;
+    color:black;
+}
+
+.custom-tooltip + .tooltip > .tooltip-arrow {
+    border-bottom-color: #A6ECF6;
+}

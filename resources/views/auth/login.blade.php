@@ -17,7 +17,7 @@
 				<form method="POST" action="{{ url('/login')}}">
 					 {!! csrf_field() !!}
 					<div class="login-input">
-						<input type="email" name="Email" class="form-control" placeholder="Email" value="{{ old('email') }}" required="">
+						<input type="email" name="Email" class="form-control" placeholder="Email" value="{{ Session::get('usersess') }}" required="">
 						<input type="password" name="Password" class="form-control" placeholder="Password" required="">
 						@if ($errors->has('Password'))
 		                    <div style="color: red; margin-left: 75px; margin-top: 10px; font-size: 12px;">

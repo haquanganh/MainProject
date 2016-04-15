@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Employee as Employee;
 use App\User as User;
 use App\Role as Role;
+use App\Clients as Clients;
 use Auth;
 use Illuminate\Support\Facades\Input;
 use App\Http\Requests\Personal_Information_Request;
@@ -29,11 +30,17 @@ class Personal_Information_Controller extends Controller
         $id_Rol = Auth::user()->idRole;
         $id_Acc = Auth::user()->idAccount;
         if( $id_Rol != 1 ){
-            $id_Employee = Employee::where('idAccount','=',$id_Acc)->first()->idEmployee;
-            $employee = Employee::find($id_Employee);
-            $id_Role = User::find($employee->idAccount)->idRole;
-            $role_name = Role::find($id_Role)->Role;
-            return view('personal.view',compact('employee','role_name'));
+            if($id_Rol == 4){
+                $client = Clients::where('idAccount','=',$id_Acc)->first();
+                return view('personal.view_client',compact('client'));
+            }
+            else{
+                $id_Employee = Employee::where('idAccount','=',$id_Acc)->first()->idEmployee;
+                $employee = Employee::find($id_Employee);
+                $id_Role = User::find($employee->idAccount)->idRole;
+                $role_name = Role::find($id_Role)->Role;
+                return view('personal.view',compact('employee','role_name'));
+            }
         }
         return redirect()->route('admin.personal-information.index');
     }

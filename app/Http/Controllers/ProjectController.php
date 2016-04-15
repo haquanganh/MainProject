@@ -49,6 +49,7 @@ class ProjectController extends Controller
         if(!empty($error_list)){
             return redirect()->back()->withInput()->withErrors($error_list);
         }
+        /*Save project*/
     	$project_name = $request->in_NameofProject;
     	$client = $request->sl_Client;
     	$timerange = $request->daterange;
@@ -58,25 +59,31 @@ class ProjectController extends Controller
     	$date = explode('-', $timerange);
     	$startday = DateTime::createFromFormat('m/d/Y', trim($date[0]));
     	$endday = DateTime::createFromFormat('m/d/Y', trim($date[1]));
+        /*Save project*/
     	$p = new Project;
-            	$p->P_Name       = $project_name;
-            	$p->idPManager   = $PM;
-            	$p->idTeamLeader = $leader;
-            	$p->idClient     = (int)$client;
-            	$p->P_DateStart  = $startday;
-            	$p->P_DateFinish = $endday;
-            	$p->P_DateCreate = date("Y/m/d");
-            	$p->idPStatus = 1;
-            	$p->save();
-    	/////////////////////////
+    	$p->P_Name       = $project_name;
+    	$p->idPManager   = $PM;
+    	$p->idTeamLeader = $leader;
+    	$p->idClient     = (int)$client;
+    	$p->P_DateStart  = $startday;
+    	$p->P_DateFinish = $endday;
+    	$p->P_DateCreate = date("Y/m/d");
+    	$p->idPStatus = 1;
+    	$p->save();
+        /*Set leader status*/
+        $set = Employee::find($leader);
+        $set->idStatus = 1;
+        $set->save();
+    	/*Save the members*/
     	for ($i = 0 ; $i < $request->n_listE ; $i++) {
-	if(isset($request->c[$i])){
-                    $pe = new ProjectEmployee;
-                    $pe->idProject = $p->idProject;
-                    $pe->idEmployee = $request->c[$i];
-                    $set = Employee::find($request->c[$i]);
-                    $set->idStatus = 1;
-                    $set->save();
+	        if($request->input('c.'.$i) != null){
+                $pe = new ProjectEmployee;
+                $pe->idProject = $p->idProject;
+                $pe->idEmployee = $request->input('c.'.$i);
+                $pe->save();
+                $set = Employee::find($request->input('c.'.$i));
+                $set->idStatus = 1;
+                $set->save();
             }
     	}
     	$flat = 'You are successful to create new project';

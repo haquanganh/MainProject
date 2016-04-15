@@ -39,6 +39,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('create-project','ProjectController@postcreateProject');
         Route::get('get-listPM','AjaxController@getlistPM');
         Route::get('get-listProject','AjaxController@getlistProject');
+        Route::get('get-top','AjaxController@getTop');
         Route::get('project_detail/{id}','ProjectController@project_detail');
         Route::get('project/edit/{id}','ProjectController@getEditProject');
         Route::post('project/edit/{id}','ProjectController@postEditProject');
@@ -46,6 +47,9 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('history_feedback','HistoryController@viewHistoryFeedback');
         Route::get('feedback_old/{time}/{id}','FeedbackController@getviewoldFeedback');
         Route::get('stastics','StasticController@viewStastics');
+        //request
+        Route::get('request-notify', 'RequestController@getRequest');
+        Route::post('request-notify/{id}', 'RequestController@postRequest');
 
     });
 
@@ -77,4 +81,17 @@ Route::group(['middleware' => ['web']], function () {
         //Change password
         Route::post('change-password','PassController@postChangepass');
         Route::post('check/check-pass','PassController@checkPass');
+        //Send request
+        Route::post('send-request/{id}','RequestController@postSendRequest');
+        Route::get('test',function(){
+            $feedbacks = App\Feedback::all();
+            $list = array();
+            foreach ($feedbacks as $key => $k) {
+                $ymd = DateTime::createFromFormat('Y-m-d H:i:s',$k->F_DateCreate)->format('m/Y');
+                //$newformat = date('m/y',$date);
+                return $ymd;
+                //array_push($list, $date);
+            }
+            return $list;
+        });
 });

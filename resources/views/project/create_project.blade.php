@@ -43,7 +43,7 @@
                                 <?php
                                     $check = App\User::find($e->idAccount)->idRole;
                                 ?>
-                                @if ($check == 3)
+                                @if ($check == 3 && $e->idStatus == 2)
                                     <option value="{{$e->idEmployee}}">{{$e->E_EngName}}</option>
                                 @endif
                             @endforeach

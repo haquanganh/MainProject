@@ -10,6 +10,7 @@ class Clients extends Model
     protected $fillable = ['idClient', 'ClientName','C_Phone','C_Address','C_Company','C_Skype','idAccount','idNote'];
     protected $hidden = [];
     protected $primaryKey = 'idClient';
+    public $timestamps = false;
     public function User(){
     	return $this->belongsTo('App\User');
     }

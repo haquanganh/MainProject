@@ -59,6 +59,7 @@ class ProjectController extends Controller
         $date = explode('-', $timerange);
         $startday = DateTime::createFromFormat('m/d/Y', trim($date[0]));
         $endday = DateTime::createFromFormat('m/d/Y', trim($date[1]));
+        /*Save new project*/
         $p = new Project;
         $p->P_Name       = $project_name;
         $p->idPManager   = $idPM;
@@ -69,6 +70,11 @@ class ProjectController extends Controller
         $p->idPStatus = 1;
         $p->idTeamLeader = $request->r_leader;
         $p->save();
+        /*Set status for leader*/
+        $set = Employee::find($request->r_leader);
+        $set->idStatus = 1;
+        $set->save();
+        /*Save team member*/
         for ($i = 0 ; $i < $request->n_listE ; $i++) {
             if(isset($request->c[$i])){
                 if($request->c[$i] != $request->r_leader){

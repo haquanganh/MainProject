@@ -55,8 +55,8 @@ class FeedbackController extends Controller
     	$post = $request->all();
     	$validator = Validator::make($request->all(),
 			array(
-				'edit-feedback_title' => 'required',
-				'edit-feedback_content' => 'required',
+				'edit_feedback_title' => 'required',
+				'edit_feedback_content' => 'required',
 				'rating' => 'required',
 				'edit-text-backup' => 'required'
 				)
@@ -79,8 +79,8 @@ class FeedbackController extends Controller
 			return redirect()->back()->withErrors($validator);
 		} else {
 			$f = Feedback::find($idFeedback);
-			$f->F_Title = $post['edit-feedback_title'];
-			$f->F_Content = $post['edit-feedback_content'];
+			$f->F_Title = $post['edit_feedback_title'];
+			$f->F_Content = $post['edit_feedback_content'];
 			$f->F_Rate = $post['rating'];
 			$f->save();
 			if($f->save())

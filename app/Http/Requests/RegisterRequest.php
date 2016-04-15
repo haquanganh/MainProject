@@ -25,33 +25,35 @@ class RegisterRequest extends Request
     {
         $rules = [
             'in_Email' =>'required|unique:users,email',
-            'in_EName' => 'required|min:2|max:15',
             'in_Name'=> 'required|max:50',
             'in_Address' => 'min:4',
-            'in_Phone' => 'min:10|max:11|required|unique:Employee,E_Phone',
             'sl_Role' => 'required',
-            'in_Skype' => 'min:6|max:32|required|unique:Employee,E_Skype',
-            'in_CostHour' => 'required|min:1|max:4',
             'in_Password' => 'required',
             'in_Repassword' => 'required',
-            'in_id' => 'required|min:10|max:10|unique:Employee,idEmployee',
-            'in_Year.0' => 'required',
-            'in_img' => 'required|min:0|max:6144|image|mimes:jpg,jpeg,png',
+            
         ];
-        if($this->request->get('in_Year') == true){
-            foreach ($this->request->get('in_Year') as $key => $value) {
-            $rules['in_Year.'.$key] = 'required';
+        if($this->request->get('sl_Role') == true){
+            if($this->request->get('sl_Role') != "Client"){
+                $rules['in_Skype'] = 'min:6|max:32|required|unique:Employee,E_Skype';
+                $rules['in_id'] = 'required|min:10|max:10|unique:Employee,idEmployee';
+                $rules['in_Phone'] = 'min:10|max:11|required|unique:Employee,E_Phone';
+                $rules['in_CostHour'] = 'required|min:1|max:4';
+                $rules['in_Year.0'] = 'required';
+                $rules['in_id'] = 'required|min:10|max:10|unique:Employee,idEmployee';
+                $rules['in_img'] = 'required|min:0|max:6144|image|mimes:jpg,jpeg,png';
+                $rules['in_EName'] = 'required|min:2|max:15';
+                if($this->request->get('in_Year') == true){
+                    foreach ($this->request->get('in_Year') as $key => $value) {
+                    $rules['in_Year.'.$key] = 'required';
+                    }
+                }
+            }
+            else{
+                $rules['in_Skype'] ='min:6|max:32|required|unique:Clients,C_Skype';
+                $rules['in_Phone'] = 'min:10|max:11|required|unique:Clients,C_Phone';
             }
         }
-        // for($j = 0 ; $j < $request->number_rows ; $j++){
-        //     $name_in_Skill = 'sl_Skill'.$j;
-        //     for($k = $j+1 ; $k < $request->number_rows; $k++){
-        //         $name_in_Skill1 = 'sl_Skill'.$k;
-        //         if($request->$name_in_Skill == $request->$name_in_Skill1){
-        //             'duplicated.'
-        //         }
-        //     }
-        // }
+        
         return $rules;
     }
     public function messages(){
@@ -89,9 +91,14 @@ class RegisterRequest extends Request
             'in_img.mimes' => 'Please upload a picture with mimes : jpg, jpeg, png',
             'in_Address.min' => 'The Address must be contained equal or more than 4 characters',
         ];
-        if($this->request->get('in_Year') == true){
-            foreach ($this->request->get('in_Year') as $key => $value) {
-            $messages['in_Year.'.$key.'.required'] = 'Please enter the year';
+        if($this->request->get('sl_Role') == true){
+            if($this->request->get('sl_Role') != "Client"){
+                if($this->request->get('in_Year') == true){
+                    foreach ($this->request->get('in_Year') as $key => $value) {
+                    $messages['in_Year.'.$key.'.required'] = 'Please enter the year';
+                    }
+                }
+
             }
         }
         return $messages;

@@ -248,8 +248,6 @@
                         $('.basic-information').find('.skype').text(result[0].E_Skype);
                         $('.basic-information').find('.phone').text(result[0].E_Phone);
                         $('.basic-information').find('.address').text(result[0].E_Address);
-                        
-                        
                         if (num > 0) 
                         {                        
                             $('.title-feedback').remove();
@@ -264,12 +262,34 @@
                             $('.edit-form').remove();
                         }
                         $.each(result[2], function(index, val) {
-                            $('.feedback').append('<li class="list-group-item title-feedback"><span class="title-fb">'+ val.F_Title +'</span><span class="control-star'+ val.idFeedback +' star"></span></li><li class="list-group-item content-feedback"><span class="content-fb">'+ val.F_Content +'</span></li><div class="modal fade del-feedback-form"><div class="modal-dialog"><div class="modal-content"><form method="POST" action="{{ url('/client-delete-feedback') }}">{!! csrf_field() !!}<div class="modal-body" id="del-feedback-body"><h3>Are you sure?</h3><input type="hidden" id="getIdfeedbacktodel" name="getIdfeedbacktodel" value="'+ val.idFeedback+'"></input></div><div class="modal-footer"><input type="submit" class="btn btn-primary" value="Yes"></input><button type="button" class="btn btn-default" data-dismiss="modal">No</button></div></form></div></div></div><div class="modal fade edit-feedback-form"><form method="POST" action="{{ url('/client-edit-feedback') }}">{!! csrf_field() !!}<div class="modal-dialog" style="width: 800px;"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title">Edit Feedback</h4></div><div class="modal-body row" ><div class="col-md-5"><p>Title</p><input type="text" id="edit-feedback_title" name="edit-feedback_title" class="form-control" value="'+ val.F_Title +'"></input></br><p>Rating level:</p><select class="form-control" name="rating"><option selected style="display:none;">'+ val.F_Rate +'</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div><div class="col-md-7"><p>Content</p><textarea class="form-control" id="edit-feedback_content" name="edit-feedback_content" style="height: 200px;">'+ val.F_Content +'</textarea><input type="hidden" name="idEmployee" class="idEmployee" value='+ val.idEmployee +'></input><textarea name="edit-text-backup" style="display:none;">'+ val.F_Content +'</textarea><input type="hidden" name="F_Title" value="'+ val.F_Title +'"></input><input type="hidden" name="F_Rate" value="'+ val.F_Rate +'"></input><input type="hidden" name="getIdfeedback" value="'+ val.idFeedback+'"></input></div></div><div class="modal-footer" style="clear: both; "><input type="submit" class="btn btn-primary" value="Save"></input><button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button></div></div></div></form></div>');
+                            $('.feedback').append('<li class="list-group-item title-feedback"><span class="title-fb">'+ val.F_Title +'</span><span class="control-star'+ val.idFeedback +' star"></span></li><li class="list-group-item content-feedback"><span class="content-fb">'+ val.F_Content +'</span></li><div class="modal fade del-feedback-form"><div class="modal-dialog"><div class="modal-content"><form method="POST" action="{{ url('/client-delete-feedback') }}">{!! csrf_field() !!}<div class="modal-body" id="del-feedback-body"><h3>Are you sure?</h3><input type="hidden" id="getIdfeedbacktodel" name="getIdfeedbacktodel" value="'+ val.idFeedback+'"></input></div><div class="modal-footer"><input type="submit" class="btn btn-primary" value="Yes"></input><button type="button" class="btn btn-default" data-dismiss="modal">No</button></div></form></div></div></div><div class="modal fade edit-feedback-form"><form class="form-edit-feedback'+ val.idFeedback +'"method="POST" action="{{ url('/client-edit-feedback') }}">{!! csrf_field() !!}<div class="modal-dialog" style="width: 800px;"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title">Edit Feedback</h4></div><div class="modal-body row" ><div class="col-md-5"><p>Title</p><input type="text" id="edit_feedback_title" name="edit_feedback_title" class="form-control" value="'+ val.F_Title +'"></input></br><p>Rating level:</p><select class="form-control" name="rating"><option selected style="display:none;">'+ val.F_Rate +'</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div><div class="col-md-7"><p>Content</p><textarea class="form-control" id="edit_feedback_content" name="edit_feedback_content" style="height: 200px;">'+ val.F_Content +'</textarea><input type="hidden" name="idEmployee" class="idEmployee" value='+ val.idEmployee +'></input><textarea name="edit-text-backup" style="display:none;">'+ val.F_Content +'</textarea><input type="hidden" name="F_Title" value="'+ val.F_Title +'"></input><input type="hidden" name="F_Rate" value="'+ val.F_Rate +'"></input><input type="hidden" name="getIdfeedback" value="'+ val.idFeedback+'"></input></div></div><div class="modal-footer" style="clear: both; "><input type="submit" class="btn btn-primary" value="Save"></input><button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button></div></div></div></form></div>');
                             
-                                for(var i = 0; i < val.F_Rate; i++) 
-                                {
-                                    $('<img src="{{ asset('/images/icon-star.png') }}"></img>').appendTo('.control-star'+ val.idFeedback +'');
+                            for(var i = 0; i < val.F_Rate; i++) 
+                            {
+                                $('<img src="{{ asset('/images/icon-star.png') }}"></img>').appendTo('.control-star'+ val.idFeedback +'');
+                            }
+                            $('.form-edit-feedback'+ val.idFeedback +'').validate({
+                                rules:{
+                                    edit_feedback_title:{
+                                        required:true,
+                                        maxlength:60
+                                    },
+                                    edit_feedback_content:{
+                                        required:true,
+                                        maxlength:1000
+                                    }
+                                },
+                                messages:{
+                                    edit_feedback_title:{
+                                        required:"Please enter the Feedback title!",
+                                        maxlength:"Max length title is equal or less than 60 characters!"
+                                    },
+                                    edit_feedback_content:{
+                                        required:"Please enter your feedback!",
+                                        maxlength:"Max length title is equal or less than 1000 characters!"
+                                    }
                                 }
+                            });
                         });
 
                         <?php

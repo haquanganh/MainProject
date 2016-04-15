@@ -13,24 +13,15 @@ use App\SkillDetail;
 class EmployeeController extends Controller
 {
     public function getEmployee(){
-    	$list_employee = Employee::all();
-    	return view('personal.employee_information',compact('list_employee'));
+        $idAccount = Auth::user()->idAccount;
+        $list_employee = DB::table('Employee')->where('idAccount', '!=', $idAccount)->get();
+        return view('personal.employee_information',compact('list_employee'));
     }
+    
     public function postEmployee(Request $request){
-    	
-    	// lay du lieu inner join  giua 3 bang Employee, SkillDetail, Skill
-    	// $Listskill = DB::table('Employee')
-    	// 			->join('SkillDetail', 'Employee.idEmployee', '=', 'SkillDetail.idEmployee')
-    	// 			->join('Skill', 'SkillDetail.idSKill', '=', 'Skill.idSKill')
-    	// 			->select('Employee.*')
-     //                ->distinct()
-     //                ->where('Skill.Skill', '=', $search)
-    	// 			->orwhere('E_Cost_Hour', '=', $search)
-     //                ->orwhere('E_Name', 'LIKE', '%'.$search.'%')
-     //                ->orderBy('E_Cost_Hour','desc')
-     //                ->get();
         $search = $request->input('search');
         $search_type = $request->input('search-type');
+        $idAccount = Auth::user()->idAccount;
         if($search_type == 'Search by name'){
             $Listskill = DB::table('Employee')
                     ->join('SkillDetail', 'Employee.idEmployee', '=', 'SkillDetail.idEmployee')
@@ -38,6 +29,7 @@ class EmployeeController extends Controller
                     ->select('Employee.*')
                     ->distinct()
                     ->where('E_Name', 'LIKE', '%'.$search.'%')
+                    ->where('idAccount', '!=', $idAccount)
                     ->orderBy('E_Cost_Hour','asc')
                     ->get();
         }
@@ -48,6 +40,7 @@ class EmployeeController extends Controller
                     ->select('Employee.*')
                     ->distinct()
                     ->where('Skill.Skill', '=', $search)
+                    ->where('idAccount', '!=', $idAccount)
                     ->orderBy('E_Cost_Hour','asc')
                     ->get();
         }
@@ -58,19 +51,19 @@ class EmployeeController extends Controller
                     ->select('Employee.*')
                     ->distinct()
                     ->where('E_Cost_Hour', '=', $search)
+                    ->where('idAccount', '!=', $idAccount)
                     ->orderBy('E_Cost_Hour','asc')
                     ->get();
         }
- 		$list_employee = Employee::all();
-    	if(count($Listskill) == 0)
-    	{
-    		
-    		return view('personal.employee_information',compact('list_employee'))
-    		->with('message', 'Sorry, no employee matched your search. Please try again!');	
-    	}
-    	else {
-    		return view('personal.employee_information',compact('list_employee'))
-    		->with('Listskill', $Listskill);
-    	}
+        $list_employee = DB::table('Employee')->where('idAccount', '!=', $idAccount)->get();
+        if(count($Listskill) == 0)
+        {
+            return view('personal.employee_information',compact('list_employee'))
+            ->with('message', 'Sorry, no employee matched your search. Please try again!'); 
+        }
+        else {
+            return view('personal.employee_information',compact('list_employee'))
+            ->with('Listskill', $Listskill);
+        }
     }
 }

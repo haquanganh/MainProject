@@ -9,6 +9,7 @@ use App\Employee as Employee;
 use App\User as User;
 use App\Role as Role;
 use App\SkillDetail as SkillDetail;
+use App\Clients as Clients;
 use App\Http\Requests\RegisterRequest;
 use App\Skill;
 use Hash;
@@ -33,14 +34,16 @@ class Register_Controller extends Controller
         }
         /*Valitdate password and duplicate skill and email*/
         $error_list = array();
-        for($j = 0 ; $j < $request->number_rows ; $j++){
-            $name_in_Skill = 'sl_Skill'.$j;
-            for($k = $j+1 ; $k < $request->number_rows; $k++){
-                $name_in_Skill1 = 'sl_Skill'.$k;
-                if($request->$name_in_Skill == $request->$name_in_Skill1){
-                    $arr1 = array('duplicated' => 'Please do not choose duplicated skill');
-                    $error_list = $error_list + $arr1;
-                    break;
+        if($request->sl_Role != "Client"){
+            for($j = 0 ; $j < $request->number_rows ; $j++){
+                $name_in_Skill = 'sl_Skill'.$j;
+                for($k = $j+1 ; $k < $request->number_rows; $k++){
+                    $name_in_Skill1 = 'sl_Skill'.$k;
+                    if($request->$name_in_Skill == $request->$name_in_Skill1){
+                        $arr1 = array('duplicated' => 'Please do not choose duplicated skill');
+                        $error_list = $error_list + $arr1;
+                        break;
+                    }
                 }
             }
         }
@@ -85,41 +88,53 @@ class Register_Controller extends Controller
         $user->idRole = $id_Role;
         $user->save();
         /*Add new employee of new user*/
-        $employee = new Employee;
-        $employee->idEmployee = $request->in_id;
-        $employee->E_Name = $request->in_Name;
-        $employee->E_EngName = $request->in_EName;
-        $employee->E_Address = $request->in_Address;
-        $employee->E_Sex = ($request->sl_Sex == 'Male' ? 1 : 0 );
-        $employee->E_Phone = $request->in_Phone;
-        $employee->E_Skype = $request->in_Skype;
-        $employee->E_Cost_Hour =$request->in_CostHour;
-        $employee->idAccount = $user->idAccount;
-        $employee->E_DateofBirth = $request->in_Dateofbirth;
-        $img_file = $request->in_img;
-        $id_images = Employee::all()->count();
-        /*Handle file and move to images/personal_images and save name images to database*/
-        if($img_file){
-            $img_file_name = $img_file->getClientOriginalName();
-            $img_file_extension_name = $img_file->getClientOriginalExtension();
-            $img_file->move(public_path('images/personal_images'), ($id_images+1).'avatar.'.$img_file_extension_name);
-            $employee->E_Avatar = ($id_images+1).'avatar.'.$img_file_extension_name;
+        if($request->sl_Role != "Client"){
+            $employee = new Employee;
+            $employee->idEmployee = $request->in_id;
+            $employee->E_Name = $request->in_Name;
+            $employee->E_EngName = $request->in_EName;
+            $employee->E_Address = $request->in_Address;
+            $employee->E_Sex = ($request->sl_Sex == 'Male' ? 1 : 0 );
+            $employee->E_Phone = $request->in_Phone;
+            $employee->E_Skype = $request->in_Skype;
+            $employee->E_Cost_Hour =$request->in_CostHour;
+            $employee->idAccount = $user->idAccount;
+            $employee->E_DateofBirth = $request->in_Dateofbirth;
+            $employee->idStatus = 2;
+            $img_file = $request->in_img;
+            $id_images = Employee::all()->count();
+            /*Handle file and move to images/personal_images and save name images to database*/
+            if($img_file){
+                $img_file_name = $img_file->getClientOriginalName();
+                $img_file_extension_name = $img_file->getClientOriginalExtension();
+                $img_file->move(public_path('images/personal_images'), ($id_images+1).'avatar.'.$img_file_extension_name);
+                $employee->E_Avatar = ($id_images+1).'avatar.'.$img_file_extension_name;
+            }
+            $employee->save();
+            $e_id = $request->in_id;
+            // /*Save list skill*/
+             for($i = 0 ; $i < $request->number_rows ; $i++){
+                 $name_in_Skill = 'sl_Skill'.$i;
+                 $name_in_Year = 'in_Year.'.$i;
+                  if(isset($request->$name_in_Skill)){
+                      $detail_Skill = new SkillDetail;
+                      $detail_Skill->idEmployee = $e_id;
+                      $sk_id = Skill::where('Skill','=',$request->$name_in_Skill)->first()->idSkill;
+                      $detail_Skill->idSkill = $sk_id;
+                      $detail_Skill->S_Rate = $request->in_Year[$i];
+                      $detail_Skill->save();
+                  }
+             }
         }
-        $employee->save();
-        $e_id = $request->in_id;
-        // /*Save list skill*/
-         for($i = 0 ; $i < $request->number_rows ; $i++){
-             $name_in_Skill = 'sl_Skill'.$i;
-             $name_in_Year = 'in_Year.'.$i;
-              if(isset($request->$name_in_Skill)){
-                  $detail_Skill = new SkillDetail;
-                  $detail_Skill->idEmployee = $e_id;
-                  $sk_id = Skill::where('Skill','=',$request->$name_in_Skill)->first()->idSkill;
-                  $detail_Skill->idSkill = $sk_id;
-                  $detail_Skill->S_Rate = $request->in_Year[$i];
-                  $detail_Skill->save();
-              }
-         }
+        else{
+            $client = new Clients;
+            $client->ClientName = $request->in_Name;
+            $client->C_Address = $request->in_Address;
+            $client->C_Phone = $request->in_Phone;
+            $client->C_Skype = $request->in_Skype;
+            $client->idAccount = $user->idAccount;;
+            $client->save();
+        }
         return redirect()->route('admin.personal-information.index');
     }
 }

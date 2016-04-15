@@ -4,14 +4,14 @@
     height: 120px;
     width: 100%;
     padding: 10px;
-    background-color: #D61043;
+    background-color: #8C8C8C;
     border-radius: 5px;
     color: white;
     margin-left: 0px;
     margin-right: 0px;
-    -webkit-box-shadow: 10px 10px 5px 0px rgba(107, 7, 32, 1);
-    -moz-box-shadow: 10px 10px 5px 0px rgba(107, 7, 32, 1);
-    box-shadow: 10px 10px 5px 0px rgba(107, 7, 32, 1);
+    -webkit-box-shadow: 10px 10px 5px -4px rgba(109, 105, 117, 1);
+    -moz-box-shadow: 10px 10px 5px -4px rgba(109, 105, 117, 1);
+    box-shadow: 10px 10px 5px -4px rgba(109, 105, 117, 1);
 }
 
 .content-box-large:hover {

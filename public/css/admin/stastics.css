@@ -1,11 +1,5 @@
-.list{
-	width: 170px;
-}
-.list2{
-	width: 100px;
-}
-.list6{
-	width: 220px;
+.list_points, .list_top,.list_date,.list1{
+	width: 180px;
 }
 select.form-control{
 	height: 30px;
@@ -17,4 +11,15 @@ table img{
 }
 td{
 	line-height: 50px;
+}
+#myDatepicker{
+	width: 200px;
+	float:right;
+	height: 28px;
+}
+.date input{
+	height: 28px;
+}
+.input-group-addon{
+	padding: 0px 12px!important;
 }
