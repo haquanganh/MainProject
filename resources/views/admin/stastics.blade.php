@@ -21,53 +21,7 @@
 		<a id="Get" href="#" class="btn btn-primary pull-right">Get</a>
 		<div class="clearfix"></div>
 	</div>
-	<div class="row">
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th>No.</th>
-					<th>Avatar</th>
-					<th>Name</th>
-					<th>Skype</th>
-					<th>Role</th>
-					<th>Points</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>1</td>
-					<td><img src="{{ asset('images/user.png') }}"></td>
-					<td>Astro</td>
-					<td>eureka.m0198</td>
-					<td>Project Manager</td>
-					<td>200</td>
-				</tr>
-				<tr>
-					<td>2</td>
-					<td><img src="{{ asset('images/user.png') }}"></td>
-					<td>Astro</td>
-					<td>eureka.m0198</td>
-					<td>Project Manager</td>
-					<td>200</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td><img src="{{ asset('images/user.png') }}"></td>
-					<td>Astro</td>
-					<td>eureka.m0198</td>
-					<td>Project Manager</td>
-					<td>200</td>
-				</tr>
-				<tr>
-					<td>4</td>
-					<td><img src="{{ asset('images/user.png') }}"></td>
-					<td>Astro</td>
-					<td>eureka.m0198</td>
-					<td>Project Manager</td>
-					<td>200</td>
-				</tr>
-			</tbody>
-		</table>	
+	<div class="row data">
 	</div>
 @stop
 @section('script')
@@ -104,7 +58,7 @@
 					$('#myDatepicker').remove();
 
 				}
-				$('.choose').append('<select class="list list_stars"><option></option><option value="1">1 Star - 2 Stars</option><option value="2">2 Stars -3 Stars</option><option value="3">3 Stars - 4 Stars</option><option value="4">4 Stars - 5 Stars</option></select>');
+				$('.choose').append('<select class="list list_stars"><option></option><option value="1-2">1 Star - 2 Stars</option><option value="2-3">2 Stars -3 Stars</option><option value="3-4">3 Stars - 4 Stars</option><option value="4-5">4 Stars - 5 Stars</option></select>');
 
 				$(".list_stars").select2({
         			placeholder: "Select rate of stars",
@@ -156,7 +110,7 @@
 					$('.list_date').prop('disabled',true);
 					$('.list_date').remove();
 				}
-				$('.choose').append('<select class="list list_points"><option></option><option value="1">< 100 points</option><option value="2">100 - 120 points</option><option value="3">120 - 140 points</option><option value="4">140 - 160 points</option><option value="5">160 - 180 points</option><option value="5">> 180 points</option></select>');
+				$('.choose').append('<select class="list list_points"><option></option><option value="0-100"><=100 points</option><option value="100-120">100 - 120 points</option><option value="120-140">120 - 140 points</option><option value="140-160">140 - 160 points</option><option value="160-180">160 - 180 points</option><option value="180-200">>= 180 points</option></select>');
 
 				$(".list_points").select2({
         			placeholder: "Select range of points",
@@ -221,9 +175,20 @@
 					cache: false,
 					data:{"type" : type , "time" : time, "top" : top, "detailed" : detailed},
 					success: function(data){
-						var result = $.parseJSON(data);
-						console.log(result[0]);
-
+						$('table').remove();
+						$('table .text-center').remove();
+						$('#warning').remove();
+						if(data != 'Empty'){
+							var result = $.parseJSON(data);
+							$('.data').append('<table class="table table-striped"><thead><tr><th>No.</th><th>Avatar</th><th>Name</th><th>Skype</th><th>Points</th></tr></thead><tbody>');
+							$.each(result[0],function(index, val){
+								$('.table').append('<tr><td>'+(index+1)+'</td><td><img src="{{ asset('images/personal_images').'/' }}'+val.E_Avatar+'"></td><td>'+val.E_EngName+'</td><td>'+val.E_Skype+'</td><td>'+val.Point+'</td></tr>');
+							});
+							$('.data').append('</tbody></table>');
+						}
+						else{
+							$('.data').append('<table class="text-center"><tbody><tr id="warning"><td colspan="5">Do not found data</td></tr></tbody</table>');
+						}
 					}
 				});
 			}
