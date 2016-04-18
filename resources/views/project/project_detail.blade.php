@@ -2,12 +2,14 @@
 @section('title','Home page')
 @section('css')
 <link rel="stylesheet" type="text/css" href="{{ asset('css/project_detail.css') }}">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css" rel="stylesheet" />
+<link href="{{ asset('third-library/select2-4.0.2/dist/css/select2.min.css') }}" rel="stylesheet" />
 @stop
 @section('content')
             <div id="img-title">
                 <p>Project Information
-                    <a href="{{ url('/project/edit/') }}/{{$project->idProject}}" class="pull-right" style="color:white;"><i class="glyphicon glyphicon-edit"></i></a>
+                    @if (Auth::user()->idRole == 2)
+                         <a href="{{ url('/project/edit/') }}/{{$project->idProject}}" class="pull-right" style="color:white;"><i class="glyphicon glyphicon-edit"></i></a>
+                    @endif
                 </p>
             </div>
             <?php
@@ -168,8 +170,8 @@
         @endif
 @stop
 @section('script')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script>
+<script src="{{ asset('third-library/bootstrap-select/bootstrap-select.min.js') }}"></script>
+    <script src="{{ asset('third-library/select2-4.0.2/dist/js/select2.min.js') }}"></script>
     <!-- Validate -->
     <script type="text/javascript" src="{{ asset('js/jquery-validate/jquery.validate.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/jquery-validate/additional-methods.js') }}"></script>

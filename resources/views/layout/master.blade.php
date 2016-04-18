@@ -7,10 +7,9 @@
 		<title>@yield('title')</title>
 
 		<!-- Bootstrap CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-	    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-	    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine">
-	    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/unslider/2.0.3/css/unslider.css">
+		<link rel="stylesheet" href="{{ asset('third-library/bootstrap/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('third-library/font-awesome-4.6.1/css/font-awesome.min.css') }}">
+	    <!-- <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine"> -->
 		<link rel="stylesheet" type="text/css" href="{{ asset('css/masterpage.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('css/change_pass.css') }}">
         @yield('css')
@@ -21,18 +20,22 @@
             <div class="container">
                 <div id="tophead">
                     <a href="{{ url('/') }}" class="logo"><img src="{{ asset('images/enclave_logo.png') }}"></a>
+                    @if (Auth::user()->idRole != 1)
                     <a href="#" class="dropdown-toggle" type="button">
                             <img id="notification" src="{{ asset('images/notification.png') }}" alt="">
                     </a>
+                    @endif
                     <div class="dropdown" style="z-index:2001">
                         <a class="dropdown-toggle" href="" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                             <img id="user" src="{{ asset('images/user.png') }}" alt="">
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="top:60px;left:-50px">
-                            <li><a href="/personal-information">{{ Auth::user()->idRole == 4 ? (App\Clients::where('idAccount','=',Auth::user()->idAccount)->first()->ClientName) :( App\Employee::where('idAccount','=',(Auth::user()->idAccount))->first()->E_EngName) }}</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a data-toggle="modal" href='#change-password'>Change password</a></li>
-                            <li role="separator" class="divider"></li>
+                            @if (Auth::user()->idRole != 1)
+                                <li><a href="/personal-information">{{ Auth::user()->idRole == 4 ? (App\Clients::where('idAccount','=',Auth::user()->idAccount)->first()->ClientName) :( App\Employee::where('idAccount','=',(Auth::user()->idAccount))->first()->E_EngName) }}</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a data-toggle="modal" href='#change-password'>Change password</a></li>
+                                <li role="separator" class="divider"></li>
+                            @endif
                             <li><a href="/logout">Logout</a></li>
                         </ul>
                     </div>
@@ -51,6 +54,7 @@
                     <div class="collapse navbar-collapse navbar-ex1-collapse" id="content-menu">
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="{{ url('/employee-information') }}">Employee Information</a></li>
+                            @if (Auth::user()->idRole != 1)
                             <li class="dropdown ">
                                 <a href="#" data-toggle="dropdown" class=" dropdown-toggle">Project Management   <span class="caret"></span></a>
                                 <ul class="dropdown-menu" id="project-dropdown">
@@ -63,6 +67,7 @@
                             <li><a href="#">Your Note</a></li>
                             <li><a href="{{ url('project_history') }}">History</a></li>
                             <li><a href="#">Contact</a></li>
+                            @endif
                             <li><a href="#">About us</a></li>
                         </ul>
                     </div>
@@ -89,7 +94,7 @@
                 <div class="col-md-4" style="font-size:16px;padding-top: 6px">Enclave Company</div>
             </div>
             <div class="col-md-1"></div>
-        </div>
+    </div>
         <!-- Change password -->
     <div class="modal fade" id="change-password">
         <div class="modal-dialog">
@@ -156,12 +161,11 @@
                     </div>
                  @endif
             </div>
-        <script src="https://code.jquery.com/jquery.js"></script>
+        <script src="{{ asset('third-library/jquery/jquery-2.2.3.min.js') }}"></script>
         <!-- Bootstrap JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+        <script src="{{ asset('third-library/bootstrap/js/bootstrap.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/jquery-validate/jquery.validate.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/jquery-validate/additional-methods.js') }}"></script>
-    </div>
         @yield('script')
         <script src="{{ asset('js/custom.js') }}"></script>
 

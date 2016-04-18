@@ -84,14 +84,24 @@ Route::group(['middleware' => ['web']], function () {
         //Send request
         Route::post('send-request/{id}','RequestController@postSendRequest');
         Route::get('test',function(){
-            $feedbacks = App\Feedback::all();
-            $list = array();
-            foreach ($feedbacks as $key => $k) {
-                $ymd = DateTime::createFromFormat('Y-m-d H:i:s',$k->F_DateCreate)->format('m/Y');
-                //$newformat = date('m/y',$date);
-                return $ymd;
-                //array_push($list, $date);
-            }
-            return $list;
+            // $feedbacks = App\Feedback::all();
+            // $list = array();
+            // foreach ($feedbacks as $key => $k) {
+            //     $ymd = DateTime::createFromFormat('Y-m-d H:i:s',$k->F_DateCreate)->format('m/Y');
+            //     //$newformat = date('m/y',$date);
+            //     return $ymd;
+            //     //array_push($list, $date);
+            // }
+            // return $list;
+            // $tz = new DateTimeZone('Asia/Bangkok');
+            // $now = new DateTime('now',$tz);
+            // // return $now->format('Y-m-d H:i:s');
+            // $mytime = Carbon\Carbon::now();
+            // $mytime->setTimezone('Asia/Bangkok');
+            // return $mytime;
+            // $now = new DateTime();
+            // return $now->format('Y-m-d H:i:s');
+            $feedbacks = App\Feedback::all()->toJson();
+            return $feedbacks;
         });
 });

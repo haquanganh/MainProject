@@ -2,14 +2,13 @@
 @section('title','Stastics')
 @section('name','Stastics')
 @section('css')
-    
-
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('third-library/bootstrap-datepicker/bootstrap-datepicker.css') }}">
+    <link href="{{ asset('third-library/select2-4.0.2/dist/css/select2.min.css') }}" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="{{ asset('css/admin/stastics.css') }}">
 @stop
 @section('content')
 	<div class="top row">
+		<div class="col-md-12">
 	<!-- Type of stastics -->
 		<div class="pull-left choose">
 			<select class="list list1">
@@ -19,19 +18,14 @@
 			</select>
 		</div>
 		<a id="Get" href="#" class="btn btn-primary pull-right">Get</a>
-		<div class="clearfix"></div>
+		</div>
 	</div>
-	<div class="row data">
+	<div class="row data table-responsive">
 	</div>
 @stop
 @section('script')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.js"></script>
-<script>
-		$(document).ready(function(){
-			
-	});
-</script>
+<script src="{{ asset('third-library/select2-4.0.2/dist/js/select2.min.js') }}"></script>
+<script src="{{ asset('third-library/bootstrap-datepicker/bootstrap-datepicker.js') }}"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         $(".list1").select2({

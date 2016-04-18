@@ -2,7 +2,7 @@
 @section('title','Home page')
 @section('css')
 <link rel="stylesheet" type="text/css" href="{{ asset('css/project.css') }}">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css" rel="stylesheet" />
+<link href="{{ asset('third-library/select2-4.0.2/dist/css/select2.min.css') }}" rel="stylesheet" />
 @stop
 @section('content')
 <div class="clear20" style="height: 20px"></div>
@@ -93,7 +93,7 @@
                 </div>
 @stop
 @section('script')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script>
+<script src="{{ asset('third-library/select2-4.0.2/dist/js/select2.min.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $(".list").select2();

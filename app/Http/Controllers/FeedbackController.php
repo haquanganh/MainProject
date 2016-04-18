@@ -12,7 +12,7 @@ use App\User;
 use Auth;
 use App\Feedback;
 class FeedbackController extends Controller
-{ 
+{
 
     public function postFeedback(Request $request){
     	$post = $request->all();

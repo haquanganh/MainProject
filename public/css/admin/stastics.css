@@ -1,6 +1,9 @@
 .list_points, .list_top,.list_date,.list1{
 	width: 180px;
 }
+.select2{
+	margin-right: 20px;
+}
 select.form-control{
 	height: 30px;
 	line-height: 30px;
@@ -22,4 +25,18 @@ td{
 }
 .input-group-addon{
 	padding: 0px 12px!important;
+}
+@media(max-width: 480px) {
+	.choose{
+		width: 80%!important;
+		margin-bottom: 10px!important;
+	}
+	#myDatepicker{
+		width: 100%!important;
+	}
+	.select2{
+		width: 100%!important;
+		margin-bottom: 10px!important;
+	}
+
 }

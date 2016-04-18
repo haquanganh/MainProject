@@ -3,42 +3,42 @@
 @section('name','Project Management')
 @section('css')
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/admin/project.css') }}">
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css" rel="stylesheet" />
+	<link href="{{ asset('third-library/select2-4.0.2/dist/css/select2.min.css') }}" rel="stylesheet" />
 @stop
 @section('content')
     @if (Session::has('flat'))
         <div class="alert alert-success" role="alert">{{Session('flat')}}</div>
     @endif
-                <div class="row options">
-                    <h4><i>In progress</i></h4>
-                    <div class="project_select pull-right">
-                        <form action="" method="POST" role="form">
-                            <select class="list">
-                                <option value="1">In progress</option>
-                                <option value="2">Done</option>
-                            </select>
-                            <a href="{{ url('admin/create-project') }}" class="add"><img src="{{ asset('images/add-new-icon.png') }}" alt=""></a>
-                        </form>
-                    </div>
-                </div>
-                <hr>
-                <?php  $Projects = App\Project::all();?>
-                <div class="row folder">
-                @foreach ($Projects as $p)
-                @if ($p->idPStatus == 1)
-                <div class="col-md-3 projects">
-                        <div class="content-box-large" onclick="window.location='{{ url('/admin/project_detail') }}/{{$p->idProject}}'" style="">
-                            <p class="name-project"><b>{{$p->P_Name}}</b></p>
-                            <p class="time-project"><i>{{$p->P_DateStart}}<span>-</span>{{$p->P_DateFinish}}</i></p>
+    <div class="row options">
+        <h4><i>In progress</i></h4>
+        <div class="project_select pull-right">
+            <form action="" method="POST" role="form">
+                <select class="list">
+                    <option value="1">In progress</option>
+                    <option value="2">Done</option>
+                </select>
+                <a href="{{ url('admin/create-project') }}" class="add"><img src="{{ asset('images/add-new-icon.png') }}" alt=""></a>
+            </form>
+        </div>
+    </div>
+    <hr>
+    <?php  $Projects = App\Project::all();?>
+    <div class="row folder">
+    @foreach ($Projects as $p)
+    @if ($p->idPStatus == 1)
+    <div class="col-md-3 projects">
+            <div class="content-box-large" onclick="window.location='{{ url('/admin/project_detail') }}/{{$p->idProject}}'" style="">
+                <p class="name-project"><b>{{$p->P_Name}}</b></p>
+                <p class="time-project"><i>{{$p->P_DateStart}}<span>-</span>{{$p->P_DateFinish}}</i></p>
 
-                        </div>
-                </div>
-                @endif
-                @endforeach
-                </div>
+            </div>
+    </div>
+    @endif
+    @endforeach
+    </div>
 @stop
 @section('script')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script>
+<script src="{{ asset('third-library/select2-4.0.2/dist/js/select2.min.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $(".list").select2();

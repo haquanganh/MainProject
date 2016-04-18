@@ -22,7 +22,10 @@ img {
     margin-right: 40px;
 }
 .list{
-    width: 100%;
+    width: 150px;
+}
+input.form-control{
+    width: auto!important;
 }
 .results tr[visible='false'],
 .no-result{
@@ -43,4 +46,23 @@ img {
     color: white;
 }
 .validate + .tooltip > .tooltip-arrow {
+}
+@media(max-width: 480px) {
+    .list{
+        width: 100%!important;
+    }
+    input.form-control{
+        width: 100%!important;
+    }
+    
+
+}
+
+@media(max-width: 480px) {
+    .submit{
+        margin-top: 5px!important;
+        margin-right: 0px!important;
+    }
+    .submit input ,.submit a{
+    }
 }

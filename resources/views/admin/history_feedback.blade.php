@@ -1,5 +1,6 @@
 @extends('layout.admin')
-@section('title','')
+@section('title','Feedback History')
+@section('name','Feedback History')
 @section('css')
 @stop
 @section('content')

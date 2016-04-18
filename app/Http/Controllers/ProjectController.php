@@ -14,6 +14,7 @@ use App\Http\Requests\EditProject_Request;
 use App\Team as Team;
 use App\History as History;
 use DateTime;
+use DateTimeZone;
 use DatePeriod;
 use DateInterVal;
 class ProjectController extends Controller
@@ -22,7 +23,12 @@ class ProjectController extends Controller
         return view('project.index');
     }
     public function getcreateProject(){
-        return view('project.create_project');
+        if(Auth::user()->idRole == 2)
+            return view('project.create_project');
+        else if(Auth::user()->idRole ==1)
+            return redirect()->route('admin.personal-information.index');
+        else
+            return redirect('/');
     }
     public function postcreateProject(ProjectRequest $request){
         $error_list = array();
@@ -67,7 +73,7 @@ class ProjectController extends Controller
     	$p->idClient     = (int)$client;
     	$p->P_DateStart  = $startday;
     	$p->P_DateFinish = $endday;
-    	$p->P_DateCreate = date("Y/m/d");
+    	$p->P_DateCreate = $now;
     	$p->idPStatus = 1;
     	$p->save();
         /*Set leader status*/
@@ -90,12 +96,19 @@ class ProjectController extends Controller
         return redirect('/project')->with('flat',$flat);
 	}
     public function project_detail($id){
+        /*Check user's project is compatibile with url project*/
         $project = Project::find($id);
         return view('project.project_detail',compact('project'));
     }
     public function getEditProject($id){
+        if(Auth::user()->idRole == 2){
         $project = Project::find($id);
         return view('project.edit_project',compact('project'));
+        }
+        else if(Auth::user()->idRole ==1)
+            return redirect()->route('admin.personal-information.index');
+        else
+            return redirect('/');
     }
     public function postEditProject(EditProject_Request $request, $id){
         /*Validate*/

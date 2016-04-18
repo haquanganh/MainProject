@@ -73,7 +73,9 @@ div.vertical-line{
     background-color: #05374D;
     height: 50px;
 }
-
+.btn-collapse{
+    display: none!important;
+}
 #main-content {
   margin-top: 10px;
     border-top: 1px solid #ccc;
@@ -86,9 +88,46 @@ div.vertical-line{
     width: 275px;
 }
 @media(max-width: 480px) {
+    body{
+        position: relative;
+    }
     #left-bar{
         width: auto;
     }
+    #left-bar ul{
+        display: none;
+        position: absolute!important;
+        left: 0px;
+        top:-8px;
+        z-index: 1001!important;
+        width: 100%!important;
+    }
+    #left-bar ul li{
+        margin: 0px!important;
+        height: 40px!important;
+
+    }
+    #left-bar ul li a{
+        height: 100%!important;
+        line-height: 20px!important;
+    }
+    .btn-collapse{
+        display: inline!important;
+        float: right!important;
+        text-align: center!important;
+    }
+    #notify{
+        float: left!important;
+        width: 100%!important;
+    }
+    #notify a span{
+        display: none;
+    }
+    #title{
+        float: none!important;
+        text-align: center!important;
+    }
+
 }
 
 @media (min-width: 1200px) {}

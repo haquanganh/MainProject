@@ -2,20 +2,20 @@
 @section('title','Edit Project')
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{ asset('css/admin/edit_project.css') }}">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('third-library/bootstrap-daterangepicker/daterangepicker.css') }}">
+    <link href="{{ asset('third-library/select2-4.0.2/dist/css/select2.min.css') }}" rel="stylesheet" />
 @stop
 @section('content')
             <div class="clear40" style="height: 20px;"></div>
             <form class="form-inline" role="form" method="POST" action="{{ url('/admin/project/edit') }}/{{$project->idProject}}">
             {{csrf_field()}}
                 <div class="info row" style="margin-bottom: 10px">
-                    <div class="col-xs-3 form-group {{ $errors->has('in_PName') ? ' has-error' : '' }} validate"  {!! $errors->has('in_PName') ? ' data-toggle="tooltip" data-placement="top" title="'.$errors->first('in_PName').'"' : '' !!}>
-                        <label for=""><i>Project</i></label>
+                    <div class="col-md-3 form-group {{ $errors->has('in_PName') ? ' has-error' : '' }} validate"  {!! $errors->has('in_PName') ? ' data-toggle="tooltip" data-placement="top" title="'.$errors->first('in_PName').'"' : '' !!}>
+                        <label for="" style="width:100%"><i>Project</i></label>
                         <input type="text" name="in_PName" class="form-control " placeholder="Name Of Project" value="{{$project->P_Name}}">
                     </div>
-                    <div class="col-xs-3 form-group">
-                        <label for=""><i>Client</i></label>
+                    <div class="col-md-3 form-group">
+                        <label for="" style="width:100%"><i>Client</i></label>
                         <?php
                             $clients = App\Clients::all();
                         ?>
@@ -25,8 +25,8 @@
                         @endforeach
                         </select>
                     </div>
-                    <div class="col-xs-3 form-group {{ $errors->has('wrong_day') || $errors->has('wrong_start_day') ? ' has-error' : '' }} validate"  {!! $errors->has('wrong_start_day') ? ' data-toggle="tooltip" data-placement="top" title="'.$errors->first('wrong_start_day').'"' : ($errors->has('wrong_day') ? ' data-toggle="tooltip" data-placement="top" title="'.$errors->first('wrong_day').'"' :'')  !!} >
-                        <label for=""><i>Time</i></label>
+                    <div class="col-md-3 form-group {{ $errors->has('wrong_day') || $errors->has('wrong_start_day') ? ' has-error' : '' }} validate"  {!! $errors->has('wrong_start_day') ? ' data-toggle="tooltip" data-placement="top" title="'.$errors->first('wrong_start_day').'"' : ($errors->has('wrong_day') ? ' data-toggle="tooltip" data-placement="top" title="'.$errors->first('wrong_day').'"' :'')  !!} >
+                        <label for="" style="width:100%"><i>Time</i></label>
                         <?php
                             $sd = new DateTime($project->P_DateStart);
                             $ed = new DateTime($project->P_DateFinish);
@@ -35,8 +35,8 @@
                         ?>
                         <input type="text" name="daterange"  class="form-control" value="{{$startday}} - {{$endday}}" />
                     </div>
-                    <div class="col-xs-3 form-group">
-                        <label for=""><i>Project Status</i></label>
+                    <div class="col-md-3 form-group">
+                        <label for="" style="width:100%"><i>Project Status</i></label>
                         <select class="list" name="sl_PStatus">
                             <option value="1" {{$project->idPStatus == '1' ? 'selected' : ''}}>In progress</option>
                             <option value="2" {{$project->idPStatus == '2' ? 'selected' : ''}}>Done</option>
@@ -124,14 +124,14 @@
             </form>
 @stop
 @section('script')
-<script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+<script src="{{ asset('third-library/bootstrap-daterangepicker/moment.min.js') }}"></script>
+    <script src="{{ asset('third-library/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
     <script type="text/javascript">
     $(function() {
         $('input[name="daterange"]').daterangepicker();
     });
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script>
+    <script src="{{ asset('third-library/select2-4.0.2/dist/js/select2.min.js') }}"></script>
     <script type="text/javascript">
     $(document).ready(function() {
         $(".list").select2();

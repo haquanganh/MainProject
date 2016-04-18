@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use DateTime;
+use DateTimeZone;
 use Auth;
 class Project extends Model
 {
@@ -16,7 +17,7 @@ class Project extends Model
         parent::boot();
         static::updated(function ($project){
             $h = new History;
-            $h->H_Content = 'Did edit project .'.$project->idProject ;
+            $h->H_Content = 'Did edit project .'.$project->idProject;
             $h->H_DateCreate = new DateTime();
             $h->idAccount = Auth::user()->idAccount;
             $h->save();
@@ -24,7 +25,7 @@ class Project extends Model
         });
         static::created(function ($project){
             $h = new History;
-            $h->H_Content = 'Did create new project .'.$project->idProject ;
+            $h->H_Content = 'Did create new project .'.$project->idProject;
             $h->H_DateCreate = new DateTime();
             $h->idAccount = Auth::user()->idAccount;
             $h->save();

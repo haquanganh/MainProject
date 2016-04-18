@@ -6,8 +6,9 @@
     <title>@yield('title')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ asset('third-library/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('third-library/font-awesome-4.6.1/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('third-library/animate.css') }}">
     <!-- styles -->
     <link href="{{ asset('css/admin/master.css') }}" rel="stylesheet">
     @yield('css')
@@ -19,16 +20,18 @@
             <div class="col-md-12" style="margin-bottom: 0px;">
                 <div id="title" class="pull-left">
                     <img src="{{ asset('images/DB1.png') }}">
-                    <span style="font-size: 32px;">Acount Management</span>
+                    <span style="font-size: 32px;">@yield('name')</span>
                 </div>
                 <div id="notify" class="pull-right">
                     <a href="#" class="glyphicon glyphicon-home"></a>
                     <div class="vertical-line" ></div>
-                    <a href="#"><i class="fa fa-envelope-o"></i> Messsage</a>
+                    <a href="#"><i class="fa fa-envelope-o"></i> <span>Messsage</span></a>
                     <div class="vertical-line" ></div>
-                    <a href="{{ url('/admin/request-notify') }}"><i class="fa fa-flag"></i> Notification</a>
+                    <a href="{{ url('/admin/request-notify') }}"><i class="fa fa-flag"></i> <span>Notification</span></a>
                     <div class="vertical-line" ></div>
-                    <a href="{{ url('logout') }}"><i class="fa fa-sign-out"></i>Logout</a>
+                    <a href="{{ url('logout') }}"><i class="fa fa-sign-out"></i><span>Logout</span</a>
+                    <a href="javascript:void(0)" class="btn-collapse" check="0"><i class="fa fa-caret-square-o-down" aria-hidden="true"></i>
+</a>
                 </div>
             </div>
         </div>
@@ -52,10 +55,25 @@
             <div class="col-md-12"></div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="{{ asset('third-library/jquery/jquery-2.2.3.min.js') }}"></script>
     <!-- Bootstrap JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="{{ asset('third-library/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript">
+        $('document').ready(function(){
+            $('.btn-collapse').click(function(){
+                if($(this).find("i").hasClass('fa-caret-square-o-down')){
+                    $('#left-bar > ul').css('display','inline').animate();
+                    $(this).find("i").removeClass('fa-caret-square-o-down');
+                    $(this).find("i").addClass('fa-caret-square-o-up');
+                }
+                else{
+                    $('#left-bar > ul').css('display','none');
+                    $(this).find("i").removeClass('fa-caret-square-o-up');
+                    $(this).find("i").addClass('fa-caret-square-o-down');
+                }
+            });
+        });
+    </script>
     @yield('script')
 </body>
-
 </html>

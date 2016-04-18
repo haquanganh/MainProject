@@ -45,7 +45,9 @@
                             <th>Skype</th>
                             <th>Phone</th>
                             <th>Role</th>
+                            @if (Auth::user()->idRole != 1)
                             <th>View more</th>
+                            @endif
                         </tr>
                 </thead>
                 <tbody>
@@ -61,9 +63,11 @@
                         <td>{{$employee->E_Skype}}</td>
                         <td>0{{$employee->E_Phone}}</td>
                         <td>{{$name_Role}}</td>
+                        @if (Auth::user()->idRole != 1)
                         <td style="width: 100px; padding-left: 30px;">
                             <a class="btn btn-primary" data-toggle="modal" href='#modal-send-request{{ $employee->idEmployee }}' style="width: 40px;height: 30px; border-radius: 15px;"><span class="glyphicon glyphicon glyphicon-eye-open"></span></a>
                         </td>
+                        @endif
                     </tr>
                      <!-- Send request -->
                     <div class="modal fade" id="modal-send-request{{ $employee->idEmployee }}">

@@ -2,8 +2,8 @@
 @section('title','Home page')
 @section('css')
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/create_project.css') }}">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('third-library/bootstrap-daterangepicker/daterangepicker.css') }}">
+    <link href="{{ asset('third-library/select2-4.0.2/dist/css/select2.min.css') }}" rel="stylesheet" />
 @stop
 @section('content')
             <div id="img-title">
@@ -102,14 +102,14 @@
             </form>
 @stop
 @section('script')
-<script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+<script src="{{ asset('third-library/bootstrap-daterangepicker/moment.min.js') }}"></script>
+    <script src="{{ asset('third-library/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
 <script type="text/javascript">
     $(function() {
         $('input[name="daterange"]').daterangepicker();
     });
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script>
+    <script src="{{ asset('third-library/select2-4.0.2/dist/js/select2.min.js') }}"></script>
     <script type="text/javascript">
     $(document).ready(function() {
         $(".list").select2();
@@ -149,7 +149,7 @@
             });
         });
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.25.6/js/jquery.tablesorter.min.js"></script>
+    <script src="{{ asset(' third-library/jquery-tablesorter/jquery.tablesorter.min.js') }}"></script>
     <script>
         $(document).ready(function(){
                 $("#myTable").tablesorter();
