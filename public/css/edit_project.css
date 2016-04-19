@@ -41,3 +41,13 @@ img {
 }
 .validate + .tooltip > .tooltip-arrow {
 }
+@media(max-width: 480px) {
+    .list {
+        width:100%;
+    }
+    #img-title {
+        text-align: center;
+        padding: 0px!important;
+        padding-top: 40px!important;
+    }
+}

@@ -13,11 +13,11 @@
             <form class="form-inline" role="form" method="POST" action="{{ url('/project/edit') }}/{{$project->idProject}}">
             {{csrf_field()}}
                 <div class="info row" style="margin-bottom: 10px">
-                    <div class="col-xs-3 form-group {{ $errors->has('in_PName') ? ' has-error' : '' }} validate"  {!! $errors->has('in_PName') ? ' data-toggle="tooltip" data-placement="top" title="'.$errors->first('in_PName').'"' : '' !!}>
+                    <div class="col-md-3 form-group {{ $errors->has('in_PName') ? ' has-error' : '' }} validate"  {!! $errors->has('in_PName') ? ' data-toggle="tooltip" data-placement="top" title="'.$errors->first('in_PName').'"' : '' !!}>
                         <label for=""><i>Project</i></label>
                         <input type="text" name="in_PName" class="form-control " placeholder="Name Of Project" value="{{$project->P_Name}}">
                     </div>
-                    <div class="col-xs-3 form-group">
+                    <div class="col-md-3 form-group">
                         <label for=""><i>Client</i></label>
                         <?php
                             $clients = App\Clients::all();
@@ -28,7 +28,7 @@
                         @endforeach
                         </select>
                     </div>
-                    <div class="col-xs-3 form-group {{ $errors->has('wrong_day') || $errors->has('wrong_start_day') ? ' has-error' : '' }} validate"  {!! $errors->has('wrong_start_day') ? ' data-toggle="tooltip" data-placement="top" title="'.$errors->first('wrong_start_day').'"' : ($errors->has('wrong_day') ? ' data-toggle="tooltip" data-placement="top" title="'.$errors->first('wrong_day').'"' :'')  !!} >
+                    <div class="col-md-3 form-group {{ $errors->has('wrong_day') || $errors->has('wrong_start_day') ? ' has-error' : '' }} validate"  {!! $errors->has('wrong_start_day') ? ' data-toggle="tooltip" data-placement="top" title="'.$errors->first('wrong_start_day').'"' : ($errors->has('wrong_day') ? ' data-toggle="tooltip" data-placement="top" title="'.$errors->first('wrong_day').'"' :'')  !!} >
                         <label for=""><i>Time</i></label>
                         <?php
                             $sd = new DateTime($project->P_DateStart);
@@ -38,7 +38,7 @@
                         ?>
                         <input type="text" name="daterange"  class="form-control" value="{{$startday}} - {{$endday}}" />
                     </div>
-                    <div class="col-xs-3 form-group">
+                    <div class="col-md-3 form-group">
                         <label for=""><i>Project Status</i></label>
                         <select class="list" name="sl_PStatus">
                             <option value="1" {{$project->idPStatus == '1' ? 'selected' : ''}}>In progress</option>

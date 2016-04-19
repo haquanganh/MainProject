@@ -9,6 +9,7 @@ use Auth;
 use App\Project as Project;
 use App\ProjectEmployee as ProjectEmployee;
 use App\History as History;
+use App\User as User;
 use App\Http\Requests\Admin_ProjectRequest;
 use App\Http\Requests\Admin_EditProject_Request;
 use DateTime;
@@ -71,6 +72,10 @@ class ProjectController extends Controller
         $p->idPStatus = 1;
         $p->idTeamLeader = $request->r_leader;
         $p->save();
+        /*Set role leader for member*/
+        $set_role = User::find(Employee::find($request->r_leader)->idAccount);
+        $set_role->idRole = 3;
+        $set_role->save();
         /*Set status for leader*/
         $set = Employee::find($request->r_leader);
         $set->idStatus = 1;
@@ -130,22 +135,8 @@ class ProjectController extends Controller
         if(!empty($error_list)){
             return redirect()->back()->withInput()->withErrors($error_list);
         }
-        /*Check if project 's status is done*/
         $check = $request->sl_PStatus == 2 ? 'Yes' : 'No';
         $project = Project::find($id);
-        /*Set for old leader 's status to available*/
-        if($check == 'Yes'){
-            $set_old = Employee::find($project->idTeamLeader);
-            $set_old->idStatus = 2;
-            $set_old->save();
-        }
-        /*If project hasn't been done, check if leader is change, if it' changes, so changes old leader status to available*/
-        else if($project->idTeamLeader != $request->r_Leader){
-            $set_old =Employee::find($project->idTeamLeader);
-            $set_old->idStatus = 2;
-            $set_old->save();
-        }
-        /*Update new project information*/
         $project->P_Name = $request->in_PName;
         $project->idClient = $request->sl_Client;
         $timerange = $request->daterange;
@@ -157,21 +148,44 @@ class ProjectController extends Controller
         $project->idPstatus = $request->sl_PStatus;
         $project->idTeamLeader = $request->r_leader;
         $project->save();
-        /*Update Member*/
-        $team_employees = Team::where('idPmanager','=',$project->idPManager)->first()->Employee;
-        /*If project is done ,Set status for old employee to available*/
+        /*Set to leader role*/
+        $user = User::find(Employee::find($request->r_leader)->idAccount);
+        $user->idRole = 3;
+        $user->save();
+        /*Check if project 's status is done*/
         if($check == 'Yes'){
+            $set_old = Employee::find($project->idTeamLeader);
+            $set_old->idStatus = 2;
+            $set_old->save();
+            /*Set to member role if project has done*/
+            $user = User::find(Employee::find($project->idTeamLeader)->idAccount);
+            $user->idRole = 5;
+            $user->save();
+            /*Set status of old employees to available*/
             $old_pe1 = ProjectEmployee::where('idProject','=',$id)->get();
             foreach ($old_pe1 as $key => $p) {
                 $set = Employee::find($p->idEmployee);
                 $set->idStatus = 2;
                 $set->save();
             }
+
         }
+        /*If project hasn't been done, check if leader is change, if it' changes, so changes old leader status to available*/
+        else if($project->idTeamLeader != $request->r_Leader){
+            $set_old =Employee::find($project->idTeamLeader);
+            $set_old->idStatus = 2;
+            $set_old->save();
+            /*Set to member role*/
+            $user = User::find(Employee::find($project->idTeamLeader)->idAccount);
+            $user->idRole = 5;
+            $user->save();
+        }
+        
         /*Delete old */
         $old_pe = ProjectEmployee::where('idProject','=',$id);
         $old_pe->delete();
         /*Save new to  projectemployee*/
+        $team_employees = Team::where('idPmanager','=',$project->idPManager)->first()->Employee;
         for($i = 0 ;$i < count($team_employees) ; $i++ ){
             /*If checkbox is yes*/
             if(preg_match('/yes/',$request->input('cb.'.$i))){

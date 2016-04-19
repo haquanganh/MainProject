@@ -21,6 +21,20 @@ class Project extends Model
             $h->H_DateCreate = new DateTime();
             $h->idAccount = Auth::user()->idAccount;
             $h->save();
+            /*old $project*/
+            // $old_project = $project->getOriginal();
+            // /*Save employee involved to project to Employee_Record*/
+            // $employees = Project::find($project->idProject)->Employee;
+            // $old_employees = Project::find($old_project->idProject)->Employee;
+            // /*Check old leader*/
+            // foreach ($old_employees as $key => $e) {
+            //     if($project->idTeamleader == $e->idEmployee){
+            //         $r = new Employee_Record;
+            //         $r->Content = 'Was moved to project '.$project->P_Name;
+            //         $r->DateStart = new DateTime();
+            //         $r->idEmployee = $e->idEmployee;
+            //         $r->save();
+            //     }
             return true;
         });
         static::created(function ($project){
@@ -29,6 +43,14 @@ class Project extends Model
             $h->H_DateCreate = new DateTime();
             $h->idAccount = Auth::user()->idAccount;
             $h->save();
+            // $employees = Project::find($project->idProject)->Employee;
+            // foreach ($employees as $key => $e) {
+            //     $r = new Employee_Record;
+            //     $r->Content = 'Was moved to project '.$project->P_Name;
+            //     $r->DateStart = new DateTime();
+            //     $r->idEmployee = $e->idEmployee;
+            //     $r->save();
+            // }
             return true;
         });
         static::deleted(function ($project){

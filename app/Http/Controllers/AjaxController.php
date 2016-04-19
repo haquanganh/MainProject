@@ -8,6 +8,8 @@ use App\Clients as Clients;
 use Auth;
 use DB;
 use App\Feedback as Feedback;
+use App\EnglishChart as EnglishChart;
+use DateTime;
 class AjaxController extends Controller{
 	public function getemployee(){
         if(Request::ajax()){
@@ -55,6 +57,59 @@ class AjaxController extends Controller{
             }
             
             
+        }
+    }
+    // Send json
+    public function getChart(){
+        if(Request::ajax()){
+            $now = new DateTime();
+            $idEmployee = Employee::where('idAccount','=',Auth::user()->idAccount)->first()->idEmployee;
+            $englishchart = EnglishChart::where('idEmployee','=',$idEmployee)->where('Year','=',$now->format('Y'))->first();
+            /*English Chart*/
+            $feedbacks = array();
+            if(!empty(DB::select('select avg(F_Rate) as Average from Feedback where Month(F_DateCreate) between 1 and 2 and idEmployee = '.$idEmployee.' group by idEmployee')[0])){
+                $feedback1 =(array) DB::select('select avg(F_Rate) as Average from Feedback where Month(F_DateCreate) between 1 and 2 and idEmployee = '.$idEmployee.' group by idEmployee')[0];
+                array_push($feedbacks, $feedback1);
+            }
+            else{
+                array_push($feedbacks, 0);
+            }
+            if(!empty(DB::select('select avg(F_Rate) as Average from Feedback where Month(F_DateCreate) between 3 and 4 and idEmployee = '.$idEmployee.' group by idEmployee')[0])){
+                $feedback1 =(array) DB::select('select avg(F_Rate) as Average from Feedback where Month(F_DateCreate) between 3 and 4 and idEmployee = '.$idEmployee.' group by idEmployee')[0];
+                array_push($feedbacks, $feedback1);
+            }
+            else{
+                array_push($feedbacks, 0);
+            }
+            if(!empty(DB::select('select avg(F_Rate) as Average from Feedback where Month(F_DateCreate) between 5 and 6 and idEmployee = '.$idEmployee.' group by idEmployee')[0])){
+                $feedback1 =(array) DB::select('select avg(F_Rate) as Average from Feedback where Month(F_DateCreate) between 5 and 6 and idEmployee = '.$idEmployee.' group by idEmployee')[0];
+                array_push($feedbacks, $feedback1);
+            }
+            else{
+                array_push($feedbacks, 0);
+            }
+            if(!empty(DB::select('select avg(F_Rate) as Average from Feedback where Month(F_DateCreate) between 7 and 8 and idEmployee = '.$idEmployee.' group by idEmployee')[0])){
+                $feedback1 =(array) DB::select('select avg(F_Rate) as Average from Feedback where Month(F_DateCreate) between 7 and 8 and idEmployee = '.$idEmployee.' group by idEmployee')[0];
+                array_push($feedbacks, $feedback1);
+            }
+            else{
+                array_push($feedbacks, 0);
+            }
+            if(!empty(DB::select('select avg(F_Rate) as Average from Feedback where Month(F_DateCreate) between 9 and 10 and idEmployee = '.$idEmployee.' group by idEmployee')[0])){
+                $feedback1 =(array) DB::select('select avg(F_Rate) as Average from Feedback where Month(F_DateCreate) between 9 and 10 and idEmployee = '.$idEmployee.' group by idEmployee')[0];
+                array_push($feedbacks, $feedback1);
+            }
+            else{
+                array_push($feedbacks, 0);
+            }
+            if(!empty(DB::select('select avg(F_Rate) as Average from Feedback where Month(F_DateCreate) between 11 and 12 and idEmployee = '.$idEmployee.' group by idEmployee')[0])){
+                $feedback1 =(array) DB::select('select avg(F_Rate) as Average from Feedback where Month(F_DateCreate) between 11 and 12 and idEmployee = '.$idEmployee.' group by idEmployee')[0];
+                array_push($feedbacks, $feedback1);
+            }
+            else{
+                array_push($feedbacks, 0);
+            }
+            return json_encode(array($englishchart,$feedbacks));
         }
     }
 }

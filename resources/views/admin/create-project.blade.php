@@ -7,79 +7,79 @@
     <link href="{{ asset('third-library/select2-4.0.2/dist/css/select2.min.css') }}" rel="stylesheet" />
 @stop
 @section('content')
-            <form class="form-inline" id="form" role="form" method="POST" action="{{url('admin/create-project')}}">
-                {{csrf_field()}}
-                    <?php
-                         $listC = App\Clients::all();
-                         $listPM = App\User::where('idRole','=',2)->get();
-                    ?>
-                    <input type="hidden" name="n_listE">
-                <div class="info row">
-                    <div class="col-xs-3 form-group  {{ $errors->has('in_NameofProject') ? ' has-error' : '' }} validate"  {!! $errors->has('in_NameofProject') ? ' data-toggle="tooltip" data-placement="top" title="'.$errors->first('in_NameofProject').'"' : '' !!} >
-                        <label for=""><i>Project</i></label>
-                        <input type="text" name="in_NameofProject" class="form-control" placeholder="Name Of Project">
-                    </div>
-                    <div class="col-xs-3 form-group  {{ $errors->has('wrong_day') || $errors->has('wrong_start_day') ? ' has-error' : '' }} validate"  {!! $errors->has('wrong_start_day') ? ' data-toggle="tooltip" data-placement="top" title="'.$errors->first('wrong_start_day').'"' : ($errors->has('wrong_day') ? ' data-toggle="tooltip" data-placement="top" title="'.$errors->first('wrong_day').'"' :'')  !!} >
-                        <label for=""><i>Time</i></label>
-                        <input type="text" name="daterange" class="form-control" />
-                    </div>
-                    <div class="col-xs-3 form-group">
-                        <label for=""><i>Client</i></label>
-                       <select class="list" name="sl_Client">
-                        @foreach ($listC as $c)
-                            <option value="{{$c->idClient}}">{{$c->ClientName}}</option>
-                        @endforeach
-                        </select>
-                    </div>
-                    <div class="col-xs-3 form-group">
-                        <label for=""><i>Manager</i></label>
-                        <select class="list list-PM" name="sl_PM">
-                            <option></option>
-                            @foreach ($listPM as $key => $p)
-                                <?php $PM = App\Employee::where('idAccount','=',$p->idAccount)->first()?>
-                                <option value="{{$PM->idEmployee}}">{{$PM->E_EngName}}</option>
-                            @endforeach
-                        </select>
-                    </div>
+    <form class="form-inline" id="form" role="form" method="POST" action="{{url('admin/create-project')}}">
+        {{csrf_field()}}
+            <?php
+                 $listC = App\Clients::all();
+                 $listPM = App\User::where('idRole','=',2)->get();
+            ?>
+            <input type="hidden" name="n_listE">
+        <div class="info row">
+            <div class="col-xs-3 form-group  {{ $errors->has('in_NameofProject') ? ' has-error' : '' }} validate"  {!! $errors->has('in_NameofProject') ? ' data-toggle="tooltip" data-placement="top" title="'.$errors->first('in_NameofProject').'"' : '' !!} >
+                <label for=""><i>Project</i></label>
+                <input type="text" name="in_NameofProject" class="form-control" placeholder="Name Of Project">
+            </div>
+            <div class="col-xs-3 form-group  {{ $errors->has('wrong_day') || $errors->has('wrong_start_day') ? ' has-error' : '' }} validate"  {!! $errors->has('wrong_start_day') ? ' data-toggle="tooltip" data-placement="top" title="'.$errors->first('wrong_start_day').'"' : ($errors->has('wrong_day') ? ' data-toggle="tooltip" data-placement="top" title="'.$errors->first('wrong_day').'"' :'')  !!} >
+                <label for=""><i>Time</i></label>
+                <input type="text" name="daterange" class="form-control" />
+            </div>
+            <div class="col-xs-3 form-group">
+                <label for=""><i>Client</i></label>
+               <select class="list" name="sl_Client">
+                @foreach ($listC as $c)
+                    <option value="{{$c->idClient}}">{{$c->ClientName}}</option>
+                @endforeach
+                </select>
+            </div>
+            <div class="col-xs-3 form-group">
+                <label for=""><i>Manager</i></label>
+                <select class="list list-PM" name="sl_PM">
+                    <option></option>
+                    @foreach ($listPM as $key => $p)
+                        <?php $PM = App\Employee::where('idAccount','=',$p->idAccount)->first()?>
+                        <option value="{{$PM->idEmployee}}">{{$PM->E_EngName}}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        <div class="row table-responsive">
+            <div class="col-xs-12">
+                <table id="myTable" class="tablesorter table table-striped table-bordered table-responsive results">
+                    <thead>
+                        <tr>
+                            <td>Avatar</td>
+                            <td>English name</td>
+                            <td>Full Name</td>
+                            <td>Skype</td>
+                            <td>Choose</td>
+                            <td>Leader</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if($errors->has('wrong_leader'))
+                                <span style="color: red" class="pull-right">{{$errors->first('wrong_leader')}}</span>
+                            @endif
+                        <tr class="warning no-result">
+                          <td colspan="5"><i class="fa fa-warning"></i> No result</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom:5px;">
+            <div class="col-md-6">
+                <label for=""><i>Search</i></label>
+                <input type="text" class="form-control search" placeholder="Search for employee">
+            </div>
+            <div class="col-md-6">
+                <div class="submit" style="float:right">
+                    <input type="submit" class="btn btn-primary" value="Create">
+                    <a href="#" class="btn btn-default">Cancel</a>
                 </div>
-                <div class="row table-responsive">
-                    <div class="col-xs-12">
-                        <table id="myTable" class="tablesorter table table-striped table-bordered table-responsive results">
-                            <thead>
-                                <tr>
-                                    <td>Avatar</td>
-                                    <td>English name</td>
-                                    <td>Full Name</td>
-                                    <td>Skype</td>
-                                    <td>Choose</td>
-                                    <td>Leader</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if($errors->has('wrong_leader'))
-                                        <span style="color: red" class="pull-right">{{$errors->first('wrong_leader')}}</span>
-                                    @endif
-                                <tr class="warning no-result">
-                                  <td colspan="5"><i class="fa fa-warning"></i> No result</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="row" style="margin-bottom:5px;">
-                    <div class="col-md-6">
-                        <label for=""><i>Search</i></label>
-                        <input type="text" class="form-control search" placeholder="Search for employee">
-                    </div>
-                    <div class="col-md-6">
-                        <div class="submit" style="float:right">
-                            <input type="submit" class="btn btn-primary" value="Create">
-                            <a href="#" class="btn btn-default">Cancel</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="clear40"></div>
-            </form>
+            </div>
+        </div>
+        <div class="clear40"></div>
+    </form>
 @stop
 @section('script')
    <script src="{{ asset('third-library/bootstrap-daterangepicker/moment.min.js') }}"></script>
@@ -144,7 +144,6 @@
         function chekbox_ontop() {
             $(".checkbox").click(function() {
                 var row = $(this).parents("tr:first");
-                console.log(row.hasClass('TopRow'));
                 if ($(this).is(':checked', true)) {
                     var firstRow = row.parent().find("tr:first").not(row);
                     row.insertBefore(firstRow).addClass("TopRow");
@@ -154,11 +153,7 @@
                     console.log(nonTopRows);
                     var found = false;
                     nonTopRows.each(function() {
-                        console.log('rowPos: ' + row.data('pos'));
-                        console.log('current compare: ' + $(this).data(
-                            'pos'));
-                        if (row.data('pos') < $(this).data('pos') &&
-                            !found) {
+                        if (row.data('pos') < $(this).data('pos') && !found) {
                             found = true;
                             row.insertBefore($(this));
                         }

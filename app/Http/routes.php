@@ -29,7 +29,6 @@ Route::group(['middleware' => ['web']], function () {
             if(!Auth::check()) return redirect('login');
         return view('homepage');
     });
-    Route::resource('personal-information', 'Personal_Information_Controller');
     Route::group(['namespace'=>'Admin','prefix'=>'admin'],function(){
     	Route::resource('personal-information', 'Personal_Information_Controller');
     	Route::get('register','Register_Controller@getRegister');
@@ -52,7 +51,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('request-notify/{id}', 'RequestController@postRequest');
 
     });
-
+        Route::resource('personal-information', 'Personal_Information_Controller');
         Route::get('login','Auth\AuthController@getLogin');
         Route::post('login','Auth\AuthController@postLogin');
         Route::get('logout',function(){
@@ -83,6 +82,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('check/check-pass','PassController@checkPass');
         //Send request
         Route::post('send-request/{id}','RequestController@postSendRequest');
+        Route::get('chart','AjaxController@getChart');
         Route::get('test',function(){
             // $feedbacks = App\Feedback::all();
             // $list = array();
@@ -101,7 +101,7 @@ Route::group(['middleware' => ['web']], function () {
             // return $mytime;
             // $now = new DateTime();
             // return $now->format('Y-m-d H:i:s');
-            $feedbacks = App\Feedback::all()->toJson();
-            return $feedbacks;
+            // $feedbacks = App\Feedback::all()->toJson();
+            // return $feedbacks;
         });
 });
