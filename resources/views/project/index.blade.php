@@ -94,54 +94,60 @@
 @stop
 @section('script')
 <script src="{{ asset('third-library/select2-4.0.2/dist/js/select2.min.js') }}"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $(".list").select2();
-        });
-    </script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-               setTimeout(function() {
-                $('.alert').fadeOut('slow');
-            }, 2000);
-        });
-    </script>
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $('.list').change(function(){
-                var idPStatus = $(this).val();
-                var idAccount = {{Auth::user()->idAccount}};
-                var list_n = $('.projects').length;
-                $.ajax({
-                    url: '{{ url('/get-listProject') }}',
-                    type: 'GET',
-                    cache: false,
-                    data:{"idAccount" : idAccount,"idPStatus" :idPStatus},
-                    success: function(data){
-                        var result = $.parseJSON(data);
-                        if(data != 'Empty'){
-                            if(list_n > 0){
-                                $('.projects').remove();
-                            }
-                            @if(Auth::user()->idRole != 4)
-                               $.each( result[0], function( key, value ) {
-                                    $('.folder').append('<div class="col-md-3 projects"><div class="content-box-large" onclick="window.location=\''+'{{ url('project_detail') }}/'+value.idProject+'\';"><p class="name-project"><b>'+value.P_Name+'</b></p><br><br><p class="time-project"><i>'+value.P_DateStart+'<span>-</span>'+value.P_DateFinish+'</i></p></div></div>');
-                               });
-                               $.each( result[1], function( key, value ) {
-                                    $('.folder').append('<div class="col-md-3 projects"><div class="content-box-large" onclick="window.location=\''+'{{ url('project_detail') }}/'+value.idProject+'\';"><p class="name-project"><b>'+value.P_Name+'</b></p><br><br><p class="time-project"><i>'+value.P_DateStart+'<span>-</span>'+value.P_DateFinish+'</i></p></div></div>');
-                               });
-                               $.each( result[2], function( key, value ) {
-                                    $('.folder').append('<div class="col-md-3 projects"><div class="content-box-large" onclick="window.location=\''+'{{ url('/project_detail') }}/'+value.idProject+'\';"><p class="name-project"><b>'+value.P_Name+'</b></p><br><br><p class="time-project"><i>'+value.P_DateStart+'<span>-</span>'+value.P_DateFinish+'</i></p></div></div>');
-                               });
-                               @else
-                               $.each( result[0], function( key, value ) {
-                                    $('.folder').append('<div class="col-md-3 projects"><div class="content-box-large" onclick="window.location=\''+'{{ url('project_detail') }}/'+value.idProject+'\';"><p class="name-project"><b>'+value.P_Name+'</b></p><br><br><p class="time-project"><i>'+value.P_DateStart+'<span>-</span>'+value.P_DateFinish+'</i></p></div></div>');
-                               });
-                           @endif
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".list").select2();
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+           setTimeout(function() {
+            $('.alert').fadeOut('slow');
+        }, 2000);
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.list').change(function(){
+            var idPStatus = $(this).val();
+            if(idPStatus == 1){
+                $('.row > h4').text('In progress');
+            }
+            else{
+                $('.row > h4').text('Done');
+            }
+            var idAccount = {{Auth::user()->idAccount}};
+            var list_n = $('.projects').length;
+            $.ajax({
+                url: '{{ url('/get-listProject') }}',
+                type: 'GET',
+                cache: false,
+                data:{"idAccount" : idAccount,"idPStatus" :idPStatus},
+                success: function(data){
+                    var result = $.parseJSON(data);
+                    if(data != 'Empty'){
+                        if(list_n > 0){
+                            $('.projects').remove();
                         }
+                        @if(Auth::user()->idRole != 4)
+                           $.each( result[0], function( key, value ) {
+                                $('.folder').append('<div class="col-md-3 projects"><div class="content-box-large" onclick="window.location=\''+'{{ url('project_detail') }}/'+value.idProject+'\';"><p class="name-project"><b>'+value.P_Name+'</b></p><br><br><p class="time-project"><i>'+value.P_DateStart+'<span>-</span>'+value.P_DateFinish+'</i></p></div></div>');
+                           });
+                           $.each( result[1], function( key, value ) {
+                                $('.folder').append('<div class="col-md-3 projects"><div class="content-box-large" onclick="window.location=\''+'{{ url('project_detail') }}/'+value.idProject+'\';"><p class="name-project"><b>'+value.P_Name+'</b></p><br><br><p class="time-project"><i>'+value.P_DateStart+'<span>-</span>'+value.P_DateFinish+'</i></p></div></div>');
+                           });
+                           $.each( result[2], function( key, value ) {
+                                $('.folder').append('<div class="col-md-3 projects"><div class="content-box-large" onclick="window.location=\''+'{{ url('/project_detail') }}/'+value.idProject+'\';"><p class="name-project"><b>'+value.P_Name+'</b></p><br><br><p class="time-project"><i>'+value.P_DateStart+'<span>-</span>'+value.P_DateFinish+'</i></p></div></div>');
+                           });
+                           @else
+                           $.each( result[0], function( key, value ) {
+                                $('.folder').append('<div class="col-md-3 projects"><div class="content-box-large" onclick="window.location=\''+'{{ url('project_detail') }}/'+value.idProject+'\';"><p class="name-project"><b>'+value.P_Name+'</b></p><br><br><p class="time-project"><i>'+value.P_DateStart+'<span>-</span>'+value.P_DateFinish+'</i></p></div></div>');
+                           });
+                       @endif
                     }
-                });
+                }
             });
         });
-    </script>
+    });
+</script>
 @stop

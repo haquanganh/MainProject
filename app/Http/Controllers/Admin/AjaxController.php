@@ -45,7 +45,7 @@ class AjaxController extends Controller{
                 $month = (int) $date[0];
                 $year = (int) $date[1];
                 $detailed = explode('-', Request::get('detailed'));
-                $feedbacks = DB::select('select * from (select idEmployee, avg(F_Rate) as Average_Point from Feedback where month(F_DateCreate) = '.$month.' and year(F_DateCreate) = '.$year.' group by idEmployee order by Average_Point DESC limit '.$top.') as Filter where Average_Point between '.(int) $detailed[0].' and '.$detailed[1]);
+                $feedbacks = DB::select('select * from (select idEmployee, round(avg(F_Rate),2) as Average_Point from Feedback where month(F_DateCreate) = '.$month.' and year(F_DateCreate) = '.$year.' group by idEmployee order by Average_Point DESC limit '.$top.') as Filter where Average_Point between '.(int) $detailed[0].' and '.$detailed[1]);
                 foreach ($feedbacks as $key => $f) {
                     $employees = Employee::find($f->idEmployee);
                     $employees->setAttribute('Point',$f->Average_Point);

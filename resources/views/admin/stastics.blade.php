@@ -1,6 +1,6 @@
 @extends('layout.admin')
-@section('title','Stastics')
-@section('name','Stastics')
+@section('title','Statistics')
+@section('name','Statistics')
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{ asset('third-library/bootstrap-datepicker/bootstrap-datepicker.css') }}">
     <link href="{{ asset('third-library/select2-4.0.2/dist/css/select2.min.css') }}" rel="stylesheet" />
@@ -52,7 +52,7 @@
 					$('#myDatepicker').remove();
 
 				}
-				$('.choose').append('<select class="list list_stars"><option></option><option value="1-2">1 Star - 2 Stars</option><option value="2-3">2 Stars -3 Stars</option><option value="3-4">3 Stars - 4 Stars</option><option value="4-5">4 Stars - 5 Stars</option></select>');
+				$('.choose').append('<select class="list list_stars"><option></option><option value="1-1.99">1 Star - 1.99 Stars</option><option value="2-2.99">2 Stars -2.99 Stars</option><option value="3-3.99">3 Stars - 3.99 Stars</option><option value="4-5">4 Stars - 5 Stars</option></select>');
 
 				$(".list_stars").select2({
         			placeholder: "Select rate of stars",

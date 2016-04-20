@@ -107,4 +107,10 @@
         padding: 0px!important;
         padding-top: 40px!important;
     }
+    h4 {
+        float: none!important;
+    }
+    .select2 {
+        width: 100%!important;
+    }
 }
