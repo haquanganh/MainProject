@@ -17,6 +17,7 @@
             <div class="panel panel-info history_feedback panel-group">
                 <div class="panel-heading">Feedback</div>
                 <div class="panel-body">
+                @if ($feedbacks->count() != 0)
                     @foreach ($feedbacks as $key=>$f)  
                     <div class="panel panel-default">
                       <div class="panel-heading">
@@ -59,6 +60,9 @@
                       </div>
                     </div>
                     @endforeach
+                @else
+                <i>{{ App\Employee::where('idAccount','=',Auth::user()->idAccount)->first()->E_EngName }}</i> hasn't had any feedback from Clients
+                @endif
                 </div>
             </div>
         </div>
@@ -244,7 +248,11 @@
                         var myLineChart = new Chart(ctx2).Line(data2, options);
                     }
                     /*Feedback Chart*/
-                    if(result[1] == null){
+                    var sum = 0;
+                    $.each(result[1], function(index, val){
+                        sum = sum + val;
+                    });
+                    if(sum == 0){
                         $('.null-feedback').css('display','inline');
                         $('#lineChart').css('height',247);
                     }

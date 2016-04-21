@@ -8,7 +8,7 @@
 @stop
 @section('content')
 	<div class="top row">
-		<div class="col-md-12">
+		<div class="col-md-12" style="margin-bottom: 10px;">
 	<!-- Type of stastics -->
 		<div class="pull-left choose">
 			<select class="list list1">

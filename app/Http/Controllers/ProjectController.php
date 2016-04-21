@@ -18,6 +18,7 @@ use DateTime;
 use DateTimeZone;
 use DatePeriod;
 use DateInterVal;
+use App\Employee_Record as Employee_Record;
 class ProjectController extends Controller
 {
     public function viewProject(){
@@ -78,7 +79,7 @@ class ProjectController extends Controller
     	$p->idPStatus = 1;
     	$p->save();
         /*Set role leader for member*/
-        $set_role = User::find(App\Employee::find($leader)->idAccount);
+        $set_role = User::find(Employee::find($leader)->idAccount);
         $set_role->idRole = 3;
         $set_role->save();
         /*Set leader status*/
@@ -99,6 +100,16 @@ class ProjectController extends Controller
                 }
             }
     	}
+        /*Save to employee record for employee*/
+        $p_e = $p->Employee;
+        foreach ($p_e as $key => $e) {
+            $h_e = new Employee_Record;
+            $h_e->DateStart = $p->P_DateStart;
+            $h_e->DateEnd = $p->P_DateFinish;
+            $h_e->idEmployee = $e->idEmployee;
+            $h_e->Content = 'Just become member of project '.$p->P_Name;
+            $h_e->save();
+        }
     	$flat = 'You are successful to create new project';
         return redirect('/project')->with('flat',$flat);
 	}
@@ -151,6 +162,8 @@ class ProjectController extends Controller
         $project = Project::find($id);
         $check = $request->sl_PStatus == 2 ? 'Yes' : 'No';
         /*Update new project information*/
+        $old_leader = $project->idTeamLeader;
+        $old_pm = $project->idPManager;
         $project->P_Name = $request->in_PName;
         $project->idClient = $request->sl_Client;
         $timerange = $request->daterange;
@@ -197,8 +210,11 @@ class ProjectController extends Controller
 
         }
         /*Delete old employee*/
+        $pe_old =  ProjectEmployee::where('idProject','=',$id)->get();
         $old_pe = ProjectEmployee::where('idProject','=',$id);
         $old_pe->delete();
+        /*ProjectEmployee old*/
+
         /*Save new employee to ProjectEmployee*/
         $team_employees = Team::where('idPmanager','=',$project->idPManager)->first()->Employee;
         for($i = 0 ;$i < count($team_employees) ; $i++ ){
@@ -228,6 +244,37 @@ class ProjectController extends Controller
                 }
             }
         }
+        /*Save to Employee Record for Employee*/
+        $p_e = $project->Employee;
+            foreach ($p_e as $key => $e) {
+                $check = false;
+                /*Check if the old leader become member*/
+                if($e->idEmployee == $old_leader){
+                    $h_e = new Employee_Record;
+                    $h_e->DateStart = $project->P_DateStart;
+                    $h_e->DateEnd = $project->P_DateFinish;
+                    $h_e->idEmployee = $e->idEmployee;
+                    $h_e->Content = 'Just be changed from leader to member of project '.$project->P_Name;
+                    $h_e->save();
+                }
+                else{
+                    /*Check if this employee exits in the old projectemployee*/
+                    foreach ($pe_old as $key => $value) {
+                        if($value->idEmployee == $e->idEmployee){
+                            $check = true;
+                            break;
+                        }
+                    }
+                    if($check == false){
+                        $h_e = new Employee_Record;
+                        $h_e->DateStart = $project->P_DateStart;
+                        $h_e->DateEnd = $project->P_DateFinish;
+                        $h_e->idEmployee = $e->idEmployee;      
+                        $h_e->Content = 'Just become member of the project '.$project->P_Name;
+                        $h_e->save();
+                    }
+                }
+            }
         $flat = 'You are successful to edit the project';
         return redirect('/project')->with('flat',$flat);
     }
