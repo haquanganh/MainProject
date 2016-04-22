@@ -31,10 +31,9 @@
     </div>
     <hr>
     <?php
-        $idUser = 0;
-        $projects_PM = 0;
-        $projects_LD = 0;
-        $project_TM = 0;
+        $projects_PM = null;
+        $projects_LD =null;
+        $project_TM =  null;
         if(Auth::user()->idRole != 4){
             $idUser = App\Employee::where('idAccount','=',Auth::user()->idAccount)->first()->idEmployee;
             $projects_PM = App\Project::where('idPStatus','=',1)->where('idPManager','=',$idUser)->get();
@@ -50,7 +49,7 @@
         <div class="alert alert-success" role="alert">{{Session('flat')}}</div>
     @endif
     <div class="row folder">
-    @if ($projects_PM != 0 && $projects_LD != 0 &&$project_TM != 0)
+    @if ($projects_PM !=null || $projects_LD != null || $project_TM != null)
     @if (Auth::user()->idRole == 4)
         @foreach ($project_client as $l)
         <div class="col-md-3 projects">
