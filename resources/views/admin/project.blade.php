@@ -26,17 +26,21 @@
     <hr>
     <?php  $Projects = App\Project::all();?>
     <div class="row folder">
-    @foreach ($Projects as $p)
-    @if ($p->idPStatus == 1)
-    <div class="col-md-3 projects">
-        <div class="content-box-large" onclick="window.location='{{ url('/admin/project_detail') }}/{{$p->idProject}}'" style="">
-            <p class="name-project"><b>{{$p->P_Name}}</b></p>
-            <p class="time-project"><i>{{$p->P_DateStart}}<span>-</span>{{$p->P_DateFinish}}</i></p>
+    @if($Projects->count() !=0)
+        @foreach ($Projects as $p)
+        @if ($p->idPStatus == 1)
+        <div class="col-md-3 projects">
+            <div class="content-box-large" onclick="window.location='{{ url('/admin/project_detail') }}/{{$p->idProject}}'" style="">
+                <p class="name-project"><b>{{$p->P_Name}}</b></p>
+                <p class="time-project"><i>{{$p->P_DateStart}}<span>-</span>{{$p->P_DateFinish}}</i></p>
 
+            </div>
         </div>
-    </div>
+        @endif
+        @endforeach
+    @else
+        <h4 class="lead nodata-found" style="margin-left:30px">You have not had any project</h4>
     @endif
-    @endforeach
     </div>
 @stop
 @section('script')

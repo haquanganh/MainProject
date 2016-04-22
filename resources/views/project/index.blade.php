@@ -50,6 +50,7 @@
         <div class="alert alert-success" role="alert">{{Session('flat')}}</div>
     @endif
     <div class="row folder">
+    @if ($projects_PM != 0 && $projects_LD != 0 &&$project_TM != 0)
     @if (Auth::user()->idRole == 4)
         @foreach ($project_client as $l)
         <div class="col-md-3 projects">
@@ -90,6 +91,9 @@
             </div>
         @endif
     @endforeach
+    @endif
+    @else
+        <h4 class="lead nodata-found" style="margin-left:30px">You have not had any project</h4>
     @endif
     </div>
 @stop

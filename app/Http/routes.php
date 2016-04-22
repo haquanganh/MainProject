@@ -38,6 +38,9 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('create-project','ProjectController@postcreateProject');
         Route::get('get-listPM','AjaxController@getlistPM');
         Route::get('get-listProject','AjaxController@getlistProject');
+        Route::get('pagination/employees','AjaxController@getPagination');
+        Route::get('pagination/employees/search/results','AjaxController@getPaginationSearchResults');
+        Route::get('pagination/search','AjaxController@getPaginationSearch');
         Route::get('get-top','AjaxController@getTop');
         Route::get('project_detail/{id}','ProjectController@project_detail');
         Route::get('project/edit/{id}','ProjectController@getEditProject');

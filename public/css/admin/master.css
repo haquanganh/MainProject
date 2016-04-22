@@ -9,6 +9,17 @@ body {
     font-family: 'Avenir LT Std 85 Heavy';
 }
 
+html,
+body {
+    height: 100%;
+    margin: 0px;
+}
+
+.container-fluild {
+    height: 100%;
+    background-color: #FAFAFA;
+}
+
 .row {
     margin: 0;
 }
@@ -20,20 +31,29 @@ body {
 
 #notify a {
     margin-left: 10px;
-    color: #FFFFFF;
+    color: #858282;
     position: relative;
     display: inline-block;
+    font-size:15px!important;
+    font-weight: bold;
 }
-div.vertical-line{
+
+div.vertical-line {
     margin-left: 4px;
-  width: 1px;
-  background-color: #708C98;
-  height: 15px;
+    width: 1px;
+    background-color: #708C98;
+    height: 15px;
     display: inline-block;
 }
+
 #nav {
-    background-color: #05374D;
-    color: #FFFFFF;
+    background-color: #FFFFFF;
+    color: #858282;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    z-index: 1001;
+    border: 1px solid #ccc;
 }
 
 #title img {
@@ -43,91 +63,149 @@ div.vertical-line{
 #content {
     margin-top: 10px;
 }
-
+#content #menu{
+    width: 100%;
+}
 #content #menu li {
-    background-color: #103F54;
-    height: 80px;
-    -webkit-box-shadow: 4px -4px 5px -1px rgba(112, 140, 152, 1);
-    -moz-box-shadow: 4px -4px 5px -1px rgba(112, 140, 152, 1);
-    box-shadow: 4px -4px 5px -1px rgba(112, 140, 152, 1);
-    margin-top: 10px;
-    border: 1px solid #103F54;
-    border-radius: 5px;
+    background-color: #FFFFFF;
+    height: 50px;
+    border: 1px solid #ccc;
+    margin: 0;
 }
 
 #content #menu li a:hover {
-    background-color: #708C98;
+    background-color: #ccc;
 }
+
 #content #menu li a {
     height: 100%;
-    line-height: 60px;
-    color: #FFFFFF;
-    font-size: 16px;
+    line-height: 30px;
+    color: #858282;
+    font-size: 15px;
+    font-weight: bolder;
 }
 
 .actived a {
-    background-color: #708C98;
+    background-color: #ccc;
 }
 
 #footer {
     background-color: #05374D;
     height: 50px;
 }
-.btn-collapse{
+
+.btn-collapse {
     display: none!important;
 }
-#main-content {
-  margin-top: 10px;
-    border-top: 1px solid #ccc;
-    border-left: 1px solid #ccc;
-    -webkit-box-shadow: -4px -1px 5px 0px rgba(169, 185, 193, 1);
-    -moz-box-shadow: -4px -1px 5px 0px rgba(169, 185, 193, 1);
-    box-shadow: -4px -1px 5px 0px rgba(169, 185, 193, 1);
+.arrow{
+  width:150px;
+  height:50px;
+  background:transparent;
+  margin-left: 50px!important;
 }
-#left-bar{
-    width: 275px;
+
+.arrow:after{
+  top:10px;
+  left:50px;
+  position:absolute;
+  content:"";
+  width:145px;
+  height:20px;
+  border-left:10px solid #3584FB;
+  border-right:5px solid #3584FB;
+  border-top:10px solid #3584FB;
+  transform:skew(45deg);
+  background: #3584FB;
+}
+
+.arrow:before{
+  top:30px;
+  left:50px;
+  position:absolute;
+  content:"";
+  width:145px;
+  height:20px;
+  border-left:10px solid #3584FB;
+  border-right:5px solid #3584FB;
+  border-bottom:10px solid #3584FB;
+  transform:skew(-45deg);
+  background-color: #3584FB;
+}
+#main-content {
+    margin-top: 10px;
+    top:40px;
+    right: 50px;
+    position: absolute;
+}
+
+#left-bar {
+    background-color: #EFEFF4;
+    height: 200%;
+    width: 250px;
+    position: fixed;
+    border: 1px solid #ccc;
+    top:50px;
+    margin: 0;
+    padding: 0;
+}
+.glyphicon{
+    color: #3584FB!important;
+}
+i.fa{
+    color: #3584FB;
+    font-size: 20px!important;
+    font-size: 5px;
+    text-align: left!important;
+}
+i.fa{
+
+}
+#notify a:hover {
+    text-decoration: none;
+}
+ul#menu li a span{
+    width: 30px!important;
+    display:inline-block;
 }
 @media(max-width: 480px) {
-    body{
+    body {
         position: relative;
     }
-    #left-bar{
+    #left-bar {
         width: auto;
     }
-    #left-bar ul{
+    #left-bar ul {
         display: none;
         position: absolute!important;
         left: 0px;
-        top:-8px;
+        top: -8px;
         z-index: 1001!important;
         width: 100%!important;
     }
-    #left-bar ul li{
+    #left-bar ul li {
         margin: 0px!important;
         height: 40px!important;
-
     }
-    #left-bar ul li a{
+    #left-bar ul li a {
         height: 100%!important;
         line-height: 20px!important;
     }
-    .btn-collapse{
+    .btn-collapse {
         display: inline!important;
         float: right!important;
         text-align: center!important;
     }
-    #notify{
+    #notify {
         float: left!important;
         width: 100%!important;
     }
-    #notify a span{
+    #notify a span {
         display: none;
     }
-    #title{
+    #title {
         float: none!important;
         text-align: center!important;
     }
-
 }
 
 @media (min-width: 1200px) {}

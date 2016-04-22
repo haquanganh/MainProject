@@ -152,3 +152,104 @@ h1 { font-size: 1.5em; margin: 10px; }
 .edit-feedback-form label{
   color: red;
 }
+/* Project */
+#currentproject img {
+    width: 50px;
+    height: 50px;
+}
+
+.box-info {
+    height: 150px;
+    background-color: #F7F7F7;
+    border: 1px solid #ccc;
+    color: #5A6E95;
+    margin-bottom: 20px;
+}
+
+.box-info .main-info {
+    height: 80%;
+    border: 1px solid #ccc;
+}
+
+.box-info .main-info img {
+    width: 25%!important;
+    height: 100%!important;
+    border: 1px solid #ccc!important;
+    float: left!important;
+}
+
+.main-info .info {
+    width: 75%;
+    height: 100%;
+    float: right;
+}
+
+.main-info .info h4,
+.main-info .info h5,
+.main-info .info p {
+    margin-left: 20px;
+}
+.main-info .info h4{
+    font-size: 17px;
+}
+.main-info .info h5 {
+    margin-top: -22px;
+}
+
+.main-info .info p {
+    margin-top: -4px;
+    font-size: 12px;
+}
+
+.box-info .cost-info {
+    margin-left: 5px;
+    margin-top: 5px;
+    font-size: 12px;
+    line-height: 20px;
+}
+#project-name{
+  margin-top: 20px;
+}
+#project-name .small {
+    margin-bottom: -8px;
+    margin-top: -16px;
+    color: #05374D;
+}
+#project-name .lead{
+    color: #05374D;
+    font-size: 30px;
+}
+.fancy {
+    line-height: 0.5;
+    text-align: center;
+    width: auto;
+}
+
+.fancy span {
+    display: inline-block;
+    position: relative;
+}
+
+.fancy span:before,
+.fancy span:after {
+    content: "";
+    position: absolute;
+    height: 5px;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    top: 0;
+    width: 350px;
+}
+
+.fancy span:before {
+    right: 100%;
+    margin-right: 15px;
+}
+
+.fancy span:after {
+    left: 100%;
+    margin-left: 15px;
+}
+.link:hover{
+  cursor: pointer;
+}

@@ -32,7 +32,7 @@ class Personal_Information_Controller extends Controller
         if(Auth::user()->idRole != 1){
             return redirect('/');
         }
-        $list_employee = Employee::all();
+        $list_employee = Employee::paginate(10);
 		return view('admin.view',compact('list_employee'));
     }
 

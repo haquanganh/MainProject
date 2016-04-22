@@ -22,8 +22,7 @@ class Feedback extends Model
             $h->H_newTitle = $feedback->F_Title;
             $h->H_newRate = $feedback->F_Rate;
             $h->H_newContent = $feedback->F_Content;
-            $tz = new DateTimeZone('Asia/Bangkok');
-            $h->H_DateCreate = new DateTime('now',$tz);
+            $h->H_DateCreate = new DateTime();
             $h->H_idProject = $feedback->idProject;
             $h->H_idClient = $feedback->idClient;
             $h->H_idEmployee = $feedback->idEmployee;
@@ -37,8 +36,7 @@ class Feedback extends Model
             $h->H_newTitle = $feedback->F_Title;
             $h->H_newRate = $feedback->F_Rate;
             $h->H_newContent = $feedback->F_Content;
-            $tz = new DateTimeZone('Asia/Bangkok');
-            $h->H_DateCreate = new DateTime('now',$tz);
+            $h->H_DateCreate = new DateTime();
             $h->H_idProject = $feedback->idProject;
             $h->H_idClient = $feedback->idClient;
             $h->H_idEmployee = $feedback->idEmployee;
@@ -51,9 +49,7 @@ class Feedback extends Model
             $h->idFeedback = $feedback->idFeedback;
             $h->H_newTitle = $feedback->F_Title;
             $h->H_newRate = $feedback->F_Rate;
-            $h->H_newContent = $feedback->F_Content;
-            $tz = new DateTimeZone('Asia/Bangkok');
-            $h->H_DateCreate = new DateTime('now',$tz);
+            $h->H_DateCreate = new DateTime();
             $h->H_idProject = $feedback->idProject;
             $h->H_idClient = $feedback->idClient;
             $h->H_idEmployee = $feedback->idEmployee;

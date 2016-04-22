@@ -78,6 +78,25 @@ class AjaxController extends Controller{
             }
         }
     }
+    public function getPagination(){
+        $list_employee = Employee::paginate(10);
+        return view('ajax.employees',compact('list_employee'))->render();
+    }
+    public function getPaginationSearch(){
+        if(Request::ajax()){
+            $list_employee = Employee::where('E_Name','LIKE','%'.Request::get('val').'%')->paginate(10);
+            if(!$list_employee->count()){
+                return 'Empty';
+            }
+            return json_encode(array($list_employee));
+        }
+    }
+    public function getPaginationSearchResults(){
+        if(Request::ajax()){
+            $list_employee = Employee::where('E_Name','LIKE','%'.Request::get('val').'%')->paginate(10);
+            return view('ajax.employees',compact('list_employee'))->render();
+        }
+    }
 }
 
 
