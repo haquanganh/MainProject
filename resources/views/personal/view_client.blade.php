@@ -43,11 +43,11 @@
 				Current Project Information
 				</div>
 				<div class="panel-body">
-				<div id="project-name" class="row">
-					<p class="lead text-center">Business Information Management System</p>
-					<p class="fancy text-center small"><span>{{ $datestart }} &nbsp;-&nbsp;{{ $datefinish }}</span></p>
-				</div>
-				<hr>
+					<div id="project-name" class="row">
+						<p class="lead text-center">Business Information Management System</p>
+						<p class="fancy text-center small"><span>{{ $datestart }} &nbsp;-&nbsp;{{ $datefinish }}</span></p>
+					</div>
+					<hr>
 					<div class="col-md-6">
 						<div class="box-info">
 							<div class="main-info">
@@ -83,24 +83,23 @@
 						</div>
 					</div>
 					@foreach ($team as $e)
-
-						<div class="col-md-6">
-							<div class="box-info">
-								<div class="main-info">
-									<img src="{{ asset('images/personal_images').'/'.$e->E_Avatar }}">
-									<div class="info">
-										<h4 class="lead">{{ $e->E_EngName }}</h4>
-										<h5 class="small"><i>Member</i></h5>
-										<br>
-										<p>Phone: {{ $e->E_Phone }}</p>
-										<p>Skype: {{ $e->E_Skype }}</p>
-									</div>
-								</div>
-								<div class="cost-info">
-									<p>Cost/Hour: {{'$'.$e->E_Cost_Hour }}</p>
+					<div class="col-md-6">
+						<div class="box-info">
+							<div class="main-info">
+								<img src="{{ asset('images/personal_images').'/'.$e->E_Avatar }}">
+								<div class="info">
+									<h4 class="lead">{{ $e->E_EngName }}</h4>
+									<h5 class="small"><i>Member</i></h5>
+									<br>
+									<p>Phone: {{ $e->E_Phone }}</p>
+									<p>Skype: {{ $e->E_Skype }}</p>
 								</div>
 							</div>
+							<div class="cost-info">
+								<p>Cost/Hour: {{'$'.$e->E_Cost_Hour }}</p>
+							</div>
 						</div>
+					</div>
 					@endforeach
 				</div>
 			</div>

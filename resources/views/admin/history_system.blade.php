@@ -17,7 +17,8 @@
 	<?php
 		$histories = App\History::orderBy('H_DateCreate','DESC')->get();
 	?>
-	@foreach ($histories as $key=>$h)
+	@if($histories->count() !=0)
+		@foreach ($histories as $key=>$h)
 		<tr>
 		<?php
 			$split = explode('.',$h->H_Content);
@@ -28,6 +29,9 @@
 			<td>{{$h->H_DateCreate}}</td>
 		</tr>
 	@endforeach
+	@else
+		<tr><td colspan="4">No data found</td></tr>
+	@endif
 	</tbody>
 </table>
 @stop

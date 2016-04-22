@@ -23,7 +23,8 @@
         $histories = App\Feedback_History::orderBy('H_DateCreate','DESC')->get();
         $count = 0;
     ?>
-    @foreach ($histories as $key=>$h)
+    @if ($histories->count() != 0)
+        @foreach ($histories as $key=>$h)
     <?php
         $check = preg_match('/edit/',$h->H_Content) ? 'Yes' : 'No';
         /*name client*/
@@ -55,6 +56,10 @@
             @endif
         </tr>
     @endforeach
+    @else
+
+    @endif
+        <tr><td colspan="7">No data found</td></tr>
     </tbody>
 </table>
 @stop

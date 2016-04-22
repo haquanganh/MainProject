@@ -59,7 +59,7 @@
                         <?php
                             $check = App\User::find($e->idAccount)->idRole;
                         ?>
-                        @if ($check != 3 && $e->idStatus == 2)
+                        @if ($e->idStatus == 2)
                             <tr>
                             <td><img src="{{($e->E_Avatar != NULL && File::exists(public_path('images/personal_images/'.$e->E_Avatar)) ) ? asset('images/personal_images/'.$e->E_Avatar): asset('images/notfound.jpg')}}" class="img img-circle" alt=""></td>
                             <td>{{$e->E_EngName}}</td>

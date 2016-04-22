@@ -32,12 +32,18 @@ class AjaxController extends Controller{
             $projects_PM = 0;
             $projects_LD = 0;
             $project_TM = 0;
+            $project_client = 0;
             if(Auth::user()->idRole != 4){
                 $idUser = Employee::where('idAccount','=',Auth::user()->idAccount)->first()->idEmployee;
-                $projects_PM = Project::where('idPStatus','=',$idPStatus)->where('idPManager','=',$idUser)->get();
-                $projects_LD = Project::where('idPStatus','=',$idPStatus)->where('idTeamLeader','=',$idUser)->get();
-                $project_TM = Employee::find($idUser)->Project;
-                
+                if($idPStatus != 0){
+                    $projects_PM = Project::where('idPStatus','=',$idPStatus)->where('idPManager','=',$idUser)->get();
+                    $projects_LD = Project::where('idPStatus','=',$idPStatus)->where('idTeamLeader','=',$idUser)->get();
+                }
+                else{
+                    $projects_PM = Project::where('idPManager','=',$idUser)->get();
+                    $projects_LD = Project::where('idTeamLeader','=',$idUser)->get();
+                }
+                    $project_TM = Employee::find($idUser)->Project;
                 if(!empty($projects_PM) || !empty($projects_LD) || !empty($project_TM) ){
                     return json_encode(array($projects_PM,$projects_LD,$project_TM));
                 }
@@ -47,7 +53,12 @@ class AjaxController extends Controller{
             }
             else{
                 $idUser = Clients::where('idAccount','=',Auth::user()->idAccount)->first()->idClient;
-                $project_client = Project::where('idClient','=',$idUser)->where('idPStatus','=',$idPStatus)->get();
+                if($idPStatus != 0){
+                    $project_client = Project::where('idClient','=',$idUser)->where('idPStatus','=',$idPStatus)->get();
+                }
+                else{
+                    $project_client = Project::where('idClient','=',$idUser)->get();
+                }
                 if(!empty($project_client)){
                     return json_encode(array($project_client));
                 }
