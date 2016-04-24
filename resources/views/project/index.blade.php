@@ -34,7 +34,12 @@
         $projects_PM = null;
         $projects_LD =null;
         $project_TM =  null;
-        if(Auth::user()->idRole != 4){
+        $project_clients = null;
+        if(Auth::user()->idRole == 6){
+            $idClientCompany = App\Client_Company::where('idAccount','=',Auth::user()->idAccount)->first()->idClientCompany;
+            $project_clients = App\Clients::where('idClientCompany','=',$idClientCompany)->get();
+        }
+        else if(Auth::user()->idRole != 4){
             $idUser = App\Employee::where('idAccount','=',Auth::user()->idAccount)->first()->idEmployee;
             $projects_PM = App\Project::where('idPStatus','=',1)->where('idPManager','=',$idUser)->get();
             $projects_LD = App\Project::where('idPStatus','=',1)->where('idTeamLeader','=',$idUser)->get();
@@ -49,8 +54,29 @@
         <div class="alert alert-success" role="alert">{{Session('flat')}}</div>
     @endif
     <div class="row folder">
-    @if ($projects_PM !=null || $projects_LD != null || $project_TM != null)
-    @if (Auth::user()->idRole == 4)
+    @if ($project_clients != null || $projects_PM !=null || $projects_LD != null || $project_TM != null)
+    @if(Auth::user()->idRole == 6)
+        <?php
+        $check_null = true;
+        ?>
+        @foreach ($project_clients as $l)
+        <?php
+            $c_projects = App\Project::where('idClient','=',$l->idClient)->get();
+            if(!empty($c_projects)) $check_null = false;
+        ?>
+            @foreach ($c_projects as $c_p)
+                <div class="col-md-3 projects">
+                <div class="content-box-large" onclick="window.location='{{ url('project_detail') }}/{{$c_p->idProject}}'">
+                    <p class="name-project"><b>{{$c_p->P_Name}}</b></p>
+                    <p class="time-project"><i>{{$c_p->P_DateCreate}} <span>-</span>{{$c_p->P_DateFinish}}</i></p>
+                </div>
+            </div>
+            @endforeach
+        @endforeach
+        @if ($check_null = true)
+            <h4 class="lead nodata-found" style="margin-left:30px">You have not had any project</h4>
+        @endif
+    @elseif (Auth::user()->idRole == 4)
         @foreach ($project_client as $l)
         <div class="col-md-3 projects">
             <div class="content-box-large" onclick="window.location='{{ url('project_detail') }}/{{$l->idProject}}'">
@@ -58,7 +84,7 @@
                 <p class="time-project"><i>{{$l->P_DateCreate}} <span>-</span>{{$l->P_DateFinish}}</i></p>
             </div>
         </div>
-    @endforeach
+        @endforeach
     @else
     @foreach ($projects_PM as $l)
         <div class="col-md-3 projects">
@@ -143,7 +169,14 @@
                         if(list_n > 0){
                             $('.projects').remove();
                         }
-                        @if(Auth::user()->idRole != 4)
+                        @if(Auth::user()->idRole == 6)
+                            $.each( result[0], function( key, value ) {
+                                $.each(value, function(index, val) {
+                                $('.folder').append('<div class="col-md-3 projects"><div class="content-box-large" onclick="window.location=\''+'{{ url('project_detail') }}/'+val.idProject+'\';"><p class="name-project"><b>'+val.P_Name+'</b></p><br><br><p class="time-project"><i>'+val.P_DateStart+'<span>-</span>'+val.P_DateFinish+'</i></p></div>');
+                                });
+                                
+                           });
+                        @elseif(Auth::user()->idRole != 4)
                            $.each( result[0], function( key, value ) {
                                 $('.folder').append('<div class="col-md-3 projects"><div class="content-box-large" onclick="window.location=\''+'{{ url('project_detail') }}/'+value.idProject+'\';"><p class="name-project"><b>'+value.P_Name+'</b></p><br><br><p class="time-project"><i>'+value.P_DateStart+'<span>-</span>'+value.P_DateFinish+'</i></p></div>');
                            });

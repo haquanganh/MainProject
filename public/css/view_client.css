@@ -121,3 +121,11 @@
 .custom-tooltip + .tooltip > .tooltip-arrow {
     border-bottom-color: #A6ECF6;
 }
+.basic-information li span{
+    display: inline-block;
+    width: 150px;
+}
+.representative li span{
+    display: inline-block;
+    width: 100px;
+}

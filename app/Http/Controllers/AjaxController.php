@@ -5,6 +5,7 @@ use Request;
 use App\Employee as Employee;
 use App\Project as Project;
 use App\Clients as Clients;
+use App\Client_Company as Client_Company;
 use Auth;
 use DB;
 use App\Feedback as Feedback;
@@ -28,12 +29,35 @@ class AjaxController extends Controller{
     public function getlistProject(){
         if(Request::ajax()){
             $idPStatus = Request::get('idPStatus');
-            $idUser = 0;
-            $projects_PM = 0;
-            $projects_LD = 0;
-            $project_TM = 0;
-            $project_client = 0;
-            if(Auth::user()->idRole != 4){
+            $idUser = null;
+            $projects_PM = null;
+            $projects_LD = null;
+            $project_TM = null;
+            $project_client = null;
+            $project_company = array();
+           if(Auth::user()->idRole  == 6){
+                $idClientCompany = Client_Company::where('idAccount','=',Auth::user()->idAccount)->first()->idClientCompany;
+                $project_clients = Clients::where('idClientCompany','=',$idClientCompany)->get();
+                if($idPStatus != 0){
+                    foreach ($project_clients as $key => $l) {
+                        $c_projects = Project::where('idPStatus','=',$idPStatus)->where('idClient','=',$l->idClient)->get();
+                        array_push($project_company, $c_projects);
+                    }    
+                }
+                else{
+                    foreach ($project_clients as $key => $l) {
+                        $c_projects = Project::where('idClient','=',$l->idClient)->get();
+                        array_push($project_company, $c_projects);
+                    }
+                }
+                if(!empty($project_company)){
+                    return json_encode(array($project_company));
+                }
+                else{
+                    return 'Empty';
+                }
+           }
+           else if(Auth::user()->idRole != 4){
                 $idUser = Employee::where('idAccount','=',Auth::user()->idAccount)->first()->idEmployee;
                 if($idPStatus != 0){
                     $projects_PM = Project::where('idPStatus','=',$idPStatus)->where('idPManager','=',$idUser)->get();

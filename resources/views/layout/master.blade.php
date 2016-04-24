@@ -31,7 +31,7 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="top:60px;left:-50px">
                             @if (Auth::user()->idRole != 1)
-                                <li><a href="/personal-information">{{ Auth::user()->idRole == 4 ? (App\Clients::where('idAccount','=',Auth::user()->idAccount)->first()->ClientName) :( App\Employee::where('idAccount','=',(Auth::user()->idAccount))->first()->E_EngName) }}</a></li>
+                                <li><a href="/personal-information">{{ Auth::user()->idRole == 4 ? (App\Clients::where('idAccount','=',Auth::user()->idAccount)->first()->ClientName) :( Auth::user()->idRole == 6 ? App\Client_Company::where('idAccount','=',Auth::user()->idAccount)->first()->CC_Name : App\Employee::where('idAccount','=',(Auth::user()->idAccount))->first()->E_EngName) }}</a></li>
                                 <li role="separator" class="divider"></li>
                                 <li><a data-toggle="modal" href='#change-password'>Change password</a></li>
                                 <li role="separator" class="divider"></li>

@@ -2,7 +2,6 @@
 @section('title','Personal Page')
 @section('css')
 <link rel="stylesheet" type="text/css" href="{{ asset('css/view_client.css') }}">
-<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
 @stop
 @section('content')
 	<div id="img-title">
@@ -15,13 +14,25 @@
 					Personal Information
 				</div>
 				<div class="panel-body">
+				<?php
+					$client_company = App\Client_Company::find($client->idClientCompany);
+				?>
+					<h4>Company Information</h4>
 					<ul class="list-group basic-information">
-	                    <li class="list-group-item"><i>Name:</i> &nbsp;{{$client->ClientName}}</li>
-	                    <li class="list-group-item"><i>Skype:</i> &nbsp;{{$client->C_Skype}}</li>
-	                    <li class="list-group-item"><i>Phone:</i> &nbsp;0{{$client->C_Phone}}</li>
-	                    <li class="list-group-item"><i>Address:</i> &nbsp;{{$client->C_Address}}</li>
-	                    <li class="list-group-item"><i>Company:</i> &nbsp;{{$client->C_Company}}</li>
+	                    <li class="list-group-item"><span><i>Company's Name:</i></span></span> &nbsp;{{$client_company->CC_Name}}</li>
+	                    <li class="list-group-item"><span><i>Company's Description:</i></span> &nbsp;{{$client_company->CC_Description}}</li>
+	                    <li class="list-group-item"><span><i>Comapny's Skype:</i></span> &nbsp;{{$client_company->CC_Skype}}</li>
+	                    <li class="list-group-item"><span><i>Company's Phone:</i></span> &nbsp;0{{$client_company->CC_Phone}}</li>
+	                    <li class="list-group-item"><span><i>Company's Address:</i></span> &nbsp;{{$client_company->CC_Address}}</li>
+	                    <li class="list-group-item"><span><i>Company's Email:</i></span> &nbsp;{{$client_company->CC_Email}}</li>
 	                </ul>
+					<h4>Representative</h4>
+					<ul class="list-group basic-information representative">
+	                    <li class="list-group-item"><span><i>Name:</i></span>&nbsp;{{$client->ClientName}}</li>
+	                    <li class="list-group-item"><span><i>Email:</i></span>&nbsp;{{$client->C_Email}}</li>
+	                    <li class="list-group-item"><span><i>Skype:</i></span>&nbsp;{{$client->C_Skype}}</li>
+	                    <li class="list-group-item"><span><i>Phone:</i></span>&nbsp;0{{$client->C_Phone}}</li>
+	                    <li class="list-group-item"><span><i>Address:</i></span>&nbsp;{{$client->C_Address}}</li>
 				</div>
 			</div>
 		</div>
@@ -40,7 +51,7 @@
 		<div class="col-md-12">
 			<div class="panel panel-info">
 				<div class="panel-heading">
-				Current Project Information
+				Newest Project Information
 				</div>
 				<div class="panel-body">
 					<div id="project-name" class="row">

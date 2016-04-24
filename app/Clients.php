@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Clients extends Model
 {
     protected $table = 'Clients';
-    protected $fillable = ['idClient', 'ClientName','C_Phone','C_Address','C_Company','C_Skype','idAccount','idNote'];
+    protected $fillable = ['idClient', 'ClientName','C_Phone','C_Address','C_Email','C_Skype','idAccount','idNote','idClientCompany'];
     protected $hidden = [];
     protected $primaryKey = 'idClient';
     public $timestamps = false;
@@ -28,5 +28,8 @@ class Clients extends Model
     }
     public function History(){
         return $this->hasMany('App\History','idHistory');
+    }
+    public function Client_Company(){
+        return $this->belongsTo('App\Client_Company','idClientCompany');
     }
 }

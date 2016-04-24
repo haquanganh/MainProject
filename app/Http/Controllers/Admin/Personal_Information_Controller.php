@@ -65,7 +65,8 @@ class Personal_Information_Controller extends Controller
      */
     public function show($id)
     {
-        //
+        $employee = Employee::find($id);
+        return view('admin.view_detail',compact('employee'));
     }
 
     /**

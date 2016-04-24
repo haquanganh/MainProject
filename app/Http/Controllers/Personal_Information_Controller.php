@@ -9,6 +9,7 @@ use App\Employee as Employee;
 use App\User as User;
 use App\Role as Role;
 use App\Clients as Clients;
+use App\Client_Company as Client_Company;
 use Auth;
 use Illuminate\Support\Facades\Input;
 use App\Http\Requests\Personal_Information_Request;
@@ -33,6 +34,10 @@ class Personal_Information_Controller extends Controller
             if($id_Rol == 4){
                 $client = Clients::where('idAccount','=',$id_Acc)->first();
                 return view('personal.view_client',compact('client'));
+            }
+            else if($id_Rol == 6) {
+                $company = Client_Company::where('idAccount','=',$id_Acc)->first();
+                return view('personal.view_company',compact('company'));
             }
             else{
                 $id_Employee = Employee::where('idAccount','=',$id_Acc)->first()->idEmployee;

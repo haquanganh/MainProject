@@ -47,7 +47,7 @@ div.vertical-line {
 }
 
 #nav {
-    background-color: #FFFFFF;
+    background-color: #EFEFF4;
     color: #858282;
     position: fixed;
     top: 0px;
@@ -132,10 +132,10 @@ div.vertical-line {
   background-color: #3584FB;
 }
 #main-content {
-    margin-top: 10px;
+    margin-top: 5px;
     top:40px;
     right: 50px;
-    position: absolute;
+    float: right;
 }
 
 #left-bar {
