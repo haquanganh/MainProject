@@ -151,16 +151,22 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="action">Astro is moved to Business Information Management System project</td>
-                                    <td class="start_day">26/02/2016</td>
-                                    <td class="end_day">26/02/2016</td>
+                            <?php
+                            $e_r = App\Employee_Record::where('idEmployee','=',$employee->idEmployee)->orderBy('DateStart','=','DESC')->get();
+                            ?>
+                                @foreach ($e_r as $e)
+                                <?php
+                                $sd = new DateTime($e->DateStart);
+                                $ed = new DateTime($e->DateEnd);
+                                $startday = $sd->format('m-F-Y');
+                                $endday = $sd->format('m-F-Y');
+                                ?>
+                                    <tr>
+                                    <td class="action">{{ $e->Content }}</td>
+                                    <td class="start_day">{{ $startday }}</td>
+                                    <td class="end_day">{{ !empty($e->DateEnd) ? $endday : 'Now'}}</td>
                                 </tr>
-                                <tr>
-                                    <td class="action">Astro is moved to Business Information Management System project</td>
-                                    <td class="start_day">26/02/2016</td>
-                                    <td class="end_day">26/02/2016</td>
-                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -169,7 +175,7 @@
     </div>
 @stop
 @section('script')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.1.1/Chart.min.js"></script>
+<script src="{{ asset('third-library/chart-js/Chart.min.js') }}"></script>
 <script type="text/javascript">
     $(document).ready(function(){
         $.ajax({

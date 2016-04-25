@@ -73,7 +73,7 @@
             </div>
             @endforeach
         @endforeach
-        @if ($check_null = true)
+        @if ($check_null == true)
             <h4 class="lead nodata-found" style="margin-left:30px">You have not had any project</h4>
         @endif
     @elseif (Auth::user()->idRole == 4)

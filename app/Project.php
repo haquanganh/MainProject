@@ -8,6 +8,7 @@ use DateTimeZone;
 use Auth;
 use App\Employee as Employee;
 use App\Project as Project;
+use App\Employee_Record as Employee_Record;
 use App\ProjectEmployee as ProjectEmployee;
 use DB;
 class Project extends Model
@@ -26,16 +27,33 @@ class Project extends Model
             $h->idAccount = Auth::user()->idAccount;
             $h->save();
             $original = $project->getOriginal();
+            /*get old list of project employee*/
+            $ope = ProjectEmployee::where('idProject','=',$project->idProject)->get();
             /*Save for leader*/
             /*Check if leader is changed or not*/
             if($original['idTeamLeader'] != $project->idTeamLeader){
                 /*Save for new leader*/
                 $h_l = new Employee_Record;
-                $h_l->DateStart = $project->P_DateStart;
-                $h_l->DateEnd = $project->P_DateFinish;
+                $h_l->DateStart = new DateTime();
+                //$h_l->DateEnd = $project->P_DateFinish;
                 $h_l->idEmployee = $project->idTeamLeader;
-                $h_l->Content = 'Just become leader of the project '.$project->P_Name;
+                $h_l->Content = 'Just become leader of the project.'.$project->idProject;
                 $h_l->save();
+                /*Update old roles's DateEnd*/
+                /*Check if this leader is member of old version*/
+                $check = false;
+                foreach ($ope as $key => $value) {
+                    if($value->idEmployee == $project->idTeamLeader){
+                        $check = true;
+                        break;
+                    }
+                }
+                if($check = true){
+                    $h_update = Employee_Record::where('idEmployee','=',$project->idTeamLeader)->orderBy('DateStart','DESC')->get()[1];
+                    $h_update->DateEnd = new DateTime();
+                    $h_update->save();
+                }
+
             }
             
             return true;
@@ -48,17 +66,17 @@ class Project extends Model
             $h->save();
             /*Save for project manager*/
             $h_pm = new Employee_Record;
-            $h_pm->DateStart = $project->P_DateStart;
-            $h_pm->DateEnd = $project->P_DateFinish;
+            $h_pm->DateStart = new DateTime();
+            //$h_pm->DateEnd = $project->P_DateFinish;
             $h_pm->idEmployee = $project->idPManager;
-            $h_pm->Content = 'Just become project manager of the project '.$project->P_Name;
+            $h_pm->Content = 'Just become project manager of the project.'.$project->idProject;
             $h_pm->save();
             /*Save for Team Leader*/
             $h_l = new Employee_Record;
-            $h_l->DateStart = $project->P_DateStart;
-            $h_l->DateEnd = $project->P_DateFinish;
+            $h_l->DateStart = new DateTime();
+            //$h_l->DateEnd = $project->P_DateFinish;
             $h_l->idEmployee = $project->idTeamLeader;
-            $h_l->Content = 'Just become leader of the project '.$project->P_Name;
+            $h_l->Content = 'Just become leader of the project.'.$project->idProject;
             $h_l->save();
             return true;
         });

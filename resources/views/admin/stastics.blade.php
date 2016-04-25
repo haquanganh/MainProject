@@ -83,7 +83,9 @@
 			        				$('#myDatepicker').datepicker({
 									    format: "mm/yyyy",
 									    startView: "year", 
-									    minViewMode: "months"
+									    minViewMode: "months",
+									    startDate: '01/2000',
+    									endDate: '12/2100'
 									});
 			        			});
 			        		});
@@ -104,7 +106,7 @@
 					$('.list_date').prop('disabled',true);
 					$('.list_date').remove();
 				}
-				$('.choose').append('<select class="list list_points"><option></option><option value="0-100"><=100 points</option><option value="100-120">100 - 120 points</option><option value="120-140">120 - 140 points</option><option value="140-160">140 - 160 points</option><option value="160-180">160 - 180 points</option><option value="180-200">>= 180 points</option></select>');
+				$('.choose').append('<select class="list list_points"><option></option><option value="0-99"><100 points</option><option value="100-119">100-119 points</option><option value="120-139">120 - 139 points</option><option value="140-159">140 - 159 points</option><option value="160-179">160 - 179 points</option><option value="180-200">>180 points</option></select>');
 
 				$(".list_points").select2({
         			placeholder: "Select range of points",
@@ -133,7 +135,9 @@
 			        				$('#myDatepicker').datepicker({
 									    format: "mm/yyyy",
 									    startView: "year", 
-									    minViewMode: "months"
+									    minViewMode: "months",
+									    startDate: '01/2000',
+    									endDate: '12/2100'
 									});
 			        			});
 			        		});

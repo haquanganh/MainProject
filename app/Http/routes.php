@@ -42,6 +42,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('pagination/employees/search/results','AjaxController@getPaginationSearchResults');
         Route::get('pagination/search','AjaxController@getPaginationSearch');
         Route::get('get-top','AjaxController@getTop');
+        Route::get('chart','AjaxController@getChart');
         Route::get('project_detail/{id}','ProjectController@project_detail');
         Route::get('project/edit/{id}','ProjectController@getEditProject');
         Route::post('project/edit/{id}','ProjectController@postEditProject');
@@ -106,7 +107,12 @@ Route::group(['middleware' => ['web']], function () {
             // return $now->format('Y-m-d H:i:s');
             // $feedbacks = App\Feedback::all()->toJson();
             // return $feedbacks;
-            $project = App\Project::find(23);
-            return $project->Employee;
+            // $project = App\Project::find(23);
+            // // return $project->Employee;
+            // $idProject = 73;
+            // $idEmployee = 1100000002;
+            // $idERecord =(array) DB::select("select idERecord from Employee_Record where substring(Content,instr(Content,'.')+1,length(Content)) = ".$idProject." and idEmployee = ".$idEmployee." order by DateStart DESC")[1];
+            // $employees = App\Employee_Record::find($idERecord);
+            // return $employees;
         });
 });

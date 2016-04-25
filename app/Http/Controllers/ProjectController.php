@@ -14,6 +14,7 @@ use App\Http\Requests\EditProject_Request;
 use App\Team as Team;
 use App\History as History;
 use App\User as User;
+use DB;
 use DateTime;
 use DateTimeZone;
 use DatePeriod;
@@ -104,10 +105,10 @@ class ProjectController extends Controller
         $p_e = $p->Employee;
         foreach ($p_e as $key => $e) {
             $h_e = new Employee_Record;
-            $h_e->DateStart = $p->P_DateStart;
-            $h_e->DateEnd = $p->P_DateFinish;
+            $h_e->DateStart = $now;
+            //$h_e->DateEnd = $p->P_DateFinish;
             $h_e->idEmployee = $e->idEmployee;
-            $h_e->Content = 'Just become member of project '.$p->P_Name;
+            $h_e->Content = 'Just become member of project.'.$p->idProject;
             $h_e->save();
         }
     	$flat = 'You are successful to create new project';
@@ -245,33 +246,64 @@ class ProjectController extends Controller
             }
         }
         /*Save to Employee Record for Employee*/
-        $p_e = $project->Employee;
+            $p_e = $project->Employee;
             foreach ($p_e as $key => $e) {
                 $check = false;
                 /*Check if the old leader become member*/
                 if($e->idEmployee == $old_leader){
                     $h_e = new Employee_Record;
-                    $h_e->DateStart = $project->P_DateStart;
-                    $h_e->DateEnd = $project->P_DateFinish;
+                    $h_e->DateStart = $now;
+                    //$h_e->DateEnd = $project->P_DateFinish;
                     $h_e->idEmployee = $e->idEmployee;
-                    $h_e->Content = 'Just be changed from leader to member of project '.$project->P_Name;
+                    $h_e->Content = 'Just be changed from leader to member of project.'.$project->idProject;
                     $h_e->save();
+                    /*Update DateEnd for newest version of employee*/
+                    $idER =(array) DB::select("select idERecord from Employee_Record where substring(Content,instr(Content,'.')+1,length(Content)) = ".$project->idProject." and idEmployee = ".$e->idEmployee." order by DateStart DESC")[1];
+                    DB::table('Employee_Record')->where('idERecord', $idER)->update(['DateEnd' => $now]);
+
                 }
                 else{
-                    /*Check if this employee exits in the old projectemployee*/
+                    /*Check if this employee exists in the old projectemployee*/
                     foreach ($pe_old as $key => $value) {
                         if($value->idEmployee == $e->idEmployee){
                             $check = true;
                             break;
                         }
-                    }
+                    }/*New member*/
                     if($check == false){
                         $h_e = new Employee_Record;
-                        $h_e->DateStart = $project->P_DateStart;
-                        $h_e->DateEnd = $project->P_DateFinish;
+                        $h_e->DateStart = $now;
+                        //$h_e->DateEnd = $project->P_DateFinish;
                         $h_e->idEmployee = $e->idEmployee;      
-                        $h_e->Content = 'Just become member of the project '.$project->P_Name;
+                        $h_e->Content = 'Just become member of project.'.$project->idProject;
                         $h_e->save();
+                    }
+                }
+            }
+            /*Check member were removed out of project*/
+            
+            foreach ($pe_old as $key => $old) {
+                $check = false;
+                /*Check if old employee becomes new leader*/
+                foreach ($p_e as $key => $new) {
+                    if($new->idEmployee == $old->idEmployee){
+                        $check = true;
+                        break;
+                    }
+                }
+                /*If don't have in new list of project employee*/
+                if($check == false){
+                    /*Not leader*/
+                    if($old->idEmployee != $project->idTeamLeader){
+                        $h_e = new Employee_Record;
+                        $h_e->DateStart = $now;
+                        //$h_e->DateEnd = $now;
+                        $h_e->idEmployee = $old->idEmployee;
+                        $h_e->Content = 'Just be removed out of project.'.$project->idProject;
+                        $h_e->save();
+                        /*Update the old time of this employee*/
+                         $idERecord = (int)  (array) DB::select("select idERecord from Employee_Record where substring(Content,instr(Content,'.')+1,length(Content)) = ".$project->idProject." and idEmployee = ".$old->idEmployee." order by DateStart DESC")[1];
+                        DB::table('Employee_Record')->where('idERecord', $idER)->update(['DateEnd' => $now]);
                     }
                 }
             }

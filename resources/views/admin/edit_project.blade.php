@@ -30,8 +30,8 @@
                         <?php
                             $sd = new DateTime($project->P_DateStart);
                             $ed = new DateTime($project->P_DateFinish);
-                            $startday = $sd->format('m/d/y');
-                            $endday = $ed->format('m/d/y');
+                            $startday = $sd->format('m/d/Y');
+                            $endday = $ed->format('m/d/Y');
                         ?>
                         <input type="text" name="daterange"  class="form-control" value="{{$startday}} - {{$endday}}" />
                     </div>

@@ -7,6 +7,7 @@ use App\Team as Team;
 use App\Project as Project;
 use App\Feedback as Feedback;
 use App\Employee as Employee;
+use App\EnglishChart as EnglishChart;
 use DateTime;
 use DB;
 class AjaxController extends Controller{
@@ -95,6 +96,58 @@ class AjaxController extends Controller{
         if(Request::ajax()){
             $list_employee = Employee::where('E_Name','LIKE','%'.Request::get('val').'%')->paginate(10);
             return view('ajax.employees',compact('list_employee'))->render();
+        }
+    }
+    public function getChart(){
+        if(Request::ajax()){
+            $now = new DateTime();
+            $idEmployee = (int) Request::get('idEmployee');
+            $englishchart = EnglishChart::where('idEmployee','=',$idEmployee)->where('Year','=',$now->format('Y'))->first();
+            /*English Chart*/
+            $feedbacks = array();
+            if(!empty(DB::select('select avg(F_Rate) as Average from Feedback where Month(F_DateCreate) between 1 and 2 and idEmployee = '.$idEmployee.' group by idEmployee')[0])){
+                $feedback1 =(array) DB::select('select avg(F_Rate) as Average from Feedback where Month(F_DateCreate) between 1 and 2 and idEmployee = '.$idEmployee.' group by idEmployee')[0];
+                array_push($feedbacks, $feedback1);
+            }
+            else{
+                array_push($feedbacks, 0);
+            }
+            if(!empty(DB::select('select avg(F_Rate) as Average from Feedback where Month(F_DateCreate) between 3 and 4 and idEmployee = '.$idEmployee.' group by idEmployee')[0])){
+                $feedback1 =(array) DB::select('select avg(F_Rate) as Average from Feedback where Month(F_DateCreate) between 3 and 4 and idEmployee = '.$idEmployee.' group by idEmployee')[0];
+                array_push($feedbacks, $feedback1);
+            }
+            else{
+                array_push($feedbacks, 0);
+            }
+            if(!empty(DB::select('select avg(F_Rate) as Average from Feedback where Month(F_DateCreate) between 5 and 6 and idEmployee = '.$idEmployee.' group by idEmployee')[0])){
+                $feedback1 =(array) DB::select('select avg(F_Rate) as Average from Feedback where Month(F_DateCreate) between 5 and 6 and idEmployee = '.$idEmployee.' group by idEmployee')[0];
+                array_push($feedbacks, $feedback1);
+            }
+            else{
+                array_push($feedbacks, 0);
+            }
+            if(!empty(DB::select('select avg(F_Rate) as Average from Feedback where Month(F_DateCreate) between 7 and 8 and idEmployee = '.$idEmployee.' group by idEmployee')[0])){
+                $feedback1 =(array) DB::select('select avg(F_Rate) as Average from Feedback where Month(F_DateCreate) between 7 and 8 and idEmployee = '.$idEmployee.' group by idEmployee')[0];
+                array_push($feedbacks, $feedback1);
+            }
+            else{
+                array_push($feedbacks, 0);
+            }
+            if(!empty(DB::select('select avg(F_Rate) as Average from Feedback where Month(F_DateCreate) between 9 and 10 and idEmployee = '.$idEmployee.' group by idEmployee')[0])){
+                $feedback1 =(array) DB::select('select avg(F_Rate) as Average from Feedback where Month(F_DateCreate) between 9 and 10 and idEmployee = '.$idEmployee.' group by idEmployee')[0];
+                array_push($feedbacks, $feedback1);
+            }
+            else{
+                array_push($feedbacks, 0);
+            }
+            if(!empty(DB::select('select avg(F_Rate) as Average from Feedback where Month(F_DateCreate) between 11 and 12 and idEmployee = '.$idEmployee.' group by idEmployee')[0])){
+                $feedback1 =(array) DB::select('select avg(F_Rate) as Average from Feedback where Month(F_DateCreate) between 11 and 12 and idEmployee = '.$idEmployee.' group by idEmployee')[0];
+                array_push($feedbacks, $feedback1);
+            }
+            else{
+                array_push($feedbacks, 0);
+            }
+            return json_encode(array($englishchart,$feedbacks));
         }
     }
 }

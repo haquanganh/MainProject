@@ -57,9 +57,8 @@
         </tr>
     @endforeach
     @else
-
-    @endif
         <tr><td colspan="7">No data found</td></tr>
+    @endif
     </tbody>
 </table>
 @stop
