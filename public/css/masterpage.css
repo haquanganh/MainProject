@@ -52,7 +52,6 @@ body {
     width: 52px;
     height: 52px;
     position: relative;
-    float: right;
 }
 
 .dropdown-menu {
@@ -242,4 +241,13 @@ body {
     #footer {
         padding: 50px 0;
     }
+}
+.panel{
+  border-radius: 0!important;
+  border-color: #41BCE0;
+}
+.panel-heading{
+    font-size: 18px!important;
+    background-color: #41BCE0!important;
+
 }

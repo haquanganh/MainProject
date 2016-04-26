@@ -15,7 +15,7 @@
                 <button class="btn btn-primary" type="submit" value="Search">
                     <span class="glyphicon glyphicon-search"></span>
                 </button>
-                <input class="form-control" type="text"  id="search" name="search"></input>
+                <input class="form-control" type="text"  id="search" name="search" value=""></input>
                 <?php
                     $id_Role = Auth::user()->idRole;
                 ?>
@@ -25,148 +25,139 @@
                     @if($id_Role == 4)
                         <option value="Search by cost/hour">Search by cost/hour</option>
                     @endif
-         <!--        </select> 
+                </select> 
                 <div class="clear"></div>
             </form>
         </div> -->
     @if (isset($message))
-        <div style="text-align: center; font-size: 20px; color: black;">
+        <div style="text-align: center; font-size: 20px; color: black; margin-top: 20px;">
             {{ $message }}
         </div>
     @endif
-    @if (isset($Listskill)) 
-        <div class="table-responsive" style="padding: 20px;">
-            <table id="table" class="table table-striped table-bordered" cellspacing="0" width="100%">
-               <thead>
-                        <tr>
-                            <th>Avatar</th>
-                            <th>Name</th>
-                            <th>Date of birth</th>
-                            <th>Skype</th>
-                            <th>Phone</th>
-                            <th>Role</th>
-                            @if (Auth::user()->idRole != 1)
-                            <th>View more</th>
-                            @endif
-                        </tr>
-                </thead>
+
+    <div class="table-responsive" style="padding: 20px;">
+        <table id="table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+           <thead>
+                <tr>
+                    <th>Avatar</th>
+                    <th>Name</th>
+                    <th>Date of birth</th>
+                    <th>Skype</th>
+                    <th>Phone</th>
+                    <th>Role</th>
+                    <th>View more</th>
+                </tr>
+            </thead>
+
+            @if (isset($list_search))
                 <tbody>
-                @foreach ($Listskill as $employee)
-                    <?php
-                        $id_Role = App\User::find($employee->idAccount)->idRole;
-                        $name_Role = App\Role::where('idRole','=',$id_Role)->first()->Role;
-                    ?>
-                    <tr>
-                        <td class="img" style="width: 20px;"><img src="{{ asset('images/personal_images') }}/{{$employee->E_Avatar}}" style="width: 50px;height: 50px;  margin-left:4.5px;" class="img-circle"></td>
-                        <td>{{$employee->E_Name}}</td>
-                        <td>{{$employee->E_DateofBirth}}</td>
-                        <td>{{$employee->E_Skype}}</td>
-                        <td>0{{$employee->E_Phone}}</td>
-                        <td>{{$name_Role}}</td>
-                        @if (Auth::user()->idRole != 1)
-                        <td style="width: 100px; padding-left: 30px;">
-                            <a class="btn btn-primary" data-toggle="modal" href='#modal-send-request{{ $employee->idEmployee }}' style="width: 40px;height: 30px; border-radius: 15px;"><span class="glyphicon glyphicon glyphicon-eye-open"></span></a>
-                        </td>
-                        @endif
-                    </tr>
-                     <!-- Send request -->
-                    <div class="modal fade" id="modal-send-request{{ $employee->idEmployee }}">
-                        <form method="POST" action="{{ url('/send-request') }}/{{ $employee->idEmployee }}">
-                        {!! csrf_field() !!}
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                        <h4 class="modal-title">
-                                            You are not allow to see this employee's private information.
-                                            Please send request to Administrator to see this!
-                                        </h4>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-primary">Send request</button>
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>     
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>    
-                @endforeach
-                </tbody>
-           </table>
-        </div>
-    @else 
-        <div class="table-responsive" style="padding: 20px;">
-            <table id="table" class="table table-striped table-bordered" cellspacing="0" width="100%">
-               <thead>
+                @for ($i = 0; $i < sizeof($list_search); $i++)
                         <tr>
-                            <th>Avatar</th>
-                            <th>Name</th>
-                            <th>Date of birth</th>
-                            <th>Skype</th>
-                            <th>Phone</th>
-                            <th>Role</th>
-                            <th>View more</th>
+                            <td class="img" style="width: 20px;"><img src="{{ asset('images/personal_images') }}/{{ $list_search[$i]['avatar']}}" style="width: 50px;height: 50px;  margin-left:4.5px;" class="img-circle"></td>
+                            <td>{{ $list_search[$i]['name']}}</td>
+                            <td>{{ $list_search[$i]['dob']}}</td>
+                            <td>{{ $list_search[$i]['skype']}}</td>
+                            <td>{{ $list_search[$i]['phone']}}</td> 
+                            <td>{{ $list_search[$i]['role']}}</td>
+                            <td style="width: 100px; text-align: center;">
+                                @if($list_search[$i]['status'] == 1)
+                                    <a class="btn btn-default" href="{{ url('/send-request') }}/{{ $list_search[$i]['idEmployee'] }}" style="width: 40px;height: 30px;"><span class="glyphicon glyphicon glyphicon-eye-open"></span></a>
+                                @elseif($list_search[$i]['status'] == 2)
+                                    Rejected
+                                @elseif($list_search[$i]['status'] == 0)
+                                    Pending
+                                @elseif($list_search[$i]['status'] == 3)
+                                    <a data-toggle="modal" href='#modal-send-request{{ $list_search[$i]['idEmployee'] }}' style="width: 40px;height: 30px;">Send request</a>
+                                    <!-- Send request -->
+                                    <div class="modal fade" id="modal-send-request{{ $list_search[$i]['idEmployee'] }}">
+                                        <form method="POST" action="{{ url('/access-request') }}/{{ $list_search[$i]['idEmployee'] }}">
+                                        {!! csrf_field() !!}
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                        <h4 class="modal-title">
+                                                            Send request to Administrator to see this employee's information.
+                                                        </h4>
+                                                    </div>
+                                                    <div class="">
+                                                        <button type="submit" class="btn btn-primary">Send</button>
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal" style="margin-right: -465px;">Close</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>    
+                                @endif
+                            </td>
                         </tr>
-                </thead>
+                    @endfor 
+                </tbody> 
+
+             @else 
+
                 <tbody>
-                 @foreach ($list_employee as $employee)
-                    <?php
-                        $id_Role = App\User::find($employee->idAccount)->idRole;
-                        $name_Role = App\Role::where('idRole','=',$id_Role)->first()->Role;
-                    ?>
-                    <tr>
-                        <td class="img" style="width: 20px;"><img src="{{ asset('images/personal_images') }}/{{$employee->E_Avatar}}" style="width: 50px;height: 50px;  margin-left:4.5px;" class="img-circle"></td>
-                        <td>{{$employee->E_Name}}</td>
-                        <td>{{$employee->E_DateofBirth}}</td>
-                        <td>{{$employee->E_Skype}}</td>
-                        <td>0{{$employee->E_Phone}}</td>
-                        <td>{{$name_Role}}</td>
-                        <td style="width: 100px; padding-left: 30px;">
-                            <a class="btn btn-primary" data-toggle="modal" href='#modal-send-request{{ $employee->idEmployee }}' style="width: 40px;height: 30px; border-radius: 15px;"><span class="glyphicon glyphicon glyphicon-eye-open"></span></a>
-                        </td>
-                    </tr>
-                    <!-- Send request -->
-                    <div class="modal fade" id="modal-send-request{{ $employee->idEmployee }}">
-                        <form method="POST" action="{{ url('/send-request') }}/{{ $employee->idEmployee }}">
-                        {!! csrf_field() !!}
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                        <h4 class="modal-title">
-                                            You are not allow to see this employee's private information.
-                                            Please send request to Administrator to see this!
-                                        </h4>
+                    @for ($i = 0; $i < sizeof($kq); $i++)
+                        <tr>
+                            <td class="img" style="width: 20px;"><img src="{{ asset('images/personal_images') }}/{{ $kq[$i]['avatar']}}" style="width: 50px;height: 50px;  margin-left:4.5px;" class="img-circle"></td>
+                            <td>{{ $kq[$i]['name']}}</td>
+                            <td>{{ $kq[$i]['dob']}}</td>
+                            <td>{{ $kq[$i]['skype']}}</td>
+                            <td>{{ $kq[$i]['phone']}}</td> 
+                            <td>{{ $kq[$i]['role']}}</td>
+                            <td style="width: 100px; text-align: center;">
+                                @if($kq[$i]['status'] == 1)
+                                    <a class="btn btn-default" href="{{ url('/access-request') }}/{{ $kq[$i]['idEmployee'] }}" style="width: 40px;height: 30px;"><span class="glyphicon glyphicon glyphicon-eye-open"></span></a>
+                                @elseif($kq[$i]['status'] == 2)
+                                    Rejected
+                                @elseif($kq[$i]['status'] == 0)
+                                    Pending
+                                @elseif($kq[$i]['status'] == 3)
+                                    <a data-toggle="modal" href='#modal-send-request{{ $kq[$i]['idEmployee'] }}' style="width: 40px;height: 30px;">Send request</a>
+                                    <!-- Send request -->
+                                    <div class="modal fade" id="modal-send-request{{ $kq[$i]['idEmployee'] }}">
+                                        <form method="POST" action="{{ url('/send-request') }}/{{ $kq[$i]['idEmployee'] }}">
+                                        {!! csrf_field() !!}
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                        <h4 class="modal-title">
+                                                            Send request to Administrator to see this employee's information.
+                                                        </h4>
+                                                    </div>
+                                                    <div class="">
+                                                        <button type="submit" class="btn btn-primary">Send</button>
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal" style="margin-right: -465px;">Close</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-primary">Send request</button>
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>     
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>    
-                @endforeach
+                                @endif
+                            </td>
+                        </tr>
+                    @endfor 
                 </tbody>
-            </table>
-        </div>
-    @endif
+            @endif
+        </table>
+    </div>
     <!-- Message after send request -->
     @if(Session::has('messages'))            
-                    <a data-toggle="modal" id="messages-click" href='#messages'></a>
-                    <div class="modal fade" id="messages">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-body">
-                                        {{Session::get('messages')}}
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
-                                </div>
-                            </div>
-                        </div>
+        <a data-toggle="modal" id="messages-click" href='#messages'></a>
+        <div class="modal fade" id="messages">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                            {{Session::get('messages')}}
                     </div>
-            @endif
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
 @stop
 @section('script')
 <script type="text/javascript" src="{{ asset('js/admin/jquery.dataTables.min.js') }}"></script>
@@ -180,8 +171,11 @@
             $('#table').DataTable();
             $('#table_filter label').hide();
 
-            $('<div class="search-form ui-widget"><form method="POST" action="{{ url("/employee-information") }}">{!! csrf_field() !!}<button class="btn btn-primary" type="submit" value="Search"><span class="glyphicon glyphicon-search"></span></button><input class="form-control" type="text"  id="search" name="search"></input><?php $id_Role = Auth::user()->idRole;?><select name="search-type" class="form-control select"><option value="Search by name">Search by name</option><option value="Search by skill">Search by skill</option></select><div class="clear"></div></form></div>').appendTo('#table_filter');
-
+            $('<div class="search-form ui-widget"><form method="POST" action="{{ url("/employee-information") }}">{!! csrf_field() !!}<button class="btn btn-primary" type="submit" value="Search"><span class="glyphicon glyphicon-search"></span></button><input class="form-control" type="text"  id="search" name="search" value="@if(isset($searches)){{ $searches }}@endif"></input><?php $id_Role = Auth::user()->idRole;?><select name="search-type" class="form-control select">@if (isset($search_type))<option id="search_type"value="{{ $search_type }}">{{ $search_type }}</option>@endif<option value="Search by name">Search by name</option><option value="Search by skill">Search by skill</option></select><div class="clear"></div></form></div>').appendTo('#table_filter');
+            
+            $('#table_filter select').hover(function() {
+                $('#search_type').hide();
+            });
             @if($id_Role == 4)
             $('<option value="Search by cost/hour">Search by cost/hour</option>').appendTo('#table_filter select');
             @endif

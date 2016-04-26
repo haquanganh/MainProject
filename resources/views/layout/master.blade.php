@@ -21,9 +21,78 @@
                 <div id="tophead">
                     <a href="{{ url('/') }}" class="logo"><img src="{{ asset('images/enclave_logo.png') }}"></a>
                     @if (Auth::user()->idRole != 1)
-                    <a href="#" class="dropdown-toggle" type="button">
-                            <img id="notification" src="{{ asset('images/notification.png') }}" alt="">
-                    </a>
+                    <div class="dropdown" style="z-index:2001">
+                        @if (Auth::user()->idRole == 4)
+                            <?php
+                                $idAccount = Auth::user()->idAccount;
+                                $idClient = App\Clients::select()
+                                                ->where('idAccount', '=', $idAccount)->first()
+                                                ->idClient;
+                                $list_notify = App\Request_info::select()
+                                                ->where('idClient', '=', $idClient)
+                                                ->where('status', '!=', '0')
+                                                ->orderBy('responseTime', 'desc')
+                                                ->get();
+                                $count = count($list_notify);
+                            ?>
+                            <a href="dropdownMenu1" class="dropdown-toggle" type="button">
+                                <img id="notification" src="{{ asset('images/notification.png') }}" alt="">
+                                <span class="badge" style="float: right;">{{ $count }}</span>   
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="top:60px; right: -45px; width: 350px; min-height: 50px; max-height: 270px; overflow-y: auto;">
+                                <li style="text-align: center;"><h4>Notificaion board</h4></li>
+                                <li role="separator" class="divider"></li>
+                                @foreach ($list_notify as $element)
+                                    <?php 
+                                        $Ename = App\Employee::where('idEmployee', '=', $element->idEmployee2)->first()->E_Name;
+                                    ?>  
+                                    @if ($element->status == 1)
+                                        <li><a href="{{ url('/employee-information') }}" style="white-space: normal;">Your request to see <b>{{ $Ename }}</b>'s information has been accepted.</a></li>
+                                        <li role="separator" class="divider"></li>
+                                    @else
+                                        <li><a href="{{ url('/employee-information') }}" style="white-space: normal;">Your request to see <b>{{ $Ename }}</b>'s information has been rejected.</a></li>
+                                        <li role="separator" class="divider"></li>
+                                    @endif
+                                @endforeach
+                            </ul>   
+
+                        @else
+                            <?php
+                                $idAccount = Auth::user()->idAccount;
+                                $idEmployee = App\Employee::select()
+                                                ->where('idAccount', '=', $idAccount)->first()
+                                                ->idEmployee;
+                                $list_notify = App\RequestE_E::select()
+                                                ->where('idEmployee1', '=', $idEmployee)
+                                                ->where('status', '!=', '0')
+                                                ->orderBy('responseTime', 'desc')
+                                                ->get();
+                                $count = count($list_notify);
+                            ?>
+                            <a href="#" class="dropdown-toggle" type="button">
+                                <img id="notification" src="{{ asset('images/notification.png') }}" alt="">
+                                <span class="badge" style="float: right;">{{ $count }}</span>   
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="top:60px;right: -45px; width: 350px; min-height: 50px; max-height: 270px; overflow-y: auto; ">
+                                <li style="text-align: center;"><h4>Notificaion board</h4></li>
+                                <li role="separator" class="divider"></li>
+                                @foreach ($list_notify as $element)
+                                    <?php 
+                                        $Ename = App\Employee::where('idEmployee', '=', $element->idEmployee2)->first()->E_Name;
+                                    ?>  
+                                    @if ($element->status == 1)
+                                        <li><a href="{{ url('/employee-information') }}" style="white-space: normal;">Your request to see <b>{{ $Ename }}</b>'s information has been accepted.</a></li>
+                                        <li role="separator" class="divider"></li>
+                                    @else
+                                        <li><a href="{{ url('/employee-information') }}" style="white-space: normal;">Your request to see <b>{{ $Ename }}</b>'s information has been rejected.</a></li>
+                                        <li role="separator" class="divider"></li>
+                                    @endif
+                                @endforeach
+                            </ul> 
+
+                        @endif 
+
+                    </div>
                     @endif
                     <div class="dropdown" style="z-index:2001">
                         <a class="dropdown-toggle" href="" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">

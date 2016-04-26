@@ -68,7 +68,11 @@
         </div>
         <div class="col-md-7 personal-info">
                 <div class="panel panel-info">
-                    <div class="panel-heading">Personal Information <a href="{{ route('personal-information.edit',$employee->idEmployee) }}" class="pull-right"><span class="glyphicon glyphicon-pencil "></span></a></div>
+                    <div class="panel-heading">Personal Information
+                    @if(!isset($verify))
+                    <a href="{{ route('personal-information.edit',$employee->idEmployee) }}" class="pull-right"><span class="glyphicon glyphicon-pencil "></span></a>
+                    @endif
+                    </div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-3 img-status">
@@ -101,7 +105,7 @@
                                             </div>
                                         @endforeach
                                     </li>
-                                    <li class="list-group-item role">Role: {{$role_name}}</li>
+                                    <li class="list-group-item role">Role: </li>
                                     <li class="list-group-item cost_hour">Cost Hour: ${{$employee->E_Cost_Hour}}</li>
                                 </ul>
                             </div>
@@ -151,22 +155,26 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            <?php
-                            $e_r = App\Employee_Record::where('idEmployee','=',$employee->idEmployee)->orderBy('DateStart','=','DESC')->get();
-                            ?>
-                                @foreach ($e_r as $e)
                                 <?php
-                                $sd = new DateTime($e->DateStart);
-                                $ed = new DateTime($e->DateEnd);
-                                $startday = $sd->format('m-F-Y');
-                                $endday = $sd->format('m-F-Y');
+                                $e_r = App\Employee_Record::where('idEmployee','=',$employee->idEmployee)->orderBy('DateStart','=','DESC')->get();
                                 ?>
-                                    <tr>
-                                    <td class="action">{{ $e->Content }}</td>
-                                    <td class="start_day">{{ $startday }}</td>
-                                    <td class="end_day">{{ !empty($e->DateEnd) ? $endday : 'Now'}}</td>
-                                </tr>
-                                @endforeach
+                                @if ($e_r->count() != 0)
+                                    @foreach ($e_r as $e)
+                                    <?php
+                                    $sd = new DateTime($e->DateStart);
+                                    $ed = new DateTime($e->DateEnd);
+                                    $startday = $sd->format('m-F-Y');
+                                    $endday = $sd->format('m-F-Y');
+                                    ?>
+                                        <tr>
+                                        <td class="action">{{ $e->Content }}</td>
+                                        <td class="start_day">{{ $startday }}</td>
+                                        <td class="end_day">{{ !empty($e->DateEnd) ? $endday : 'Now'}}</td>
+                                    </tr>
+                                    @endforeach
+                                @else
+                                    <tr><td colspan="3">Your history record is empty</td></tr>
+                                @endif
                             </tbody>
                         </table>
                     </div>

@@ -167,6 +167,15 @@ ul#menu li a span{
     width: 30px!important;
     display:inline-block;
 }
+.panel{
+  border-radius: 0!important;
+  border-color: #41BCE0;
+}
+.panel-heading{
+    font-size: 18px!important;
+    background-color: #41BCE0!important;
+
+}
 @media(max-width: 480px) {
     body {
         position: relative;
@@ -224,3 +233,4 @@ ul#menu li a span{
 /* Landscape phones and portrait tablets */
 
 @media (max-width: 767px) {}
+

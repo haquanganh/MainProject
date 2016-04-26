@@ -4,12 +4,16 @@
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{ asset('css/admin/dataTables.bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/admin/personal_information.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('third-library/select2-4.0.2/dist/css/select2.min.css') }}">
 @stop
 @section('content')
 <div class="row">
-    <div class="col-md-12">
-        <p><input id="search-box" type="text" class="form-control pull-right" style="width: 150px;margin-bottom: 10px" placeholder="Search for employee"></p>
-    </div>
+        <select id="type-list" class="pull-left">
+            <option></option>
+            <option value="1">Employees</option>
+            <option value="2">Clients</option>
+        </select>
+        <input id="search-box" type="text" class="form-control pull-right" style="width: 150px;margin-bottom: 10px" placeholder="Search for employee">
 </div>
 <div class="row table-responsive">
     <div class="col-md-12" id="table-data">
@@ -62,6 +66,15 @@
 <script type="text/javascript" src="{{ asset('js/admin/jquery.dataTables.min.js') }}">
 </script>
 <script type="text/javascript" src="{{ asset('js/admin/dataTables.bootstrap.min.js') }}">
+</script>
+<script type="text/javascript" src="{{ asset('third-library/select2-4.0.2/dist/js/select2.min.js') }}"></script>
+<script>
+    $(document).ready(function(){
+        $('select#type-list').select2({
+            placeholder: 'Choose type of list',
+            minimumResultsForSearch: Infinity
+        });
+    });
 </script>
 <script>
     $(document).ready(function(){

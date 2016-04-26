@@ -8,7 +8,6 @@
     <!-- .feature 1 contains Feedback, History Record, Personal Information -->
     <div class="row feature1">
         <div class="col-md-5">
-
             <?php
                 $feedbacks = App\Feedback::where('idEmployee','=',$employee->idEmployee)->get();
             ?>
@@ -167,7 +166,7 @@
                                 </tr>
                                 @endforeach
                                 @else
-                                    <tr><td colspan="3">Your history record is empty</td></tr>
+                                    <tr><td colspan="3">{{ $employee->E_Name }} history record is empty</td></tr>
                                 @endif
                             </tbody>
                         </table>

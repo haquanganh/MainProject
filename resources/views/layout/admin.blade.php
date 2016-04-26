@@ -26,7 +26,15 @@
                     <a href="#" class="glyphicon glyphicon-home"></a>
                     <div class="vertical-line"></div>
                     <a href="#"><i class="fa fa-envelope-o"></i><span> Messsage</span></a>
-                    <div class="vertical-line"></div><a href="{{ url('/admin/request-notify') }}"><i class="fa fa-flag"></i> <span>Notification</span></a>
+                    <div class="vertical-line"></div>
+                    <?php 
+                        $countC_E = count(App\Request_info::select()
+                                    ->where('status', '=', '0')->get());
+                        $countE_E = count(App\RequestE_E::select()
+                                    ->where('status', '=', '0')->get());
+                        $count = $countC_E + $countE_E;
+                    ?>
+                    <a href="{{ url('/admin/request-notify') }}"><i class="fa fa-flag"></i>Notification <span class="badge">{{ $count }}</span></a>
                     <div class="vertical-line"></div>
                     <a href="{{ url('logout') }}"><i class="fa fa-sign-out"></i><span> Logout</span</a>
                     <a href="javascript:void(0)" class="btn-collapse" check="0"><i class="fa fa-caret-square-o-down" aria-hidden="true"></i>

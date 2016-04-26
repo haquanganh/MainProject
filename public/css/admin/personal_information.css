@@ -21,3 +21,6 @@ td {
 .pagination{
 	float: right;
 }
+select#type-list{
+    width: 150px;
+}

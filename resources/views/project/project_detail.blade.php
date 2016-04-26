@@ -349,6 +349,7 @@
                     }
                 });
             });
+            
         });
         //Edit feedback form.
         $(document).on('click', '.show-edit', function(){

@@ -52,7 +52,8 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('stastics','StasticController@viewStastics');
         //request
         Route::get('request-notify', 'RequestController@getRequest');
-        Route::post('request-notify/{id}', 'RequestController@postRequest');
+        Route::post('request-notify-C_E/{id}', 'RequestController@postRequestC_E');
+        Route::post('request-notify-E_E/{id}', 'RequestController@postRequestE_E');
 
     });
         Route::resource('personal-information', 'Personal_Information_Controller');
@@ -80,12 +81,13 @@ Route::group(['middleware' => ['web']], function () {
         //employee information
         Route::get('employee-information','EmployeeController@getEmployee');
         Route::post('employee-information','EmployeeController@postEmployee');
-
+        Route::get('access-request/{id}', 'EmployeeController@getInfor');
+        //Send request
+        Route::post('send-request/{id}','RequestController@postSendRequest');
         //Change password
         Route::post('change-password','PassController@postChangepass');
         Route::post('check/check-pass','PassController@checkPass');
-        //Send request
-        Route::post('send-request/{id}','RequestController@postSendRequest');
+        
         Route::get('chart','AjaxController@getChart');
         Route::get('test',function(){
             // $feedbacks = App\Feedback::all();
