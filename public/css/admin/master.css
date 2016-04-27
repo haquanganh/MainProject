@@ -132,10 +132,9 @@ div.vertical-line {
   background-color: #3584FB;
 }
 #main-content {
-    margin-top: 5px;
-    top:40px;
-    right: 50px;
-    float: right;
+    margin-top: 50px;
+    margin-left: 250px;
+    padding: 10px;
 }
 
 #left-bar {

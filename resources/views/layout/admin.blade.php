@@ -53,7 +53,7 @@
                     <li class="historyfeedback"><a href="{{ url('admin/history_feedback') }}"><span><i class="fa fa-calendar" aria-hidden="true"></i></span>History Feedback</a></li>
                 </ul>
             </div>
-            <div id="main-content" class="col-md-9">
+            <div id="main-content">
             <br>
             @yield('content')
             </div>
