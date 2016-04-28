@@ -1,32 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html lang="">
 
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title')</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap -->
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ asset('third-library/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('third-library/font-awesome-4.6.1/css/font-awesome.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('third-library/animate.css') }}">
-    <!-- styles -->
     <link href="{{ asset('css/admin/master.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ asset('third-library/animate.css') }}">
     @yield('css')
 </head>
 
 <body>
-    <div class="container-fluild">
-        <div id="nav" class="row">
-            <div class="col-md-12" style="margin-bottom: 0px;">
-                <div id="title" class="pull-left">
-                    <div class="arrow" style="float:left"></div>
-                    <h4 class="pull-right" style="margin-top: 15px!important;font-size: 25px;margin-left: 30px;">Account Management</h4>
-                </div>
-                <div id="notify" class="pull-right">
-                    <a href="#" class="glyphicon glyphicon-home"></a>
-                    <div class="vertical-line"></div>
-                    <a href="#"><i class="fa fa-envelope-o"></i><span> Messsage</span></a>
-                    <div class="vertical-line"></div>
+    <div class="containfer-fluid">
+        <div id="left-bar" class="col-md-3">
+            <div class="logo">
+                <h4>Enclave Admin System</h4>
+            </div>
+            <div id="nav">
+                <ul>
+                    <li class="account"><a href="{{ url('admin/personal-information') }}"><i class="fa fa-lock" aria-hidden="true"></i>Account Information</a></li>
+                    <li class="project"><a href="{{ url('admin/project') }}"><i class="fa fa-folder-open" aria-hidden="true"></i>Project Management</a></li>
+                    <li class="statistics"><a href="{{ url('admin/stastics') }}"><i class="fa fa-area-chart" aria-hidden="true"></i>Statistics</a></li>
+                    <li class="note"><a href="{{ url('admin/note') }}"><i class="fa fa-book" aria-hidden="true"></i>Note</a></li>
+                    <li class="system_history"><a href="{{ url('admin/history_system') }}"><i class="fa fa-book" aria-hidden="true"></i>Project History</a></li>
+                    <li class="feeback_history"><a href="{{ url('admin/history_feedback') }}"><i class="fa fa-calendar" aria-hidden="true"></i>Feedback History</a></li>
+                    <li class="aditional"><a href="#"><i class="fa fa-th" aria-hidden="true"></i>Additional Management</a></li>
+                    <li id="sign-out-collapse"><a href="{{ url('logout') }}"><i class="glyphicon glyphicon-off"></i>Sign out</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="maincontent">
+            <div id="topbar">
+                <ul id="action">
+                    <li><a href=""><i class="glyphicon glyphicon-home"></i></a></li>
+                    
+                    <li><a href=""><i class="fa fa-envelope" aria-hidden="true"></i></a></li>
                     <?php 
                         $countC_E = count(App\Request_info::select()
                                     ->where('status', '=', '0')->get());
@@ -34,50 +46,69 @@
                                     ->where('status', '=', '0')->get());
                         $count = $countC_E + $countE_E;
                     ?>
-                    <a href="{{ url('/admin/request-notify') }}"><i class="fa fa-flag"></i>Notification <span class="badge">{{ $count }}</span></a>
-                    <div class="vertical-line"></div>
-                    <a href="{{ url('logout') }}"><i class="fa fa-sign-out"></i><span> Logout</span</a>
-                    <a href="javascript:void(0)" class="btn-collapse" check="0"><i class="fa fa-caret-square-o-down" aria-hidden="true"></i>
-</a>
-                </div>
-            </div>
-        </div>
-        <div id="content" class="row">
-            <div id="left-bar" class="col-md-3">
-                <ul id="menu" class="nav nav-stacked">
-                    <li class="account"><a href="{{ url('admin/personal-information') }}"><span><i class="fa fa-lock" aria-hidden="true"></i></span>Account Management</a></li>
-                    <li class="project"><a href="{{ url('admin/project') }}"><span><i class="fa fa-folder-open" aria-hidden="true"></i></span>Project Management</a></li>
-                    <li class="stastics"><a href="{{ url('admin/stastics') }}"><span><i class="fa fa-area-chart" aria-hidden="true"></i></span>Statistic</a></li>
-                    <li class="note"><a href="#"><span><i class="fa fa-book" aria-hidden="true"></i></span>Note</a></li>
-                    <li class="historysystem"><a href="{{ url('admin/history_system') }}"><span><i class="fa fa-clock-o" aria-hidden="true"></i></span>History System</a></li>
-                    <li class="historyfeedback"><a href="{{ url('admin/history_feedback') }}"><span><i class="fa fa-calendar" aria-hidden="true"></i></span>History Feedback</a></li>
+                    <li><a href="{{ url('/admin/request-notify') }}"><i class="fa fa-flag-o" aria-hidden="true"></i><span class="badge">{{ $count }}</span></a></li>
+                    <li class="sign-out"><a href="{{ url('logout') }}"><i class="glyphicon glyphicon-off"></i></a></li>
+                    <li class="divider"></li>
+                    <li class="toggle" sign="collapse"><a href="#"><i class="fa fa-bars"></i></a></li>
                 </ul>
             </div>
-            <div id="main-content">
-            <br>
-            @yield('content')
+            <div id="content">
+                <div class="row">
+                    <div class="col-md-12">
+                        @yield('content')
+                    </div>
+                </div>
+                <!-- <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a class="hide-collapse pull-right" data-toggle="collapse" data-target="#panel-content"><i class="glyphicon glyphicon-chevron-down"></i></a>
+                                <a class="collapse show-collapse pull-right" data-toggle="collapse" data-target="#panel-content"><i class="glyphicon glyphicon-chevron-up"></i></a>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div id="panel-content" class="collapse in">
+                                <div class="panel-body">
+                                    Basic panel example
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                
             </div>
         </div>
-        <!-- <div id="footer" class="row">
-            <div class="col-md-12"></div>
-        </div> -->
-    </div>
+    </div>  
+    <!-- jQuery -->
     <script src="{{ asset('third-library/jquery/jquery-2.2.3.min.js') }}"></script>
     <!-- Bootstrap JavaScript -->
     <script src="{{ asset('third-library/bootstrap/js/bootstrap.min.js') }}"></script>
-    <script type="text/javascript">
-        $('document').ready(function(){
-            $('.btn-collapse').click(function(){
-                if($(this).find("i").hasClass('fa-caret-square-o-down')){
-                    $('#left-bar > ul').css('display','inline').animate();
-                    $(this).find("i").removeClass('fa-caret-square-o-down');
-                    $(this).find("i").addClass('fa-caret-square-o-up');
-                }
-                else{
-                    $('#left-bar > ul').css('display','none');
-                    $(this).find("i").removeClass('fa-caret-square-o-up');
-                    $(this).find("i").addClass('fa-caret-square-o-down');
-                }
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script>
+    jQuery(document).ready(function($) {
+        $('.toggle > a').click(function(event) {
+            if($(this).parent().attr('sign') == 'collapse'){
+                $(this).parent().removeAttr('sign');
+                $('#content').addClass('margin-top-320');
+                $('#left-bar > #nav').addClass('block-display');
+                $('#left-bar > #nav').addClass('animated fadeInDownBig');
+            }
+            else{
+                $(this).parent().attr('sign', 'collapse');
+                $('#content').removeClass('margin-top-320');
+                $('#left-bar > #nav').removeClass('block-display');
+            }
+        });
+    });
+    </script>
+    <script>
+        jQuery(document).ready(function($) {
+            $('.glyphicon-chevron-down').parent().click(function(event) {
+                $('.show-collapse').removeClass('collapse');
+                $(this).hide();
+            });
+            $('.glyphicon-chevron-up').parent().click(function(event) {
+                $(this).addClass('collapse');
+                $('.glyphicon-chevron-down').parent().show();
             });
         });
     </script>

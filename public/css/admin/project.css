@@ -1,17 +1,17 @@
 .content-box-large {
     margin-bottom: 20px;
-    background: #2296F3;
     height: 120px;
     width: 100%;
     padding: 10px;
-    background-color: #8C8C8C;
+    background-color: #80A950;
+    border: 1px solid #548F11;
     border-radius: 5px;
     color: white;
     margin-left: 0px;
     margin-right: 0px;
-    -webkit-box-shadow: 10px 10px 5px -4px rgba(109, 105, 117, 1);
-    -moz-box-shadow: 10px 10px 5px -4px rgba(109, 105, 117, 1);
-    box-shadow: 10px 10px 5px -4px rgba(109, 105, 117, 1);
+    -webkit-box-shadow: 10px 10px 5px -6px rgba(138, 222, 150, 1);
+    -moz-box-shadow: 10px 10px 5px -6px rgba(138, 222, 150, 1);
+    box-shadow: 10px 10px 5px -6px rgba(138, 222, 150, 1);
 }
 
 .content-box-large:hover {
@@ -28,6 +28,10 @@
 .content-box-large h3 {
     text-align: center;
     vertical-align: middle;
+}
+
+.projects {
+    padding: 0 6px;
 }
 
 .new {
@@ -56,6 +60,10 @@
     width: 200px;
 }
 
+.select2 {
+    margin-right: 5px!important;
+}
+
 .add {
     position: fixed;
     bottom: 50px;
@@ -79,8 +87,8 @@
 
 .options {
     height: 20px;
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: 0;
+    margin-right: 0;
 }
 
 .options h4 {

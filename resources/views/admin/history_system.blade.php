@@ -38,7 +38,7 @@
 @section('script')
 <script>
     $(document).ready(function(){
-        $('.historysystem').addClass('actived');
+        $('.system_history').addClass('active');
     });
 </script>
 @stop

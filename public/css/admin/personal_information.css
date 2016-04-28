@@ -24,3 +24,10 @@ td {
 select#type-list{
     width: 150px;
 }
+table{
+    margin-bottom: 0!important;
+}
+table tr td{
+    line-height: 50px!important;
+
+}

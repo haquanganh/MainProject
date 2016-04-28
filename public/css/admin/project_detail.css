@@ -25,14 +25,27 @@ th {
     margin-bottom: 0px;
 }
 
+#edit-button {
+    width: 45px;
+    height: 45px;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 3;
+    border-radius: 28px;
+    position: absolute;
+    bottom: 0px;
+    right: 10px;
+    z-index: 1;
+}
+
 #img-title {
     background: #ccc url(../images/project.jpg) no-repeat center center;
     background-size: cover;
     height: 190px;
     padding: 40px 60px;
-    -webkit-box-shadow: 2px -4px 12px 1px rgba(140,135,140,1);
--moz-box-shadow: 2px -4px 12px 1px rgba(140,135,140,1);
-box-shadow: 2px -4px 12px 1px rgba(140,135,140,1);
+    -webkit-box-shadow: 2px -4px 12px 1px rgba(140, 135, 140, 1);
+    -moz-box-shadow: 2px -4px 12px 1px rgba(140, 135, 140, 1);
+    box-shadow: 2px -4px 12px 1px rgba(140, 135, 140, 1);
 }
 
 #img-title p {
@@ -41,6 +54,7 @@ box-shadow: 2px -4px 12px 1px rgba(140,135,140,1);
     font-style: italic;
     opacity: 0.5;
 }
+
 .starRating:not(old) {
     display: inline-block;
     width: 7.5em;
@@ -82,7 +96,10 @@ box-shadow: 2px -4px 12px 1px rgba(140,135,140,1);
 .starRating {
     margin-top: 0px;
 }
+
+
 /* Project */
+
 #currentproject img {
     width: 50px;
     height: 50px;
@@ -119,9 +136,11 @@ box-shadow: 2px -4px 12px 1px rgba(140,135,140,1);
 .main-info .info p {
     margin-left: 20px;
 }
-.main-info .info h4{
+
+.main-info .info h4 {
     font-size: 17px;
 }
+
 .main-info .info h5 {
     margin-top: -22px;
 }
@@ -143,9 +162,11 @@ box-shadow: 2px -4px 12px 1px rgba(140,135,140,1);
     margin-top: -16px;
     color: #05374D;
 }
-#project-name .lead{
+
+#project-name .lead {
     color: #05374D;
 }
+
 .fancy {
     line-height: 0.5;
     text-align: center;

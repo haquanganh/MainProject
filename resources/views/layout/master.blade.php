@@ -133,9 +133,9 @@
                                     @endif
                                 </ul>
                             </li>
-                            <li><a href="#">Your Note</a></li>
+                            <li><a href="{{ url('note') }}">Your Note</a></li>
                             <li><a href="{{ url('project_history') }}">History</a></li>
-                            <li><a href="#">Contact</a></li>
+                            <li><a data-toggle="modal" href='#send-message'>Contact</a></li>
                             @endif
                             <li><a href="#">About us</a></li>
                         </ul>
@@ -230,6 +230,60 @@
                     </div>
                  @endif
             </div>
+
+        <div class="modal fade" id="send-message">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Send Message to Admin</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{ url('/send-message') }}" method="POST" accept-charset="utf-8" id="form-contact">
+                        {{csrf_field()}}
+                            <textarea name="message" rows="8" cols="55" placeholder="Enter your message"></textarea>
+                            <div class="send-message-button modal-footer">
+                                <input type="submit" name="button" id="save-button" class="btn btn-primary" value="Send"></input>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+            <!-- Notification after sending message!-->
+            <div>       
+                @if(Session::has('mess1'))            
+                    <a data-toggle="modal" id="mess1" href='#mess1-id'></a>
+                    <div class="modal fade" id="mess1-id">
+                        <div class="modal-dialog">
+                            <div id="my-modal" class="modal-content">
+                                <div class="modal-body">
+                                        {{Session::get('mess1')}}
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 @elseif (Session::has('mess2'))
+                    <a data-toggle="modal" id="mess2" href='#mess2-id1'></a>
+                    <div class="modal fade" id="mess2-id1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                        {{Session::get('mess2')}}
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="modal" href='#send-message'>OK</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 @endif
+            </div>
+
         <script src="{{ asset('third-library/jquery/jquery-2.2.3.min.js') }}"></script>
         <!-- Bootstrap JavaScript -->
         <script src="{{ asset('third-library/bootstrap/js/bootstrap.min.js') }}"></script>
@@ -296,5 +350,49 @@
             $('body').addClass('test');
         });
         </script>
+
+    <!-- contact -->
+        <script type="text/javascript">
+            $('#form-contact').validate({
+                rules: {
+                    message: {
+                        required: true,
+                        minlength: 4
+                    }
+                },
+                messages: {
+                    message: {
+                        required: "Enter content of your message.",
+                        minlength: "Message should has length more than 4 characters."
+                    }
+                }
+            });
+        </script>
+
+        <script>
+                jQuery(function(){
+                   jQuery('#mess1').click();
+                });
+                 jQuery(function(){
+                   jQuery('#mess2').click();
+                });
+            $('#mess1-id').on('show.bs.modal', function (e) {
+                $('body').addClass('test');
+            });
+            $('#mess2-id1').on('show.bs.modal', function (e) {
+                $('body').addClass('test');
+            });
+            $('#form-contact').on('show.bs.modal', function (e) {
+                $('body').addClass('test');
+            });
+        </script>
+
+        <script type="text/javascript">
+            $(document).ready(function(){
+                setTimeout(function(){
+                    $("#my-modal").hide();
+                },4000);
+            });
+        </script>    
     </body>
 </html>

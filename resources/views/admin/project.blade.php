@@ -100,7 +100,7 @@
     </script>
 <script>
     $(document).ready(function(){
-        $('.project').addClass('actived');
+        $('.project').addClass('active');
     });
 </script>
 @stop

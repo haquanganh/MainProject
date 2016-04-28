@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('third-library/select2-4.0.2/dist/css/select2.min.css') }}">
 @stop
 @section('content')
-<div class="row">
+<div class="row" id="choose">
         <select id="type-list" class="pull-left">
             <option></option>
             <option value="1">Employees</option>
@@ -192,7 +192,7 @@
                         $('tbody > tr').remove();
                         $.each(result[0].data, function(index, val) {
                             if(index <= 9){
-                             $('tbody').append('<tr><td style="width: 20px;" class="img"><img class="img-circle" style="width: 50px;height: 50px;  margin-left:4.5px;" src="{{ asset('images/personal_images') }}/'+val.E_Avatar+'"></td><td>'+val.E_Name+'</td><td>'+'Male'+'</td><td>'+val.E_DateofBirth+'</td><td>'+val.E_Skype+'</td><td>'+val.E_Phone+'</td><td>Manager</td><td><a class="glyphicon glyphicon-pencil" href="{{ url('admin.personal-information') }}/'+val.idEmployee+'/edit"></a></td><td class="text-center"><a href="{{ url('admin/personal-information') }}/'+val.idEmployee+'"><i class="fa fa-info" aria-hidden="true"></i></a></td></tr>');
+                             $('tbody').append('<tr><td style="width: 20px;" class="img"><img class="img-circle" style="width: 50px;height: 50px;  margin-left:4.5px;" src="{{ asset('images/personal_images') }}/'+val.E_Avatar+'"></td><td>'+val.E_Name+'</td><td>'+'Male'+'</td><td>'+val.E_DateofBirth+'</td><td>'+val.E_Skype+'</td><td>'+val.E_Phone+'</td><td>Manager</td><td class="text-center"><a class="glyphicon glyphicon-pencil" href="{{ url('admin.personal-information') }}/'+val.idEmployee+'/edit"></a></td><td class="text-center"><a href="{{ url('admin/personal-information') }}/'+val.idEmployee+'"><i class="fa fa-info" aria-hidden="true"></i></a></td></tr>');
                             }
                         });
                         var total_item = (result[0].total);
@@ -238,5 +238,9 @@
             });
         });
 </script>   
- 
+ <script>
+     jQuery(document).ready(function($) {
+         $('.account').addClass('active');
+     });
+ </script>
 @stop

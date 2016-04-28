@@ -17,7 +17,8 @@
         $datefinish = $dn->format('Y-F-d');
         $team = $project->Employee;
     ?>
-    <a href="{{ url('admin/project/edit/') }}/{{$project->idProject}}"><span class="glyphicon glyphicon-edit pull-right"></span></a>
+
+    <a id="edit-button" class="btn btn-primary" href="{{ url('admin/project/edit/') }}/{{$project->idProject}}"><span class="glyphicon glyphicon-pencil"></span></a>
     <div class="row" id="currentproject" style="clear: both;">
         <div class="col-md-12">
         <div id="project-name" class="row">

@@ -89,6 +89,23 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('check/check-pass','PassController@checkPass');
         
         Route::get('chart','AjaxController@getChart');
+        //note
+        Route::get('note', 'NoteController@viewNote');
+        Route::post('create-note', 'NoteController@postCreateNote');
+        Route::post('edit-note', 'NoteController@postEditNote');
+        Route::post('delete-note', 'NoteController@postDeleteNote');
+
+        //admin_note
+        Route::get('/admin/note','NoteController@viewadminNote');
+        Route::post('create-note', 'NoteController@postCreateNote');
+        Route::post('edit-note', 'NoteController@postEditNote');
+        Route::post('delete-note', 'NoteController@postDeleteNote');
+
+        //contact
+        Route::post('/send-message', 'ContactController@postMessage');
+
+        //message
+        Route::get('/admin/message', 'ContactController@viewMessage');
         Route::get('test',function(){
             // $feedbacks = App\Feedback::all();
             // $list = array();

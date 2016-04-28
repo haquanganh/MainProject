@@ -65,7 +65,7 @@
 @section('script')
 <script>
     $(document).ready(function(){
-        $('.historyfeedback').addClass('actived');
+        $('.feeback_history').addClass('active');
     });
 </script>
 @stop

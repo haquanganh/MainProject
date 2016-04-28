@@ -20,6 +20,9 @@ td{
 	float:right;
 	height: 28px;
 }
+.table-responsive{
+	padding: 0 20px;
+}
 .date input{
 	height: 28px;
 }
