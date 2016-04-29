@@ -12,6 +12,7 @@ use App\User;
 use Auth;
 use App\Http\Requests\Message_Request;
 use DateTime;
+use App\Message;
 class ContactController extends Controller { 
 
 	public function postMessage(Request $request) {
@@ -53,12 +54,36 @@ class ContactController extends Controller {
 
 
 	public function viewMessage() {
-		$list_message = DB::table('Message')->select('*')->groupBy('sender')->get();
-		dd($list_message);
+		$list_message = DB::table('Message')->select('*')->orderby('M_Status')->get();
 		return view('admin.message', compact('list_message'));
 	}
 
-	public function submitMessage() {
-		
+	public function deleteMessage(Request $request) {
+		$idmsg = $request->input('idmsg');
+		$delete = DB::table('Message')
+    			->where('idMessage', '=', $idmsg)->delete();
+    	if ($delete > 0) 
+		{
+			return redirect()->back()->with('messages','Successful!');
+		}
+		else {
+			return redirect()->back()->with('messages','Failed, please try again!');
+		}
 	}
+
+	public function readMessage(Request $request){
+		$idMessage = $request->input('idMessage');
+		$data = array(
+				'M_Status' => 1
+			);
+		$update = Message::where('idMessage', '=', $idMessage)->update($data);
+		if($update > 0)
+		{
+			return json_encode('ok');
+		}
+		return json_encode('fail');
+	}
+
+	
+
 }

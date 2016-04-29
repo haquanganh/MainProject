@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Employee as Employee;
 use App\User as User;
 use App\Role as Role;
+use App\TeamMember as TeamMember;
 use DB;
 use App\SkillDetail as SkillDetail;
 use App\Skill as Skill;
@@ -32,7 +33,7 @@ class Personal_Information_Controller extends Controller
         if(Auth::user()->idRole != 1){
             return redirect('/');
         }
-        $list_employee = Employee::paginate(10);
+        $list_employee = Employee::all();
 		return view('admin.view',compact('list_employee'));
     }
 
@@ -152,10 +153,13 @@ class Personal_Information_Controller extends Controller
             if(File::exists(public_path('images/personal_images/'.$employee->E_Avatar)))
                 File::delete(public_path('images/personal_images/'.$employee->E_Avatar));
             $img_file_extension_name = $img_file->getClientOriginalExtension();
-            $img_file->move(public_path('images/personal_images'), $id.'Avatar.'.$img_file_extension_name);
-            $employee->E_Avatar = $id.'Avatar.'.$img_file_extension_name;
+            $img_file->move(public_path('images/personal_images'), $employee->idAccount.'Avatar.'.$img_file_extension_name);
+            $employee->E_Avatar = $employee->idAccount.'Avatar.'.$img_file_extension_name;
         }
         $employee->save();
+        /*Update new team*/
+        DB::table('TeamMember')->where('idMember','=',$id)->update(['idTeam' => $request->sl_Team]);
+        /*Change skill*/
         $old_list_sk =  SkillDetail::where('idEmployee','=',$id);
         $old_list_sk->delete();
         for($i = 0 ; $i < $request->number_rows ; $i++){

@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{ asset('third-library/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('third-library/font-awesome-4.6.1/css/font-awesome.min.css') }}">
     <link href="{{ asset('css/admin/master.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/admin/message.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('third-library/animate.css') }}">
     @yield('css')
 </head>
@@ -22,13 +23,19 @@
             </div>
             <div id="nav">
                 <ul>
-                    <li class="account"><a href="{{ url('admin/personal-information') }}"><i class="fa fa-lock" aria-hidden="true"></i>Account Information</a></li>
+                    <li class="account"><a href="{{ url('admin/personal-information') }}"><i class="fa fa-lock" aria-hidden="true"></i>Personal Information</a></li>
                     <li class="project"><a href="{{ url('admin/project') }}"><i class="fa fa-folder-open" aria-hidden="true"></i>Project Management</a></li>
                     <li class="statistics"><a href="{{ url('admin/stastics') }}"><i class="fa fa-area-chart" aria-hidden="true"></i>Statistics</a></li>
                     <li class="note"><a href="{{ url('admin/note') }}"><i class="fa fa-book" aria-hidden="true"></i>Note</a></li>
                     <li class="system_history"><a href="{{ url('admin/history_system') }}"><i class="fa fa-book" aria-hidden="true"></i>Project History</a></li>
                     <li class="feeback_history"><a href="{{ url('admin/history_feedback') }}"><i class="fa fa-calendar" aria-hidden="true"></i>Feedback History</a></li>
-                    <li class="aditional"><a href="#"><i class="fa fa-th" aria-hidden="true"></i>Additional Management</a></li>
+                    <li class="aditional additionalmanagement">
+                        <ul class="nav nav-stacked" id="add-menu">
+                            <li class="" ><a href="#"><span><i class="fa fa-plus" aria-hidden="true"></i></span>Additional Management</a></li>
+                            <li class="addnewskill"><a href="{{ url('/admin/add-skill') }}"><span><i class="fa fa-globe" aria-hidden="true"></i></span>Develop skill</a></l i>
+                            <li class="englishrecord"><a href="{{ url('/admin/add-english-record') }}"><span><i class="fa fa-graduation-cap" aria-hidden="true"></i></span>English record</a></li>
+                        </ul>
+                    </li>
                     <li id="sign-out-collapse"><a href="{{ url('logout') }}"><i class="glyphicon glyphicon-off"></i>Sign out</a></li>
                 </ul>
             </div>
@@ -38,7 +45,53 @@
                 <ul id="action">
                     <li><a href=""><i class="glyphicon glyphicon-home"></i></a></li>
                     
-                    <li><a href=""><i class="fa fa-envelope" aria-hidden="true"></i></a></li>
+                    <!-- Messsage -->
+                    <?php
+                       $servername = "localhost";
+                       $username = "root";
+                       $password = "1234";
+                       $dbname = "MainDB";
+                 
+                       // Create connection
+                 
+                       $conn = new mysqli($servername, $username, $password, $dbname);
+                 
+                       // Check connection
+                 
+                       if ($conn->connect_error) {
+                 
+                           die("Connection failed: " . $conn->connect_error);
+                 
+                       } 
+                 
+                       $sql = "SELECT * from Message where M_Status = '0'";
+                       $result = $conn->query($sql);
+                       $row = $result->fetch_assoc();
+                       $count = $result->num_rows;
+                       $conn->close();
+                    ?>
+                    <li>
+                        <a class="dropdown-toggle" href="" data-toggle="dropdown" id="notificationLink"><i class="fa fa-envelope-o"></i>
+                            <span class="badge badge1">{{ $count }}</span>
+                        </a>
+                        <div class="dropdown-menu" id="in" style="padding: 3px 0px 0px;margin-right: 240px; left: 530px;">
+                            <div id="notificationTitle">Message</div>
+                            <div id="notificationsBody" class="notifications" style="height: 330px; overflow-x: hidden; overflow-y: auto;">
+                                <?php
+                                    $list_message = DB::table('Message')->select('*')->where('M_Status','=','0')->get();
+                                ?>
+                                @foreach( $list_message as $idmessage )
+                                    <div>                               
+                                        <td onclick="">{{ $idmessage->sender }} has sent a message for you</td>
+                                    </div class="horizontal-line">
+                                    <!-- <td>{{ $idmessage->dateSend }}</td> -->
+                                    <br>             
+                                @endforeach
+                            </div>
+                            <div id="notificationFooter"><a href="{{ url('/admin/message') }}" id="ft_see" style="color: #fff">See All</a></div>
+                        </div>
+                    </li>                      
+                    <!-- End Message -->    
                     <?php 
                         $countC_E = count(App\Request_info::select()
                                     ->where('status', '=', '0')->get());
@@ -109,6 +162,12 @@
             $('.glyphicon-chevron-up').parent().click(function(event) {
                 $(this).addClass('collapse');
                 $('.glyphicon-chevron-down').parent().show();
+            });
+        });
+        $(document).ready(function(){    
+            $('#add-menu').hover(function(){
+                    $('#add-menu .addnewskill').toggle(100);
+                    $('#add-menu .englishrecord').toggle(100);
             });
         });
     </script>

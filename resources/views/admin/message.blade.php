@@ -1,109 +1,78 @@
 @extends('layout.admin')
 @section('title','Message')
 @section('css')
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
 @stop
-
-<style type="text/css">
-#messageContainer {
-	margin-left: 25px;
-    width:830px;
-    height: 500px;
-}
-.scrollable{
- 	float: left;
-   	overflow-y: auto;
-  	overflow-x: hidden;
-   	width: 200px; /* adjust this width depending to amount of text to display */
-   	height: 500px; /* adjust height depending on number of options to display */
-   	border: 1px silver solid;
- }
-.scrollable select{
-   	border: none;
- }
-.scrollable
-{
-   	height:500px;
-   	background-color:white;
-}
-.scrollable::-webkit-scrollbar 
-{
-   	width: 8px;
-}
-.scrollable::-webkit-scrollbar-track 
-{
-   	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-   	border-radius:8px;
-}
-.scrollable::-webkit-scrollbar-thumb
-{
-   	background-color: #7f8c8d;
-   	border-radius:8px;
-}
-.content {
-	float: right;
-	width: 630px;
-	height: 500px;
-	border: 1px silver solid;
-}
-.title-msg{
-	height: inherit; 
-	width: inherit; 
-	list-style-type: none; 
-	padding: 0;
-}
-.title-msg li{
-	height: 40px;
-	border-bottom: 1px solid #bdc3c7;
-}
-.title-msg li a:hover{
-	background-color: #cfcfcf;
-	text-decoration: none;
-}
-.title-msg li a{
-	display: block;
-	width: 100%;
-	height: 100%;
-	line-height: 40px; 
-	padding-left: 10px;
-}
-</style>
-
 @section('content')
 <div id="messageContainer">
-	<div class="scrollable">
-		<ul class="title-msg">
-		@foreach( $list_message as $idmessage )
-		    <li>
-		    	<a data-toggle="tab" href="#{{ $idmessage->idMessage }}">{{ $idmessage->sender }}</a>
-		    </li>
-		@endforeach
-		</ul>		
-	</div>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th style="width: 30px">#</th>
+				<th>Sender</th>
+				<th>Message</th>
+				<th style="width: 160px">Date</th>
+				<th style="width: 100px"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php 
+				$key = 0;
+			?>
+			@foreach($list_message as $idmessage)
+				@if($idmessage->M_Status == 1)
+				<tr>				
+					<td class="delete-style">{{ $key+1 }}</td>
+					<td class="delete-style">{{ $idmessage->sender }}</td>
+					<td class="delete-style">{{ $idmessage->content }}</td>
+					<td class="delete-style">{{ $idmessage->dateSend }}</td>
+					<td>
+						<a href="#" class="btn btn-default ok-btn"><span class="glyphicon glyphicon-ok"></span></a>
+						<a data-toggle="modal" href="#delete-id{{ $idmessage->idMessage }}" class="btn btn-default" id="remove-btn"><span class="glyphicon glyphicon-remove"></span></a>
+						<input type="hidden" class="idMsg" value="{{ $idmessage->idMessage }}" placeholder="">
+					</td>
+				</tr>
+				@else 
+				<tr>				
+					<td>{{ $key+1 }}</td>
+					<td>{{ $idmessage->sender }}</td>
+					<td>{{ $idmessage->content }}</td>
+					<td>{{ $idmessage->dateSend }}</td>
+					<td>
+						<a href="#" class="btn btn-default ok-btn"><span class="glyphicon glyphicon-ok"></span></a>
+						<a data-toggle="modal" href="#delete-id{{ $idmessage->idMessage }}" class="btn btn-default" id="remove-btn"><span class="glyphicon glyphicon-remove"></span></a>
+						<input type="hidden" class="idMsg" value="{{ $idmessage->idMessage }}" placeholder="">
+					</td>
+				</tr>
+				@endif
+				<?php 
+					$key = $key+1;
+				?>
 
-	<div class="content">
-		<div class="tab-content">
-			@foreach( $list_message as $idmessage )	
-				<div id="{{ $idmessage->idMessage }}"  class="tab-pane fade">
-					<textarea name="ct_msg" disabled="true" style="background-color:#FFF; width: 100%; height: 92.5%;">
-						{{ $idmessage -> content}}
-					</textarea>
-				</div>
+				<!-- Delete note -->
+	            <div class="modal fade" id="delete-id{{ $idmessage->idMessage }}">
+	                <div class="modal-dialog">
+	                    <div class="modal-content">
+	                        <form action="{{ url('/delete-msg') }}" method="POST" accept-charset="utf-8">
+	                            {{csrf_field()}}
+	                            <div class="modal-body">
+	                                <h4 class="modal-title">You really want to delete it, don't you? Are you sure?</h4>
+	                                <input type="hidden" name="idmsg" value="{{ $idmessage->idMessage }}">
+	                            </div>
+	                            <div class="modal-footer">
+	                                <div class="submit" style="float:right">
+	                                    <input type="submit" class="btn btn-primary" value="Yes">
+	                                    <a href="/note" class="btn btn-default">No, thanks</a>
+	                                </div>
+	                            </div>
+	                        </form>
+	                    </div>
+	                </div>
+	            </div>
 			@endforeach
-		</div>
-		<div class="footer"> 	
-	        <div class="submit" style="float:right">
-	            <input data-toggle="modal" href="#submit-id" type="submit" class="btn btn-primary" value="Submit">
-	            <a href="/admin/message" class="btn btn-default">Reject</a>
-	        </div>
-    	</div>
-	</div>
+		</tbody>
+	</table>
 </div>
-
 <div class="modal fade" id="submit-id">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -122,13 +91,35 @@
 </div>
 @stop
 @section('script')
-	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 	<script>
 		$(document).ready(function() {
-
 		    $('#ct_msg').attr('readonly', true);
 		    $('#ct_msg').addClass('input-disabled');
+		});
 
+		$(document).on('click', '.ok-btn', function(){
+			var idMessage = $(this).parent().find('.idMsg').val();
+			var dataString = {
+				idMessage : idMessage,
+				_token : '{{ csrf_token() }}'
+			};
+			$.ajax({
+				type: 'POST',
+				url: '/read-msg',
+				data: dataString,
+				dataType: 'json',
+				cache: false,
+				context: this,
+				success: function(data){
+					if(data == 'ok')
+					{
+						$(this).parent().parent().find("td").addClass("delete-style");
+					} else {
+						alert('doc roi');
+					}
+				}
+			});
 		});
 	</script>
 @stop

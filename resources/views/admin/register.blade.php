@@ -8,6 +8,26 @@
 <form class="form-horizontal" role="form" method="POST" action="{{ url('/admin/register') }}" enctype="multipart/form-data" Files="true">
 {!! csrf_field() !!}
 <div class="col-md-7 right-regis">
+	<div class="row form-group {{ $errors->has('sl_Role') ? ' has-error' : '' }}">
+		<div class="col-md-4">
+			<label class="pull-right">Role
+				<span class="pull-right">*</span>
+			</label>
+		</div>
+		<div class="col-md-8">
+			<select id="typeaccount" name="sl_Role" class="form-control" >
+				<option value="Manager" {{old('sl_Role') == 'Manager' ? 'selected' :''}}>Manager</option>
+				<option value="Member" {{old('sl_Role') == 'Member' ? 'selected' :''}}>Member</option>
+				<option value="Client" {{old('sl_Role') == 'Client' ? 'selected' :''}}>Client</option>
+				<option value="Client Company" {{old('sl_Role') == 'Client Company' ? 'selected' :''}}>Client Company</option>
+			</select>
+		</div>
+		@if ($errors->has('sl_Role'))
+            <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
+                <strong>{{ $errors->first('sl_Role') }}</strong>
+            </div>
+        @endif
+	</div>
 	<div class="row form-group {{ $errors->has('in_Email') ? ' has-error' : '' }}">
 		<div class="col-md-4">
 			<label class="pull-right">Email
@@ -43,219 +63,249 @@
             </div>
         @endif
 	</div>
-		<div class="row form-group {{ $errors->has('in_Repassword') ? 'has-error' : $errors->has('password_not_match') ? 'has-error' : ''}}">
-			<div class="col-md-4">
-				<label class="pull-right">Re-password
-					<span class="pull-right">*</span>
-				</label>
-			</div>
-			<div class="col-md-8">
-				<input name="in_Repassword" type="password" class="form-control" value="{{old('in_Repassword')}}">
-			</div>
-			@if ($errors->has('in_Repassword'))
-                <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
-                    <strong>{{ $errors->first('in_Repassword') }}</strong>
-                </div>
-            @endif
-            @if ($errors->has('password_not_match'))
-                <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
-                    <strong>{{ $errors->first('password_not_match') }}</strong>
-                </div>
-            @endif
+	<div class="row form-group {{ $errors->has('in_Repassword') ? 'has-error' : $errors->has('password_not_match') ? 'has-error' : ''}}">
+		<div class="col-md-4">
+			<label class="pull-right">Re-password
+				<span class="pull-right">*</span>
+			</label>
 		</div>
-		<div id="idEmployee" class="row form-group {{ $errors->has('in_id') ? ' has-error' : '' }}">
-			<div class="col-md-4">
-				<label class="pull-right">ID of Employee
-					<span class="pull-right">*</span>
-				</label>
-			</div>
-			<div class="col-md-8">
-				<input name="in_id" type="number" class="form-control" value="{{old('in_id')}}">
-			</div>
-			@if ($errors->has('in_id'))
-                <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
-                    <strong>{{ $errors->first('in_id') }}</strong>
-                </div>
-            @endif
+		<div class="col-md-8">
+			<input name="in_Repassword" type="password" class="form-control" value="{{old('in_Repassword')}}">
 		</div>
-		<div id="EnglishName" class="row form-group {{ $errors->has('in_EName') ? ' has-error' : '' }}">
-			<div class="col-md-4">
-				<label class="pull-right">English Name
-					<span class="pull-right">*</span>
-				</label>
-			</div>
-			<div class="col-md-8">
-				<input name="in_EName" type="text" class="form-control" onkeypress="validate_spec5(event)" value="{{old('in_EName')}}">
-			</div>
-			@if ($errors->has('in_EName'))
-                <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
-                    <strong>{{ $errors->first('in_EName') }}</strong>
-                </div>
-            @endif
+		@if ($errors->has('in_Repassword'))
+            <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
+                <strong>{{ $errors->first('in_Repassword') }}</strong>
+            </div>
+        @endif
+        @if ($errors->has('password_not_match'))
+            <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
+                <strong>{{ $errors->first('password_not_match') }}</strong>
+            </div>
+        @endif
+	</div>
+	<div id="idEmployee" class="row form-group {{ $errors->has('in_id') ? ' has-error' : '' }}">
+		<div class="col-md-4">
+			<label class="pull-right">ID of Employee
+				<span class="pull-right">*</span>
+			</label>
 		</div>
-		<div class="row form-group {{ $errors->has('in_Name') ? ' has-error' : '' }}">
-			<div class="col-md-4">
-				<label class="pull-right">Full Name
-					<span type="text" class="pull-right">*</span>
-				</label>
-			</div>
-			<div class="col-md-8">
-				<input name="in_Name" class="form-control" onkeypress="validate_spec4(event)" value="{{old('in_Name')}}">
-			</div>
-			@if ($errors->has('in_Name'))
-                <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
-                    <strong>{{ $errors->first('in_Name') }}</strong>
-                </div>
-            @endif
+		<div class="col-md-8">
+			<input name="in_id" type="number" class="form-control" value="{{old('in_id')}}">
 		</div>
-		<div id="Sex" class="row form-group">
-			<div class="col-md-4">
-				<label class="pull-right">Sex
-					<span type="text" class="pull-right">*</span>
-				</label>
-			</div>
-			<div class="col-md-8">
-				<select name="sl_Sex" class="form-control">
-					<option>Male</option>
-					<option>Female</option>
-				</select>
-			</div>
+		@if ($errors->has('in_id'))
+            <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
+                <strong>{{ $errors->first('in_id') }}</strong>
+            </div>
+        @endif
+	</div>
+	<div id="EnglishName" class="row form-group {{ $errors->has('in_EName') ? ' has-error' : '' }}">
+		<div class="col-md-4">
+			<label class="pull-right">English Name
+				<span class="pull-right">*</span>
+			</label>
 		</div>
-		<div id="dateofbirth" class="row form-group {{ $errors->has('in_Dateofbirth') ? ' has-error' : '' }}">
-			<div class="col-md-4">
-				<label class="pull-right">Date of Birth
-				</label>
-			</div>
-			<div class="col-md-8">
-				<input name="in_Dateofbirth" type="date" max="2100-12-31" min="1930-01-01" class="form-control" value="{{old('in_Dateofbirth')}}">
-			</div>
-			@if ($errors->has('in_Dateofbirth'))
-                <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
-                    <strong>{{ $errors->first('in_Dateofbirth') }}</strong>
-                </div>
-            @endif
-            @if ($errors->has('wrong_year'))
-                <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
-                    <strong>{{ $errors->first('wrong_year') }}</strong>
-                </div>
-            @endif
+		<div class="col-md-8">
+			<input name="in_EName" type="text" class="form-control" onkeypress="validate_spec5(event)" value="{{old('in_EName')}}">
 		</div>
-		<div class="row form-group {{ $errors->has('in_Address') ? ' has-error' :$errors->has('wrong_address') ? 'has-error': '' }}">
-			<div class="col-md-4">
-				<label class="pull-right">Address
-				</label>
-			</div>
-			<div class="col-md-8">
-				<input name="in_Address" type="text" class="form-control" onkeypress="validate_spec1(event)" value="{{old('in_Address')}}">
-			</div>
-			@if ($errors->has('in_Address'))
-                <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
-                    <strong>{{ $errors->first('in_Address') }}</strong>
-                </div>
-            @endif
-            @if ($errors->has('wrong_address'))
-                <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
-                    <strong>{{ $errors->first('wrong_address') }}</strong>
-                </div>
-            @endif
+		@if ($errors->has('in_EName'))
+            <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
+                <strong>{{ $errors->first('in_EName') }}</strong>
+            </div>
+        @endif
+	</div>
+	<div class="row form-group {{ $errors->has('in_Name') ? ' has-error' : '' }}">
+		<div class="col-md-4">
+			<label class="pull-right">Full Name
+				<span type="text" class="pull-right">*</span>
+			</label>
 		</div>
-		<div class="row form-group {{ $errors->has('in_Phone') ? ' has-error' : $errors->has('wrong_phone') ? 'has-error' : '' }}">
-			<div class="col-md-4">
-				<label class="pull-right">Phone Number
-					<span class="pull-right">*</span>
-				</label>
-			</div>
-			<div class="col-md-8">
-				<input name="in_Phone" onkeypress="validate(event)" type="text" class="form-control" onkeypress="validate(event)" value="{{old('in_Phone')[0] == '0' ? old('in_Phone') : '0'.old('in_Phone') }}">
-			</div>
-			@if ($errors->has('in_Phone'))
-                <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
-                    <strong>{{ $errors->first('in_Phone') }}</strong>
-                </div>
-            @endif
-            @if ($errors->has('wrong_phone'))
-                <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
-                    <strong>{{ $errors->first('wrong_phone') }}</strong>
-                </div>
-            @endif
+		<div class="col-md-8">
+			<input name="in_Name" class="form-control" onkeypress="validate_spec4(event)" value="{{old('in_Name')}}">
 		</div>
-		<div class="row form-group {{ $errors->has('in_Skype') || $errors->has('wrong_skype') ? ' has-error' : '' }}">
-			<div class="col-md-4">
-				<label class="pull-right">Skype Address
-					<span class="pull-right">*</span>
-				</label>
-			</div>
-			<div class="col-md-8">
-				<input name="in_Skype" type="text" class="form-control" onkeypress="validate_spec(event)" value="{{old('in_Skype')}}">
-			</div>
-			@if ($errors->has('in_Skype'))
-                <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
-                    <strong>{{ $errors->first('in_Skype') }}</strong>
-                </div>
-            @endif
-            @if ($errors->has('wrong_skype'))
-                <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
-                    <strong>{{ $errors->first('wrong_skype') }}</strong>
-                </div>
-            @endif
+		@if ($errors->has('in_Name'))
+            <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
+                <strong>{{ $errors->first('in_Name') }}</strong>
+            </div>
+        @endif
+	</div>
+	<div id="Sex" class="row form-group">
+		<div class="col-md-4">
+			<label class="pull-right">Sex
+				<span type="text" class="pull-right">*</span>
+			</label>
 		</div>
-		<div class="row form-group {{ $errors->has('sl_Role') ? ' has-error' : '' }}">
-			<div class="col-md-4">
-				<label class="pull-right">Role
-					<span class="pull-right">*</span>
-				</label>
-			</div>
-			<div class="col-md-8">
-					<select id="typeaccount" name="sl_Role" class="form-control" >
-						<option value="Manager" {{old('sl_Role') == 'Manager' ? 'selected' :''}}>Manager</option>
-						<option value="Leader" {{old('sl_Role') == 'Leader' ? 'selected' :''}}>Leader</option>
-						<option value="Member" {{old('sl_Role') == 'Member' ? 'selected' :''}}>Member</option>
-						<option value="Client" {{old('sl_Role') == 'Client' ? 'selected' :''}}>Client</option>
-					</select>
-			</div>
-			@if ($errors->has('sl_Role'))
-                <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
-                    <strong>{{ $errors->first('sl_Role') }}</strong>
-                </div>
-            @endif
+		<div class="col-md-8">
+			<select name="sl_Sex" class="form-control">
+				<option>Male</option>
+				<option>Female</option>
+			</select>
 		</div>
-		<div id="costhour" class="row form-group {{ $errors->has('in_CostHour') ? ' has-error' : '' }}">
-			<div class="col-md-4">
-				<label class="pull-right">Cost/Hour
-					<span class="pull-right">*</span>
-				</label>
-			</div>
-			<div class="col-md-8">
-				<input id="CostHour" name="in_CostHour" onkeypress="validate_spec0(event)" type="number" type="text" class="form-control" min="1" max="500" step="any" value="{{old('in_CostHour')}}">
-			</div>
-			@if ($errors->has('in_CostHour'))
-                <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
-                    <strong>{{ $errors->first('in_CostHour') }}</strong>
-                </div>
-            @endif
+	</div>
+	<div id="dateofbirth" class="row form-group {{ $errors->has('in_Dateofbirth') ? ' has-error' : '' }}">
+		<div class="col-md-4">
+			<label class="pull-right">Date of Birth
+			</label>
 		</div>
-		<div class="row form-group pull-right">
-			<div class="col-md-12">
-				<input type="submit" id="submit" class="btn btn-primary" value="Create" >
-				<a class="btn btn-default" data-toggle="modal" href='#modal-id'>Cancel</a>
-			</div>
-			 <div class="modal fade" id="modal-id">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                               <h4><i>Do you really want to cancel?</i></h4>
-                            </div>
-                            <div class="modal-footer">
-                                <a class="btn btn-primary" href="{{route('admin.personal-information.index')}}" style="margin-left: 5px">Yes</a>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                            </div>
+		<div class="col-md-8">
+			<input name="in_Dateofbirth" type="date" max="2100-12-31" min="1930-01-01" class="form-control" value="{{old('in_Dateofbirth')}}">
+		</div>
+		@if ($errors->has('in_Dateofbirth'))
+            <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
+                <strong>{{ $errors->first('in_Dateofbirth') }}</strong>
+            </div>
+        @endif
+        @if ($errors->has('wrong_year'))
+            <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
+                <strong>{{ $errors->first('wrong_year') }}</strong>
+            </div>
+        @endif
+	</div>
+	<div class="row form-group {{ $errors->has('in_Address') ? ' has-error' :$errors->has('wrong_address') ? 'has-error': '' }}">
+		<div class="col-md-4">
+			<label class="pull-right">Address
+			</label>
+		</div>
+		<div class="col-md-8">
+			<input name="in_Address" type="text" class="form-control" onkeypress="validate_spec1(event)" value="{{old('in_Address')}}">
+		</div>
+		@if ($errors->has('in_Address'))
+            <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
+                <strong>{{ $errors->first('in_Address') }}</strong>
+            </div>
+        @endif
+        @if ($errors->has('wrong_address'))
+            <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
+                <strong>{{ $errors->first('wrong_address') }}</strong>
+            </div>
+        @endif
+	</div>
+	<div class="row form-group {{ $errors->has('in_Phone') ? ' has-error' : $errors->has('wrong_phone') ? 'has-error' : '' }}">
+		<div class="col-md-4">
+			<label class="pull-right">Phone Number
+				<span class="pull-right">*</span>
+			</label>
+		</div>
+		<div class="col-md-8">
+			<input name="in_Phone" onkeypress="validate(event)" type="text" class="form-control" onkeypress="validate(event)" value="{{old('in_Phone')[0] == '0' ? old('in_Phone') : '0'.old('in_Phone') }}">
+		</div>
+		@if ($errors->has('in_Phone'))
+            <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
+                <strong>{{ $errors->first('in_Phone') }}</strong>
+            </div>
+        @endif
+        @if ($errors->has('wrong_phone'))
+            <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
+                <strong>{{ $errors->first('wrong_phone') }}</strong>
+            </div>
+        @endif
+	</div>
+	<div class="row form-group {{ $errors->has('in_Skype') || $errors->has('wrong_skype') ? ' has-error' : '' }}">
+		<div class="col-md-4">
+			<label class="pull-right">Skype Address
+				<span class="pull-right">*</span>
+			</label>
+		</div>
+		<div class="col-md-8">
+			<input name="in_Skype" type="text" class="form-control" onkeypress="validate_spec(event)" value="{{old('in_Skype')}}">
+		</div>
+		@if ($errors->has('in_Skype'))
+            <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
+                <strong>{{ $errors->first('in_Skype') }}</strong>
+            </div>
+        @endif
+        @if ($errors->has('wrong_skype'))
+            <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
+                <strong>{{ $errors->first('wrong_skype') }}</strong>
+            </div>
+        @endif
+	</div>
+	<div id="costhour" class="row form-group {{ $errors->has('in_CostHour') ? ' has-error' : '' }}">
+		<div class="col-md-4">
+			<label class="pull-right">Cost/Hour
+				<span class="pull-right">*</span>
+			</label>
+		</div>
+		<div class="col-md-8">
+			<input id="CostHour" name="in_CostHour" onkeypress="validate_spec0(event)" type="number" type="text" class="form-control" min="1" max="500" step="any" value="{{old('in_CostHour')}}">
+		</div>
+		@if ($errors->has('in_CostHour'))
+            <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
+                <strong>{{ $errors->first('in_CostHour') }}</strong>
+            </div>
+        @endif
+	</div>
+	<div id="description" class="row form-group {{ $errors->has('in_descrip') ? ' has-error' : '' }} collapse">
+		<div class="col-md-4">
+			<label class="pull-right">Company Description
+				<span class="pull-right">*</span>
+			</label>
+		</div>
+		<div class="col-md-8">
+			<textarea name="in_descrip" type="text" class="form-control" onkeypress="validate_spec(event)" value="{{old('in_descrip')}}"></textarea>
+		</div>
+		@if ($errors->has('in_descrip'))
+            <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
+                <strong>{{ $errors->first('in_descrip') }}</strong>
+            </div>
+        @endif
+	</div>
+	<div id="company" class="row form-group {{ $errors->has('sl_Company') ? ' has-error' : '' }} collapse">
+		<div class="col-md-4">
+			<label class="pull-right">Company <span class="pull-right">*</span></label>
+		</div>
+		<div class="col-md-8">
+			<select id="typeaccount" name="sl_Company" class="form-control" >
+			@foreach (App\Client_Company::all() as $e)
+				<option value="{{ $e->idClientCompany }}" {{old('sl_Company') == $e->idClientCompany ? 'selected' :''}}>{{ $e->CC_Name }}</option>
+			@endforeach
+			</select>
+		</div>
+		@if ($errors->has('sl_Company'))
+            <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
+                <strong>{{ $errors->first('sl_Company') }}</strong>
+            </div>
+        @endif
+	</div>
+	<div id="team-choose" class="row form-group {{ $errors->has('sl_Team') ? ' has-error' : '' }} collapse">
+		<div class="col-md-4">
+			<label class="pull-right">Team
+				<span class="pull-right">*</span>
+			</label>
+		</div>
+		<div class="col-md-8">
+			<select name="sl_Team" class="form-control" >
+			@foreach (App\Team::all() as $e)
+				<option value="{{ $e->idTeam }}" {{old('sl_Team') == $e->idTeam ? 'selected' :''}}>{{ $e->TeamName}}</option>
+			@endforeach
+			</select>
+		</div>
+		@if ($errors->has('sl_Team'))
+            <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
+                <strong>{{ $errors->first('sl_Team') }}</strong>
+            </div>
+        @endif
+	</div>
+	<div class="row form-group pull-right">
+		<div class="col-md-12">
+			<input type="submit" id="submit" class="btn btn-primary" value="Create" >
+			<a class="btn btn-default" data-toggle="modal" href='#modal-id'>Cancel</a>
+		</div>
+		 <div class="modal fade" id="modal-id">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                           <h4><i>Do you really want to cancel?</i></h4>
+                        </div>
+                        <div class="modal-footer">
+                            <a class="btn btn-primary" href="{{route('admin.personal-information.index')}}" style="margin-left: 5px">Yes</a>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
                         </div>
                     </div>
-              </div>
-		</div>
-	</div><!--col-md-7-->
-
-	<div class="col-md-5 left-regis">
+                </div>
+          </div>
+	</div>
+</div><!--col-md-7-->
+<div class="col-md-5 left-regis">
 		<div class="avatar-img">
 			<img src="{{ asset('images/upload.png') }}" style="margin:0px;">
 			@if($errors->has('in_img'))
@@ -269,7 +319,8 @@
                 </svg> <span>Choose a file&hellip;</span></label>
             </div>
 		</div>
-		<div id="addskill" style="margin-top: 10px;margin-left: 5px;"><a onclick="myFunction()" class="glyphicon glyphicon-plus has-error"></a>
+		<div id="addskill" style="margin-top: 10px;margin-left: 5px;">
+		<a onclick="myFunction()" class="glyphicon glyphicon-plus has-error"></a>
 		<?php $count = $num_skill = App\Skill::all()->count();?>
 		@for ($i = 0 ; $i < $count  ; $i++)
 			@if($errors->has('in_Year.'.$i))
@@ -431,11 +482,30 @@ function validate_spec5(evt){
 			$('#skill_list').hide();
 			$('#addskill').hide();
 			$('#costhour').hide();
-			$('.left-regis').hide();
+			$('.left-regis').show();
 			$('#EnglishName').hide();
 			$('#idEmployee').hide();
 			$('#dateofbirth').hide();
 			$('#Sex').hide();
+			$('#description').addClass('collapse');
+			$('#company').removeClass('collapse');
+			$('#skill_list').hide();
+			if($('#typeaccount').val() == 'Member'){
+				$('#team-choose').removeClass();
+			}
+		}
+		else if($('#typeaccount').val() == "Client Company"){
+			$('#skill_list').hide();
+			$('#addskill').hide();
+			$('#costhour').hide();
+			$('.left-regis').show();
+			$('#EnglishName').hide();
+			$('#idEmployee').hide();
+			$('#dateofbirth').hide();
+			$('#Sex').hide();
+			$('#description').removeClass('collapse');
+			$('#company').addClass('collapse');
+			$('#skill_list').hide();
 		}
 		else{
 			$('#skill_list').show();
@@ -446,6 +516,11 @@ function validate_spec5(evt){
 			$('#idEmployee').show();
 			$('#dateofbirth').show();
 			$('#Sex').show();
+			$('#description').addClass('collapse');
+			$('#company').addClass('collapse');
+			if($('#typeaccount').val() == 'Member'){
+				$('#team-choose').removeClass('collapse');
+			}
 		}
 	});
 	$('#typeaccount').change(function(){
@@ -453,11 +528,29 @@ function validate_spec5(evt){
 			$('#skill_list').hide();
 			$('#addskill').hide();
 			$('#costhour').hide();
-			$('.left-regis').hide();
+			$('.left-regis').show();
 			$('#EnglishName').hide();
 			$('#idEmployee').hide();
 			$('#dateofbirth').hide();
 			$('#Sex').hide();
+			$('#description').addClass('collapse');
+			$('#company').removeClass('collapse');
+			$('#skill_list').hide();
+			$('#team-choose').addClass('collapse');
+		}
+		else if($('#typeaccount').val() == "Client Company"){
+			$('#skill_list').hide();
+			$('#addskill').hide();
+			$('#costhour').hide();
+			$('.left-regis').show();
+			$('#EnglishName').hide();
+			$('#idEmployee').hide();
+			$('#dateofbirth').hide();
+			$('#Sex').hide();
+			$('#description').removeClass('collapse');
+			$('#company').addClass('collapse');
+			$('#skill_list').hide();
+			$('#team-choose').addClass('collapse');
 		}
 		else{
 			$('#skill_list').show();
@@ -468,6 +561,11 @@ function validate_spec5(evt){
 			$('#idEmployee').show();
 			$('#dateofbirth').show();
 			$('#Sex').show();
+			$('#description').addClass('collapse');
+			$('#company').addClass('collapse');
+			if($('#typeaccount').val() == 'Member'){
+				$('#team-choose').removeClass('collapse');
+			}
 		}
 	});
 

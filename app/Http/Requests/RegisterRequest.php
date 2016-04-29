@@ -33,7 +33,7 @@ class RegisterRequest extends Request
             
         ];
         if($this->request->get('sl_Role') == true){
-            if($this->request->get('sl_Role') != "Client"){
+            if($this->request->get('sl_Role') == "Manager" || $this->request->get('sl_Role') == "Member"){
                 $rules['in_Skype'] = 'min:6|max:32|required|unique:Employee,E_Skype';
                 $rules['in_id'] = 'required|min:10|max:10|unique:Employee,idEmployee';
                 $rules['in_Phone'] = 'min:10|max:11|required|unique:Employee,E_Phone';
@@ -48,9 +48,16 @@ class RegisterRequest extends Request
                     }
                 }
             }
+            else if($this->request->get('sl_Role') == "Client Company"){
+                $rules['in_Skype'] ='min:6|max:32|required|unique:Clients,C_Skype';
+                $rules['in_Phone'] = 'min:10|max:11|required|unique:Clients,C_Phone';
+                $rules['in_descrip'] = 'min:10|max:400|required';
+                $rules['in_img'] = 'required|min:0|max:6144|image|mimes:jpg,jpeg,png';
+            }
             else{
                 $rules['in_Skype'] ='min:6|max:32|required|unique:Clients,C_Skype';
                 $rules['in_Phone'] = 'min:10|max:11|required|unique:Clients,C_Phone';
+                $rules['in_img'] = 'required|min:0|max:6144|image|mimes:jpg,jpeg,png';
             }
         }
         
@@ -90,9 +97,12 @@ class RegisterRequest extends Request
             'in_img.required' =>'Please upload a file',
             'in_img.mimes' => 'Please upload a picture with mimes : jpg, jpeg, png',
             'in_Address.min' => 'The Address must be contained equal or more than 4 characters',
+            'in_descrip.min' => 'Please enter the Company Description equal or more than 10 characters',
+            'in_descrip.max' => 'Please enter the Company Description equal or less than 400 characters',
+            'in_descrip.required' => 'Please enter the Company Description',
         ];
         if($this->request->get('sl_Role') == true){
-            if($this->request->get('sl_Role') != "Client"){
+            if($this->request->get('sl_Role') == "Manager" || $this->request->get('sl_Role') == "Member" ){
                 if($this->request->get('in_Year') == true){
                     foreach ($this->request->get('in_Year') as $key => $value) {
                     $messages['in_Year.'.$key.'.required'] = 'Please enter the year';

@@ -140,7 +140,7 @@
             <?php
                         $idRole = Auth::user()->idRole;
                     ?>
-            @if ($idRole == 4)
+            @if ($idRole == 4 || $idRole == 2)
                 <a class="btn btn-default pull-left" data-toggle="modal" href='#feedback-form'>Give feedback for this person</a>
             @endif     
                 <button class="btn btn-default" id="hide">Hide</button>

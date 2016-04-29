@@ -38,9 +38,9 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('create-project','ProjectController@postcreateProject');
         Route::get('get-listPM','AjaxController@getlistPM');
         Route::get('get-listProject','AjaxController@getlistProject');
-        Route::get('pagination/employees','AjaxController@getPagination');
-        Route::get('pagination/employees/search/results','AjaxController@getPaginationSearchResults');
-        Route::get('pagination/search','AjaxController@getPaginationSearch');
+        // Route::get('pagination/employees','AjaxController@getPagination');
+        // Route::get('pagination/employees/search/results','AjaxController@getPaginationSearchResults');
+        // Route::get('pagination/search','AjaxController@getPaginationSearch');
         Route::get('get-top','AjaxController@getTop');
         Route::get('chart','AjaxController@getChart');
         Route::get('project_detail/{id}','ProjectController@project_detail');
@@ -54,6 +54,13 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('request-notify', 'RequestController@getRequest');
         Route::post('request-notify-C_E/{id}', 'RequestController@postRequestC_E');
         Route::post('request-notify-E_E/{id}', 'RequestController@postRequestE_E');
+        //additional management
+        Route::get('add-skill', 'AdditionalManagementController@getAddSkill');
+        Route::post('add-skill', 'AdditionalManagementController@postAddSkill');
+        Route::post('edit-skill', 'AdditionalManagementController@postEditSkill');
+        Route::get('add-english-record', 'AdditionalManagementController@getAddEnglishRecord');
+        Route::post('add-english-record', 'AdditionalManagementController@postAddEnglishRecord');
+        Route::post('get-english-record', 'AdditionalManagementController@postGetEnglishRecord');
 
     });
         Route::resource('personal-information', 'Personal_Information_Controller');
@@ -106,6 +113,9 @@ Route::group(['middleware' => ['web']], function () {
 
         //message
         Route::get('/admin/message', 'ContactController@viewMessage');
+        Route::post('delete-msg', 'ContactController@deleteMessage');
+        Route::post('read-msg', 'ContactController@readMessage');
+        
         Route::get('test',function(){
             // $feedbacks = App\Feedback::all();
             // $list = array();
@@ -133,5 +143,9 @@ Route::group(['middleware' => ['web']], function () {
             // $idERecord =(array) DB::select("select idERecord from Employee_Record where substring(Content,instr(Content,'.')+1,length(Content)) = ".$idProject." and idEmployee = ".$idEmployee." order by DateStart DESC")[1];
             // $employees = App\Employee_Record::find($idERecord);
             // return $employees;
+            $list_employee = App\Employee::where('E_Name','LIKE','%j%')->paginate(10);
+            $e = App\Employee_Record::all();
+            $e->setAttribute('OK','OK');
+            return $e;
         });
 });

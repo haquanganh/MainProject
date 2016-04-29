@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Validator;
 use DB;
-use Carbon;
+use Carbon\Carbon;
 use App\User;
 use Auth;
 use App\Feedback;
@@ -22,33 +22,40 @@ class FeedbackController extends Controller
 				'feedback_content' => 'required',
 				)
 		);
-		$mytime = Carbon\Carbon::now();
-		$idAccount = Auth::user()->idAccount;
-		$idClient = DB::table('Clients')->select('idClient')->where('idAccount', '=', $idAccount)->first()->idClient;
-		$idEmployee = $request->input('idEmployee');
-		$rating = $request->input('rating');
-		if($validator->fails())
+
+		$lastFb = Feedback::orderBy('F_DateCreate', 'desc')->first();
+		$mytime = Carbon::now();
+		if(strtotime($mytime) - strtotime($lastFb->F_DateCreate) >= 604800)
 		{
-			return redirect()->back()->withErrors($validator);
-		} else {
-			$insert = new Feedback;
-			$insert->F_Title = $post['feedback_title'];
-			$insert->F_Content = $post['feedback_content'];
-			$insert->F_Rate = $rating;
-			$insert->F_DateCreate = $mytime;
-			$insert->idClient = $idClient;
-			$insert->idProject =(int) $request->input('idProject');
-			$insert->idEmployee = $idEmployee;
-			$insert->save();
-			if (!$insert)
+			$idAccount = Auth::user()->idAccount;
+			$idClient = DB::table('Clients')->select('idClient')->where('idAccount', '=', $idAccount)->first()->idClient;
+			$idEmployee = $request->input('idEmployee');
+			$rating = $request->input('rating');
+			if($validator->fails())
 			{
-				return redirect()->back()->with('messages','Failed, please try again!');
-				
-			}
-			else {
-				return redirect()->back()->with('messages','Successful, thank for your feedback!');
+				return redirect()->back()->withErrors($validator);
+			} else {
+				$insert = new Feedback;
+				$insert->F_Title = $post['feedback_title'];
+				$insert->F_Content = $post['feedback_content'];
+				$insert->F_Rate = $rating;
+				$insert->F_DateCreate = $mytime;
+				$insert->idClient = $idClient;
+				$insert->idProject =(int) $request->input('idProject');
+				$insert->idEmployee = $idEmployee;
+				$insert->save();
+				if (!$insert)
+				{
+					return redirect()->back()->with('messages','Failed, please try again!');
+					
+				}
+				else {
+					return redirect()->back()->with('messages','Successful, thank for your feedback!');
+				}
 			}
 		}
+		return redirect()->back()->with('messages','You just can give the feedback within 7 days!');
+
     }
 
     public function postEditFeedback(Request $request){
@@ -62,7 +69,7 @@ class FeedbackController extends Controller
 				)
 		);
 
-		$mytime = Carbon\Carbon::now();
+		$mytime = Carbon::now();
 		$idFeedback = $request->input('getIdfeedback');
 		$idAccount = Auth::user()->idAccount;
 		$idClient = DB::table('Clients')

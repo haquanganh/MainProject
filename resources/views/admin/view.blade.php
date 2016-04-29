@@ -5,15 +5,12 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/admin/dataTables.bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/admin/personal_information.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('third-library/select2-4.0.2/dist/css/select2.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('third-library/datatables-1.10.11/css/dataTables.bootstrap.min.css') }}">
 @stop
 @section('content')
 <div class="row" id="choose">
-        <select id="type-list" class="pull-left">
-            <option></option>
-            <option value="1">Employees</option>
-            <option value="2">Clients</option>
-        </select>
-        <input id="search-box" type="text" class="form-control pull-right" style="width: 150px;margin-bottom: 10px" placeholder="Search for employee">
+        
+        <!-- <input id="search-box" type="text" class="form-control pull-right" style="width: 150px;margin-bottom: 10px" placeholder="Search for employee"> -->
 </div>
 <div class="row table-responsive">
     <div class="col-md-12" id="table-data">
@@ -27,6 +24,7 @@
                     <th>Skype</th>
                     <th>Phone</th>
                     <th>Role</th>
+                    <th>Team</th>
                     <th>Action</th>
                     <th>Detail</th>
                 </tr>
@@ -46,6 +44,7 @@
                     <td>{{$employee->E_Skype}}</td>
                     <td>0{{$employee->E_Phone}}</td>
                     <td>{{$name_Role}}</td>
+                    <td>{{ $employee->Team->count() != 0 ? $employee->Team->first()->TeamName : 'Available'}}</td>
                     <td class="text-center"><a href="{{ route('admin.personal-information.edit',$employee->idEmployee) }}" class="glyphicon glyphicon-pencil"></a></td>
                     <td class="text-center"><a href="{{ route('admin.personal-information.show',$employee->idEmployee) }}"><i class="fa fa-info" aria-hidden="true"></i></a></td>
                 </tr>
@@ -55,32 +54,24 @@
         </table>
     </div>
 </div>
-<div class="row">
-    <div class="col-md-12" id="pages">
-        {{ $list_employee }}
-    </div>
-</div>
     <a id="add" href="{{ url('admin/register') }}"><img src="{{ asset('images/add-admin.png') }}" ></a>
 @stop
 @section('script')
-<script type="text/javascript" src="{{ asset('js/admin/jquery.dataTables.min.js') }}">
-</script>
-<script type="text/javascript" src="{{ asset('js/admin/dataTables.bootstrap.min.js') }}">
-</script>
+<script src="{{ asset('third-library/datatables-1.10.11/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('third-library/datatables-1.10.11/js/dataTables.bootstrap.min.js') }}"></script>
+
 <script type="text/javascript" src="{{ asset('third-library/select2-4.0.2/dist/js/select2.min.js') }}"></script>
 <script>
-    $(document).ready(function(){
+    jQuery(document).ready(function($) {
+        $('#table').DataTable();
+        $('.dataTables_length').parent().html('<select id="type-list" class="pull-left"><option></option><option value="1">Employees</option><option value="2">Clients</option></select>');
         $('select#type-list').select2({
             placeholder: 'Choose type of list',
             minimumResultsForSearch: Infinity
         });
     });
 </script>
-<script>
-    $(document).ready(function(){
-        $('.account').addClass('actived');
-    });
-</script>
+<!-- 
 <script type="text/javascript">
     var page = 1;
     var val = '';
@@ -190,9 +181,10 @@
                     if(data != 'Empty'){
                         var result = $.parseJSON(data);
                         $('tbody > tr').remove();
+                        console.log(result[0]);
                         $.each(result[0].data, function(index, val) {
                             if(index <= 9){
-                             $('tbody').append('<tr><td style="width: 20px;" class="img"><img class="img-circle" style="width: 50px;height: 50px;  margin-left:4.5px;" src="{{ asset('images/personal_images') }}/'+val.E_Avatar+'"></td><td>'+val.E_Name+'</td><td>'+'Male'+'</td><td>'+val.E_DateofBirth+'</td><td>'+val.E_Skype+'</td><td>'+val.E_Phone+'</td><td>Manager</td><td class="text-center"><a class="glyphicon glyphicon-pencil" href="{{ url('admin.personal-information') }}/'+val.idEmployee+'/edit"></a></td><td class="text-center"><a href="{{ url('admin/personal-information') }}/'+val.idEmployee+'"><i class="fa fa-info" aria-hidden="true"></i></a></td></tr>');
+                             $('tbody').append('<tr><td style="width: 20px;" class="img"><img class="img-circle" style="width: 50px;height: 50px;  margin-left:4.5px;" src="{{ asset('images/personal_images') }}/'+val.E_Avatar+'"></td><td>'+val.E_Name+'</td><td>'+'Male'+'</td><td>'+val.E_DateofBirth+'</td><td>'+val.E_Skype+'</td><td>'+val.E_Phone+'</td><td>Manager</td><td>'+val.TeamName+'</td><td class="text-center"><a class="glyphicon glyphicon-pencil" href="{{ url('admin.personal-information') }}/'+val.idEmployee+'/edit"></a></td><td class="text-center"><a href="{{ url('admin/personal-information') }}/'+val.idEmployee+'"><i class="fa fa-info" aria-hidden="true"></i></a></td></tr>');
                             }
                         });
                         var total_item = (result[0].total);
@@ -238,6 +230,7 @@
             });
         });
 </script>   
+ -->
  <script>
      jQuery(document).ready(function($) {
          $('.account').addClass('active');

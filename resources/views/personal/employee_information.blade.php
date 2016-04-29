@@ -46,6 +46,7 @@
                     <th>Phone</th>
                     <th>Role</th>
                     <th>View more</th>
+                    <th>View feedback</th>
                 </tr>
             </thead>
 
@@ -136,6 +137,19 @@
                                     </div>
                                 @endif
                             </td>
+                            <td><a href="#feedback-show{{ $kq[$i]['idEmployee'] }}" class="feedback-show" data="{{ $kq[$i]['idEmployee'] }}" data-toggle="modal">View feedbacks</a></td>
+                            <div class="modal fade" id="feedback-show{{ $kq[$i]['idEmployee'] }}">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                        
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </tr>
                     @endfor 
                 </tbody>

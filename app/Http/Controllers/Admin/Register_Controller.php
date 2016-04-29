@@ -9,7 +9,9 @@ use App\Employee as Employee;
 use App\User as User;
 use App\Role as Role;
 use App\SkillDetail as SkillDetail;
+use App\TeamMember as TeamMember;
 use App\Clients as Clients;
+use App\Client_Company as Client_Company;
 use App\Http\Requests\RegisterRequest;
 use App\Skill;
 use Hash;
@@ -34,7 +36,7 @@ class Register_Controller extends Controller
         }
         /*Valitdate password and duplicate skill and email*/
         $error_list = array();
-        if($request->sl_Role != "Client"){
+        if($request->sl_Role == "Manager" || $request->sl_Role == "Member"){
             for($j = 0 ; $j < $request->number_rows ; $j++){
                 $name_in_Skill = 'sl_Skill'.$j;
                 for($k = $j+1 ; $k < $request->number_rows; $k++){
@@ -88,7 +90,7 @@ class Register_Controller extends Controller
         $user->idRole = $id_Role;
         $user->save();
         /*Add new employee of new user*/
-        if($request->sl_Role != "Client"){
+        if($request->sl_Role == "Manager" || $request->sl_Role == "Member"){
             $employee = new Employee;
             $employee->idEmployee = $request->in_id;
             $employee->E_Name = $request->in_Name;
@@ -102,13 +104,12 @@ class Register_Controller extends Controller
             $employee->E_DateofBirth = $request->in_Dateofbirth;
             $employee->idStatus = 2;
             $img_file = $request->in_img;
-            $id_images = Employee::all()->count();
             /*Handle file and move to images/personal_images and save name images to database*/
             if($img_file){
                 $img_file_name = $img_file->getClientOriginalName();
                 $img_file_extension_name = $img_file->getClientOriginalExtension();
-                $img_file->move(public_path('images/personal_images'), ($id_images+1).'avatar.'.$img_file_extension_name);
-                $employee->E_Avatar = ($id_images+1).'avatar.'.$img_file_extension_name;
+                $img_file->move(public_path('images/personal_images'), $user->idAccount.'avatar.'.$img_file_extension_name);
+                $employee->E_Avatar = $user->idAccount.'avatar.'.$img_file_extension_name;
             }
             $employee->save();
             $e_id = $request->in_id;
@@ -125,6 +126,31 @@ class Register_Controller extends Controller
                       $detail_Skill->save();
                   }
              }
+             /*Save team*/
+            if($request->sl_Role == "Member"){
+                $pe = new TeamMember;
+                $pe->idMember = $e_id;
+                $pe->idTeam = $request->sl_Team;
+                $pe->save();
+            }
+        }
+        else if($request->sl_Role == "Client Company"){
+            $cp = new Client_Company;
+            $cp->CC_Name = $request->in_Name;
+            $cp->CC_Address = $request->in_Address;
+            $cp->CC_Phone = $request->in_Phone;
+            $cp->CC_Email = $request->in_Email;
+            $cp->CC_Description = $request->in_descrip;
+            $cp->idAccount = $user->idAccount;
+            /*Save logo*/
+            $img_file = $request->in_img;
+            if($img_file){
+                $img_file_name = $img_file->getClientOriginalName();
+                $img_file_extension_name = $img_file->getClientOriginalExtension();
+                $img_file->move(public_path('images/personal_images'), $user->idAccount.'avatar.'.$img_file_extension_name);
+                $cp->CC_Logo = $user->idAccount.'avatar.'.$img_file_extension_name;
+            }
+            $cp->save();
         }
         else{
             $client = new Clients;
@@ -132,7 +158,15 @@ class Register_Controller extends Controller
             $client->C_Address = $request->in_Address;
             $client->C_Phone = $request->in_Phone;
             $client->C_Skype = $request->in_Skype;
-            $client->idAccount = $user->idAccount;;
+            $client->idAccount = $user->idAccount;
+            $client->idClientCompany = $request->sl_Company;
+            $img_file = $request->in_img;
+            if($img_file){
+                $img_file_name = $img_file->getClientOriginalName();
+                $img_file_extension_name = $img_file->getClientOriginalExtension();
+                $img_file->move(public_path('images/personal_images'), $user->idAccount.'avatar.'.$img_file_extension_name);
+                $client->C_Avatar = $user->idAccount.'avatar.'.$img_file_extension_name;
+            }
             $client->save();
         }
         return redirect()->route('admin.personal-information.index');

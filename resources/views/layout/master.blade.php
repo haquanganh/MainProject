@@ -289,9 +289,9 @@
         <script src="{{ asset('third-library/bootstrap/js/bootstrap.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/jquery-validate/jquery.validate.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/jquery-validate/additional-methods.js') }}"></script>
-        @yield('script')
+        
         <script src="{{ asset('js/custom.js') }}"></script>
-
+        
          <!-- Change password validate -->
         <script type="text/javascript">
         $('#form-change-pass').validate({
@@ -393,6 +393,7 @@
                     $("#my-modal").hide();
                 },4000);
             });
-        </script>    
+        </script>
+        @yield('script')
     </body>
 </html>

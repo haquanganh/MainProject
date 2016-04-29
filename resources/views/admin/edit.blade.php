@@ -155,6 +155,27 @@
                     </div>
                 @endif
 			</div>
+			@if(App\User::find(App\Employee::find($employee->idEmployee)->idAccount)->idRole != 2)
+			<div class="row form-group {{ $errors->has('sl_Team') ? ' has-error' : '' }}">
+				<div class="col-md-4">
+					<label class="pull-right">Team
+						<span class="pull-right">*</span>
+					</label>
+				</div>
+				<div class="col-md-8">
+					<select name="sl_Team" class="form-control">
+						@foreach (App\Team::all() as $e)
+							<option value="{{ $e->idTeam }}" {{$e->idTeam == $employee->Team()->first()->idTeam ? 'selected' : null}}>{{ $e->TeamName }}</option>
+						@endforeach
+					</select>
+				</div>
+				@if ($errors->has('sl_Team'))
+                    <div class="help-block pull-right" style="margin-right: 15px;margin-bottom: 0px">
+                        <strong>{{ $errors->first('sl_Team') }}</strong>
+                    </div>
+                @endif
+			</div>
+			@endif
 			<div class="row form-group pull-right">
 				<div class="col-md-12">
 					<a type="submit" data-toggle="modal" href='#modal-id-1' id="submit" class="btn btn-primary">Update</a>

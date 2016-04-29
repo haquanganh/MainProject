@@ -28,7 +28,11 @@ class RequestController extends Controller
             $send_request->dateCreate = $mytime;
             if($send_request->save())
             {
-                $data = ['hoten' => $Client->ClientName];
+                $name = Employee::where('idEmployee', '=', $id)->first()->E_EngName;
+                $data = [
+                    'hoten' => $Client->ClientName,
+                    'eName' => $name
+                ];
                 Mail::send('emails.email', $data, function ($message) {
                     $message->from('testlaravel94@gmail.com', 'System BIMS');
                     $message->to('bims.enclavesystem@gmail.com', 'Admin BIMS');
@@ -47,7 +51,11 @@ class RequestController extends Controller
             $send_request->dateCreate = $mytime;
             if($send_request->save())
             {
-                $data = ['hoten' => $Employee1->E_EngName];
+                $name = Employee::where('idEmployee', '=', $id)->first()->E_EngName;
+                $data = [
+                    'hoten' => $Employee1->E_EngName,
+                    'eName' => $name
+                ];
                 Mail::send('emails.email', $data, function ($message) {
                     $message->from('testlaravel94@gmail.com', 'System BIMS');
                     $message->to('bims.enclavesystem@gmail.com', 'Admin BIMS');

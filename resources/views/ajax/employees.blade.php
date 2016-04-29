@@ -8,6 +8,7 @@
             <th>Skype</th>
             <th>Phone</th>
             <th>Role</th>
+            <th>Team</th>
             <th>Action</th>
             <th>Detail</th>
         </tr>
@@ -27,6 +28,7 @@
             <td>{{$employee->E_Skype}}</td>
             <td>0{{$employee->E_Phone}}</td>
             <td>{{$name_Role}}</td>
+            <td>{{ $employee->Team->count() != 0 ? $employee->Team->first()->TeamName : 'Available'}}</td>
             <td class="text-center"><a href="{{ route('admin.personal-information.edit',$employee->idEmployee) }}" class="glyphicon glyphicon-pencil"></a></td>
             <td class="text-center"><a href="{{ route('admin.personal-information.show',$employee->idEmployee) }}"><i class="fa fa-info" aria-hidden="true"></i></a></td>
         </tr>
