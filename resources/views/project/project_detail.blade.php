@@ -27,7 +27,7 @@
         <div id="project-name" class="row">
                 <p class="lead text-center">{{ $project->P_Name }}</p>
                 <p class="fancy text-center small"><span>{{ $datestart }} &nbsp;-&nbsp;{{ $datefinish }}</span></p>
-                <p class="text-center" style="margin-top:20px;margin-bottom: -10px;color: #5F75B5"><i>This is the project about something that you have to know, but you maybe allowed to know.This is the project about something that you have to know, but you maybe allowed to know.This is the project about something that you have to know, but you maybe allowed to know.</i></p>
+                <p class="text-center" style="margin-top:20px;margin-bottom: -10px;color: #5F75B5"><i>{{ $project->P_Description }}</i></p>
         </div>
             <hr>
             <div class="col-md-6">
@@ -285,12 +285,12 @@
                     data:{"idE" : idE },
                     success: function(data){
                         var result = $.parseJSON(data);
-                        $('.basic-information').find('.id').text(result[0].idEmployee);
+                        $('.basic-information').find('.id').html('<i>Employee ID:</i>'+result[0].idEmployee);
                         $('#form-feedback').find('.idEmployee').val(result[0].idEmployee);
-                        $('.basic-information').find('.name').text(result[0].E_EngName);
-                        $('.basic-information').find('.skype').text(result[0].E_Skype);
-                        $('.basic-information').find('.phone').text(result[0].E_Phone);
-                        $('.basic-information').find('.address').text(result[0].E_Address);
+                        $('.basic-information').find('.name').html('<i>Employee Name :</i>'+result[0].E_EngName);
+                        $('.basic-information').find('.skype').html('<i>Employee Skype :</i>'+result[0].E_Skype);
+                        $('.basic-information').find('.phone').html('<i>Employee Phone :</i>'+result[0].E_Phone);
+                        $('.basic-information').find('.address').html('<i>Employee Address :</i>'+result[0].E_Address);
                         if (num > 0) 
                         {                        
                             $('.title-feedback').remove();

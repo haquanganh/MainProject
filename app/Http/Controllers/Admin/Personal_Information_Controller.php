@@ -8,11 +8,15 @@ use App\Http\Requests;
 use App\Employee as Employee;
 use App\User as User;
 use App\Role as Role;
+use App\Clients as Clients;
+use App\Client_Company as Client_Company;
 use App\TeamMember as TeamMember;
 use DB;
 use App\SkillDetail as SkillDetail;
 use App\Skill as Skill;
 use App\Http\Requests\Admin_Personal_Information_Request;
+use App\Http\Requests\Admin_Client_Information_Request;
+use App\Http\Requests\Admin_ClientCompany_Information_Request;
 use Auth;
 use File;
 use Illuminate\Support\Facades\Input;
@@ -55,7 +59,20 @@ class Personal_Information_Controller extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $typeId = $request->typelist;
+        /*Employees*/
+        if($typeId == 1){
+            $list_employee = Employee::all();
+            return view('admin.view',compact('list_employee'));
+        }
+        else if($typeId == 2){
+            $list_client = Clients::all();
+            return view('admin.view',compact('list_client'));
+        }
+        else{
+            $list_clientcompany = Client_Company::all();
+            return view('admin.view',compact('list_clientcompany'));
+        }
     }
 
     /**
@@ -173,7 +190,8 @@ class Personal_Information_Controller extends Controller
             $detail_Skill->save();
 
         }
-        return redirect()->route('admin.personal-information.index');
+        $flat = 'You are successful to edit the Employee Information';
+        return redirect()->route('admin.personal-information.index')->with('flat',$flat);
     }
 
     /**
@@ -185,5 +203,59 @@ class Personal_Information_Controller extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function getEditClient($id){
+        $client = Clients::find($id);
+        return view('admin.edit_client',compact('client'));
+    }
+     public function postEditClient(Admin_Client_Information_Request $request, $id){
+        $client = Clients::find($id);
+        $client->ClientName = $request->in_Name;
+        $client->C_Phone = $request->in_Phone;
+        $client->C_Skype = $request->in_Skype;
+        $client->C_Address = $request->in_Address;
+        $client->idClientCompany = $request->sl_Company;
+        $img_file = $request->in_img;
+        if($img_file){
+            if(File::exists(public_path('images/personal_images/'.$client->C_Avatar)))
+                File::delete(public_path('images/personal_images/'.$client->C_Avatar));
+            $img_file_extension_name = $img_file->getClientOriginalExtension();
+            $img_file->move(public_path('images/personal_images'), $client->idAccount.'Avatar.'.$img_file_extension_name);
+            $client->C_Avatar = $client->idAccount.'Avatar.'.$img_file_extension_name;
+        }
+
+        $client->save();
+        $flat = 'You are successful to edit the Client Information';
+        return redirect()->route('admin.personal-information.index')->with('flat',$flat);
+     }
+    public function getEditClientCompany($id){
+        $clientcompany = Client_Company::find($id);
+        return view('admin.edit_clientcompany',compact('clientcompany'));
+    }
+    public function postEditClientCompany(Admin_ClientCompany_Information_Request $request, $id){
+        $clientcompany = Client_Company::find($id);
+        $clientcompany->CC_Name = $request->in_Name;
+        $clientcompany->CC_Phone = $request->in_Phone;
+        $clientcompany->CC_Skype = $request->in_Skype;
+        $clientcompany->CC_Address = $request->in_Address;
+        $img_file = $request->in_img;
+        if($img_file){
+            if(File::exists(public_path('images/personal_images/'.$clientcompany->CC_Logo)))
+                File::delete(public_path('images/personal_images/'.$clientcompany->CC_Logo));
+            $img_file_extension_name = $img_file->getClientOriginalExtension();
+            $img_file->move(public_path('images/personal_images'), $clientcompany->idAccount.'Avatar.'.$img_file_extension_name);
+            $clientcompany->CC_Logo = $clientcompany->idAccount.'Avatar.'.$img_file_extension_name;
+        }
+        $clientcompany->save();
+        $flat = 'You are successful to edit the Client Company Information';
+        return redirect()->route('admin.personal-information.index')->with('flat',$flat);
+    }
+    public function viewClient($id){
+        $client = Clients::find($id);
+        return view('admin.view_client_detail',compact('client'));
+    }
+    public function viewClientCompany($id){
+        $clientcompany = Client_Company::find($id);
+        return view('admin.view_company_detail',compact('clientcompany'));
     }
 }

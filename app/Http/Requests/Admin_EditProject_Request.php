@@ -25,12 +25,16 @@ class Admin_EditProject_Request extends Request
     {
         return [
             'in_PName' => 'required|max:150',
+            'daterange' => 'required',
+            'in_descrip' => 'required',
         ];
     }
     public function messages(){
         return [
             'in_PName.required' => 'Please enter the Project Name',
             'in_PName.max' => 'Project Name can not be more than 150 characters',
+            'daterange.required' => 'Please choose the date',
+            'in_descrip.required' => 'Please enter the Project Description',
         ];
     }
 }

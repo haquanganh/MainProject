@@ -3,12 +3,6 @@ td {
     text-align: center;
 }
 
-.info {
-    margin-top: 20px;
-    height: 60px;
-    margin-bottom: 0px;
-}
-
 .project-client {
     height: 100%;
     width: 50%;
@@ -20,7 +14,9 @@ td {
     height: 100%;
     margin-right: 20px;
 }
-
+.info{
+    margin: 10px 0;
+}
 .project {
     height: 100%;
 }
@@ -60,13 +56,15 @@ img {
 }
 
 .list {
-    width: 100%;
+    width: 200px;
 }
 
 .form-control {
     height: 28px;
 }
-
+label:not(.label-search){
+    width: 100%;
+}
 @media(max-width: 480px) {
     .list {
         width: 100%;
@@ -89,18 +87,14 @@ img {
 /* Landscape phones and portrait tablets */
 
 @media (max-width: 767px) {}
-
 .validate + .tooltip > .tooltip-inner {
-    width: 200px;
     background-color: #AF4442;
     opacity: 5;
     color: white;
 }
-
 .validate + .tooltip > .tooltip-arrow {
-    background-color: #AF4442;
+    border-bottom-color: #AF4442;
 }
-
 .results tr[visible='false'],
 .no-result {
     display: none;

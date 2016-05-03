@@ -131,7 +131,7 @@
 										$('#myDatepicker').remove();
 
 									}
-			        				$('.choose').append('<div class="input-group date" id="myDatepicker" data-provide="datepicker" data-date-format="mm-yyyy"><input id="time" type="text" class="form-control" name="date"><div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div></div>');
+			        				$('.choose').append('<div class="input-group date" id="myDatepicker" data-provide="datepicker" data-date-format="mm-yyyy"><input id="time" type="text" class="form-control" name="date" placeholder="Choose the date"><div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div></div>');
 			        				$('#myDatepicker').datepicker({
 									    format: "mm/yyyy",
 									    startView: "year", 

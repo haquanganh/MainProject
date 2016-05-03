@@ -42,7 +42,7 @@ class AjaxController extends Controller{
                     foreach ($project_clients as $key => $l) {
                         $c_projects = Project::where('idPStatus','=',$idPStatus)->where('idClient','=',$l->idClient)->get();
                         array_push($project_company, $c_projects);
-                    }    
+                    }
                 }
                 else{
                     foreach ($project_clients as $key => $l) {
@@ -90,15 +90,15 @@ class AjaxController extends Controller{
                     return 'Empty';
                 }
             }
-            
-            
+
+
         }
     }
     // Send json
     public function getChart(){
         if(Request::ajax()){
             $now = new DateTime();
-            $idEmployee = Employee::where('idAccount','=',Auth::user()->idAccount)->first()->idEmployee;
+            $idEmployee = (int) Request::get('idE');
             $englishchart = EnglishChart::where('idEmployee','=',$idEmployee)->where('Year','=',$now->format('Y'))->first();
             /*English Chart*/
             $feedbacks = array();

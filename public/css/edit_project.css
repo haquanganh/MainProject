@@ -34,12 +34,12 @@ img {
 }
 .TopRow td {background-color:Beige}
 .validate + .tooltip > .tooltip-inner {
-    width: 200px;
     background-color: #AF4442;
     opacity: 5;
     color: white;
 }
 .validate + .tooltip > .tooltip-arrow {
+    border-bottom-color: #AF4442;
 }
 @media(max-width: 480px) {
     .list {
@@ -49,5 +49,8 @@ img {
         text-align: center;
         padding: 0px!important;
         padding-top: 40px!important;
+    }
+    .info{
+        text-align: left!important;
     }
 }

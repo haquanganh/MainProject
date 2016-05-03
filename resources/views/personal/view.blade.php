@@ -18,7 +18,7 @@
                 <div class="panel-heading">Feedback</div>
                 <div class="panel-body">
                 @if ($feedbacks->count() != 0)
-                    @foreach ($feedbacks as $key=>$f)  
+                    @foreach ($feedbacks as $key=>$f)
                     <div class="panel panel-default">
                       <div class="panel-heading">
                         <div class="row" style="padding: 0!important;margin: 0!important;">
@@ -61,7 +61,7 @@
                     </div>
                     @endforeach
                 @else
-                <i>{{ App\Employee::where('idAccount','=',Auth::user()->idAccount)->first()->E_EngName }}</i> hasn't had any feedback from Clients
+                <i>{{ $employee->E_Name }}</i> hasn't had any feedback from Clients
                 @endif
                 </div>
             </div>
@@ -105,7 +105,7 @@
                                             </div>
                                         @endforeach
                                     </li>
-                                    <li class="list-group-item role">Role: </li>
+                                    <li class="list-group-item role">Role: {{ App\Role::find(App\User::find($employee->idAccount)->idRole)->Role  }}</li>
                                     <li class="list-group-item cost_hour">Cost Hour: ${{$employee->E_Cost_Hour}}</li>
                                 </ul>
                             </div>
@@ -167,7 +167,10 @@
                                     $endday = $sd->format('m-F-Y');
                                     ?>
                                         <tr>
-                                        <td class="action">{{ $e->Content }}</td>
+                                        <?php
+                                            $temp = explode(".", $e->Content);
+                                        ?>
+                                        <td class="action">{!! $temp[0].'<i> "'.App\Project::find($temp[1])->P_Name.'</i> "'!!}</td>
                                         <td class="start_day">{{ $startday }}</td>
                                         <td class="end_day">{{ !empty($e->DateEnd) ? $endday : 'Now'}}</td>
                                     </tr>
@@ -186,11 +189,12 @@
 <script src="{{ asset('third-library/chart-js/Chart.min.js') }}"></script>
 <script type="text/javascript">
     $(document).ready(function(){
+        var idE = {{ $employee->idEmployee }};
         $.ajax({
             url:'{{ url('chart') }}',
             type:'GET',
             cache: false,
-            data:{},
+            data:{"idE": idE},
             success: function(data){
                     var result = $.parseJSON(data);
                     var options = {
@@ -293,18 +297,14 @@
                             data: [list[0], list[1], list[2], list[3], list[4], list[5]]
                         }]
                         };
-                    
+
                         var ctx = $("#lineChart").get(0).getContext("2d");
                         var myLineChart = new Chart(ctx).Line(data, options);
-                    }  
+                    }
             }
         });
     });
 </script>
 <script>
-    
-
-    
-    
-    </script>
+</script>
 @stop

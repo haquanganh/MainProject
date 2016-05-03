@@ -35,6 +35,7 @@
         $projects_LD =null;
         $project_TM =  null;
         $project_clients = null;
+        $project_client = null;
         if(Auth::user()->idRole == 6){
             $idClientCompany = App\Client_Company::where('idAccount','=',Auth::user()->idAccount)->first()->idClientCompany;
             $project_clients = App\Clients::where('idClientCompany','=',$idClientCompany)->get();
@@ -54,7 +55,8 @@
         <div class="alert alert-success" role="alert">{{Session('flat')}}</div>
     @endif
     <div class="row folder">
-    @if ($project_clients != null || $projects_PM !=null || $projects_LD != null || $project_TM != null)
+    @if ($project_clients != null || $projects_PM !=null || $projects_LD != null || $project_TM != null || $project_client != null)
+    <!-- Client Coompany -->
     @if(Auth::user()->idRole == 6)
         <?php
         $check_null = true;
@@ -76,6 +78,7 @@
         @if ($check_null == true)
             <h4 class="lead nodata-found" style="margin-left:30px">You have not had any project</h4>
         @endif
+    <!-- Client -->
     @elseif (Auth::user()->idRole == 4)
         @foreach ($project_client as $l)
         <div class="col-md-3 projects">
@@ -85,6 +88,7 @@
             </div>
         </div>
         @endforeach
+    <!-- Employee -->
     @else
     @foreach ($projects_PM as $l)
         <div class="col-md-3 projects">
@@ -174,7 +178,7 @@
                                 $.each(value, function(index, val) {
                                 $('.folder').append('<div class="col-md-3 projects"><div class="content-box-large" onclick="window.location=\''+'{{ url('project_detail') }}/'+val.idProject+'\';"><p class="name-project"><b>'+val.P_Name+'</b></p><br><br><p class="time-project"><i>'+val.P_DateStart+'<span>-</span>'+val.P_DateFinish+'</i></p></div>');
                                 });
-                                
+
                            });
                         @elseif(Auth::user()->idRole != 4)
                            $.each( result[0], function( key, value ) {
@@ -203,7 +207,7 @@
                     if($('.folder > .projects ').length == 0){
                         $('.folder').html('<h4 class="lead nodata-found" style="margin-left:30px">You have not had any project</h4>');
                     }
-                    
+
                 }
             });
         });

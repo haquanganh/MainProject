@@ -2,14 +2,16 @@
 @section('title','Personal Information')
 @section('name','Personal Information')
 @section('css')
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/admin/dataTables.bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/admin/personal_information.css') }}">
+    
     <link rel="stylesheet" type="text/css" href="{{ asset('third-library/select2-4.0.2/dist/css/select2.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('third-library/datatables-1.10.11/css/dataTables.bootstrap.min.css') }}">
 @stop
 @section('content')
+@if (Session::has('flat'))
+    <div class="alert alert-success" role="alert">{{Session('flat')}}</div>
+@endif
 <div class="row" id="choose">
-        
         <!-- <input id="search-box" type="text" class="form-control pull-right" style="width: 150px;margin-bottom: 10px" placeholder="Search for employee"> -->
 </div>
 <div class="row table-responsive">
@@ -17,6 +19,7 @@
         <table id="table" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>
                 <tr>
+                    @if(isset($list_employee))
                     <th>Avatar</th>
                     <th>Name</th>
                     <th>Sex</th>
@@ -27,9 +30,29 @@
                     <th>Team</th>
                     <th>Action</th>
                     <th>Detail</th>
+                    @elseif(isset($list_client))
+                    <th>Avatar</th>
+                    <th>Name</th>
+                    <th>Skype</th>
+                    <th>Phone</th>
+                    <th>Company</th>
+                    <th>Action</th>
+                    <th>Detail</th>
+                    @else
+                    <th>Logo</th>
+                    <th>Company Name</th>
+                    <th>Company Address</th>
+                    <th>Company Skype</th>
+                    <th>Company Phone</th>
+                    <th>Representative</th>
+                    <th>Company Description</th>
+                    <th>Action</th>
+                    <th>Detail</th>
+                    @endif
                 </tr>
             </thead>
             <tbody>
+            @if(isset($list_employee))
             @foreach ($list_employee as $employee)
             <?php
                 $id_Role = App\User::find($employee->idAccount)->idRole;
@@ -45,11 +68,43 @@
                     <td>0{{$employee->E_Phone}}</td>
                     <td>{{$name_Role}}</td>
                     <td>{{ $employee->Team->count() != 0 ? $employee->Team->first()->TeamName : 'Available'}}</td>
-                    <td class="text-center"><a href="{{ route('admin.personal-information.edit',$employee->idEmployee) }}" class="glyphicon glyphicon-pencil"></a></td>
-                    <td class="text-center"><a href="{{ route('admin.personal-information.show',$employee->idEmployee) }}"><i class="fa fa-info" aria-hidden="true"></i></a></td>
+                    <td><a href="{{ route('admin.personal-information.edit',$employee->idEmployee) }}" class="glyphicon glyphicon-pencil"></a></td>
+                    <td><a href="{{ route('admin.personal-information.show',$employee->idEmployee) }}"><i class="fa fa-info" aria-hidden="true"></i></a></td>
                 </tr>
             @endif
             @endforeach
+            @elseif(isset($list_client))
+            @foreach ($list_client as $l)
+                <tr>
+                    <td class="img" style="width: 20px;"><img src="{{ asset('images/personal_images') }}/{{$l->C_Avatar}}" style="width: 50px;height: 50px;  margin-left:4.5px;" class="img-circle"></td>
+                    <td>{{$l->ClientName}}</td>
+                    <td>{{$l->C_Skype}}</td>
+                    <td>0{{$l->C_Phone}}</td>
+                    <td>{{ App\Client_Company::find($l->idClientCompany)->CC_Name }}</td>
+                    <td><a href="{{ url('admin/personal-information/client/edit').'/'.$l->idClient }}" class="glyphicon glyphicon-pencil"></a></td>
+                    <td><a href="{{ url('admin/personal-information/client').'/'.$l->idClient }}"><i class="fa fa-info" aria-hidden="true"></i></a></td>
+                </tr>
+            @endforeach
+            @else
+            @foreach ($list_clientcompany as $l)
+                <tr>
+                    <td class="img" style="width: 20px;"><img src="{{ asset('images/personal_images') }}/{{$l->CC_Logo}}" style="width: 50px;height: 50px;  margin-left:4.5px;" class="img-circle"></td>
+                    <td>{{ $l->CC_Address }}</td>
+                    <td>{{ $l->CC_Name }}</td>
+                    <td>{{ $l->CC_Skype }}</td>
+                    <td>{{ $l->CC_Phone }}</td>
+                    <td>
+                        <?php $list_representative = App\Clients::where('idClientCompany','=',$l->idClientCompany)->get();?>
+                        @foreach ($list_representative as $lr)
+                            {{ $lr->ClientName }},
+                        @endforeach
+                    </td>
+                    <td>{{ $l->CC_Description }}</td>
+                    <td><a href="{{ url('admin/personal-information/clientcompany/edit').'/'.$l->idClientCompany }}" class="glyphicon glyphicon-pencil"></a></td>
+                    <td><a href="{{ url('admin/personal-information/client_company').'/'.$l->idClientCompany }}/"><i class="fa fa-info" aria-hidden="true"></i></a></td>
+                </tr>
+            @endforeach
+            @endif
             </tbody>
         </table>
     </div>
@@ -64,10 +119,19 @@
 <script>
     jQuery(document).ready(function($) {
         $('#table').DataTable();
-        $('.dataTables_length').parent().html('<select id="type-list" class="pull-left"><option></option><option value="1">Employees</option><option value="2">Clients</option></select>');
+        /*Custom Table*/
+        $('.dataTables_length').parent().html('Type of list: <form action="{{ url('admin/personal-information') }}" method="POST" style="display:inline"> {{ csrf_field() }} <select id="type-list" name="typelist" class="pull-left" onchange="this.form.submit()"><option></option><option value="1" {{ isset($list_employee) ? 'selected' : '' }}>Employees</option><option value="2" {{ isset($list_client) ? 'selected' : '' }}>Clients</option><option value="3" {{ isset($list_clientcompany) ? 'selected' : '' }}>Client Company</option></select></form>');
+        $('.dataTables_info').parent().hide();
+        $('.dataTables_info').parent().next().attr('class','col-md-12');
         $('select#type-list').select2({
             placeholder: 'Choose type of list',
             minimumResultsForSearch: Infinity
+        });
+    });
+</script>
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        $('#type-list').change(function(event) {
         });
     });
 </script>
@@ -231,6 +295,13 @@
         });
 </script>   
  -->
+ <script type="text/javascript">
+    $(document).ready(function () {
+           setTimeout(function() {
+            $('.alert').fadeOut('slow');
+        }, 2000);
+    });
+</script>
  <script>
      jQuery(document).ready(function($) {
          $('.account').addClass('active');

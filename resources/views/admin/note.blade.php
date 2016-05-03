@@ -2,9 +2,8 @@
 @section('title','Note')
 @section('css')
 <link rel="stylesheet" type="text/css" href="{{ asset('css/note.css') }}">
-@stop
-<style>
-.content-box-large {
+<style type="text/css">
+    .content-box-large {
     margin-bottom: 20px;
     height: 165px;
     width: 187px;
@@ -13,14 +12,11 @@
     background-repeat: no-repeat, no-repeat;
     background-position: right top, left top;
     padding: 10px;
-    background-color: #fff;
     border-radius: 5px;
     color: white;
     margin-left: 40px;
-    margin-right: 0px;/* 
-    -webkit-box-shadow: 5px 5px 5px 0px rgba(107, 7, 32, 1);
-    -moz-box-shadow: 5px 5px 5px 0px rgba(107, 7, 32, 1);
-    box-shadow: 10px 10px 5px 0px rgba(107, 7, 32, 1); */
+    margin-right: 0px;
+    position: relative;
 }
 .content-box-large:hover{
     cursor: pointer;
@@ -78,8 +74,8 @@
 
 .time-note {
     position: absolute;
-    bottom: 6px;
-    right: 55px;
+    bottom: -27px;
+    right: 30px;
     color: #2c3e50;
     font-family: "Purisa";
     margin-bottom: 50px;
@@ -101,6 +97,7 @@
     height: 50px;
 }
 </style>
+@stop
 @section('content')
     @if (Session::has('flat'))
         <div class="alert alert-success" role="alert">{{Session('flat')}}</div>
@@ -113,18 +110,18 @@
         </div>
     </div> -->
     <hr>
+
+    <?php  $Note = App\Note::all();?>
+    <div class="row folder">
     <div class="col-md-3 projects">
         <div class="content-box-large" onclick="$('#create-note').trigger('click');" style="">
                     <p style="font-size: 48px;color: #2c3e50; margin-left: 30px">...</p>
         </div>
     </div>
-    <?php  $Note = App\Note::all();?>
-    <div class="row folder">
-
     @foreach ($list_idNote as $idnote)
     <div class="col-md-3 projects">
             <div class="content-box-large" onclick="$('#open-modal{{ $idnote->idNote }}').trigger('click');" style="">
-                
+
                 <p class="title-note"><b>{{$idnote->N_Title}}</b></p>
                 <p class="time-note"><i>{{$idnote->N_DateCreate}}</i></p>
 
@@ -148,7 +145,7 @@
                                 <br>
                                 <label for="">Content of Note:</label>
                                 <br>
-                                <textarea name="edit_content" rows="10" cols="55" disabled="true">{{ $idnote->N_Content }}</textarea>                      
+                                <textarea name="edit_content" rows="10" cols="55" disabled="true">{{ $idnote->N_Content }}</textarea>
                             </div>
                             <div class="modal-footer">
                                 <div class="submit" style="float:right">
@@ -182,7 +179,7 @@
                                 <br>
                                 <label for="">Content of Note:</label>
                                 <br>
-                                <textarea name="edit_content" rows="10" cols="55">{{ $idnote->N_Content }}</textarea>                      
+                                <textarea name="edit_content" rows="10" cols="55">{{ $idnote->N_Content }}</textarea>
                             </div>
                             <div class="modal-footer">
                                 <div class="submit" style="float:right">
@@ -243,14 +240,14 @@
                             <a data-dismiss="modal" class="btn btn-default">Cancel</a>
                         </div>
                      </form>
-                </div>               
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Notification when finish to create note! -->
-    <div>       
-        @if(Session::has('msg1'))            
+    <div>
+        @if(Session::has('msg1'))
             <a data-toggle="modal" id="msg1" href='#msg1-id'></a>
             <div class="modal fade" id="msg1-id">
                 <div class="modal-dialog">
@@ -284,19 +281,19 @@
 @stop
 @section('script')
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script>
-  
+
     <script  type="text/javascript" charset="utf-8">
         $(document).on('click', "#edit-btn",function(){
             $(this).parent().parent().parent().parent().parent().parent().find(".close").click();
-        });        
+        });
     </script>
-    
+
     <script  type="text/javascript" charset="utf-8">
         $(document).on('click', "#delete-btn",function(){
             $(this).parent().parent().parent().parent().parent().parent().find(".close").click();
-        });        
+        });
     </script>
-	
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.4/raphael-min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
     <script type="text/javascript" src="{{ asset('js/jquery-validate/jquery.validate.js') }}"></script>

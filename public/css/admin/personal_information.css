@@ -2,11 +2,6 @@
     font-size: 12px;
     height: 30px;
 }
-
-td {
-    line-height: 50px;
-}
-
 #add {
     position: fixed;
     top: 135px;
@@ -18,9 +13,6 @@ td {
     width: 40px;
     height: 40px;
 }
-.pagination{
-	float: right;
-}
 select#type-list{
     width: 150px;
 }
@@ -28,6 +20,6 @@ table{
     margin-bottom: 0!important;
 }
 table tr td{
-    line-height: 50px!important;
+    line-height: 40px!important;
 
 }

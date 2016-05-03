@@ -15,15 +15,15 @@
             ?>
             <input type="hidden" name="n_listE">
         <div class="info row">
-            <div class="col-xs-3 form-group  {{ $errors->has('in_NameofProject') ? ' has-error' : '' }} validate"  {!! $errors->has('in_NameofProject') ? ' data-toggle="tooltip" data-placement="top" title="'.$errors->first('in_NameofProject').'"' : '' !!} >
+            <div class="col-md-3 form-group text-center {{ $errors->has('in_NameofProject') ? ' has-error' : '' }} validate"  {!! $errors->has('in_NameofProject') ? ' data-toggle="tooltip" data-placement="bottom" title="'.$errors->first('in_NameofProject').'"' : '' !!} >
                 <label for=""><i>Project</i></label>
                 <input type="text" name="in_NameofProject" class="form-control" placeholder="Name Of Project">
             </div>
-            <div class="col-xs-3 form-group  {{ $errors->has('wrong_day') || $errors->has('wrong_start_day') ? ' has-error' : '' }} validate"  {!! $errors->has('wrong_start_day') ? ' data-toggle="tooltip" data-placement="top" title="'.$errors->first('wrong_start_day').'"' : ($errors->has('wrong_day') ? ' data-toggle="tooltip" data-placement="top" title="'.$errors->first('wrong_day').'"' :'')  !!} >
+            <div class="col-md-3 form-group text-center {{ $errors->has('wrong_day') || $errors->has('wrong_start_day') ? ' has-error' : '' }} validate"  {!! $errors->has('wrong_start_day') ? ' data-toggle="tooltip" data-placement="bottom" title="'.$errors->first('wrong_start_day').'"' : ($errors->has('wrong_day') ? ' data-toggle="tooltip" data-placement="bottom" title="'.$errors->first('wrong_day').'"' :'')  !!} >
                 <label for=""><i>Time</i></label>
                 <input type="text" name="daterange" class="form-control" />
             </div>
-            <div class="col-xs-3 form-group">
+            <div class="col-md-3 form-group text-center">
                 <label for=""><i>Client</i></label>
                <select class="list" name="sl_Client">
                 @foreach ($listC as $c)
@@ -31,7 +31,7 @@
                 @endforeach
                 </select>
             </div>
-            <div class="col-xs-3 form-group">
+            <div class="col-md-3 form-group text-center">
                 <label for=""><i>Manager</i></label>
                 <select class="list list-PM" name="sl_PM">
                     <option></option>
@@ -41,9 +41,12 @@
                     @endforeach
                 </select>
             </div>
+            <div class="col-md-12 form-group validate {{ $errors->has('in_descrip') ? ' has-error' : '' }}" {!! $errors->has('in_descrip') ? ' data-toggle="tooltip" data-placement="bottom" title="'.$errors->first('in_descrip').'"' : '' !!}>
+                <textarea name="in_descrip" placeholder="What is project about?" class="form-control"; style="resize: none;width: 100%;margin-top: 10px;height: 60px;"></textarea>
+            </div>
         </div>
-        <div class="row table-responsive">
-            <div class="col-xs-12">
+        <div class="row">
+            <div class="col-md-12 table-responsive">
                 <table id="myTable" class="tablesorter table table-striped table-bordered table-responsive results">
                     <thead>
                         <tr>
@@ -60,15 +63,15 @@
                                 <span style="color: red" class="pull-right">{{$errors->first('wrong_leader')}}</span>
                             @endif
                         <tr class="warning no-result">
-                          <td colspan="5"><i class="fa fa-warning"></i> No result</td>
+                          <td colspan="6"><i class="fa fa-warning"></i> No result</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-        <div class="row" style="margin-bottom:5px;">
+        <div class="row" >
             <div class="col-md-6">
-                <label for=""><i>Search</i></label>
+                <label for="" class="label-search"><i>Search</i></label>
                 <input type="text" class="form-control search" placeholder="Search for employee">
             </div>
             <div class="col-md-6">
@@ -78,7 +81,6 @@
                 </div>
             </div>
         </div>
-        <div class="clear40"></div>
     </form>
 @stop
 @section('script')

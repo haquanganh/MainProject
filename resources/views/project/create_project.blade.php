@@ -19,8 +19,8 @@
                  $listC = App\Clients::all();
             ?>
         <input type="hidden" value="{{$listE->count()}}" name="n_listE">
-        <div class="info row">
-            <div class="col-md-4 form-group  {{ $errors->has('in_NameofProject') ? ' has-error' : '' }} validate"  {!! $errors->has('in_NameofProject') ? ' data-toggle="tooltip" data-placement="top" title="'.$errors->first('in_NameofProject').'"' : '' !!} >
+        <div class="info row text-center">
+            <div class="col-md-4 form-group  {{ $errors->has('in_NameofProject') ? ' has-error' : '' }} validate"  {!! $errors->has('in_NameofProject') ? ' data-toggle="tooltip" data-placement="bottom" title="'.$errors->first('in_NameofProject').'"' : '' !!} >
                 <label for=""><i>Project</i></label>
                 <input type="text" name="in_NameofProject" class="form-control" placeholder="Name Of Project">
             </div>
@@ -32,14 +32,16 @@
                 @endforeach
                 </select>
             </div>
-            <div class="col-md-4 form-group  {{ $errors->has('wrong_day') || $errors->has('wrong_start_day') ? ' has-error' : '' }} validate"  {!! $errors->has('wrong_start_day') ? ' data-toggle="tooltip" data-placement="top" title="'.$errors->first('wrong_start_day').'"' : ($errors->has('wrong_day') ? ' data-toggle="tooltip" data-placement="top" title="'.$errors->first('wrong_day').'"' :'')  !!} >
+            <div class="col-md-4 form-group  {{ $errors->has('wrong_day') || $errors->has('wrong_start_day') ? ' has-error' : '' }} validate"  {!! $errors->has('wrong_start_day') ? ' data-toggle="tooltip" data-placement="bottom" title="'.$errors->first('wrong_start_day').'"' : ($errors->has('wrong_day') ? ' data-toggle="tooltip" data-placement="bottom" title="'.$errors->first('wrong_day').'"' :'')  !!} >
                 <label for=""><i>Time</i></label>
                 <input type="text" name="daterange" class="form-control" />
             </div>
+            <div class="col-md-12 form-group validate {{ $errors->has('in_descrip') ? ' has-error' : '' }}" {!! $errors->has('in_descrip') ? ' data-toggle="tooltip" data-placement="bottom" title="'.$errors->first('in_descrip').'"' : '' !!}>
+                <textarea name="in_descrip" placeholder="What is project about?" class="form-control"; style="resize: none;width: 100%;margin-top: 10px;height: 60px;"></textarea>
+            </div>
         </div>
-
-        <div class="row table-responsive">
-            <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-12  table-responsive">
                 <table id="myTable" class="tablesorter table table-striped table-bordered table-responsive results">
                     <thead>
                         <tr>

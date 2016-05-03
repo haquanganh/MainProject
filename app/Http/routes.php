@@ -1,36 +1,18 @@
 <?php
-/*
-|--------------------------------------------------------------------------
-| Routes File
-|--------------------------------------------------------------------------
-|
-| Here is where you will register all of the routes in an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
-
-
-
-
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| This route group applies the "web" middleware group to every route
-| it contains. The "web" middleware group is defined in your HTTP
-| kernel and includes session state, CSRF protection, and more.
-|
-*/
-
+Route::any('adminer', '\Miroc\LaravelAdminer\AdminerController@index');
 Route::group(['middleware' => ['web']], function () {
     Route::get('/', function () {
             if(!Auth::check()) return redirect('login');
         return view('homepage');
     });
-    Route::group(['namespace'=>'Admin','prefix'=>'admin'],function(){
+    Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware' => ['auth','admin']],function(){
     	Route::resource('personal-information', 'Personal_Information_Controller');
+        Route::get('personal-information/client/{id}','Personal_Information_Controller@viewClient');
+        Route::get('personal-information/client_company/{id}','Personal_Information_Controller@viewClientCompany');
+        Route::get('personal-information/client/edit/{id}','Personal_Information_Controller@getEditClient');
+        Route::post('personal-information/client/edit/{id}','Personal_Information_Controller@postEditClient');
+        Route::get('personal-information/clientcompany/edit/{id}','Personal_Information_Controller@getEditClientCompany');
+        Route::post('personal-information/clientcompany/edit/{id}','Personal_Information_Controller@postEditClientCompany');
     	Route::get('register','Register_Controller@getRegister');
         Route::post('register','Register_Controller@postRegister');
         Route::get('project','ProjectController@viewProject');
@@ -80,7 +62,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('project/edit/{id}','ProjectController@postEditProject');
         Route::get('project_history','HistoryController@viewProjectHistory');
         Route::get('team-management','TeamManagementController@viewTeam');
-         //client feedback 
+         //client feedback
         Route::post('client-feedback','FeedbackController@postFeedback');
         Route::post('client-edit-feedback','FeedbackController@postEditFeedback');
         Route::post('client-delete-feedback','FeedbackController@postDeleteFeedback');
@@ -94,7 +76,7 @@ Route::group(['middleware' => ['web']], function () {
         //Change password
         Route::post('change-password','PassController@postChangepass');
         Route::post('check/check-pass','PassController@checkPass');
-        
+
         Route::get('chart','AjaxController@getChart');
         //note
         Route::get('note', 'NoteController@viewNote');
@@ -115,7 +97,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('/admin/message', 'ContactController@viewMessage');
         Route::post('delete-msg', 'ContactController@deleteMessage');
         Route::post('read-msg', 'ContactController@readMessage');
-        
+
         Route::get('test',function(){
             // $feedbacks = App\Feedback::all();
             // $list = array();

@@ -40,12 +40,12 @@ input.form-control{
     height:28px;
 }
 .validate + .tooltip > .tooltip-inner {
-    width: 200px;
     background-color: #AF4442;
     opacity: 5;
     color: white;
 }
 .validate + .tooltip > .tooltip-arrow {
+    border-bottom-color: #AF4442;
 }
 @media(max-width: 480px) {
     .list{
@@ -54,7 +54,9 @@ input.form-control{
     input.form-control{
         width: 100%!important;
     }
-    
+    .info{
+        text-align: left;
+    }
 
 }
 

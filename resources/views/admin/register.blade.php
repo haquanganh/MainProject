@@ -383,7 +383,7 @@ function myFunction() {
     var text1 = text+ '</select>';
 
 	cell2.innerHTML= text1;
-	cell3.innerHTML = '<a class="aDel">Remove</a>';
+	cell3.innerHTML = '<a class="aDel"><i class="fa fa-times" aria-hidden="true"></i></a>';
 
 }
 $('#table').on('click','.aDel',function(){

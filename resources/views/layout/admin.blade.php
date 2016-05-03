@@ -9,9 +9,8 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ asset('third-library/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('third-library/font-awesome-4.6.1/css/font-awesome.min.css') }}">
-    <link href="{{ asset('css/admin/master.css') }}" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/admin/message.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('third-library/animate.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin/master.css') }}">
+    <link rel="stylesheet" href="{{ asset('third-library/animate.css') }}">
     @yield('css')
 </head>
 
@@ -42,28 +41,29 @@
         </div>
         <div id="maincontent">
             <div id="topbar">
+                <h4 style="float: left">Personal Information</h4>
                 <ul id="action">
-                    <li><a href=""><i class="glyphicon glyphicon-home"></i></a></li>
-                    
+                    <li><a href="{{ url('/') }}"><i class="glyphicon glyphicon-home"></i></a></li>
+
                     <!-- Messsage -->
                     <?php
                        $servername = "localhost";
                        $username = "root";
                        $password = "1234";
                        $dbname = "MainDB";
-                 
+
                        // Create connection
-                 
+
                        $conn = new mysqli($servername, $username, $password, $dbname);
-                 
+
                        // Check connection
-                 
+
                        if ($conn->connect_error) {
-                 
+
                            die("Connection failed: " . $conn->connect_error);
-                 
-                       } 
-                 
+
+                       }
+
                        $sql = "SELECT * from Message where M_Status = '0'";
                        $result = $conn->query($sql);
                        $row = $result->fetch_assoc();
@@ -74,25 +74,25 @@
                         <a class="dropdown-toggle" href="" data-toggle="dropdown" id="notificationLink"><i class="fa fa-envelope-o"></i>
                             <span class="badge badge1">{{ $count }}</span>
                         </a>
-                        <div class="dropdown-menu" id="in" style="padding: 3px 0px 0px;margin-right: 240px; left: 530px;">
+                        <div class="dropdown-menu" id="in">
                             <div id="notificationTitle">Message</div>
                             <div id="notificationsBody" class="notifications" style="height: 330px; overflow-x: hidden; overflow-y: auto;">
                                 <?php
                                     $list_message = DB::table('Message')->select('*')->where('M_Status','=','0')->get();
                                 ?>
                                 @foreach( $list_message as $idmessage )
-                                    <div>                               
+                                    <div>
                                         <td onclick="">{{ $idmessage->sender }} has sent a message for you</td>
                                     </div class="horizontal-line">
                                     <!-- <td>{{ $idmessage->dateSend }}</td> -->
-                                    <br>             
+                                    <br>
                                 @endforeach
                             </div>
                             <div id="notificationFooter"><a href="{{ url('/admin/message') }}" id="ft_see" style="color: #fff">See All</a></div>
                         </div>
-                    </li>                      
-                    <!-- End Message -->    
-                    <?php 
+                    </li>
+                    <!-- End Message -->
+                    <?php
                         $countC_E = count(App\Request_info::select()
                                     ->where('status', '=', '0')->get());
                         $countE_E = count(App\RequestE_E::select()
@@ -127,10 +127,10 @@
                         </div>
                     </div>
                 </div> -->
-                
+
             </div>
         </div>
-    </div>  
+    </div>
     <!-- jQuery -->
     <script src="{{ asset('third-library/jquery/jquery-2.2.3.min.js') }}"></script>
     <!-- Bootstrap JavaScript -->
@@ -164,7 +164,7 @@
                 $('.glyphicon-chevron-down').parent().show();
             });
         });
-        $(document).ready(function(){    
+        $(document).ready(function(){
             $('#add-menu').hover(function(){
                     $('#add-menu .addnewskill').toggle(100);
                     $('#add-menu .englishrecord').toggle(100);

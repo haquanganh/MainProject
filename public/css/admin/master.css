@@ -14,11 +14,23 @@ body {
     margin: 0;
     padding: 0;
 }
+
+
 /*
 a {
     color: #548F53;
 }
 */
+body{
+    background: rgba(255, 255, 255, 1);
+    background: -moz-linear-gradient(left, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(255, 255, 255, 1)), color-stop(47%, rgba(246, 246, 246, 1)), color-stop(100%, rgba(237, 237, 237, 1)));
+    background: -webkit-linear-gradient(left, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
+    background: -o-linear-gradient(left, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
+    background: -ms-linear-gradient(left, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
+    background: linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed', GradientType=1);
+}
 #left-bar {
     display: flex;
     position: fixed;
@@ -36,7 +48,9 @@ a {
     background: linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
     filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed', GradientType=1);
 }
-li.addnewskill ,li.englishrecord{
+
+li.addnewskill,
+li.englishrecord {
     background-color: red;
     display: none;
     background-color: #F1F1F1;
@@ -67,9 +81,11 @@ li.addnewskill ,li.englishrecord{
     margin-left: -5px;
     padding: 2px 5px !important;
 }
-.badge1{
+
+.badge1 {
     margin-left: -8px;
 }
+
 #choose {
     margin: 0;
     padding: 0;
@@ -120,7 +136,6 @@ li.addnewskill ,li.englishrecord{
     top: 0px;
     width: 100%;
     z-index: 1;
-    background-color: #ffffff;
     background: rgba(255, 255, 255, 1);
     background: -moz-linear-gradient(left, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
     background: -webkit-gradient(left top, right top, color-stop(0%, rgba(255, 255, 255, 1)), color-stop(47%, rgba(246, 246, 246, 1)), color-stop(100%, rgba(237, 237, 237, 1)));
@@ -188,59 +203,6 @@ li.addnewskill ,li.englishrecord{
     padding-top: 50px;
 }
 
-.col-lg-1,
-.col-lg-10,
-.col-lg-11,
-.col-lg-12,
-.col-lg-2,
-.col-lg-3,
-.col-lg-4,
-.col-lg-5,
-.col-lg-6,
-.col-lg-7,
-.col-lg-8,
-.col-lg-9,
-.col-md-1,
-.col-md-10,
-.col-md-11,
-.col-md-12,
-.col-md-2,
-.col-md-3,
-.col-md-4,
-.col-md-5,
-.col-md-6,
-.col-md-7,
-.col-md-8,
-.col-md-9,
-.col-sm-1,
-.col-sm-10,
-.col-sm-11,
-.col-sm-12,
-.col-sm-2,
-.col-sm-3,
-.col-sm-4,
-.col-sm-5,
-.col-sm-6,
-.col-sm-7,
-.col-sm-8,
-.col-sm-9,
-.col-xs-1,
-.col-xs-10,
-.col-xs-11,
-.col-xs-12,
-.col-xs-2,
-.col-xs-3,
-.col-xs-4,
-.col-xs-5,
-.col-xs-6,
-.col-xs-7,
-.col-xs-8,
-.col-xs-9,
-.row {
-    padding: 0;
-    margin: 0;
-}
-
 .toggle {
     display: none;
 }
@@ -271,7 +233,163 @@ li.addnewskill ,li.englishrecord{
     display: none;
 }
 
-.table-responsive {}
+
+/* Notify for messages */
+
+#notificationContainer {
+    background-color: #fff;
+    border: 1px solid rgba(100, 100, 100, .4);
+    -webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: absolute;
+    top: 30px;
+    margin-left: -170px;
+    width: 400px;
+    z-index: -1;
+    display: none;
+}
+
+#notificationContainer:before {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 0;
+    color: transparent;
+    border: 10px solid black;
+    border-color: transparent transparent white;
+    margin-top: -20px;
+    margin-left: 188px;
+}
+
+#notificationTitle {
+    z-index: 1000;
+    font-weight: bold;
+    padding: 8px;
+    font-size: 16px;
+    color: #548F11;
+    background-color: #ffffff;
+    width: 384px;
+    border-bottom: 1px solid #dddddd;
+    padding: 5px 5px 5px 14px;
+}
+
+#notificationsBody {
+    padding: 15px 0px 0px 15px !important;
+    min-height: 300px;
+    color: #05374D;
+}
+
+#notificationFooter {
+    background-color: #548F11;
+    color: #ffffff;
+    text-align: center;
+    font-weight: bold;
+    padding: 8px;
+    font-size: 12px;
+    border-top: 1px solid #dddddd;
+}
+
+#notification_count {
+    padding: 0px 4px 0px 4px;
+    background: #548F11;
+    color: #fff;
+    font-weight: bold;
+    margin-left: 46px;
+    border-radius: 9px;
+    position: absolute;
+    margin-top: -1px;
+    font-size: 11px;
+}
+
+#messageContainer {}
+
+.scrollable {
+    float: left;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 260px;
+    /* adjust this width depending to amount of text to display */
+    height: 500px;
+    /* adjust height depending on number of options to display */
+    border: 1px silver solid;
+}
+
+.scrollable select {
+    border: none;
+}
+
+.scrollable {
+    height: 500px;
+    background-color: white;
+}
+
+.scrollable::-webkit-scrollbar {
+    width: 8px;
+}
+
+.scrollable::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+    background-color: #7f8c8d;
+    border-radius: 8px;
+}
+
+.content {
+    float: right;
+    width: 630px;
+    height: 500px;
+    border: 1px silver solid;
+}
+
+.title-msg {
+    height: inherit;
+    width: inherit;
+    list-style-type: none;
+    padding: 0;
+}
+
+.title-msg li {
+    height: 40px;
+    border-bottom: 1px solid #bdc3c7;
+}
+
+.title-msg li a:hover {
+    background-color: #cfcfcf;
+    text-decoration: none;
+}
+
+.title-msg li a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    line-height: 40px;
+    padding-left: 10px;
+}
+
+.ok-btn {
+    border: none;
+}
+
+#remove-btn {
+    border: none;
+}
+
+td.delete-style {
+    text-decoration: line-through;
+}
+
+#in {
+    right: 340px;
+    left: auto!important;
+}
+
+
+/* Responsive for mobile screen */
 
 @media(max-width: 480px) {
     #left-bar {
@@ -334,5 +452,11 @@ li.addnewskill ,li.englishrecord{
     }
     .sign-out {
         display: none;
+    }
+    #in {
+        right: 20px;
+    }
+    #notificationTitle {
+        width: 320px;
     }
 }

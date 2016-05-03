@@ -138,7 +138,7 @@
 					</thead>
 					<tbody>
 					@foreach ($feedback as $f)
-						<tr class="custom-tooltip" data-toggle="tooltip" title="{{ $f->F_Content }}">
+						<tr class="custom-tooltip" data-toggle="tooltip" data-placement="bottom" title="{{ $f->F_Content }}">
 							<td>{{ $f->F_DateCreate }}</td>
 							<td>{{ App\Project::find($f->idProject)->P_Name }}</td>
 							<td>{{ App\Employee::find($f->idEmployee)->E_EngName }}</td>

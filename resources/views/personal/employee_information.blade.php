@@ -25,7 +25,7 @@
                     @if($id_Role == 4)
                         <option value="Search by cost/hour">Search by cost/hour</option>
                     @endif
-                </select> 
+                </select>
                 <div class="clear"></div>
             </form>
         </div> -->
@@ -46,10 +46,9 @@
                     <th>Phone</th>
                     <th>Role</th>
                     <th>View more</th>
-                    <th>View feedback</th>
+                    <th>View feedbacks</th>
                 </tr>
             </thead>
-
             @if (isset($list_search))
                 <tbody>
                 @for ($i = 0; $i < sizeof($list_search); $i++)
@@ -58,7 +57,7 @@
                             <td>{{ $list_search[$i]['name']}}</td>
                             <td>{{ $list_search[$i]['dob']}}</td>
                             <td>{{ $list_search[$i]['skype']}}</td>
-                            <td>{{ $list_search[$i]['phone']}}</td> 
+                            <td>{{ $list_search[$i]['phone']}}</td>
                             <td>{{ $list_search[$i]['role']}}</td>
                             <td style="width: 100px; text-align: center;">
                                 @if($list_search[$i]['status'] == 1)
@@ -88,14 +87,14 @@
                                                 </div>
                                             </div>
                                         </form>
-                                    </div>    
+                                    </div>
                                 @endif
                             </td>
                         </tr>
-                    @endfor 
-                </tbody> 
+                    @endfor
+                </tbody>
 
-             @else 
+             @else
 
                 <tbody>
                     @for ($i = 0; $i < sizeof($kq); $i++)
@@ -104,7 +103,7 @@
                             <td>{{ $kq[$i]['name']}}</td>
                             <td>{{ $kq[$i]['dob']}}</td>
                             <td>{{ $kq[$i]['skype']}}</td>
-                            <td>{{ $kq[$i]['phone']}}</td> 
+                            <td>{{ $kq[$i]['phone']}}</td>
                             <td>{{ $kq[$i]['role']}}</td>
                             <td style="width: 100px; text-align: center;">
                                 @if($kq[$i]['status'] == 1)
@@ -138,26 +137,83 @@
                                 @endif
                             </td>
                             <td><a href="#feedback-show{{ $kq[$i]['idEmployee'] }}" class="feedback-show" data="{{ $kq[$i]['idEmployee'] }}" data-toggle="modal">View feedbacks</a></td>
-                            <div class="modal fade" id="feedback-show{{ $kq[$i]['idEmployee'] }}">
+                            <div class="modal fade feedback-modal" id="feedback-show{{ $kq[$i]['idEmployee'] }}">
                                 <div class="modal-dialog">
+                                <div class="modal-footer">
+                                            <button class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i></button>
+                                        </div>
                                     <div class="modal-content">
                                         <div class="modal-body">
-                                        
+                                        <!--  -->
+
+                                        <?php
+                                            $feedbacks = App\Feedback::where('idEmployee','=',$kq[$i]['idEmployee'])->get();
+                                        ?>
+                                        <div class="panel panel-info history_feedback panel-group">
+                                            <div class="panel-heading">Feedback</div>
+                                            <div class="panel-body">
+                                            @if ($feedbacks->count() != 0)
+                                                @foreach ($feedbacks as $key=>$f)
+                                                <div class="panel panel-default">
+                                                  <div class="panel-heading">
+                                                    <div class="row" style="padding: 0!important;margin: 0!important;">
+                                                    <div class="col-md-1" style="padding: 0">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $key+1 }}"><i class="glyphicon glyphicon-collapse-down" ></i></a>
+                                                    </div>
+                                                    <div class="col-md-8" style="margin: 0;padding: 0">
+                                                        <p>{{ $f->F_Title }}</p>
+                                                    </div>
+                                                    <div class="col-md-3 text-center" style="padding: 0";>
+                                                        <span>
+                                                            @for($e = 0 ;$e < $f->F_Rate; $e++)
+                                                                <img src="{{ asset('images/icon-star.png') }}">
+                                                            @endfor
+                                                        </span>
+                                                    </div>
+                                                    </div>
+                                                  </div>
+                                                  <div id="collapse{{ $key+1 }}" class="panel-collapse collapse">
+                                                    <div class="panel-body">
+                                                        <h5>{{ $f->F_Content }}</h5>
+                                                        <hr>
+                                                        <div>
+                                                            <span><i><b>Client</i></b></span>
+                                                            <p>{{ App\Clients::find($f->idClient)->ClientName }}</p>
+                                                        </div>
+                                                        <div>
+                                                            <span><i><b>Date</i></b></span>
+                                                            <?php
+                                                                $date = new DateTime($f->F_DateCreate);
+                                                            ?>
+                                                            <p>{{ $date->format('Y-F-d') }}</p>
+                                                        </div>
+                                                        <div>
+                                                            <span><i><b>Project</i></b></span>
+                                                            <p>{{ App\Project::find($f->idProject)->P_Name }}</p>
+                                                        </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                                @endforeach
+                                            @else
+                                             This employee hasn't had any feedback from Clients
+                                            @endif
+                                            </div>
                                         </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <!--  -->
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </tr>
-                    @endfor 
+                    @endfor
                 </tbody>
             @endif
         </table>
     </div>
     <!-- Message after send request -->
-    @if(Session::has('messages'))            
+    @if(Session::has('messages'))
         <a data-toggle="modal" id="messages-click" href='#messages'></a>
         <div class="modal fade" id="messages">
             <div class="modal-dialog">
@@ -186,7 +242,7 @@
             $('#table_filter label').hide();
 
             $('<div class="search-form ui-widget"><form method="POST" action="{{ url("/employee-information") }}">{!! csrf_field() !!}<button class="btn btn-primary" type="submit" value="Search"><span class="glyphicon glyphicon-search"></span></button><input class="form-control" type="text"  id="search" name="search" value="@if(isset($searches)){{ $searches }}@endif"></input><?php $id_Role = Auth::user()->idRole;?><select name="search-type" class="form-control select">@if (isset($search_type))<option id="search_type"value="{{ $search_type }}">{{ $search_type }}</option>@endif<option value="Search by name">Search by name</option><option value="Search by skill">Search by skill</option></select><div class="clear"></div></form></div>').appendTo('#table_filter');
-            
+
             $('#table_filter select').hover(function() {
                 $('#search_type').hide();
             });
@@ -195,4 +251,5 @@
             @endif
         });
     </script>
+    <scri
 @stop

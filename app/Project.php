@@ -14,7 +14,7 @@ use DB;
 class Project extends Model
 {
     protected $table = 'Project';
-    protected $fillable = ['idProject', 'P_Name','idPManager','idTeamleader','idClient','P_DateCreate','P_DateStart','P_DateFinish','P_Note','idPStatus'];
+    protected $fillable = ['idProject', 'P_Name','idPManager','idTeamleader','idClient','P_DateCreate','P_DateStart','P_DateFinish','P_Description','idPStatus'];
     protected $hidden = [];
     protected $primaryKey = 'idProject';
     public $timestamps = false;

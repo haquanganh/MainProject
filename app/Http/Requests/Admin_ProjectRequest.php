@@ -25,12 +25,14 @@ class Admin_ProjectRequest extends Request
     {
         return [
             'in_NameofProject' => 'required|max:150',
+            'in_descrip' => 'required',
         ];
     }
     public function messages(){
         return [
             'in_NameofProject.required' => 'Please enter the Project Name',
             'in_NameofProject.max' => 'Project Name can not be more than 150 characters',
+            'in_descrip.required' => 'Please enter the Project Description',
         ];
     }
 }

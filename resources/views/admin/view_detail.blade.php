@@ -161,7 +161,10 @@
                                 $endday = $sd->format('m-F-Y');
                                 ?>
                                     <tr>
-                                    <td class="action">{{ $e->Content }}</td>
+                                    <?php
+                                        $temp = explode(".", $e->Content);
+                                    ?>
+                                    <td class="action">{!! $temp[0].'<i> "'.App\Project::find($temp[1])->P_Name.'</i> "'!!}</td>
                                     <td class="start_day">{{ $startday }}</td>
                                     <td class="end_day">{{ !empty($e->DateEnd) ? $endday : 'Now'}}</td>
                                 </tr>

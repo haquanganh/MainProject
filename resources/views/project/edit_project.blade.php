@@ -12,8 +12,8 @@
             <div class="clear40" style="height: 20px;"></div>
             <form class="form-inline" role="form" method="POST" action="{{ url('/project/edit') }}/{{$project->idProject}}">
             {{csrf_field()}}
-                <div class="info row" style="margin-bottom: 10px">
-                    <div class="col-md-3 form-group {{ $errors->has('in_PName') ? ' has-error' : '' }} validate"  {!! $errors->has('in_PName') ? ' data-toggle="tooltip" data-placement="top" title="'.$errors->first('in_PName').'"' : '' !!}>
+                <div class="info row text-center" style="margin-bottom: 10px">
+                    <div class="col-md-3 form-group {{ $errors->has('in_PName') ? ' has-error' : '' }} validate"  {!! $errors->has('in_PName') ? ' data-toggle="tooltip" data-placement="bottom" title="'.$errors->first('in_PName').'"' : '' !!}>
                         <label for=""><i>Project</i></label>
                         <input type="text" name="in_PName" class="form-control " placeholder="Name Of Project" value="{{$project->P_Name}}">
                     </div>
@@ -28,7 +28,7 @@
                         @endforeach
                         </select>
                     </div>
-                    <div class="col-md-3 form-group {{ $errors->has('wrong_day') || $errors->has('wrong_start_day') ? ' has-error' : '' }} validate"  {!! $errors->has('wrong_start_day') ? ' data-toggle="tooltip" data-placement="top" title="'.$errors->first('wrong_start_day').'"' : ($errors->has('wrong_day') ? ' data-toggle="tooltip" data-placement="top" title="'.$errors->first('wrong_day').'"' :'')  !!} >
+                    <div class="col-md-3 form-group {{ $errors->has('wrong_day') || $errors->has('wrong_start_day') ? ' has-error' : '' }} validate"  {!! $errors->has('wrong_start_day') ? ' data-toggle="tooltip" data-placement="bottom" title="'.$errors->first('wrong_start_day').'"' : ($errors->has('wrong_day') ? ' data-toggle="tooltip" data-placement="bottom" title="'.$errors->first('wrong_day').'"' :'')  !!} >
                         <label for=""><i>Time</i></label>
                         <?php
                             $sd = new DateTime($project->P_DateStart);
@@ -36,7 +36,7 @@
                             $startday = $sd->format('m/d/Y');
                             $endday = $ed->format('m/d/Y');
                         ?>
-                        <input type="text" name="daterange"  class="form-control" value="{{$startday}} - {{$endday}}" />
+                        <input type="text" name="daterange"  class="form-control" value="{{$startday}} - {{$endday}}">
                     </div>
                     <div class="col-md-3 form-group">
                         <label for=""><i>Project Status</i></label>
@@ -45,71 +45,70 @@
                             <option value="2" {{$project->idPStatus == '2' ? 'selected' : ''}}>Done</option>
                         </select>
                     </div>
+                    <div class="col-md-12 form-group validate {{ $errors->has('in_descrip') ? ' has-error' : '' }}" {!! $errors->has('in_descrip') ? ' data-toggle="tooltip" data-placement="bottom" title="'.$errors->first('in_descrip').'"' : '' !!}>
+                        <textarea name="in_descrip" placeholder="What is project about?" class="form-control"; style="resize: none;width: 100%;margin-top: 10px;height: 60px;">{{ $project->P_Description }}</textarea>
+                    </div>
                 </div>
-                <div class="row" style="">
-                    <div class="row table-responsive">
-                        <div class="row table-responsive">
-                            <div class="col-xs-12">
-                                <table class="table table-striped table-bordered table-responsive results text-center">
-                                    <thead >
-                                        <tr>
-                                            <td>Avatar</td>
-                                            <td>English name</td>
-                                            <td>Full Name</td>
-                                            <td>Email</td>
-                                            <td>Choose</td>
-                                            <td>Leader</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    @if($errors->has('wrong_leader'))
-                                        <span style="color: red" class="pull-right">{{$errors->first('wrong_leader')}}</span>
-                                    @endif
-                                    <?php
-                                        $idPManager = $project->idPManager;
-                                        $team_employees =App\Team::where('idPmanager','=',$idPManager)->first()->Employee;
+                <div class="row">
+                    <div class="col-md-12 table-responsive">
+                        <table class="table table-striped table-bordered table-responsive results text-center">
+                            <thead >
+                                <tr>
+                                    <td>Avatar</td>
+                                    <td>English name</td>
+                                    <td>Full Name</td>
+                                    <td>Email</td>
+                                    <td>Choose</td>
+                                    <td>Leader</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @if($errors->has('wrong_leader'))
+                                <span style="color: red" class="pull-right">{{$errors->first('wrong_leader')}}</span>
+                            @endif
+                            <?php
+                                $idPManager = $project->idPManager;
+                                $team_employees =App\Team::where('idPmanager','=',$idPManager)->first()->Employee;
 
-                                    ?>
-                                    @foreach ($team_employees as $key=>$e)
-                                    <?php
-                                        $check = App\ProjectEmployee::where('idProject','=',$project->idProject)->where('idEmployee','=',$e->idEmployee)->get();
-                                    ?>
-                                    @if (count($check) == 1 || $e->idEmployee == $project->idTeamLeader)
-                                     <!-- On working and in the project or TeamLeader -->
-                                        <tr class="TopRow">
-                                            <td><img src="{{ asset('images/personal_images') }}/{{$e->E_Avatar}}" class="img img-circle" alt=""></td>
-                                            <td>{{$e->E_EngName}}</td>
-                                            <td>{{$e->E_Name}}</td>
-                                            <td>{{$e->E_Skype}}</td>
-                                            <td>
-                                                <input class="checkbox" type="checkbox" name="cb[{{$key}}]"  checked data="{{$e->idEmployee}}">
-                                            </td>
-                                            <td>
-                                                <input class="r_leader" type="radio" name="r_leader" value="{{$e->idEmployee}}" {{$e->idEmployee == $project->idTeamLeader ? 'checked' : ''}}>
-                                            </td>
-                                        </tr>
-                                    @elseif($e->idStatus == 2)
-                                        <tr>
-                                            <td><img src="{{ asset('images/personal_images') }}/{{$e->E_Avatar}}" class="img img-circle" alt=""></td>
-                                            <td>{{$e->E_EngName}}</td>
-                                            <td>{{$e->E_Name}}</td>
-                                            <td>{{$e->E_Skype}}</td>
-                                            <td>
-                                                <input class="checkbox" type="checkbox" name="cb[{{$key}}]" data="{{$e->idEmployee}}">
-                                            </td>
-                                            <td>
-                                                <input class="r_leader" type="radio" name="r_leader" value="{{$e->idEmployee}}" disabled>
-                                            </td>
-                                        </tr>
-                                    @endif
-                                    @endforeach
-                                    </tbody>
-                                    <tr class="warning no-result">
-                                      <td colspan="6"><i class="fa fa-warning"></i> No result</td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
+                            ?>
+                            @foreach ($team_employees as $key=>$e)
+                            <?php
+                                $check = App\ProjectEmployee::where('idProject','=',$project->idProject)->where('idEmployee','=',$e->idEmployee)->get();
+                            ?>
+                            @if (count($check) == 1 || $e->idEmployee == $project->idTeamLeader)
+                             <!-- On working and in the project or TeamLeader -->
+                                <tr class="TopRow">
+                                    <td><img src="{{ asset('images/personal_images') }}/{{$e->E_Avatar}}" class="img img-circle" alt=""></td>
+                                    <td>{{$e->E_EngName}}</td>
+                                    <td>{{$e->E_Name}}</td>
+                                    <td>{{$e->E_Skype}}</td>
+                                    <td>
+                                        <input class="checkbox" type="checkbox" name="cb[{{$key}}]"  checked data="{{$e->idEmployee}}">
+                                    </td>
+                                    <td>
+                                        <input class="r_leader" type="radio" name="r_leader" value="{{$e->idEmployee}}" {{$e->idEmployee == $project->idTeamLeader ? 'checked' : ''}}>
+                                    </td>
+                                </tr>
+                            @elseif($e->idStatus == 2)
+                                <tr>
+                                    <td><img src="{{ asset('images/personal_images') }}/{{$e->E_Avatar}}" class="img img-circle" alt=""></td>
+                                    <td>{{$e->E_EngName}}</td>
+                                    <td>{{$e->E_Name}}</td>
+                                    <td>{{$e->E_Skype}}</td>
+                                    <td>
+                                        <input class="checkbox" type="checkbox" name="cb[{{$key}}]" data="{{$e->idEmployee}}">
+                                    </td>
+                                    <td>
+                                        <input class="r_leader" type="radio" name="r_leader" value="{{$e->idEmployee}}" disabled>
+                                    </td>
+                                </tr>
+                            @endif
+                            @endforeach
+                            </tbody>
+                            <tr class="warning no-result">
+                              <td colspan="6"><i class="fa fa-warning"></i> No result</td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
                 <div class="row" style="margin-bottom:5px;">

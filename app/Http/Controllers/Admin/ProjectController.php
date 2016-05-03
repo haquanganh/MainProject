@@ -21,7 +21,7 @@ use DateInterVal;
 use App\Team as Team;
 class ProjectController extends Controller
 {
-	public function viewProject(){
+    public function viewProject(){
     	return view('admin.project');
     }
     public function getcreateProject(){
@@ -71,6 +71,7 @@ class ProjectController extends Controller
         $p->P_DateStart  = $startday;
         $p->P_DateFinish = $endday;
         $p->P_DateCreate = date("Y/m/d");
+        $p->P_Description = $request->in_descrip;
         $p->idPStatus = 1;
         $p->idTeamLeader = $request->r_leader;
         $p->save();
@@ -132,14 +133,16 @@ class ProjectController extends Controller
                 $num_day= $num_day+1;
             }
         }
+        $old_start = new DateTime(Project::find($id)->P_DateStart);
+        if($start < $old_start){
+            $arr0 = array('wrong_start_day' => 'Start Date has to be more than old created date ');
+            $error_list = $error_list + $arr0;
+        }
         if($num_day < 7 ){
             $arr1 = array('wrong_day' => 'Date Range has to be equal or more than 7 days');
             $error_list = $error_list + $arr1;
         }
-        if($start < $now){
-            $arr0 = array('wrong_start_day' => 'Start Date has to be more than current date ');
-            $error_list = $error_list + $arr0;
-        }
+
         if($request->r_leader == null){
             $arr2 = array('wrong_leader' => 'Please choose the leader for team');
             $error_list =$error_list + $arr2;
@@ -159,6 +162,7 @@ class ProjectController extends Controller
         $endday = DateTime::createFromFormat('m/d/Y', trim($date[1]));
         $project->P_DateStart = $startday;
         $project->P_DateFinish = $endday;
+        $project->P_Description = $request->in_descrip;
         $project->idPstatus = $request->sl_PStatus;
         $project->idTeamLeader = $request->r_leader;
         $project->save();
@@ -194,7 +198,7 @@ class ProjectController extends Controller
             $user->idRole = 5;
             $user->save();
         }
-        
+
         /*Delete old */
         $pe_old =  ProjectEmployee::where('idProject','=',$id)->get();
         $old_pe = ProjectEmployee::where('idProject','=',$id);
@@ -257,14 +261,14 @@ class ProjectController extends Controller
                         $h_e = new Employee_Record;
                         $h_e->DateStart = $now;
                         //$h_e->DateEnd = $project->P_DateFinish;
-                        $h_e->idEmployee = $e->idEmployee;      
+                        $h_e->idEmployee = $e->idEmployee;
                         $h_e->Content = 'Just become member of project.'.$project->idProject;
                         $h_e->save();
                     }
                 }
             }
             /*Check member were removed out of project*/
-            
+
             foreach ($pe_old as $key => $old) {
                 $check = false;
                 /*Check if old employee becomes new leader*/

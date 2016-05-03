@@ -21,7 +21,7 @@
                 <div id="tophead">
                     <a href="{{ url('/') }}" class="logo"><img src="{{ asset('images/enclave_logo.png') }}"></a>
                     @if (Auth::user()->idRole != 1)
-                    <div class="dropdown" style="z-index:2001">
+                    <div class="dropdown" style="z-index:1001">
                         @if (Auth::user()->idRole == 4)
                             <?php
                                 $idAccount = Auth::user()->idAccount;
@@ -37,15 +37,15 @@
                             ?>
                             <a href="dropdownMenu1" class="dropdown-toggle" type="button">
                                 <img id="notification" src="{{ asset('images/notification.png') }}" alt="">
-                                <span class="badge" style="float: right;">{{ $count }}</span>   
+                                <span class="badge" style="float: right;">{{ $count }}</span>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="top:60px; right: -45px; width: 350px; min-height: 50px; max-height: 270px; overflow-y: auto;">
                                 <li style="text-align: center;"><h4>Notificaion board</h4></li>
                                 <li role="separator" class="divider"></li>
                                 @foreach ($list_notify as $element)
-                                    <?php 
+                                    <?php
                                         $Ename = App\Employee::where('idEmployee', '=', $element->idEmployee2)->first()->E_Name;
-                                    ?>  
+                                    ?>
                                     @if ($element->status == 1)
                                         <li><a href="{{ url('/employee-information') }}" style="white-space: normal;">Your request to see <b>{{ $Ename }}</b>'s information has been accepted.</a></li>
                                         <li role="separator" class="divider"></li>
@@ -54,32 +54,26 @@
                                         <li role="separator" class="divider"></li>
                                     @endif
                                 @endforeach
-                            </ul>   
+                            </ul>
 
                         @else
                             <?php
                                 $idAccount = Auth::user()->idAccount;
-                                $idEmployee = App\Employee::select()
-                                                ->where('idAccount', '=', $idAccount)->first()
-                                                ->idEmployee;
-                                $list_notify = App\RequestE_E::select()
-                                                ->where('idEmployee1', '=', $idEmployee)
-                                                ->where('status', '!=', '0')
-                                                ->orderBy('responseTime', 'desc')
-                                                ->get();
+                                $idEmployee = App\Employee::select()->where('idAccount', '=', $idAccount)->first()->idEmployee;
+                                $list_notify = App\RequestE_E::select()->where('idEmployee1', '=', $idEmployee)->where('status', '!=', '0')->orderBy('responseTime', 'desc')->get();
                                 $count = count($list_notify);
                             ?>
                             <a href="#" class="dropdown-toggle" type="button">
                                 <img id="notification" src="{{ asset('images/notification.png') }}" alt="">
-                                <span class="badge" style="float: right;">{{ $count }}</span>   
+                                <span class="badge" style="float: right;">{{ $count }}</span>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="top:60px;right: -45px; width: 350px; min-height: 50px; max-height: 270px; overflow-y: auto; ">
                                 <li style="text-align: center;"><h4>Notificaion board</h4></li>
                                 <li role="separator" class="divider"></li>
                                 @foreach ($list_notify as $element)
-                                    <?php 
+                                    <?php
                                         $Ename = App\Employee::where('idEmployee', '=', $element->idEmployee2)->first()->E_Name;
-                                    ?>  
+                                    ?>
                                     @if ($element->status == 1)
                                         <li><a href="{{ url('/employee-information') }}" style="white-space: normal;">Your request to see <b>{{ $Ename }}</b>'s information has been accepted.</a></li>
                                         <li role="separator" class="divider"></li>
@@ -88,13 +82,11 @@
                                         <li role="separator" class="divider"></li>
                                     @endif
                                 @endforeach
-                            </ul> 
-
-                        @endif 
-
+                            </ul>
+                        @endif
                     </div>
                     @endif
-                    <div class="dropdown" style="z-index:2001">
+                    <div class="dropdown" style="z-index:1001">
                         <a class="dropdown-toggle" href="" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                             <img id="user" src="{{ asset('images/user.png') }}" alt="">
                         </a>
@@ -122,8 +114,8 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse navbar-ex1-collapse" id="content-menu">
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="{{ url('/employee-information') }}">Employee Information</a></li>
                             @if (Auth::user()->idRole != 1)
+                            <li><a href="{{ url('/employee-information') }}">Employee Information</a></li>
                             <li class="dropdown ">
                                 <a href="#" data-toggle="dropdown" class=" dropdown-toggle">Project Management   <span class="caret"></span></a>
                                 <ul class="dropdown-menu" id="project-dropdown">
@@ -137,7 +129,6 @@
                             <li><a href="{{ url('project_history') }}">History</a></li>
                             <li><a data-toggle="modal" href='#send-message'>Contact</a></li>
                             @endif
-                            <li><a href="#">About us</a></li>
                         </ul>
                     </div>
                     <!-- /.navbar-collapse -->
@@ -252,8 +243,8 @@
         </div>
 
             <!-- Notification after sending message!-->
-            <div>       
-                @if(Session::has('mess1'))            
+            <div>
+                @if(Session::has('mess1'))
                     <a data-toggle="modal" id="mess1" href='#mess1-id'></a>
                     <div class="modal fade" id="mess1-id">
                         <div class="modal-dialog">
@@ -289,9 +280,9 @@
         <script src="{{ asset('third-library/bootstrap/js/bootstrap.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/jquery-validate/jquery.validate.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/jquery-validate/additional-methods.js') }}"></script>
-        
+
         <script src="{{ asset('js/custom.js') }}"></script>
-        
+
          <!-- Change password validate -->
         <script type="text/javascript">
         $('#form-change-pass').validate({
@@ -304,10 +295,10 @@
                     //     data: {
                     //         '_token': $('input[name=_token]').val()
                     //     }
-                    // }       
+                    // }
                 },
                 new_pass:{
-                    required:true,  
+                    required:true,
                     minlength:6,
                     maxlength:16,
                     notEqualTo: "#old_pass"

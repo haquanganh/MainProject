@@ -34,3 +34,31 @@
 .table-responsive table tr td{
 	line-height: 50px;
 }
+.feedback-modal .modal{
+    margin: 0;
+}
+.feedback-modal .modal-dialog{
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+}
+.feedback-modal .modal-content{
+    border-radius: 0px!important;
+    height: 100%;
+    border: none!important;
+}
+.feedback-modal .modal-footer{
+    background-color: #ffffff;
+    border: none!important;
+    text-align: center;
+    z-index: 999!important;
+}
+.feedback-modal .modal-footer button{
+    border-radius: 22px;
+    background-color: #20C824;
+    color:#ffffff;
+}
+.feedback-modal{
+    padding-right: 0!important;
+}
