@@ -157,18 +157,16 @@ class ProjectController extends Controller
         return view('project.project_detail',compact('project'));
     }
     public function getEditProject($id){
+        $idPM = Project::find($id)->idPManager;
         if(Auth::user()->idRole == 2){
-        $project = Project::find($id);
-        return view('project.edit_project',compact('project'));
+            if(Employee::where('idAccount','=',Auth::user()->idAccount)->first()->idEmployee != $idPM)
+                return redirect('/');
+            $project = Project::find($id);
+            return view('project.edit_project',compact('project'));
         }
-        else if(Auth::user()->idRole ==1)
-            return redirect()->route('admin.personal-information.index');
-        else
             return redirect('/');
     }
     public function postEditProject(EditProject_Request $request, $id){
-        /*Validate*/
-        /*Get the old day*/
         $old_date =
         $error_list = array();
         $date = explode('-', $request->daterange);

@@ -171,6 +171,35 @@
             });
         });
     </script>
+
+    <script type="text/javascript">
+        $(document).ready(function()
+        {
+            $("#notificationLink").click(function()
+            {
+                $("#in").fadeToggle(300);
+                $("#notification_count").fadeOut("slow");
+                return false;
+            });
+
+            //Document Click
+            $(document).click(function()
+            {
+            $("#in").hide();
+            });
+
+            //Popup Click
+            $("#notificationContainer").click(function()
+            {
+            return false
+            });
+
+            $("#ft_see").click(function() {
+                $("#notification_count").hide();
+            });
+
+        });
+    </script>
     @yield('script')
 </body>
 </html>

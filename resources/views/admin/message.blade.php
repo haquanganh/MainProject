@@ -16,12 +16,12 @@
 			</tr>
 		</thead>
 		<tbody>
-			<?php 
+			<?php
 				$key = 0;
 			?>
 			@foreach($list_message as $idmessage)
 				@if($idmessage->M_Status == 1)
-				<tr>				
+				<tr>
 					<td class="delete-style">{{ $key+1 }}</td>
 					<td class="delete-style">{{ $idmessage->sender }}</td>
 					<td class="delete-style">{{ $idmessage->content }}</td>
@@ -32,8 +32,8 @@
 						<input type="hidden" class="idMsg" value="{{ $idmessage->idMessage }}" placeholder="">
 					</td>
 				</tr>
-				@else 
-				<tr>				
+				@else
+				<tr>
 					<td>{{ $key+1 }}</td>
 					<td>{{ $idmessage->sender }}</td>
 					<td>{{ $idmessage->content }}</td>
@@ -45,7 +45,7 @@
 					</td>
 				</tr>
 				@endif
-				<?php 
+				<?php
 					$key = $key+1;
 				?>
 
@@ -62,7 +62,7 @@
 	                            <div class="modal-footer">
 	                                <div class="submit" style="float:right">
 	                                    <input type="submit" class="btn btn-primary" value="Yes">
-	                                    <a href="/note" class="btn btn-default">No, thanks</a>
+	                                    <a data-dismiss="modal" class="btn btn-default">No, thanks</a>
 	                                </div>
 	                            </div>
 	                        </form>
@@ -85,7 +85,7 @@
                     </div>
                 </form>
 			</div>
-			
+
 		</div>
 	</div>
 </div>

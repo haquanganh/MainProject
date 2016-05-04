@@ -90,6 +90,32 @@
                                     </div>
                                 @endif
                             </td>
+                            <td><a href="javascript:void(0)" class="open-feedback" link="#modal-member{{ $i }}">View feedbacks</a></td>
+                            <!-- Feedback -->
+                            <div id="modal-member{{ $i }}" class="overlay">
+                                <a href="javascript:void(0)" class="close-feedback">&times;</a>
+                                <div class="overlay-content">
+                                <?php
+                                $feedbacks = App\Feedback::where('idEmployee','=', $list_search[$i]['idEmployee'])->get();
+                                ?>
+                                @if ($feedbacks->count() != 0)
+                                    @foreach ($feedbacks as $f)
+                                        <div class="feedback-list">
+                                        <h3 class="feedback-title"><i class="fa fa-comment" aria-hidden="true"></i>{{ $f->F_Title }} <span class="feedback-date">{{ $f->F_DateCreate }}</span></h3>
+                                        <p class="feedback-rate">
+                                        @for ($h = 0; $h < $f->F_Rate ; $h++)
+                                        <img src="{{ asset('images/icon-star.png') }}">
+                                        @endfor
+                                        </p>
+                                        <p class="feedback-content">{{ $f->F_Content }}</p>
+                                    </div>
+                                    @endforeach
+                                @else
+                                    <h4 class="text-center">You do not have any feedback</h4>
+                                @endif
+                                </div>
+                            </div>
+                            <!-- End feedback -->
                         </tr>
                     @endfor
                 </tbody>
@@ -136,76 +162,32 @@
                                     </div>
                                 @endif
                             </td>
-                            <td><a href="#feedback-show{{ $kq[$i]['idEmployee'] }}" class="feedback-show" data="{{ $kq[$i]['idEmployee'] }}" data-toggle="modal">View feedbacks</a></td>
-                            <div class="modal fade feedback-modal" id="feedback-show{{ $kq[$i]['idEmployee'] }}">
-                                <div class="modal-dialog">
-                                <div class="modal-footer">
-                                            <button class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i></button>
-                                        </div>
-                                    <div class="modal-content">
-                                        <div class="modal-body">
-                                        <!--  -->
-
-                                        <?php
-                                            $feedbacks = App\Feedback::where('idEmployee','=',$kq[$i]['idEmployee'])->get();
-                                        ?>
-                                        <div class="panel panel-info history_feedback panel-group">
-                                            <div class="panel-heading">Feedback</div>
-                                            <div class="panel-body">
-                                            @if ($feedbacks->count() != 0)
-                                                @foreach ($feedbacks as $key=>$f)
-                                                <div class="panel panel-default">
-                                                  <div class="panel-heading">
-                                                    <div class="row" style="padding: 0!important;margin: 0!important;">
-                                                    <div class="col-md-1" style="padding: 0">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $key+1 }}"><i class="glyphicon glyphicon-collapse-down" ></i></a>
-                                                    </div>
-                                                    <div class="col-md-8" style="margin: 0;padding: 0">
-                                                        <p>{{ $f->F_Title }}</p>
-                                                    </div>
-                                                    <div class="col-md-3 text-center" style="padding: 0";>
-                                                        <span>
-                                                            @for($e = 0 ;$e < $f->F_Rate; $e++)
-                                                                <img src="{{ asset('images/icon-star.png') }}">
-                                                            @endfor
-                                                        </span>
-                                                    </div>
-                                                    </div>
-                                                  </div>
-                                                  <div id="collapse{{ $key+1 }}" class="panel-collapse collapse">
-                                                    <div class="panel-body">
-                                                        <h5>{{ $f->F_Content }}</h5>
-                                                        <hr>
-                                                        <div>
-                                                            <span><i><b>Client</i></b></span>
-                                                            <p>{{ App\Clients::find($f->idClient)->ClientName }}</p>
-                                                        </div>
-                                                        <div>
-                                                            <span><i><b>Date</i></b></span>
-                                                            <?php
-                                                                $date = new DateTime($f->F_DateCreate);
-                                                            ?>
-                                                            <p>{{ $date->format('Y-F-d') }}</p>
-                                                        </div>
-                                                        <div>
-                                                            <span><i><b>Project</i></b></span>
-                                                            <p>{{ App\Project::find($f->idProject)->P_Name }}</p>
-                                                        </div>
-                                                    </div>
-                                                  </div>
-                                                </div>
-                                                @endforeach
-                                            @else
-                                             This employee hasn't had any feedback from Clients
-                                            @endif
-                                            </div>
-                                        </div>
-                                        <!--  -->
-
-                                        </div>
+                            <td><a href="javascript:void(0)" class="open-feedback" link="#modal-member{{ $i }}">View feedbacks</a></td>
+                            <!-- Feedback -->
+                            <div id="modal-member{{ $i }}" class="overlay">
+                                <a href="javascript:void(0)" class="close-feedback">&times;</a>
+                                <div class="overlay-content">
+                                <?php
+                                $feedbacks = App\Feedback::where('idEmployee','=', $kq[$i]['idEmployee'])->get();
+                                ?>
+                                @if ($feedbacks->count() != 0)
+                                    @foreach ($feedbacks as $f)
+                                        <div class="feedback-list">
+                                        <h3 class="feedback-title"><i class="fa fa-comment" aria-hidden="true"></i>{{ $f->F_Title }} <span class="feedback-date">{{ $f->F_DateCreate }}</span></h3>
+                                        <p class="feedback-rate">
+                                        @for ($h = 0; $h < $f->F_Rate ; $h++)
+                                        <img src="{{ asset('images/icon-star.png') }}">
+                                        @endfor
+                                        </p>
+                                        <p class="feedback-content">{{ $f->F_Content }}</p>
                                     </div>
+                                    @endforeach
+                                @else
+                                    <h4 class="text-center">You do not have any feedback</h4>
+                                @endif
                                 </div>
                             </div>
+                            <!-- End feedback -->
                         </tr>
                     @endfor
                 </tbody>
@@ -232,24 +214,33 @@
 @section('script')
 <script type="text/javascript" src="{{ asset('js/admin/jquery.dataTables.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/admin/dataTables.bootstrap.min.js') }}"></script>
-    <script type="text/javascript">
-        jQuery(function(){
-            jQuery('#messages-click').click();
+<script type="text/javascript">
+    jQuery(function(){
+        jQuery('#messages-click').click();
+    });
+
+    $(document).ready(function() {
+        $('#table').DataTable();
+        $('#table_filter label').hide();
+
+        $('<div class="search-form ui-widget"><form method="POST" action="{{ url("/employee-information") }}">{!! csrf_field() !!}<button class="btn btn-primary" type="submit" value="Search"><span class="glyphicon glyphicon-search"></span></button><input class="form-control" type="text"  id="search" name="search" value="@if(isset($searches)){{ $searches }}@endif"></input><?php $id_Role = Auth::user()->idRole;?><select name="search-type" class="form-control select">@if (isset($search_type))<option id="search_type"value="{{ $search_type }}">{{ $search_type }}</option>@endif<option value="Search by name">Search by name</option><option value="Search by skill">Search by skill</option></select><div class="clear"></div></form></div>').appendTo('#table_filter');
+
+        $('#table_filter select').hover(function() {
+            $('#search_type').hide();
         });
-
-        $(document).ready(function() {
-            $('#table').DataTable();
-            $('#table_filter label').hide();
-
-            $('<div class="search-form ui-widget"><form method="POST" action="{{ url("/employee-information") }}">{!! csrf_field() !!}<button class="btn btn-primary" type="submit" value="Search"><span class="glyphicon glyphicon-search"></span></button><input class="form-control" type="text"  id="search" name="search" value="@if(isset($searches)){{ $searches }}@endif"></input><?php $id_Role = Auth::user()->idRole;?><select name="search-type" class="form-control select">@if (isset($search_type))<option id="search_type"value="{{ $search_type }}">{{ $search_type }}</option>@endif<option value="Search by name">Search by name</option><option value="Search by skill">Search by skill</option></select><div class="clear"></div></form></div>').appendTo('#table_filter');
-
-            $('#table_filter select').hover(function() {
-                $('#search_type').hide();
-            });
-            @if($id_Role == 4)
-            $('<option value="Search by cost/hour">Search by cost/hour</option>').appendTo('#table_filter select');
-            @endif
-        });
-    </script>
-    <scri
+        @if($id_Role == 4)
+        $('<option value="Search by cost/hour">Search by cost/hour</option>').appendTo('#table_filter select');
+        @endif
+    });
+</script>
+<script type="text/javascript">
+    $('.open-feedback').click(function function_name(argument) {
+        var id = $(this).attr('link');
+        $(id).css('width','100%');
+    })
+    $('.close-feedback').click(function(){
+        var id = $(this).parent().attr('id');
+        $('#'+id).css('width','0%');
+    });
+</script>
 @stop

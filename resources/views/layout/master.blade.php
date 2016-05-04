@@ -21,7 +21,7 @@
                 <div id="tophead">
                     <a href="{{ url('/') }}" class="logo"><img src="{{ asset('images/enclave_logo.png') }}"></a>
                     @if (Auth::user()->idRole != 1)
-                    <div class="dropdown" style="z-index:1001">
+                    <div class="dropdown" style="z-index:2">
                         @if (Auth::user()->idRole == 4)
                             <?php
                                 $idAccount = Auth::user()->idAccount;
@@ -86,7 +86,7 @@
                         @endif
                     </div>
                     @endif
-                    <div class="dropdown" style="z-index:1001">
+                    <div class="dropdown" style="z-index:2">
                         <a class="dropdown-toggle" href="" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                             <img id="user" src="{{ asset('images/user.png') }}" alt="">
                         </a>
