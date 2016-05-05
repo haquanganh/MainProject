@@ -1,0 +1,267 @@
+select {
+    width: 200px;
+}
+
+td {
+    line-height: 50px;
+    text-align: center;
+}
+
+th {
+    text-align: center;
+}
+
+.content-box-large {
+    height: 100%;
+    color: white;
+    background-color: deepskyblue;
+}
+
+.team {
+    margin-top: 100px;
+}
+
+.add {
+    margin-bottom: 0px;
+}
+
+#edit-button {
+    width: 45px;
+    height: 45px;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 3;
+    border-radius: 28px;
+    position: absolute;
+    bottom: 0px;
+    right: 10px;
+    z-index: 1;
+}
+
+#img-title {
+    background: #ccc url(../images/project.jpg) no-repeat center center;
+    background-size: cover;
+    height: 190px;
+    padding: 40px 60px;
+    -webkit-box-shadow: 2px -4px 12px 1px rgba(140, 135, 140, 1);
+    -moz-box-shadow: 2px -4px 12px 1px rgba(140, 135, 140, 1);
+    box-shadow: 2px -4px 12px 1px rgba(140, 135, 140, 1);
+}
+
+#img-title p {
+    font-size: 45px;
+    color: #FFFFFF;
+    font-style: italic;
+    opacity: 0.5;
+}
+
+.starRating:not(old) {
+    display: inline-block;
+    width: 7.5em;
+    height: 1.5em;
+    overflow: hidden;
+    vertical-align: bottom;
+}
+
+.starRating:not(old) > input {
+    margin-right: -100%;
+    opacity: 0;
+}
+
+.starRating:not(old) > label {
+    display: block;
+    float: right;
+    position: relative;
+    background: url('../img/star-off.svg');
+    background-size: contain;
+}
+
+.starRating:not(old) > label:before {
+    content: '';
+    display: block;
+    width: 1.5em;
+    height: 1.5em;
+    background: url('../img/star-on.svg');
+    background-size: contain;
+    opacity: 0;
+    transition: opacity 0.2s linear;
+}
+
+.starRating:not(old) > label:hover:before,
+.starRating:not(old) > label:hover ~ label:before,
+.starRating:not(:hover) >:checked ~ label:before {
+    opacity: 1;
+}
+
+.starRating {
+    margin-top: 0px;
+}
+
+
+/* Project */
+
+#currentproject img {
+    width: 50px;
+    height: 50px;
+}
+
+.box-info {
+    height: 150px;
+    background-color: #F7F7F7;
+    border: 1px solid #ccc;
+    color: #5A6E95;
+    margin-bottom: 20px;
+}
+
+.box-info .main-info {
+    height: 80%;
+    border: 1px solid #ccc;
+}
+
+.box-info .main-info img {
+    width: 25%!important;
+    height: 100%!important;
+    border: 1px solid #ccc!important;
+    float: left!important;
+}
+
+.main-info .info {
+    width: 75%;
+    height: 100%;
+    float: right;
+}
+
+.main-info .info h4,
+.main-info .info h5,
+.main-info .info p {
+    margin-left: 20px;
+}
+
+.main-info .info h4 {
+    font-size: 17px;
+}
+
+.main-info .info h5 {
+    margin-top: -22px;
+}
+
+.main-info .info p {
+    margin-top: -4px;
+    font-size: 12px;
+}
+
+.box-info .cost-info {
+    margin-left: 5px;
+    margin-top: 5px;
+    font-size: 12px;
+    line-height: 20px;
+}
+
+#project-name .small {
+    margin-bottom: -8px;
+    margin-top: -16px;
+    color: #05374D;
+}
+
+#project-name .lead {
+    color: #05374D;
+}
+
+.fancy {
+    line-height: 0.5;
+    text-align: center;
+    width: auto;
+}
+
+.fancy span {
+    display: inline-block;
+    position: relative;
+}
+
+.fancy span:before,
+.fancy span:after {
+    content: "";
+    position: absolute;
+    height: 5px;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    top: 0;
+    width: 350px;
+}
+
+.fancy span:before {
+    right: 100%;
+    margin-right: 15px;
+}
+
+.fancy span:after {
+    left: 100%;
+    margin-left: 15px;
+}
+/* Overlay */
+.overlay {
+    /* Height & width depends on how you want to reveal the overlay (see JS below) */    
+    height: 100%;
+    width: 0;
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    background: rgba(255,255,255,1);
+    background: -moz-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(255,255,255,1)), color-stop(47%, rgba(246,246,246,1)), color-stop(100%, rgba(237,237,237,1)));
+    background: -webkit-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+    background: -o-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+    background: -ms-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+    background: linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed', GradientType=1 );
+    overflow-x: hidden; /* Disable horizontal scroll */
+    transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
+}
+
+/* Position the content inside the overlay */
+.overlay-content {
+    position: relative;
+    top: 15%; /* 25% from the top */
+    width: 100%; /* 100% width */
+    margin-top: 30px; /* 30px top margin to avoid conflict with the close button on smaller screens */
+}
+
+/* The navigation links inside the overlay */
+.overlay .close-feedback{
+    padding: 8px;
+    text-decoration: none;
+    font-size: 36px;
+    color: #818181;
+    display: block; /* Display block instead of inline */
+    transition: 0.3s; /* Transition effects on hover (color) */
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 50px !important;
+}
+.overlay .feedback-list{
+    margin: auto;
+    width: 800px;
+    border-bottom: 1px solid #ccc;
+    border-radius: 5px; 
+}
+.overlay .feedback-list .feedback-rate{
+    
+}
+.overlay .feedback-list .feedback-date{
+    float: right;
+    font-size: 15px;
+}
+.overlay .feedback-list .feedback-rate img{
+        width: 20px !important;
+        height: 20px !important;
+}
+.overlay .feedback-list .feedback-content{
+    text-align: justify;
+}
+/* When you mouse over the navigation links, change their color */
+.overlay a:hover, .overlay a:focus {
+    color: #f1f1f1;
+}
+

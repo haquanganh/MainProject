@@ -1,0 +1,45 @@
+.list_points, .list_top,.list_date,.list_stars,.list1{
+	width: 170px;
+}
+.select2{
+	margin-right: 10px;
+}
+select.form-control{
+	height: 30px;
+	line-height: 30px;
+}
+table img{
+	width: 50px;
+	height: 50px;
+}
+td{
+	line-height: 50px;
+}
+#myDatepicker{
+	width: 200px;
+	float:right;
+	height: 28px;
+}
+.table-responsive{
+	padding: 0 20px;
+}
+.date input{
+	height: 28px;
+}
+.input-group-addon{
+	padding: 0px 12px!important;
+}
+@media(max-width: 480px) {
+	.choose{
+		width: 80%!important;
+		margin-bottom: 10px!important;
+	}
+	#myDatepicker{
+		width: 100%!important;
+	}
+	.select2{
+		width: 100%!important;
+		margin-bottom: 10px!important;
+	}
+
+}

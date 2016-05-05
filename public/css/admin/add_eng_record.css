@@ -1,0 +1,44 @@
+.eng-record-head{
+	margin-bottom: 20px;
+}
+
+.eng-record-head label, .eng-record-head .list-employee{
+	display: inline;	
+}
+.eng-record-head button{
+	height: 29px;
+	line-height: 12px;
+}
+.eng-record-head input{
+	width: 100px;
+	display: inline;
+	height: 29px;
+	line-height: 29px;
+}
+.list-employee{
+	width: 300px;
+}
+.add-eng-record select{
+	width: 200px;
+	display: inline;
+}
+.add-eng-record input{
+	width: 200px;
+	height: 29px;
+	display: inline;
+}
+.add-eng-record .div-input{
+	display: inline;
+	padding-top: 3px;
+}
+.add-eng-record button{
+	height: 29px;
+	line-height: 12px;
+}
+.update{
+	border-bottom: 1px solid orange;
+	margin-bottom: 10px;
+}
+.select2{
+	margin-top: -3px;
+}

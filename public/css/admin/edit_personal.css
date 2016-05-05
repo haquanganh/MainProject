@@ -1,0 +1,118 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.clear {
+    clear: both;
+}
+
+table tr td,
+table tr th {
+    line-height: 30px;
+    padding-left: 5px;
+}
+
+.table-skill .table-table tr td {
+    border: 1px solid #fff;
+}
+
+.col-md-5 .avatar-img img {
+    height: 140px;
+    width: 140px;
+    border-radius: 10px;
+    border: solid 1px #ccc;
+}
+
+.row .col-md-4 label,
+.row .col-md-8 select {
+    height: 35px;
+    line-height: 35px;
+}
+
+.row {
+    margin-bottom: 10px;
+}
+
+.right-regis,
+.left-regis {
+    margin-top: 10px;
+}
+
+.regis-button {
+    margin-left: 50%;
+}
+
+.regis-button input {
+    margin-left: 25px;
+}
+
+.inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.inputfile + label {
+    font-family: Arial;
+    font-size: 14px;
+    font-weight: 700;
+    color: white;
+    background-color: #A1E3FF;
+    display: inline-block;
+    border-radius: 31px 31px 31px 31px;
+    -moz-border-radius: 31px 31px 31px 31px;
+    -webkit-border-radius: 31px 31px 31px 31px;
+    border: 0px solid #000000;
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+    background-color: #ACF0F2;
+}
+
+.inputfile + label {
+    cursor: pointer;
+    /* "hand" cursor */
+}
+
+.inputfile:focus + label {
+    outline: 1px dotted #000;
+    outline: -webkit-focus-ring-color auto 5px;
+}
+
+#skill_list {
+    width: 75%;
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+}
+
+.content-skill input {
+    display:inline;
+    width: 40px;
+    height: 20px;
+    border-radius: 10px;
+}
+
+.content-skill select {
+    width: 50%;
+    border-radius: solid 10px #ccc;
+}
+table{
+    border: solid 1px #ccc;
+    border-radius: 5px!important;
+}
+td{
+    text-align: center;
+}
+a{
+    cursor: pointer;
+}
+.box{
+    margin-top: 5px;
+    margin-left: 6px;
+}
