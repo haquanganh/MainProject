@@ -1,0 +1,38 @@
+.add-skill{
+	margin-bottom: 10px;
+}
+.add-skill .form-add{
+	border-bottom: 1px solid orange;
+	padding-top: 5px;
+}
+.form-add form{
+	margin-bottom: 5px;
+}
+.form-add form .skill-name{
+	width: 20%;
+	display: inline;
+}
+.form-add form .skill-desc{
+	width: 69%;
+	display: inline;
+	margin-left: 3px;
+}
+.form-add .form-button{
+	width: 10%;
+	display: inline;
+}
+.form-add .form-button button{
+	margin-left: 3px;
+	margin-top: -2px;
+}
+.add-button{
+	border-bottom: 1px solid orange;
+	padding-bottom: 3px;
+}
+.div-head{
+	margin-top: 5px;
+	border-bottom: 1px solid orange;
+}
+.div-head .name{
+	width: 20%;
+}
