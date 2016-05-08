@@ -98,12 +98,15 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('delete-msg', 'ContactController@deleteMessage');
         Route::post('read-msg', 'ContactController@readMessage');
 
+<<<<<<< HEAD
         //send mail reset password
         Route::get('/reset-request', 'ResetPasswordController@getEmail');
         Route::post('/reset-request', 'ResetPasswordController@postEmail');
         Route::get('/reset-password/{token}/{email}', 'ResetPasswordController@getReset');
         Route::post('/reset-password/{token}/{email}', 'ResetPasswordController@postReset');
 
+=======
+>>>>>>> 8ea77caf06003789a383f5a9143f487eec1f5b01
         Route::get('test',function(){
             // $feedbacks = App\Feedback::all();
             // $list = array();

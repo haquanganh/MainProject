@@ -49,7 +49,11 @@
                     <?php
                        $servername = "localhost";
                        $username = "root";
+<<<<<<< HEAD
                        $password = "";
+=======
+                       $password = "1234";
+>>>>>>> 8ea77caf06003789a383f5a9143f487eec1f5b01
                        $dbname = "MainDB";
 
                        // Create connection

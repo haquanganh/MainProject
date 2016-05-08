@@ -243,6 +243,7 @@ class UserTableSeeder extends Seeder{
 			// 	  'password' => Hash::make('okall'),
 			// 	  'idRole' => '6',
 			// 	),
+<<<<<<< HEAD
 			// array('email' => 'client_company2@enclave.vn',
 			// 	  'password' => Hash::make('okall'),
 			// 	  'idRole' => '6',
@@ -253,6 +254,13 @@ class UserTableSeeder extends Seeder{
 				),
 
 
+=======
+			array('email' => 'client_company2@enclave.vn',
+				  'password' => Hash::make('okall'),
+				  'idRole' => '6',
+				),
+
+>>>>>>> 8ea77caf06003789a383f5a9143f487eec1f5b01
 			]);
 	}
 }
