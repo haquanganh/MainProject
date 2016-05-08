@@ -1,0 +1,462 @@
+/*@font-face {
+    font-family: 'Avenir LT Std 85 Heavy';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Avenir LT Std 85 Heavy'), url('../../font/AvenirLTStd-Light.woff') format('woff');
+}
+
+body {
+    font-family: 'Avenir LT Std 85 Heavy';
+}
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+/*
+a {
+    color: #548F53;
+}
+*/
+body{
+    background: rgba(255, 255, 255, 1);
+    background: -moz-linear-gradient(left, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(255, 255, 255, 1)), color-stop(47%, rgba(246, 246, 246, 1)), color-stop(100%, rgba(237, 237, 237, 1)));
+    background: -webkit-linear-gradient(left, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
+    background: -o-linear-gradient(left, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
+    background: -ms-linear-gradient(left, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
+    background: linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed', GradientType=1);
+}
+#left-bar {
+    display: flex;
+    position: fixed;
+    width: 220px;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+    border-right: 1px solid #c2d4ae;
+    background: rgba(255, 255, 255, 1);
+    background: -moz-linear-gradient(left, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(255, 255, 255, 1)), color-stop(47%, rgba(246, 246, 246, 1)), color-stop(100%, rgba(237, 237, 237, 1)));
+    background: -webkit-linear-gradient(left, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
+    background: -o-linear-gradient(left, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
+    background: -ms-linear-gradient(left, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
+    background: linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed', GradientType=1);
+}
+
+li.addnewskill,
+li.englishrecord {
+    background-color: red;
+    display: none;
+    background-color: #F1F1F1;
+    padding-left: 15px;
+    z-index: 1001;
+}
+
+#maincontent {
+    margin-left: 220px;
+}
+
+#left-bar .logo {
+    position: absolute;
+    font-size: 13px;
+    border-bottom: 1px solid #c2d4ae;
+    color: #548F53;
+    font-weight: 700;
+    width: 100%;
+    height: 45px;
+    text-align: center;
+}
+
+.badge {
+    display: inline-block!important;
+    margin-bottom: -12px;
+    background-color: red;
+    font-size: 10px!important;
+    margin-left: -5px;
+    padding: 2px 5px !important;
+}
+
+.badge1 {
+    margin-left: -8px;
+}
+
+#choose {
+    margin: 0;
+    padding: 0;
+}
+
+#left-bar #nav {
+    margin-top: 45px;
+    display: block;
+    width: 100%;
+}
+
+#left-bar #nav ul {
+    font-weight: 300;
+}
+
+#left-bar #nav ul li {
+    border-bottom: 1px solid #c2d4ae;
+    height: 40px;
+    list-style: none;
+    font-size: 13px;
+}
+
+#left-bar #nav ul li i {
+    padding-left: 5px;
+    display: inline-block;
+    width: 24px;
+}
+
+#left-bar #nav ul li a {
+    color: #606060;
+    height: 100%;
+    display: block;
+    line-height: 40px;
+    padding: 0 10px;
+}
+
+#left-bar #nav ul li a:hover {
+    text-decoration: none;
+    background-color: #EBEBEB;
+    z-index: 1;
+    color: #548F11;
+}
+
+#topbar {
+    height: 45px;
+    border-bottom: 1px solid #ccc;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    z-index: 1;
+    background: rgba(255, 255, 255, 1);
+    background: -moz-linear-gradient(left, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(255, 255, 255, 1)), color-stop(47%, rgba(246, 246, 246, 1)), color-stop(100%, rgba(237, 237, 237, 1)));
+    background: -webkit-linear-gradient(left, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
+    background: -o-linear-gradient(left, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
+    background: -ms-linear-gradient(left, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
+    background: linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed', GradientType=1);
+}
+
+#toggle {
+    display: inline-block;
+    padding: 6px 0 0 5px;
+    font-size: 27px;
+    color: #ccc;
+}
+
+#action {
+    width: 430px;
+    float: right;
+}
+
+#action li {
+    font-size: 15px;
+    color: #548F53;
+    font-size: 20px;
+    list-style: none;
+    float: left;
+    padding-top: 10px;
+}
+
+#action li a {
+    color: #548F53;
+    background-color: none;
+    font-weight: bolder;
+    margin-left: 25px;
+}
+
+#action {
+    padding-right: 20px;
+}
+
+#action li a:hover {
+    background-color: transparent;
+    color: #4d88ff;
+}
+
+.divider {
+    display: none;
+    margin-top: 8px;
+    height: 30px;
+    width: 1px;
+    background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.8), rgba(96, 96, 96, 0));
+}
+
+.active a {
+    font-weight: 700!important;
+    background-color: #E6E6E6!important;
+    z-index: 1!important;
+    color: #548F11 !important;
+}
+
+#content {
+    padding: 20px;
+    padding-top: 50px;
+}
+
+.toggle {
+    display: none;
+}
+
+.block-display {
+    display: block !important;
+}
+
+.margin-top-320 {
+    margin-top: 320px!important;
+}
+
+.panel {
+    border-radius: 3px;
+}
+
+.panel-heading {
+    border-bottom: none;
+    background-color: #ffffff!important;
+}
+
+.hide-collapse,
+.show-collapse {
+    margin-bottom: 5px;
+}
+
+#sign-out-collapse {
+    display: none;
+}
+
+
+/* Notify for messages */
+
+#notificationContainer {
+    background-color: #fff;
+    border: 1px solid rgba(100, 100, 100, .4);
+    -webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: absolute;
+    top: 30px;
+    margin-left: -170px;
+    width: 400px;
+    z-index: -1;
+    display: none;
+}
+
+#notificationContainer:before {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 0;
+    color: transparent;
+    border: 10px solid black;
+    border-color: transparent transparent white;
+    margin-top: -20px;
+    margin-left: 188px;
+}
+
+#notificationTitle {
+    z-index: 1000;
+    font-weight: bold;
+    padding: 8px;
+    font-size: 16px;
+    color: #548F11;
+    background-color: #ffffff;
+    width: 384px;
+    border-bottom: 1px solid #dddddd;
+    padding: 5px 5px 5px 14px;
+}
+
+#notificationsBody {
+    padding: 15px 0px 0px 15px !important;
+    min-height: 300px;
+    color: #05374D;
+}
+
+#notificationFooter {
+    background-color: #548F11;
+    color: #ffffff;
+    text-align: center;
+    font-weight: bold;
+    padding: 8px;
+    font-size: 12px;
+    border-top: 1px solid #dddddd;
+}
+
+#notification_count {
+    padding: 0px 4px 0px 4px;
+    background: #548F11;
+    color: #fff;
+    font-weight: bold;
+    margin-left: 46px;
+    border-radius: 9px;
+    position: absolute;
+    margin-top: -1px;
+    font-size: 11px;
+}
+
+#messageContainer {}
+
+.scrollable {
+    float: left;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 260px;
+    /* adjust this width depending to amount of text to display */
+    height: 500px;
+    /* adjust height depending on number of options to display */
+    border: 1px silver solid;
+}
+
+.scrollable select {
+    border: none;
+}
+
+.scrollable {
+    height: 500px;
+    background-color: white;
+}
+
+.scrollable::-webkit-scrollbar {
+    width: 8px;
+}
+
+.scrollable::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+    background-color: #7f8c8d;
+    border-radius: 8px;
+}
+
+.content {
+    float: right;
+    width: 630px;
+    height: 500px;
+    border: 1px silver solid;
+}
+
+.title-msg {
+    height: inherit;
+    width: inherit;
+    list-style-type: none;
+    padding: 0;
+}
+
+.title-msg li {
+    height: 40px;
+    border-bottom: 1px solid #bdc3c7;
+}
+
+.title-msg li a:hover {
+    background-color: #cfcfcf;
+    text-decoration: none;
+}
+
+.title-msg li a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    line-height: 40px;
+    padding-left: 10px;
+}
+
+.ok-btn {
+    border: none;
+}
+
+#remove-btn {
+    border: none;
+}
+
+td.delete-style {
+    text-decoration: line-through;
+}
+
+#in {
+    right: 340px;
+    left: auto!important;
+}
+
+
+/* Responsive for mobile screen */
+
+@media(max-width: 480px) {
+    #left-bar {
+        position: static!important;
+        display: block!important;
+        width: 100%;
+    }
+    #left-bar #nav {
+        min-height: auto!important;
+        z-index: 10;
+        display: none;
+        margin-left: 6px!important;
+        margin-right: 6px!important;
+    }
+    #maincontent {
+        position: absolute;
+        top: 0;
+        margin-left: 0;
+        width: 100%!important;
+        z-index: -1!important;
+    }
+    .logo {
+        position: fixed!important;
+        font-size: 10px!important;
+        width: 50px!important;
+        top: 0;
+    }
+    .logo h4 {
+        width: 0;
+        height: 0;
+        font-size: 0;
+    }
+    .logo h4:after {
+        display: block;
+        margin-top: 5px;
+        margin-left: 20px;
+        width: 15px;
+        content: 'Enclave';
+        height: 15px;
+        font-size: 17px;
+    }
+    #action {
+        display: table;
+        float: none!important;
+        margin: auto!important;
+        width: auto!important;
+    }
+    .toggle {
+        display: inline!important;
+        position: absolute;
+        right: 20px;
+    }
+    .divider {
+        display: block;
+        position: absolute;
+        right: 80px;
+    }
+    #sign-out-collapse {
+        display: block !important;
+    }
+    .sign-out {
+        display: none;
+    }
+    #in {
+        right: 20px;
+    }
+    #notificationTitle {
+        width: 320px;
+    }
+}

@@ -1,0 +1,17 @@
+#img-title {
+    background: #ccc url(../images/note3.jpg) no-repeat center center;
+    background-size: cover;
+    height: 190px;
+    padding: 40px 60px;
+    -webkit-box-shadow: 2px -4px 12px 1px rgba(140, 135, 140, 1);
+    -moz-box-shadow: 2px -4px 12px 1px rgba(140, 135, 140, 1);
+    box-shadow: 2px -4px 12px 1px rgba(140, 135, 140, 1);
+    margin-bottom: 20px;
+}
+
+#img-title p {
+	font-size: 45px;
+	color: #000;
+	font-style: italic;
+	border: 1px;
+}

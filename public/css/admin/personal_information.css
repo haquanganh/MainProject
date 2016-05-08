@@ -1,0 +1,25 @@
+.form-control {
+    font-size: 12px;
+    height: 30px;
+}
+#add {
+    position: fixed;
+    top: 135px;
+    right: 13px;
+    z-index: 4001;
+}
+#add img{
+
+    width: 40px;
+    height: 40px;
+}
+select#type-list{
+    width: 150px;
+}
+table{
+    margin-bottom: 0!important;
+}
+table tr td{
+    line-height: 40px!important;
+
+}
