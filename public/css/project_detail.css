@@ -1,0 +1,319 @@
+ul,
+li {
+    list-style-type: none;
+}
+
+a {
+    cursor: pointer;
+}
+
+select {
+    width: 200px;
+}
+
+td {
+    line-height: 50px;
+    text-align: center;
+}
+
+th {
+    text-align: center;
+}
+
+.clear {
+    clear: both;
+}
+
+.edit-form {
+    display: none;
+}
+
+.edit-form .pull-right {
+    margin-top: 10px;
+}
+
+.edit-form .pull-right input {
+    margin-left: 10px;
+}
+
+#edit-feedback .pull-right {
+    margin-top: 10px;
+}
+
+.content-box-large {
+    height: 100%;
+    color: white;
+    background-color: deepskyblue;
+}
+
+.team {
+    margin-top: 100px;
+}
+
+.add {
+    margin-bottom: 0px;
+}
+
+#img-title {
+    background: #ccc url(../images/project.jpg) no-repeat center center;
+    background-size: cover;
+    height: 190px;
+    padding: 40px 60px;
+    -webkit-box-shadow: 2px -4px 12px 1px rgba(140, 135, 140, 1);
+    -moz-box-shadow: 2px -4px 12px 1px rgba(140, 135, 140, 1);
+    box-shadow: 2px -4px 12px 1px rgba(140, 135, 140, 1);
+}
+
+#img-title p {
+    font-size: 45px;
+    color: #FFFFFF;
+    font-style: italic;
+    opacity: 0.5;
+}
+
+.feedback img {
+    width: 16px;
+    height: 16px;
+}
+
+.feedback a {
+    margin-left: 15px;
+    margin-top: 3px;
+}
+
+.feedback .title-fb {
+    font-weight: bold;
+}
+
+.feedback .title-feedback .star {
+    display: block;
+}
+
+.feedback .title-feedback {
+    font-size: 16px;
+}
+
+.feedback .content-feedback {
+    border-top: none;
+}
+
+.feedback .content-fb {
+    font-size: 13px;
+}
+
+#form-feedback .error {
+    color: red;
+}
+
+.test[style] {
+    padding-right: 0 !important;
+}
+
+.test.modal-open {
+    overflow: auto;
+}
+
+fieldset,
+label {
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: 1.5em;
+    margin: 10px;
+}
+
+
+/****** Style Star Rating Widget *****/
+
+.rating {
+    border: none;
+    float: left;
+}
+
+.rating > input {
+    display: none;
+}
+
+.rating > label:before {
+    margin: 5px;
+    font-size: 1.25em;
+    font-family: FontAwesome;
+    display: inline-block;
+    content: "\f005";
+}
+
+.rating > .half:before {
+    content: "\f089";
+    position: absolute;
+}
+
+.rating > label {
+    color: #ddd;
+    float: right;
+}
+
+
+/***** CSS Magic to Highlight Stars on Hover *****/
+
+.rating > input:checked ~ label,
+
+/* show gold star when clicked */
+
+.rating:not(:checked) > label:hover,
+
+/* hover current star */
+
+.rating:not(:checked) > label:hover ~ label {
+    color: green;
+}
+
+
+/* hover previous stars in list */
+
+.rating > input:checked + label:hover,
+
+/* hover current star when changing rating */
+
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label,
+
+/* lighten current selection */
+
+.rating > input:checked ~ label:hover ~ label {
+    color: green;
+}
+
+@media(max-width: 480px) {
+    #img-title {
+        text-align: center;
+        padding: 0px!important;
+        padding-top: 40px!important;
+    }
+}
+
+.modal {
+    display: none;
+}
+
+.edit-feedback-form label {
+    color: red;
+}
+
+
+/* Project */
+
+#currentproject img {
+    width: 50px;
+    height: 50px;
+}
+
+.box-info {
+    height: 150px;
+    background-color: #F7F7F7;
+    border: 1px solid #ccc;
+    color: #5A6E95;
+    margin-bottom: 20px;
+}
+
+.box-info .main-info {
+    height: 80%;
+    border: 1px solid #ccc;
+}
+
+.box-info .main-info img {
+    width: 25%!important;
+    height: 100%!important;
+    border: 1px solid #ccc!important;
+    float: left!important;
+}
+
+.main-info .info {
+    width: 75%;
+    height: 100%;
+    float: right;
+}
+
+.main-info .info h4,
+.main-info .info h5,
+.main-info .info p {
+    margin-left: 20px;
+}
+
+.main-info .info h4 {
+    font-size: 17px;
+}
+
+.main-info .info h5 {
+    margin-top: -22px;
+}
+
+.main-info .info p {
+    margin-top: -4px;
+    font-size: 12px;
+}
+
+.box-info .cost-info {
+    margin-left: 5px;
+    margin-top: 5px;
+    font-size: 12px;
+    line-height: 20px;
+}
+
+#project-name {
+    margin-top: 20px;
+}
+
+#project-name .small {
+    margin-bottom: -8px;
+    margin-top: -16px;
+    color: #05374D;
+}
+
+#project-name .lead {
+    color: #05374D;
+    font-size: 30px;
+}
+
+.fancy {
+    line-height: 0.5;
+    text-align: center;
+    width: auto;
+}
+
+.fancy span {
+    display: inline-block;
+    position: relative;
+}
+
+.fancy span:before,
+.fancy span:after {
+    content: "";
+    position: absolute;
+    height: 5px;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    top: 0;
+    width: 350px;
+}
+
+.fancy span:before {
+    right: 100%;
+    margin-right: 15px;
+}
+
+.fancy span:after {
+    left: 100%;
+    margin-left: 15px;
+}
+
+.link:hover {
+    cursor: pointer;
+}
+#user-infor{
+  background-color : #E6E6E8;
+}
+.detailed_skill p span{
+    display:inline-block;
+}
