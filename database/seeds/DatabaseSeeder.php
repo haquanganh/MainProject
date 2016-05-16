@@ -12,7 +12,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // $this->call(UsersTableSeeder::class);
-        $this->call('UserTableSeeder');
+        $this->call('ProjectStatus');
     }
 }
 class UserTableSeeder extends Seeder{
@@ -312,7 +312,7 @@ class StatusSeeder extends Seeder{
 	}
 }
 class EmployeeTableSeeder extends Seeder{
-	
+
 	public function run(){
 		$temp = 40;
 		$temp1 = 1299999999;
@@ -372,7 +372,7 @@ class TeamTableSeeder extends Seeder{
 	}
 }
 class SkillTableSeeder extends Seeder{
-	
+
 	public function run(){
 		DB::table('Skill')->insert([
 			array(
@@ -408,11 +408,11 @@ class ProjectStatus extends Seeder{
 	}
 }
 class SkillDetailTableSeeder extends Seeder{
-	
+
 	public function run(){
 		$temp = 1100000000;
 		for($i = 1 ; $i < 35 ; $i++){
-		$temp = $temp + 1;	
+		$temp = $temp + 1;
 		DB::table('SkillDetail')->insert([
 			array(
 					'idEmployee' => $temp,

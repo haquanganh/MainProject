@@ -26,36 +26,12 @@ class Project extends Model
             $h->H_DateCreate = new DateTime();
             $h->idAccount = Auth::user()->idAccount;
             $h->save();
-            $original = $project->getOriginal();
             /*get old list of project employee*/
-            $ope = ProjectEmployee::where('idProject','=',$project->idProject)->get();
+
             /*Save for leader*/
             /*Check if leader is changed or not*/
-            if($original['idTeamLeader'] != $project->idTeamLeader){
-                /*Save for new leader*/
-                $h_l = new Employee_Record;
-                $h_l->DateStart = new DateTime();
-                //$h_l->DateEnd = $project->P_DateFinish;
-                $h_l->idEmployee = $project->idTeamLeader;
-                $h_l->Content = 'Just become leader of the project.'.$project->idProject;
-                $h_l->save();
-                /*Update old roles's DateEnd*/
-                /*Check if this leader is member of old version*/
-                $check = false;
-                foreach ($ope as $key => $value) {
-                    if($value->idEmployee == $project->idTeamLeader){
-                        $check = true;
-                        break;
-                    }
-                }
-                if($check = true){
-                    $h_update = Employee_Record::where('idEmployee','=',$project->idTeamLeader)->orderBy('DateStart','DESC')->get()[1];
-                    $h_update->DateEnd = new DateTime();
-                    $h_update->save();
-                }
 
-            }
-            
+
             return true;
         });
         static::created(function ($project){

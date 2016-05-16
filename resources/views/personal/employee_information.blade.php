@@ -8,6 +8,7 @@
     <div id="img-title">
         <p>Employee Information</p>
     </div>
+
     @if (isset($message))
         <div style="text-align: center; font-size: 20px; color: black; margin-top: 20px;">
             {{ $message }}
@@ -35,11 +36,11 @@
                             <td class="img" style="width: 20px;"><img src="{{ asset('images/personal_images') }}/{{ $list_search[$i]['avatar']}}" style="width: 50px;height: 50px;  margin-left:4.5px;" class="img-circle"></td>
                             <td>{{ $list_search[$i]['name']}}</td>
                             <td>{{ $list_search[$i]['skype']}}</td>
-                            <td>{{ $list_search[$i]['phone']}}</td>
+                            <td>{{ '0'.$list_search[$i]['phone']}}</td>
                             @if ($idRole != 6)
                                 <td style="width: 100px; text-align: center;">
                                 @if($list_search[$i]['status'] == 1)
-                                    <a class="btn btn-default" href="{{ url('/send-request') }}/{{ $list_search[$i]['idEmployee'] }}" style="width: 40px;height: 30px;"><span class="glyphicon glyphicon glyphicon-eye-open"></span></a>
+                                    <a class="btn btn-default" href="{{ url('/access-request') }}/{{ $list_search[$i]['idEmployee'] }}" style="width: 40px;height: 30px;"><span class="glyphicon glyphicon glyphicon-eye-open"></span></a>
                                 @elseif($list_search[$i]['status'] == 2)
                                     Rejected
                                 @elseif($list_search[$i]['status'] == 0)
@@ -48,7 +49,7 @@
                                     <a data-toggle="modal" href='#modal-send-request{{ $list_search[$i]['idEmployee'] }}' style="width: 40px;height: 30px;">Send request</a>
                                     <!-- Send request -->
                                     <div class="modal fade" id="modal-send-request{{ $list_search[$i]['idEmployee'] }}">
-                                        <form method="POST" action="{{ url('/access-request') }}/{{ $list_search[$i]['idEmployee'] }}">
+                                        <form method="POST" action="{{ url('/send-request') }}/{{ $list_search[$i]['idEmployee'] }}">
                                         {!! csrf_field() !!}
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
@@ -107,7 +108,7 @@
                             <td class="img" style="width: 20px;"><img src="{{ asset('images/personal_images') }}/{{ $kq[$i]['avatar']}}" style="width: 50px;height: 50px;  margin-left:4.5px;" class="img-circle"></td>
                             <td>{{ $kq[$i]['name']}}</td>
                             <td>{{ $kq[$i]['skype']}}</td>
-                            <td>{{ $kq[$i]['phone']}}</td>
+                            <td>{{ '0'.$kq[$i]['phone']}}</td>
                             @if ($idRole != 6)
                                 <td style="width: 100px; text-align: center;">
                                 @if($kq[$i]['status'] == 1)
@@ -193,11 +194,11 @@
 @section('script')
 <script type="text/javascript" src="{{ asset('js/admin/jquery.dataTables.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/admin/dataTables.bootstrap.min.js') }}"></script>
+
 <script type="text/javascript">
     jQuery(function(){
         jQuery('#messages-click').click();
     });
-
     $(document).ready(function() {
         $('#table').DataTable({
             "columnDefs": [
@@ -206,16 +207,32 @@
         });
         $('#table_filter label').hide();
 
-        $('<div class="search-form ui-widget"><form method="POST" action="{{ url("/employee-information") }}">{!! csrf_field() !!}<button class="btn btn-default" type="submit" value="Search"><span class="glyphicon glyphicon-search"></span></button><input class="form-control" type="text"  id="search" name="search" value="@if(isset($searches)){{ $searches }}@endif"></input><?php $id_Role = Auth::user()->idRole;?><select name="search-type" class="form-control select">@if (isset($search_type))<option id="search_type"value="{{ $search_type }}">{{ $search_type }}</option>@endif<option value="Search by name">Search by name</option><option value="Search by skill">Search by skill</option></select><div class="clear"></div></form></div>').appendTo('#table_filter');
+        $('<div class="search-form ui-widget">' +
+            '<form method="POST" action="{{ url("/employee-information") }}">' +
+            '{!! csrf_field() !!}' +
+                '<button class="btn btn-default" type="submit" value="Search"><span class="glyphicon glyphicon-search"></span></button>' +
+                '<input class="form-control" type="text"  id="search" name="search" value="@if(isset($searches)){{ $searches }}@endif"></input>' +
+                '<?php $id_Role = Auth::user()->idRole; ?>' +
+                '<select name="search-type" class="form-control select">' +
+                    '@if (isset($search_type))' +
+                    '<option id="search_type" value="{{ $search_type }}">{{ $search_type }}</option>' +
+                    '@endif' +
+                    '<option value="Search by name">Search by name</option><option value="Search by skill">Search by skill</option>' +
+                '</select>' +
+                '<div class="clear"></div>' +
+            '</form>' +
+        '</div>').appendTo('#table_filter');
 
         $('#table_filter select').hover(function() {
             $('#search_type').hide();
         });
+
         @if($id_Role == 4 || $id_Role == 6)
         $('<option value="Search by cost/hour">Search by cost/hour</option>').appendTo('#table_filter select');
         @endif
     });
 </script>
+
 <script type="text/javascript">
     $('.open-feedback').click(function function_name(argument) {
         var id = $(this).attr('link');

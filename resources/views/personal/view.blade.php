@@ -165,7 +165,7 @@
                                     $sd = new DateTime($e->DateStart);
                                     $ed = new DateTime($e->DateEnd);
                                     $startday = $sd->format('m-F-Y');
-                                    $endday = $sd->format('m-F-Y');
+                                    $endday = $sd->format('m-F-Y H:i:s');
                                     ?>
                                         <tr>
                                         <?php
@@ -173,7 +173,7 @@
                                         ?>
                                         <td class="action">{!! $temp[0].'<i> "'.App\Project::find($temp[1])->P_Name.'</i> "'!!}</td>
                                         <td class="start_day">{{ $startday }}</td>
-                                        <td class="end_day">{{ !empty($e->DateEnd) ? $endday : 'Now'}}</td>
+                                        <td class="end_day">{{ $e->DateEnd != null ? $endday : 'Now'}}</td>
                                     </tr>
                                     @endforeach
                                 @else

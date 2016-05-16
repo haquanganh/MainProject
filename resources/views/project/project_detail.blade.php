@@ -277,11 +277,12 @@
                     data:{"idE" : idE },
                     success: function(data){
                         var result = $.parseJSON(data);
-                        $('.basic-information').find('.id').html('<i>Employee ID:</i>'+result[0].idEmployee);
+                        $('.basic-information').find('.id').html('<i>Employee ID: </i>'+result[0].idEmployee);
                         $('#form-feedback').find('.idEmployee').val(result[0].idEmployee);
-                        $('.basic-information').find('.name').html('<i>Employee Name :</i>'+result[0].E_EngName);
-                        $('.basic-information').find('.skype').html('<i>Employee Skype :</i>'+result[0].E_Skype);
-                        $('.basic-information').find('.phone').html('<i>Employee Phone :</i>'+result[0].E_Phone);
+                        $('.basic-information').find('.name').html('<i>Employee Name : </i>'+result[0].E_EngName);
+                        $('.basic-information').find('.skype').html('<i>Employee Skype : </i>'+result[0].E_Skype);
+                        $('.basic-information').find('.phone').html('<i>Employee Phone : </i>'+result[0].E_Phone);
+                        $('.basic-information').find('.address').html('<i>Employee Address : </i>'+result[0].E_Address);
                         $.each(result[1], function(index, val) {
                              $('.tech-info').find('.skill').append('<p><i>'+val.pivot.S_Rate+' years</i> in <i>'+val.Skill+'</i> with Level <i>'+val.pivot.S_Level+'</i></p>');
                         });

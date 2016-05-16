@@ -232,6 +232,28 @@ class ProjectController extends Controller
                 }
             }
         }
+        if($old_leader != $project->idTeamLeader){
+                /*Save for new leader*/
+                $h_l = new Employee_Record;
+                $h_l->DateStart = new DateTime();
+                //$h_l->DateEnd = $project->P_DateFinish;
+                $h_l->idEmployee = $project->idTeamLeader;
+                $h_l->Content = 'Just become leader of the project.'.$project->idProject;
+                $h_l->save();
+                /*Update old roles's DateEnd*/
+                /*Check if this leader is member of old version*/
+                $check1 = false;
+                foreach ($pe_old as $key => $p) {
+                    if($p->idEmployee == $project->idTeamLeader){
+                        $check1 = true;
+                        break;
+                    }
+                }
+                if($check1 == true){
+                    $idERecord = (array) Employee_Record::where('idEmployee','=',$project->idTeamLeader)->orderBy('DateStart','DESC')->get()[1];
+                    DB::table('Employee_Record')->where('idERecord', $idERecord)->update(['DateEnd' => $now]);
+                }
+            }
         /*Save to Employee Record for Employee*/
             $p_e = $project->Employee;
             foreach ($p_e as $key => $e) {
@@ -290,8 +312,14 @@ class ProjectController extends Controller
                         $h_e->save();
                         /*Update the old time of this employee*/
                          $idERecord = (int)  (array) DB::select("select idERecord from Employee_Record where substring(Content,instr(Content,'.')+1,length(Content)) = ".$project->idProject." and idEmployee = ".$old->idEmployee." order by DateStart DESC")[1];
-                        DB::table('Employee_Record')->where('idERecord', $idER)->update(['DateEnd' => $now]);
+                        DB::table('Employee_Record')->where('idERecord', $idERecord)->update(['DateEnd' => $now]);
                     }
+                }
+            }
+            if($request->sl_PStatus == 2){
+                $listE_Done =(array) DB::select("select * from Employee_Record where substring(Content,instr(Content,'.')+1,length(Content)) = ".$project->idProject." and DateEnd is null");
+                foreach ($listE_Done as $key => $value) {
+                    DB::table('Employee_Record')->where('idERecord', $value->idERecord)->update(['DateEnd' => $now]);
                 }
             }
         $flat = 'You are successful to edit the project';

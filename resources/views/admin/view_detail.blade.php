@@ -16,7 +16,7 @@
                 <div class="panel-heading">Feedback</div>
                 <div class="panel-body">
                 @if ($feedbacks->count() != 0)
-                    @foreach ($feedbacks as $key=>$f)  
+                    @foreach ($feedbacks as $key=>$f)
                     <div class="panel panel-default">
                       <div class="panel-heading">
                         <div class="row" style="padding: 0!important;margin: 0!important;">
@@ -158,7 +158,7 @@
                                 $sd = new DateTime($e->DateStart);
                                 $ed = new DateTime($e->DateEnd);
                                 $startday = $sd->format('m-F-Y');
-                                $endday = $sd->format('m-F-Y');
+                                $endday = $sd->format('m-F-Y H:i:s');
                                 ?>
                                     <tr>
                                     <?php
@@ -166,7 +166,7 @@
                                     ?>
                                     <td class="action">{!! $temp[0].'<i> "'.App\Project::find($temp[1])->P_Name.'</i> "'!!}</td>
                                     <td class="start_day">{{ $startday }}</td>
-                                    <td class="end_day">{{ !empty($e->DateEnd) ? $endday : 'Now'}}</td>
+                                    <td class="end_day">{{ $e->DateEnd != null ? $endday : 'Now'}}</td>
                                 </tr>
                                 @endforeach
                                 @else
@@ -290,10 +290,10 @@
                             data: [list[0], list[1], list[2], list[3], list[4], list[5]]
                         }]
                         };
-                    
+
                         var ctx = $("#lineChart").get(0).getContext("2d");
                         var myLineChart = new Chart(ctx).Line(data, options);
-                    }  
+                    }
             }
         });
     });

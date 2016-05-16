@@ -122,11 +122,26 @@
 <script type="text/javascript" src="{{ asset('third-library/select2-4.0.2/dist/js/select2.min.js') }}"></script>
 <script>
     jQuery(document).ready(function($) {
-        $('#table').DataTable({
+        @if (isset($list_employee))
+            $('#table').DataTable({
             "columnDefs": [
                 { "orderable": false, "targets": [ 3, 5, 8, 9 ] }
             ]
-        });
+            });
+        @elseif(isset($list_client))
+            $('#table').DataTable({
+            "columnDefs": [
+                { "orderable": false, "targets": [ 3, 5, 6 ] }
+            ]
+            });
+        @else
+            $('#table').DataTable({
+            "columnDefs": [
+                { "orderable": false, "targets": [ 4, 5 ] }
+            ]
+            });
+        @endif
+
         /*Custom Table*/
         $('.dataTables_length').parent().html('Type of list: <form action="{{ url('admin/personal-information') }}" method="POST" style="display:inline"> {{ csrf_field() }} <select id="type-list" name="typelist" class="pull-left" onchange="this.form.submit()"><option></option><option value="1" {{ isset($list_employee) ? 'selected' : '' }}>Employees</option><option value="2" {{ isset($list_client) ? 'selected' : '' }}>Clients</option><option value="3" {{ isset($list_clientcompany) ? 'selected' : '' }}>Client Company</option></select></form>');
         $('.dataTables_info').parent().hide();

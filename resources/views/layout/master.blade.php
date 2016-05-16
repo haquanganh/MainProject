@@ -173,9 +173,9 @@
                 </div>
                 <div class="col-md-4">
                     <p>
-                        <a href=""><span style="font-size:25px;padding:0 7px"><i class="fa fa-facebook"></i></span></a>
-                        <a href=""><span style="font-size:25px;padding:0 7px"><i class="fa fa-twitter"></i></span></a>
-                        <a href="skype:eureka.m0198"><span style="font-size:25px;padding:0 7px"><i class="fa fa-skype"></i></span></a>
+                        <a href="https://www.facebook.com/enclaveit"><span style="font-size:25px;padding:0 7px"><i class="fa fa-facebook"></i></span></a>
+                        <a href="https://twitter.com/EnclaveTexting"><span style="font-size:25px;padding:0 7px"><i class="fa fa-twitter"></i></span></a>
+                        <a href="skype:EnclaveIT.COO?chat"><span style="font-size:25px;padding:0 7px"><i class="fa fa-skype"></i></span></a>
                     </p>
                 </div>
                 <div class="col-md-4" style="font-size:16px;padding-top: 6px">Enclave Company</div>
